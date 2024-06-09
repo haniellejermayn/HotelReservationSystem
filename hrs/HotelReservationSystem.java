@@ -72,7 +72,13 @@ public class HotelReservationSystem {
             System.out.printf("\nError: No hotels in list.\n");
         }
         else {
-            hotel = getHotel();
+            System.out.printf("\nHotels\n");
+            for(int i = 0; i < this.hotels.size(); i++) {
+                System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+            }
+            
+            option = promptOption(1, this.hotels.size(), "Hotel No.");
+            hotel = this.hotels.get(option - 1);
 
             System.out.printf("\n\"%s\"\n", hotel.getHotelName());
             System.out.printf("Name: %s\n", hotel.getHotelName());
@@ -96,6 +102,7 @@ public class HotelReservationSystem {
                         showDateAvailability(hotel);
                         break;
                     case 2:
+                        showRoomInformation(hotel);
                         break;
                     case 3:
                         break;
@@ -106,34 +113,6 @@ public class HotelReservationSystem {
             } while (option != 0);
             
         }
-    }
-
-    private Hotel getHotel() {
-        Scanner sc = new Scanner(System.in);
-        int index;
-        
-        System.out.printf("\nHotels\n");
-
-        for(int i = 0; i < this.hotels.size(); i++) {
-            System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
-        }
-
-        //Edit: consider cancel signal
-        do { 
-            System.out.printf("\nInput Hotel Number: ");
-            index = sc.nextInt();
-
-            if(index < 1 || index > this.hotels.size()) {
-                if(this.hotels.size() == 1) {
-                    System.out.printf("Error: Only 1 hotel in list.\n");
-                }
-                else {
-                    System.out.printf("Error: Hotel No. should be from 1 to %d.\n", this.hotels.size());
-                }
-            }
-        } while(index < 1 || index > this.hotels.size());
-
-        return this.hotels.get(index);
     }
 
     private int promptOption(int start, int end, String str) {
@@ -164,8 +143,33 @@ public class HotelReservationSystem {
         System.out.printf("Available Rooms: %d\n", hotel.countBookedRooms(date));
     }
 
-    private void showRoomInformation() {
+    private void showRoomInformation(Hotel hotel) {
+        int option;
+        Room room;
+        int[] roomAvailability;
 
+        System.out.printf("\nRooms\n");
+
+        for(int i = 0; i < hotel.getRoomAmt(); i++) {
+            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i));
+        }
+
+        option = promptOption(1, hotel.getRoomAmt(), "Room No.");
+        room = hotel.getRoom(option - 1);
+        roomAvailability = hotel.checkRoomAvailability(room);
+
+        System.out.printf("/n\"%s\"\n", room.getRoomName());
+        System.out.printf("Name: %s\n", room.getRoomName());
+        System.out.printf("Price per Night: %f\n", room.getBasePrice());
+        System.out.printf("Available Dates: ");
+
+        for(int i = 0; i < 31; i++) {
+            if(roomAvailability[i] == 0) {
+                System.out.printf("%d ", i + 1);
+            }
+        }
+
+        System.out.printf("\n");
     }
 
     private void showReservationInformation() {
