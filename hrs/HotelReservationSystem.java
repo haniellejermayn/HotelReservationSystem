@@ -45,7 +45,7 @@ public class HotelReservationSystem {
         int result = 1;
 
         for(int i = 0; i < hotels.size() && result == 0; i++) {
-            if(name == hotels.get(i).getHotelName()) {
+            if(name.equals(hotels.get(i).getHotelName())) {
                 result = 0;
             }
         }
@@ -64,16 +64,94 @@ public class HotelReservationSystem {
     }
 
     //add user interface
-    public void viewHotel(Hotel hotel) {
-        System.out.printf("\n\"%s\"\n", hotel.getHotelName());
-        System.out.printf("Name: %s\n", hotel.getHotelName());
-        System.out.printf("No. of Rooms: %d\n", hotel.getRoomAmt());
-        System.out.printf("Month's Estimate Earnings: %.2f\n", hotel.computeEarnings());
-        System.out.printf("-------------------------------------\n");
+    public void viewHotel() {
+        Hotel hotel;
+        int option;
+        Scanner sc = new Scanner(System.in);
 
+        if(this.hotels.isEmpty()) {
+            System.out.printf("\nError: No hotels in list.\n");
+        }
+        else {
+            hotel = getHotel();
+
+            System.out.printf("\n\"%s\"\n", hotel.getHotelName());
+            System.out.printf("Name: %s\n", hotel.getHotelName());
+            System.out.printf("No. of Rooms: %d\n", hotel.getRoomAmt());
+            System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
+
+            System.out.printf("-------------------------------------\n");
+
+            do { 
+                System.out.printf("Menu\n");
+                System.out.printf("1 - Date Availability\n");
+                System.out.printf("2 - Room Information\n");
+                System.out.printf("3 - Reservation Information\n");
+                System.out.printf("0 - Go Back\n");
+
+                //Edit: consider making a validateOption function
+
+                do { 
+                    System.out.printf("Enter Option: ");
+                    option = sc.nextInt();
+
+                    if(option < 0 || option > 3) {
+                        System.out.printf("Error: Options are only from 0 to 3.\n");
+                    }
+                } while (option < 0 || option > 3);
+
+                switch (option) {
+                    case 1:
+                        
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (option != 0);
+            
+        }
     }
 
-    public Hotel getHotel(int index) {
+    private Hotel getHotel() {
+        Scanner sc = new Scanner(System.in);
+        int index;
+        
+        System.out.printf("\nHotels\n");
+
+        for(int i = 0; i < this.hotels.size(); i++) {
+            System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+        }
+
+        //Edit: consider cancel signal
+        do { 
+            System.out.printf("\nInput Hotel Number: ");
+            index = sc.nextInt();
+
+            if(index < 1 || index > this.hotels.size()) {
+                if(this.hotels.size() == 1) {
+                    System.out.printf("Error: Only 1 hotel in list.\n");
+                }
+                else {
+                    System.out.printf("Error: Hotel No. should be from 1 to %d.\n", this.hotels.size());
+                }
+            }
+        } while(index < 1 || index > this.hotels.size());
+
         return this.hotels.get(index);
     }
+
+    private void showDateAvailability() {
+
+    }
+
+    private void showRoomInformation() {
+
+    }
+
+    private void showReservationInformation() {
+        
+    }
+
+
 }
