@@ -65,10 +65,6 @@ public class Hotel {
         return this.rooms.length - this.countBookedRooms(date);
     }
 
-    public Room getRoom(int index) {
-        return this.rooms[index];
-    }
-
     public int[] checkRoomAvailability(Room room) {
         int[] availableDays = new int[31];
         int start, end;
@@ -86,6 +82,14 @@ public class Hotel {
         }
 
         return availableDays;
+    }
+
+    public Room getRoom(int index) {
+        return this.rooms[index];
+    }
+
+    public int getRoomAmt() {
+        return this.rooms.length;
     }
 
     public Reservation getReservation(int index) {

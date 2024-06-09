@@ -63,7 +63,17 @@ public class HotelReservationSystem {
         }
     }
 
+    //add user interface
     public void viewHotel(Hotel hotel) {
-        
+        System.out.printf("\n\"%s\"\n", hotel.getHotelName());
+        System.out.printf("Name: %s\n", hotel.getHotelName());
+        System.out.printf("No. of Rooms: %d\n", hotel.getRoomAmt());
+        System.out.printf("Month's Estimate Earnings: %.2f\n", hotel.computeEarnings());
+        System.out.printf("-------------------------------------\n");
+
+    }
+
+    public Hotel getHotel(int index) {
+        return this.hotels.get(index);
     }
 }
