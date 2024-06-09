@@ -20,4 +20,28 @@ public class Reservation {
     private float computeTotalPrice() {
         return this.costPerNight * (this.checkOutDate - this.checkInDate);
     }
+
+    public String getGuestName() {
+        return this.guestName;
+    }
+
+    public int getCheckInDate() {
+        return this.checkInDate;
+    }
+
+    public int getCheckOutDate() {
+        return this.checkOutDate;
+    }
+
+    public Room getRoom() {
+        return this.room;
+    }
+
+    public float getCostPerNight() {
+        return this.costPerNight;
+    }
+
+    public float getTotalPrice() {
+        return this.totalPrice;
+    }
 }

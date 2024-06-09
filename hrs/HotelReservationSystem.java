@@ -62,4 +62,8 @@ public class HotelReservationSystem {
             return 0;
         }
     }
+
+    public void viewHotel(Hotel hotel) {
+        
+    }
 }

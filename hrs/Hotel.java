@@ -14,7 +14,7 @@ public class Hotel {
         //we should make sure roomAmt is 1 to 50
         this.reservations = new ArrayList<Reservation>();
     }
-
+    
     //initialize rooms in hotel
     private void initializeRooms() {
         char letter = 'A';
@@ -32,6 +32,64 @@ public class Hotel {
                 number += 1;
             }
         }
+    }
+
+    public float computeEarnings() {
+        float total = 0;
+
+        for(int i = 0; i < reservations.size(); i++) {
+            total += reservations.get(i).getTotalPrice();
+        }
+
+        return total;
+    }
+
+    public int countBookedRooms(int date) {
+        int counter = 0;
+        int start, end;
+
+        //counts booked rooms based on reservations
+        for(int i = 0; i < this.reservations.size(); i++) {
+            start = this.reservations.get(i).getCheckInDate();
+            end = this.reservations.get(i).getCheckOutDate();
+
+            if(date >= start && date <= end) {
+                counter += 1;
+            }
+        }
+
+        return counter;
+    }
+
+    public int countAvailableRooms(int date) {
+        return this.rooms.length - this.countBookedRooms(date);
+    }
+
+    public Room getRoom(int index) {
+        return this.rooms[index];
+    }
+
+    public int[] checkRoomAvailability(Room room) {
+        int[] availableDays = new int[31];
+        int start, end;
+
+        for(int i = 0; i < this.reservations.size(); i++) {
+            if(this.reservations.get(i).getRoom().equals(room)) {
+                start = this.reservations.get(i).getCheckInDate();
+                end = this.reservations.get(i).getCheckOutDate();
+
+                while(start < end) {
+                    availableDays[start - 1] = 1; //1 signifies booked
+                    start += 1;
+                }
+            }
+        }
+
+        return availableDays;
+    }
+
+    public Reservation getReservation(int index) {
+        return this.reservations.get(index);
     }
 
     public String getHotelName() {
