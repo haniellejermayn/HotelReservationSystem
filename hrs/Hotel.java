@@ -34,17 +34,6 @@ public class Hotel {
         }
     }
 
-    //not sure if this should be in Hotel or HRS class
-    //returns 1 if valid and 0 otherwise
-    public static int validateRoomAmt(int roomAmt) {
-        if(roomAmt >= 1 && roomAmt <= 50) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
-
     public String getHotelName() {
         return this.hotelName;
     }
