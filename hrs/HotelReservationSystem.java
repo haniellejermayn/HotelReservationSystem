@@ -67,7 +67,6 @@ public class HotelReservationSystem {
     public void viewHotel() {
         Hotel hotel;
         int option;
-        Scanner sc = new Scanner(System.in);
 
         if(this.hotels.isEmpty()) {
             System.out.printf("\nError: No hotels in list.\n");
@@ -89,20 +88,16 @@ public class HotelReservationSystem {
                 System.out.printf("3 - Reservation Information\n");
                 System.out.printf("0 - Go Back\n");
 
-                //Edit: consider making a validateOption function
+                option = promptOption(0, 3, "Option");
 
-                do { 
-                    System.out.printf("Enter Option: ");
-                    option = sc.nextInt();
-
-                    if(option < 0 || option > 3) {
-                        System.out.printf("Error: Options are only from 0 to 3.\n");
-                    }
-                } while (option < 0 || option > 3);
-
+                //Edit: complete switch function
                 switch (option) {
                     case 1:
-                        
+                        showDateAvailability(hotel);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
                         break;
                     default:
                         break;
@@ -141,8 +136,32 @@ public class HotelReservationSystem {
         return this.hotels.get(index);
     }
 
-    private void showDateAvailability() {
+    private int promptOption(int start, int end, String str) {
+        Scanner sc = new Scanner(System.in);
+        int option;
+        
+        do { 
+            System.out.printf("Enter %s: ", str);
+            option = sc.nextInt();
 
+            if(option < start || option > end) {
+                if(start == end) {
+                    System.out.printf("Error: Only option is %d.\n", start);
+                }
+                else {
+                    System.out.printf("Error: Options are only from %d to %d.\n", start, end);
+                }
+                
+            }
+        } while (option < start || option > end);
+
+        return option;
+    }
+
+    private void showDateAvailability(Hotel hotel) {
+        int date = promptOption(1, 31, "Date");
+        System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
+        System.out.printf("Available Rooms: %d\n", hotel.countBookedRooms(date));
     }
 
     private void showRoomInformation() {
