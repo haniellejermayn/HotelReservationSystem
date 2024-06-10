@@ -276,7 +276,7 @@ public class HotelReservationSystem {
         }
     }
 
-    private void removeRoom(Hotel hotel) { // should the user input the room name?
+    private void removeRoom(Hotel hotel) { 
         int option;
         Room room;
         int[] roomAvailability;
@@ -306,29 +306,34 @@ public class HotelReservationSystem {
         }
     }
 
-    private void updateBasePrice(int hotel) {
+    private void updateBasePrice(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         float newPrice;
 
-        if (this.hotels.get(hotel).getReservationAmt() == 0) {
+        if (hotel.getReservationAmt() == 0) {
             System.out.printf("\nEnter new base price for rooms: ");
-            newPrice = sc.nextFloat();
-
-            if (newPrice >= 100.0f) {
-                if (confirmMod()) {
-                    this.hotels.get(hotel).
-                    System.out.printf("\nNew price of rooms are %.1f\n", newPrice);
-                }
-                else {
-                    System.out.printf("\nPrice of rooms has remained as %.1f\n", getBasePrice());
-                }
-            }
+            newPrice = promptPrice();
         }
         else {
             System.out.printf("\nThere are currently reservations in the hotel. Base price cannot be changed.\n");
         }
     }
 
+    private float promptPrice() {
+        Scanner sc = new Scanner(System.in);
+        float price;
+        
+        do { 
+            System.out.printf("Enter New Price: ");
+            price = sc.nextFloat();
+
+            if(price < 100.0f) {
+                System.out.printf("Error: Price should be >= 100.0");
+            }
+        } while (price < 100.0f);
+
+        return price;
+    }
     private void removeReservation(int hotel) { // should the user input the room name?
         int reservationIndex = -1;
 
