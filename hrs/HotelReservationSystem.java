@@ -147,7 +147,8 @@ public class HotelReservationSystem {
         System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
         System.out.printf("Available Dates: ");
 
-        for(int i = 0; i < 31; i++) {
+        //Edit: print no available dates if no available dates
+        for(int i = 0; i < 30; i++) {
             if(roomAvailability[i] == 0) {
                 System.out.printf("%d ", i + 1);
             }
@@ -176,6 +177,7 @@ public class HotelReservationSystem {
 
             System.out.printf("\n\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
+            System.out.printf("Room: %s\n", reservation.getRoom().getRoomName());
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
             System.out.printf("Price per Night: %.2f\n", reservation.getCostPerNight());
@@ -296,7 +298,7 @@ public class HotelReservationSystem {
             room = hotel.getRoom(option - 1);
             roomAvailability = hotel.checkRoomAvailability(room);
 
-            for(int i = 0; i < 31; i++) {
+            for(int i = 0; i < 30; i++) {
                 if(roomAvailability[i] == 1) {
                     booked = true;
                 }
@@ -437,7 +439,7 @@ public class HotelReservationSystem {
                 room = hotel.getRoom(roomIndex);
                 hotel.addReservation(guestName, checkInDate, checkOutDate, room);
 
-                System.out.printf("\nReservation saved!.\n");
+                System.out.printf("\nReservation saved!\n");
             }
         }
     }

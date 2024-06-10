@@ -64,7 +64,7 @@ public class Hotel {
     }
 
     public int[] checkRoomAvailability(Room room) {
-        int[] availableDays = new int[31];
+        int[] availableDays = new int[30]; //Edit: should this only be up to 30
         int start, end;
 
         for(int i = 0; i < this.reservations.size(); i++) {
@@ -88,7 +88,7 @@ public class Hotel {
         int roomIndex = -1;
         int dayCounter = end - start;
 
-        for(int i = 0; i < this.rooms.size(); i++) {
+        for(int i = 0; i < this.rooms.size() && roomIndex == -1; i++) {
             availableDays = this.checkRoomAvailability(this.rooms.get(i));
 
             for(int j = start - 1; j < end && dayCounter > 0; j++) {

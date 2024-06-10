@@ -17,11 +17,11 @@ public class Driver {
             System.out.printf("[0] Exit\n");
 
             do { 
-                System.out.printf("\nEnter Option: ");
+                System.out.printf("Enter Option: ");
                 option = sc.nextInt();
 
                 if(option < 0 || option > 4) {
-                    System.out.printf("\nError: Choose only from 0 to 4\n");
+                    System.out.printf("Error: Choose only from 0 to 4\n");
                 }
             } while (option < 0 || option > 4);
 
