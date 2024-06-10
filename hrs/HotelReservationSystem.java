@@ -26,14 +26,7 @@ public class HotelReservationSystem {
             }
         } while (validateHotelName(hotelName) == 0);
         
-        do { 
-            System.out.printf("Enter Number of Rooms: ");
-            roomAmt = sc.nextInt();
-
-            if(validateRoomAmt(roomAmt) == 0) {
-                System.out.printf("Error: No. of rooms should be 1 to 50.\n");
-            }
-        } while (validateRoomAmt(roomAmt) == 0);
+        roomAmt = promptOption(1, 50, "No. of Rooms");
 
         //add hotel to list
         this.hotels.add(new Hotel(hotelName, roomAmt));
@@ -52,16 +45,6 @@ public class HotelReservationSystem {
         }
 
         return result;
-    }
-
-    //returns 1 if valid and 0 otherwise
-    private int validateRoomAmt(int roomAmt) {
-        if(roomAmt >= 1 && roomAmt <= 50) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
     }
 
     //Edit: add user interface
@@ -235,7 +218,7 @@ public class HotelReservationSystem {
                 //Edit: complete switch function
                 switch (menuOption) {
                     case 1: {
-                        changeName(hotelOption - 1);
+                        changeHotelName(hotel);
                         break;
                     case 2:
                         addRoom(hotel);
@@ -261,7 +244,10 @@ public class HotelReservationSystem {
     }
 
     // should we add a cancel option
-    private void changeName(int hotel) {
+    /**
+     * @param hotel
+     */
+    private void changeHotelName(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         String newName;
 
@@ -272,24 +258,20 @@ public class HotelReservationSystem {
             if(validateHotelName(newName) == 0) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (validateHotelName(hotelName) == 0);
+        } while (validateHotelName(newName) == 0);
 
-        if (confirmMod()) {
-            this.hotels.get(hotel).setHotelName(newName);
+        if (confirmMod() == 1) {
+            hotel.setHotelName(newName);
             System.out.printf("Hotel name has been changed to \"%s\"", newName);
         }
         else {
-            System.out.printf("Hotel name remained as \"%s\"", this.hotels.get(hotel).getHotelName);
+            System.out.printf("Hotel name remained as \"%s\"", hotel.getHotelName());
         }
     }
 
-    private void addRoom(int hotel) {
-        String prevRoom = this.hotels.get(hotel).getRoom(getRoomAmt() - 1).getRoomName();
-        char letter = str.charAt(0) + 1;
-        int number = Integer.parseInt(str.substring(1)) + 1;
-
-        if (confirmMod()) {
-            this.hotels.get(hotel).rooms.add(new Room(letter + String.valueOf(number)));
+    private void addRoom(Hotel hotel) {
+        if (confirmMod() == 1) {
+            hotel.addRoom();
             System.out.printf("\nNew room has been added!\n");
         }
         else {

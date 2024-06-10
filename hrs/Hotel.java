@@ -90,6 +90,34 @@ public class Hotel {
         return this.rooms.size();
     }
 
+    public int fetchRoomIndex(Room room) {
+        return this.rooms.indexOf(room);
+    }
+
+    public void addRoom() {
+        this.rooms.add(new Room(hotelName));
+        this.reinitializeRooms(this.rooms.get(0).getBasePrice());
+    }
+
+    //reinitializes rooms name and basePrice (used for addRoom, deleteRoom, & updatePrice)
+    private void reinitializeRooms(float basePrice) {
+        char letter = 'A';
+        int number = 1;
+
+        for(int i = 0; i < this.rooms.size(); i++) {
+            this.rooms.get(i).setRoomName(letter + String.valueOf(number));
+            this.rooms.get(i).setBasePrice(basePrice);
+            
+            if(number == 5) {
+                number = 1;
+                letter += 1;
+            }
+            else {
+                number += 1;
+            }
+        }
+    }
+
     public int getRoomIndex() {
         Scanner sc = new Scanner(System.in);
         String roomName;

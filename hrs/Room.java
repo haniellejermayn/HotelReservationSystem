@@ -5,8 +5,13 @@ public class Room {
     private float basePrice;
 
     public Room(String roomName) {
-        this.roomName = roomName; //may be modified to have automated naming
+        this.roomName = roomName; 
         this.basePrice = 1299.0f;
+    }
+
+    public Room(float basePrice) {
+        this.roomName = "TemporaryName"; 
+        this.basePrice = basePrice;
     }
 
     public String getRoomName() {
