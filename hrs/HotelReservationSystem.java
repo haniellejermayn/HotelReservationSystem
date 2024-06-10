@@ -56,7 +56,7 @@ public class HotelReservationSystem {
         else {
             System.out.printf("\nHotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
-                System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+                System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
             
             option = promptOption(1, this.hotels.size(), "Hotel No.");
@@ -134,7 +134,7 @@ public class HotelReservationSystem {
         System.out.printf("\nRooms\n");
 
         for(int i = 0; i < hotel.getRoomAmt(); i++) {
-            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i).getRoomName());
+            System.out.printf("[%d] %s\n", i + 1, hotel.getRoom(i).getRoomName());
         }
 
         option = promptOption(1, hotel.getRoomAmt(), "Room No.");
@@ -426,7 +426,7 @@ public class HotelReservationSystem {
         else {
             System.out.printf("\nHotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
-                System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+                System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
 
             hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
