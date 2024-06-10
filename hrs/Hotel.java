@@ -86,22 +86,21 @@ public class Hotel {
     public int checkDateAvailability(int start, int end) {
         int[] availableDays;
         int roomIndex = -1;
-        int dayCounter = end - start;
+        boolean isAvailable;
 
         for(int i = 0; i < this.rooms.size() && roomIndex == -1; i++) {
             availableDays = this.checkRoomAvailability(this.rooms.get(i));
+            isAvailable = true;
 
-            for(int j = start; j < end && dayCounter > 0; j++) {
-                if(availableDays[j] == 0) {
-                    dayCounter -= 1;
+            //end - 1 is the check-out date (not counted as booked)
+            for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
+                if(availableDays[j] == 1) {
+                    isAvailable = false;
                 }
             }
 
-            if(dayCounter == 0) {
+            if(isAvailable) {
                 roomIndex = i;
-            }
-            else {
-                dayCounter = end - start;
             }
         }
 
