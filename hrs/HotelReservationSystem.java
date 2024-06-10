@@ -63,13 +63,13 @@ public class HotelReservationSystem {
         }
     }
 
-    //add user interface
+    //Edit: add user interface
     public void viewHotel() {
         Hotel hotel;
         int option;
 
         if(this.hotels.isEmpty()) {
-            System.out.printf("\nError: No hotels in list.\n");
+            System.out.printf("\nNo hotels in list.\n");
         }
         else {
             System.out.printf("\nHotels\n");
@@ -160,7 +160,7 @@ public class HotelReservationSystem {
 
         System.out.printf("/n\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
-        System.out.printf("Price per Night: %f\n", room.getBasePrice());
+        System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
         System.out.printf("Available Dates: ");
 
         for(int i = 0; i < 31; i++) {
@@ -172,8 +172,31 @@ public class HotelReservationSystem {
         System.out.printf("\n");
     }
 
-    private void showReservationInformation() {
-        
+    private void showReservationInformation(Hotel hotel) {
+        int option;
+        Reservation reservation;
+
+        if(hotel.getReservationAmt() == 0) {
+            System.out.printf("\nNo Reservations\n");
+        }
+        else {
+            System.out.printf("\nReservations\n");
+
+            for(int i = 0; i < hotel.getReservationAmt(); i++) {
+                System.out.printf("%d - %s (%d to %d)\n", i + 1, hotel.getReservation(i), 
+                        hotel.getReservation(i).getCheckInDate(), hotel.getReservation(i).getCheckOutDate());
+            }
+
+            option = promptOption(1, hotel.getReservationAmt(), "Reservation No.");
+            reservation = hotel.getReservation(option - 1);
+
+            System.out.printf("/n\"%s's Reservation\"\n", reservation.getGuestName());
+            System.out.printf("Guest Name: %s\n", reservation.getGuestName());
+            System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
+            System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
+            System.out.printf("Price per Night: %.2f\n", reservation.getCostPerNight());
+            System.out.printf("Total Price: %.2f\n", reservation.getTotalPrice());
+        }
     }
 
 

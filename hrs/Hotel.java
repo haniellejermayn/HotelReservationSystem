@@ -92,6 +92,10 @@ public class Hotel {
         return this.rooms.length;
     }
 
+    public int getReservationAmt() {
+        return this.reservations.size();
+    }
+
     public Reservation getReservation(int index) {
         return this.reservations.get(index);
     }
