@@ -90,7 +90,7 @@ public class Hotel {
         return this.rooms.size();
     }
 
-    public int fetchRoomIndex(Room room) {
+    public int getRoomIndex(Room room) {
         return this.rooms.indexOf(room);
     }
 
@@ -121,6 +121,10 @@ public class Hotel {
                 number += 1;
             }
         }
+    }
+
+    public void removeReservation(int index) {
+        this.reservations.remove(index);
     }
 
     /*

@@ -281,6 +281,12 @@ public class HotelReservationSystem {
         Room room;
         int[] roomAvailability;
         boolean booked = false;
+
+        System.out.printf("\nRooms\n");
+
+        for(int i = 0; i < hotel.getRoomAmt(); i++) {
+            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i).getRoomName());
+        }
         
         option = promptOption(1, hotel.getRoomAmt(), "Room No.");
         room = hotel.getRoom(option - 1);
@@ -334,30 +340,27 @@ public class HotelReservationSystem {
 
         return price;
     }
-    private void removeReservation(int hotel) { // should the user input the room name?
-        int reservationIndex = -1;
 
-        if (this.hotels.get(hotel).getReservationAmt() != 0) {
+    private void removeReservation(Hotel hotel) {
+        int option;
+
+        if (hotel.getReservationAmt() != 0) {   
             
-            // get room of reservation
-            reservationIndex = this.hotels.get(hotel).getRoomIndex();
-            int option = promptOption(1, hotel.getRoomAmt(), "Room No.");
-            Room room = hotel.getRoom(option - 1);
-            int[] roomAvailability = this.hotels.get(hotel).checkRoomAvailability(room);
+            System.out.printf("\nReservations\n");
 
-            if (reservationIndex != -1) {
-                if (roomAvailability[reservationIndex] == 1) { // checks if the room has a reservation 
-                    if (confirmMod()) {
-                        this.hotels.get(hotel).reservations.remove(reservationIndex);
-                        System.out.printf("\nReservation has been removed.\n");
-                    }
-                    else {
-                        System.out.printf("\nReservation has been retained.\n");
-                    }
-                }
-                else {
-                    Sytem.out.printf("This room does not have a current reservation.\n");
-                }
+            for(int i = 0; i < hotel.getReservationAmt(); i++) {
+                System.out.printf("%d - %s (%d to %d)\n", i + 1, hotel.getReservation(i), 
+                        hotel.getReservation(i).getCheckInDate(), hotel.getReservation(i).getCheckOutDate());
+            }
+
+            option = promptOption(1, hotel.getReservationAmt(), "Reservation No.");
+
+            if (confirmMod() == 1) {
+                hotel.removeReservation(option - 1);
+                System.out.printf("\nReservation has been removed.\n");
+            }
+            else {
+                System.out.printf("\nReservation has been retained.\n");
             }
         }
         else {
