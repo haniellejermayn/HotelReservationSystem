@@ -90,10 +90,6 @@ public class Hotel {
         return this.rooms.size();
     }
 
-    public int getRoomIndex(Room room) {
-        return this.rooms.indexOf(room);
-    }
-
     public void addRoom() {
         this.rooms.add(new Room(hotelName));
         this.reinitializeRooms(this.rooms.get(0).getBasePrice());
@@ -126,30 +122,6 @@ public class Hotel {
     public void removeReservation(int index) {
         this.reservations.remove(index);
     }
-
-    /*
-     *  public int getRoomIndex() {
-            Scanner sc = new Scanner(System.in);
-            String roomName;
-            int roomIndex = -1;
-
-            System.in.printf("\nEnter room name: ");
-            roomName = sc.nextLine();
-
-            for (int i = 0; i < this.hotels.get(hotel).roomAmt - 1; i++) {
-                if (this.hotels.get(hotel).rooms.get(i).getRoomName == roomName) {
-                    roomIndex = i;
-                }
-            }
-
-            if (roomIndex == -1) {
-                System.out.printf("\nRoom \"%s\" does not exist\n", roomName);
-            }
-
-            return roomIndex;
-        }
-     * 
-     */
     
     public int getReservationAmt() {
         return this.reservations.size();

@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class HotelReservationSystem {
     private ArrayList<Hotel> hotels;
-    private int hotelsAmt;
 
-    public HotelReservationSystem(int hotelsAmt) {
+    public HotelReservationSystem() {
         this.hotels = new ArrayList<Hotel>();
     }
 
@@ -368,13 +367,13 @@ public class HotelReservationSystem {
         }
     }
 
-    private void removeHotel(int hotel) {
-        if (confirmMod()) {
-            this.hotels.remove(hotel);
-            System.out,printf("\nHotel no. %d has been removed.\n", hotel + 1);
+    private void removeHotel(int index) {
+        if (confirmMod() == 1) {
+            this.hotels.remove(index);
+            System.out.printf("\nHotel no. %d has been removed.\n", index + 1);
         }
         else {
-            System.out,printf("\nHotel no. %d has been retained.\n", hotel + 1);
+            System.out.printf("\nHotel no. %d has been retained.\n", index + 1);
         }
     }
 
