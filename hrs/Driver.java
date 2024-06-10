@@ -5,6 +5,8 @@ public class Driver {
         HotelReservationSystem sys = new HotelReservationSystem();
 
         sys.createHotel();
+        sys.createHotel();
+        sys.viewHotel();
 
     }
 }

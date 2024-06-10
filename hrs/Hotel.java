@@ -4,28 +4,26 @@ import java.util.ArrayList;
 
 public class Hotel {
     private String hotelName;
-    private Room[] rooms;
+    private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
 
     public Hotel(String hotelName, int roomAmt) {
         this.hotelName = hotelName;
-        this.rooms = new Room[roomAmt];
-        this.initializeRooms();
-        //we should make sure roomAmt is 1 to 50
+        this.rooms = new ArrayList<Room>();
+        this.initializeRooms(roomAmt);
         this.reservations = new ArrayList<Reservation>();
     }
     
     //initialize rooms in hotel
-    private void initializeRooms() {
+    private void initializeRooms(int roomAmt) {
         char letter = 'A';
         int number = 1;
-        int roomAmt = this.rooms.length;
 
         for(int i = 0; i < roomAmt; i++) {
-            this.rooms[i] = new Room(letter + String.valueOf(number));
+            this.rooms.add(new Room(letter + String.valueOf(number)));
             
             if(number == 5) {
-                number = 0;
+                number = 1;
                 letter += 1;
             }
             else {
@@ -62,7 +60,7 @@ public class Hotel {
     }
 
     public int countAvailableRooms(int date) {
-        return this.rooms.length - this.countBookedRooms(date);
+        return this.rooms.size() - this.countBookedRooms(date);
     }
 
     public int[] checkRoomAvailability(Room room) {
@@ -85,11 +83,11 @@ public class Hotel {
     }
 
     public Room getRoom(int index) {
-        return this.rooms[index];
+        return this.rooms.get(index);
     }
 
     public int getRoomAmt() {
-        return this.rooms.length;
+        return this.rooms.size();
     }
 
     public int getReservationAmt() {

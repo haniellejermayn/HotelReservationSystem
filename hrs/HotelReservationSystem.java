@@ -105,6 +105,7 @@ public class HotelReservationSystem {
                         showRoomInformation(hotel);
                         break;
                     case 3:
+                        showReservationInformation(hotel);
                         break;
                     default:
                         break;
@@ -140,7 +141,7 @@ public class HotelReservationSystem {
     private void showDateAvailability(Hotel hotel) {
         int date = promptOption(1, 31, "Date");
         System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
-        System.out.printf("Available Rooms: %d\n", hotel.countBookedRooms(date));
+        System.out.printf("Booked Rooms: %d\n", hotel.countBookedRooms(date));
     }
 
     private void showRoomInformation(Hotel hotel) {
@@ -151,14 +152,14 @@ public class HotelReservationSystem {
         System.out.printf("\nRooms\n");
 
         for(int i = 0; i < hotel.getRoomAmt(); i++) {
-            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i));
+            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i).getRoomName());
         }
 
         option = promptOption(1, hotel.getRoomAmt(), "Room No.");
         room = hotel.getRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
-        System.out.printf("/n\"%s\"\n", room.getRoomName());
+        System.out.printf("\n\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
         System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
         System.out.printf("Available Dates: ");
@@ -177,7 +178,7 @@ public class HotelReservationSystem {
         Reservation reservation;
 
         if(hotel.getReservationAmt() == 0) {
-            System.out.printf("\nNo Reservations\n");
+            System.out.printf("No Reservations\n");
         }
         else {
             System.out.printf("\nReservations\n");
@@ -190,7 +191,7 @@ public class HotelReservationSystem {
             option = promptOption(1, hotel.getReservationAmt(), "Reservation No.");
             reservation = hotel.getReservation(option - 1);
 
-            System.out.printf("/n\"%s's Reservation\"\n", reservation.getGuestName());
+            System.out.printf("\n\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
