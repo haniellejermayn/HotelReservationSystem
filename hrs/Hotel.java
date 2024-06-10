@@ -91,7 +91,7 @@ public class Hotel {
         for(int i = 0; i < this.rooms.size() && roomIndex == -1; i++) {
             availableDays = this.checkRoomAvailability(this.rooms.get(i));
 
-            for(int j = start - 1; j < end && dayCounter > 0; j++) {
+            for(int j = start; j < end && dayCounter > 0; j++) {
                 if(availableDays[j] == 0) {
                     dayCounter -= 1;
                 }

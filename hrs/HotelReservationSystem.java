@@ -237,7 +237,7 @@ public class HotelReservationSystem {
                         removeReservation(hotel);
                         break;
                     case 6: 
-                        removeHotel(hotelOption - 1);
+                        menuOption = removeHotel(hotelOption - 1);
                         break;
                     default:
                         break;
@@ -379,13 +379,15 @@ public class HotelReservationSystem {
         }
     }
 
-    private void removeHotel(int index) {
+    private int removeHotel(int index) {
         if (confirmMod() == 1) {
             this.hotels.remove(index);
             System.out.printf("\nHotel no. %d has been removed.\n", index + 1);
+            return 0;
         }
         else {
             System.out.printf("\nHotel no. %d has been retained.\n", index + 1);
+            return 1;
         }
     }
 
