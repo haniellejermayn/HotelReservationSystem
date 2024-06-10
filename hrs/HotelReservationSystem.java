@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class HotelReservationSystem {
     private ArrayList<Hotel> hotels;
+    private int hotelsAmt;
 
-    public HotelReservationSystem() {
+    public HotelReservationSystem(int hotelsAmt) {
         this.hotels = new ArrayList<Hotel>();
     }
 
@@ -68,7 +69,7 @@ public class HotelReservationSystem {
         Hotel hotel;
         int option;
 
-        if(this.hotels.isEmpty()) {
+        if(this.hotels.isEmpty()) { // create isEmpty() function
             System.out.printf("\nNo hotels in list.\n");
         }
         else {
@@ -200,5 +201,206 @@ public class HotelReservationSystem {
         }
     }
 
+    public void manageHotel() {
+        Hotel hotel;
+        int hotelOption, menuOption;
+        
+        if(this.hotels.isEmpty()) { // create isEmpty() function
+            System.out.printf("\nNo hotels in list.\n");
+        }
+        else {
+            System.out.printf("\nHotels\n");
+            for(int i = 0; i < this.hotels.size(); i++) {
+                System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+            }
+            
+            hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
+            hotel = this.hotels.get(hotelOption - 1);
+            
+            System.out.printf("-------------------------------------\n");
+            
+            do { 
 
+                System.out.printf("Menu\n");
+                System.out.printf("1 - Change Name\n");
+                System.out.printf("2 - Add Room\n");
+                System.out.printf("3 - Remove Room\n");
+                System.out.printf("4 - Update Base Price\n");
+                System.out.printf("5 - Remove Reservation\n");
+                System.out.printf("6 - Remove Hotel\n");
+                System.out.printf("0 - Go Back\n");
+
+                menuOption = promptOption(0, 6, "Option");
+
+                //Edit: complete switch function
+                switch (menuOption) {
+                    case 1: {
+                        changeName(hotelOption - 1);
+                        break;
+                    case 2:
+                        addRoom(hotel);
+                        break;
+                    case 3:
+                        removeRoom(hotel);
+                        break;
+                    case 4:
+                        updateBasePrice(hotel);
+                        break;
+                    case 5:
+                        removeReservation(hotel);
+                        break;
+                    case 6: 
+                        removeHotel(hotelOption - 1);
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (menuOption != 0);
+        }
+    }
+
+    // should we add a cancel option
+    private void changeName(int hotel) {
+        Scanner sc = new Scanner(System.in);
+        String newName;
+
+        do { 
+            System.out.printf("Enter new Hotel Name: ");
+            newName = sc.nextLine();
+
+            if(validateHotelName(newName) == 0) {
+                System.out.printf("Error: Hotel name already taken.\n");
+            }
+        } while (validateHotelName(hotelName) == 0);
+
+        if (confirmMod()) {
+            this.hotels.get(hotel).setHotelName(newName);
+            System.out.printf("Hotel name has been changed to \"%s\"", newName);
+        }
+        else {
+            System.out.printf("Hotel name remained as \"%s\"", this.hotels.get(hotel).getHotelName);
+        }
+    }
+
+    private void addRoom(int hotel) {
+        String prevRoom = this.hotels.get(hotel).getRoom(getRoomAmt() - 1).getRoomName();
+        char letter = str.charAt(0) + 1;
+        int number = Integer.parseInt(str.substring(1)) + 1;
+
+        if (confirmMod()) {
+            this.hotels.get(hotel).rooms.add(new Room(letter + String.valueOf(number)));
+            System.out.printf("\nNew room has been added!\n");
+        }
+        else {
+            System.out.printf("\nNo new room has been added.\n");
+        }
+    }
+
+    private void removeRoom(int hotel) { // should the user input the room name?
+        
+        int roomIndex = this.hotels.get(hotel).getRoomIndex();
+
+        if(roomIndex != -1) {
+
+            int option = promptOption(1, hotel.getRoomAmt(), "Room No.");
+            Room room = hotel.getRoom(option - 1);
+            int[] roomAvailability = this.hotels.get(hotel).checkRoomAvailability(room);
+
+            if (roomAvailability[roomIndex] == 0) { // room has no reservation
+                if (confirmMod()) {
+                    this.hotels.get(hotel).rooms.remove(roomIndex);
+                    System.out.printf("\nRoom has been removed\n");
+                } 
+                else {
+                    System.out.printf("\nRoom has been retained\n");
+                }
+            }
+            else {
+                System.out.printf("\nRoom is currently booked.\n");
+            }
+        }
+    }
+
+    private void updateBasePrice(int hotel) {
+        Scanner sc = new Scanner(System.in);
+        float newPrice;
+
+        if (this.hotels.get(hotel).getReservationAmt() == 0) {
+            System.out.printf("\nEnter new base price for rooms: ");
+            newPrice = sc.nextFloat();
+
+            if (newPrice >= 100.0f) {
+                if (confirmMod()) {
+                    this.hotels.get(hotel).
+                    System.out.printf("\nNew price of rooms are %.1f\n", newPrice);
+                }
+                else {
+                    System.out.printf("\nPrice of rooms has remained as %.1f\n", getBasePrice());
+                }
+            }
+        }
+        else {
+            System.out.printf("\nThere are currently reservations in the hotel. Base price cannot be changed.\n");
+        }
+    }
+
+    private void removeReservation(int hotel) { // should the user input the room name?
+        int reservationIndex = -1;
+
+        if (this.hotels.get(hotel).getReservationAmt() != 0) {
+            
+            // get room of reservation
+            reservationIndex = this.hotels.get(hotel).getRoomIndex();
+            int option = promptOption(1, hotel.getRoomAmt(), "Room No.");
+            Room room = hotel.getRoom(option - 1);
+            int[] roomAvailability = this.hotels.get(hotel).checkRoomAvailability(room);
+
+            if (reservationIndex != -1) {
+                if (roomAvailability[reservationIndex] == 1) { // checks if the room has a reservation 
+                    if (confirmMod()) {
+                        this.hotels.get(hotel).reservations.remove(reservationIndex);
+                        System.out.printf("\nReservation has been removed.\n");
+                    }
+                    else {
+                        System.out.printf("\nReservation has been retained.\n");
+                    }
+                }
+                else {
+                    Sytem.out.printf("This room does not have a current reservation.\n");
+                }
+            }
+        }
+        else {
+            System.out.printf("\nThere are currently no reservations in the hotel.\n");
+        }
+    }
+
+    private void removeHotel(int hotel) {
+        if (confirmMod()) {
+            this.hotels.remove(hotel);
+            System.out,printf("\nHotel no. %d has been removed.\n", hotel + 1);
+        }
+        else {
+            System.out,printf("\nHotel no. %d has been retained.\n", hotel + 1);
+        }
+    }
+
+    private int confirmMod() {
+        Scanner sc = new Scanner(System.in);
+        int option;
+        
+        do { 
+            System.out.printf("Confirm modification?\n");
+            System.out.printf("[1] Yes\n");
+            System.out.printf("[0] No (The modification will be discarded)\n");
+            option = sc.nextInt();
+
+            if(option < 0 || option > 1) {
+                System.out.printf("Error: Options are only 0 or 1.\n");
+            }
+        } while (option < 0 || option > 1);
+
+        return option;
+    }
 }
