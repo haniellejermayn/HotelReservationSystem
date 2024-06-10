@@ -37,7 +37,7 @@ public class HotelReservationSystem {
     private int validateHotelName(String name) {
         int result = 1;
 
-        for(int i = 0; i < hotels.size() && result == 0; i++) {
+        for(int i = 0; i < hotels.size() && result == 1; i++) {
             if(name.equals(hotels.get(i).getHotelName())) {
                 result = 0;
             }
@@ -167,7 +167,7 @@ public class HotelReservationSystem {
             System.out.printf("\nReservations\n");
 
             for(int i = 0; i < hotel.getReservationAmt(); i++) {
-                System.out.printf("%d - %s (%d to %d)\n", i + 1, hotel.getReservation(i), 
+                System.out.printf("%d - %s (%d to %d)\n", i + 1, hotel.getReservation(i).getGuestName(), 
                         hotel.getReservation(i).getCheckInDate(), hotel.getReservation(i).getCheckOutDate());
             }
 
@@ -203,7 +203,7 @@ public class HotelReservationSystem {
             
             do { 
 
-                System.out.printf("Menu\n");
+                System.out.printf("\nMenu\n");
                 System.out.printf("1 - Change Name\n");
                 System.out.printf("2 - Add Room\n");
                 System.out.printf("3 - Remove Room\n");
@@ -251,6 +251,7 @@ public class HotelReservationSystem {
             System.out.printf("Enter new Hotel Name: ");
             newName = sc.nextLine();
 
+            //Edit: consider if same as original name is entered (currently an error)
             if(validateHotelName(newName) == 0) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
@@ -281,33 +282,38 @@ public class HotelReservationSystem {
         int[] roomAvailability;
         boolean booked = false;
 
-        System.out.printf("\nRooms\n");
-
-        for(int i = 0; i < hotel.getRoomAmt(); i++) {
-            System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i).getRoomName());
-        }
-        
-        option = promptOption(1, hotel.getRoomAmt(), "Room No.");
-        room = hotel.getRoom(option - 1);
-        roomAvailability = hotel.checkRoomAvailability(room);
-
-        for(int i = 0; i < 31; i++) {
-            if(roomAvailability[i] == 1) {
-                booked = true;
-            }
-        }
-        
-        if (!booked) { // room has no reservation
-            if (confirmMod() == 1) {
-                hotel.removeRoom(option - 1);
-                System.out.printf("\nRoom has been removed\n");
-            } 
-            else {
-                System.out.printf("\nRoom has been retained\n");
-            }
+        if(hotel.getRoomAmt() == 1) {
+            System.out.printf("\nError: can't delete the only room in the hotel.\n");
         }
         else {
-            System.out.printf("\nRoom is currently booked.\n");
+            System.out.printf("\nRooms\n");
+
+            for(int i = 0; i < hotel.getRoomAmt(); i++) {
+                System.out.printf("%d - %s\n", i + 1, hotel.getRoom(i).getRoomName());
+            }
+            
+            option = promptOption(1, hotel.getRoomAmt(), "Room No.");
+            room = hotel.getRoom(option - 1);
+            roomAvailability = hotel.checkRoomAvailability(room);
+
+            for(int i = 0; i < 31; i++) {
+                if(roomAvailability[i] == 1) {
+                    booked = true;
+                }
+            }
+            
+            if (!booked) { // room has no reservation
+                if (confirmMod() == 1) {
+                    hotel.removeRoom(option - 1);
+                    System.out.printf("\nRoom has been removed\n");
+                } 
+                else {
+                    System.out.printf("\nRoom has been retained\n");
+                }
+            }
+            else {
+                System.out.printf("\nRoom is currently booked.\n");
+            }
         }
     }
 
@@ -316,8 +322,8 @@ public class HotelReservationSystem {
         float newPrice;
 
         if (hotel.getReservationAmt() == 0) {
-            System.out.printf("\nEnter new base price for rooms: ");
             newPrice = promptPrice();
+            hotel.setRoomPrice(newPrice);
         }
         else {
             System.out.printf("\nThere are currently reservations in the hotel. Base price cannot be changed.\n");
@@ -393,5 +399,62 @@ public class HotelReservationSystem {
         } while (option < 0 || option > 1);
 
         return option;
+    }
+
+    public void bookRoom() {
+        int hotelOption;
+        Hotel hotel;
+        int roomIndex;
+
+        String guestName;
+        int checkInDate, checkOutDate;
+        Room room;
+    
+
+        System.out.printf("\nBook a Room\n");
+
+        if(this.hotels.isEmpty()) {
+            System.out.printf("\nNo hotels to book.\n");
+        }
+        else {
+            System.out.printf("\nHotels\n");
+            for(int i = 0; i < this.hotels.size(); i++) {
+                System.out.printf("%d - %s\n", i + 1, this.hotels.get(i).getHotelName());
+            }
+
+            hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
+            hotel = this.hotels.get(hotelOption - 1);
+            guestName = promptGuestName();
+            checkInDate = promptOption(1, 30, "Check-in Date");
+            checkOutDate = promptOption(checkInDate + 1, 31, "Check-out Date");
+
+            roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
+
+            if(roomIndex == -1) {
+                System.out.printf("\nNo rooms available given check-in and check-out dates.\n");
+            }
+            else {
+                room = hotel.getRoom(roomIndex);
+                hotel.addReservation(guestName, checkInDate, checkOutDate, room);
+
+                System.out.printf("\nReservation saved!.\n");
+            }
+        }
+    }
+
+    private String promptGuestName() {
+        Scanner sc = new Scanner(System.in);
+        String guestName;
+
+        do { 
+            System.out.printf("\nEnter Guest Name: ");
+            guestName = sc.nextLine();
+
+            if(guestName.length() == 0) {
+                System.out.printf("\nError: Guest name should be at least 1 character.\n");
+            }
+        } while(guestName.length() == 0);
+
+        return guestName;
     }
 }

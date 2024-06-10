@@ -7,6 +7,10 @@ public class Driver {
         sys.createHotel();
         sys.createHotel();
         sys.viewHotel();
+        sys.manageHotel();
+        sys.bookRoom();
+        sys.bookRoom();
+        sys.viewHotel();
 
     }
 }

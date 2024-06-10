@@ -82,6 +82,36 @@ public class Hotel {
         return availableDays;
     }
 
+    //returns room index if available and -1 otherwise
+    public int checkDateAvailability(int start, int end) {
+        int[] availableDays;
+        int roomIndex = -1;
+        int dayCounter = end - start;
+
+        for(int i = 0; i < this.rooms.size(); i++) {
+            availableDays = this.checkRoomAvailability(this.rooms.get(i));
+
+            for(int j = start - 1; j < end && dayCounter > 0; j++) {
+                if(availableDays[j] == 0) {
+                    dayCounter -= 1;
+                }
+            }
+
+            if(dayCounter == 0) {
+                roomIndex = i;
+            }
+            else {
+                dayCounter = end - start;
+            }
+        }
+
+        return roomIndex;
+    }
+
+    public void addReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
+        this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room));
+    }
+
     public Room getRoom(int index) {
         return this.rooms.get(index);
     }
@@ -137,5 +167,11 @@ public class Hotel {
 
     public void setHotelName(String newName) {
         this.hotelName = newName;
+    }
+
+    public void setRoomPrice(float newPrice) {
+        for(int i = 0; i < this.rooms.size(); i++) {
+            this.rooms.get(i).setBasePrice(newPrice);
+        }
     }
 }
