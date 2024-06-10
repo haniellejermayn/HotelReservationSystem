@@ -276,28 +276,33 @@ public class HotelReservationSystem {
         }
     }
 
-    private void removeRoom(int hotel) { // should the user input the room name?
+    private void removeRoom(Hotel hotel) { // should the user input the room name?
+        int option;
+        Room room;
+        int[] roomAvailability;
+        boolean booked = false;
         
-        int roomIndex = this.hotels.get(hotel).getRoomIndex();
+        option = promptOption(1, hotel.getRoomAmt(), "Room No.");
+        room = hotel.getRoom(option - 1);
+        roomAvailability = hotel.checkRoomAvailability(room);
 
-        if(roomIndex != -1) {
-
-            int option = promptOption(1, hotel.getRoomAmt(), "Room No.");
-            Room room = hotel.getRoom(option - 1);
-            int[] roomAvailability = this.hotels.get(hotel).checkRoomAvailability(room);
-
-            if (roomAvailability[roomIndex] == 0) { // room has no reservation
-                if (confirmMod()) {
-                    this.hotels.get(hotel).rooms.remove(roomIndex);
-                    System.out.printf("\nRoom has been removed\n");
-                } 
-                else {
-                    System.out.printf("\nRoom has been retained\n");
-                }
+        for(int i = 0; i < 31; i++) {
+            if(roomAvailability[i] == 1) {
+                booked = true;
             }
+        }
+        
+        if (!booked) { // room has no reservation
+            if (confirmMod() == 1) {
+                hotel.removeRoom(option - 1);
+                System.out.printf("\nRoom has been removed\n");
+            } 
             else {
-                System.out.printf("\nRoom is currently booked.\n");
+                System.out.printf("\nRoom has been retained\n");
             }
+        }
+        else {
+            System.out.printf("\nRoom is currently booked.\n");
         }
     }
 

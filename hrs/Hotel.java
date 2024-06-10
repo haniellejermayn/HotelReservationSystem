@@ -99,7 +99,12 @@ public class Hotel {
         this.reinitializeRooms(this.rooms.get(0).getBasePrice());
     }
 
-    //reinitializes rooms name and basePrice (used for addRoom, deleteRoom, & updatePrice)
+    public void removeRoom(int index) {
+        this.rooms.remove(index);
+        this.reinitializeRooms(this.rooms.get(0).getBasePrice());
+    }
+
+    //reinitializes rooms name and basePrice (used for addRoom, removeRoom, & updatePrice)
     private void reinitializeRooms(float basePrice) {
         char letter = 'A';
         int number = 1;
@@ -118,27 +123,30 @@ public class Hotel {
         }
     }
 
-    public int getRoomIndex() {
-        Scanner sc = new Scanner(System.in);
-        String roomName;
-        int roomIndex = -1;
+    /*
+     *  public int getRoomIndex() {
+            Scanner sc = new Scanner(System.in);
+            String roomName;
+            int roomIndex = -1;
 
-        System.in.printf("\nEnter room name: ");
-        roomName = sc.nextLine();
+            System.in.printf("\nEnter room name: ");
+            roomName = sc.nextLine();
 
-        for (int i = 0; i < this.hotels.get(hotel).roomAmt - 1; i++) {
-            if (this.hotels.get(hotel).rooms.get(i).getRoomName == roomName) {
-                roomIndex = i;
+            for (int i = 0; i < this.hotels.get(hotel).roomAmt - 1; i++) {
+                if (this.hotels.get(hotel).rooms.get(i).getRoomName == roomName) {
+                    roomIndex = i;
+                }
             }
+
+            if (roomIndex == -1) {
+                System.out.printf("\nRoom \"%s\" does not exist\n", roomName);
+            }
+
+            return roomIndex;
         }
-
-        if (roomIndex == -1) {
-            System.out.printf("\nRoom \"%s\" does not exist\n", roomName);
-        }
-
-        return roomIndex;
-    }
-
+     * 
+     */
+    
     public int getReservationAmt() {
         return this.reservations.size();
     }
