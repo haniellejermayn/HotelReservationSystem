@@ -217,7 +217,7 @@ public class HotelReservationSystem {
 
                 //Edit: complete switch function
                 switch (menuOption) {
-                    case 1: {
+                    case 1: 
                         changeHotelName(hotel);
                         break;
                     case 2:
@@ -244,9 +244,6 @@ public class HotelReservationSystem {
     }
 
     // should we add a cancel option
-    /**
-     * @param hotel
-     */
     private void changeHotelName(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         String newName;
