@@ -360,7 +360,7 @@ public class HotelReservationSystem {
             System.out.printf("\nReservations\n");
 
             for(int i = 0; i < hotel.getReservationAmt(); i++) {
-                System.out.printf("[%d] %s (%d to %d)\n", i + 1, hotel.getReservation(i), 
+                System.out.printf("[%d] %s (%d to %d)\n", i + 1, hotel.getReservation(i).getGuestName(), 
                         hotel.getReservation(i).getCheckInDate(), hotel.getReservation(i).getCheckOutDate());
             }
 
