@@ -231,6 +231,22 @@ public class HotelReservationSystem {
         return option;
     }
 
+    private float promptPrice() {
+        Scanner sc = new Scanner(System.in);
+        float price;
+        
+        do { 
+            System.out.printf("Enter New Price: ");
+            price = sc.nextFloat();
+
+            if(price < 100.0f) {
+                System.out.printf("Error: Price should be >= 100.0");
+            }
+        } while (price < 100.0f);
+
+        return price;
+    }
+
     private void showDateAvailability(Hotel hotel) {
         int date = promptOption(1, 30, "Date");
         System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
@@ -397,22 +413,6 @@ public class HotelReservationSystem {
         else {
             System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
         }
-    }
-
-    private float promptPrice() {
-        Scanner sc = new Scanner(System.in);
-        float price;
-        
-        do { 
-            System.out.printf("Enter New Price: ");
-            price = sc.nextFloat();
-
-            if(price < 100.0f) {
-                System.out.printf("Error: Price should be >= 100.0");
-            }
-        } while (price < 100.0f);
-
-        return price;
     }
 
     private void removeReservation(Hotel hotel) {
