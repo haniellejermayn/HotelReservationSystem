@@ -112,13 +112,13 @@ public class HotelReservationSystem {
             do { 
                 System.out.printf("-------------------------------------\n");
                 System.out.printf("Menu\n");
-                System.out.printf("1 - Change Name\n");
-                System.out.printf("2 - Add Room\n");
-                System.out.printf("3 - Remove Room\n");
-                System.out.printf("4 - Update Base Price\n");
-                System.out.printf("5 - Remove Reservation\n");
-                System.out.printf("6 - Remove Hotel\n");
-                System.out.printf("0 - Go Back\n");
+                System.out.printf("[1] Change Name\n");
+                System.out.printf("[2] Add Room\n");
+                System.out.printf("[3] Remove Room\n");
+                System.out.printf("[4] Update Base Price\n");
+                System.out.printf("[5] Remove Reservation\n");
+                System.out.printf("[6] Remove Hotel\n");
+                System.out.printf("[0] Go Back\n");
 
                 menuOption = promptOption(0, 6, "Option");
 
@@ -159,21 +159,22 @@ public class HotelReservationSystem {
         String guestName;
         int checkInDate, checkOutDate;
         Room room;
-    
 
-        System.out.printf("\nBook a Room\n");
 
         if(this.hotels.isEmpty()) {
-            System.out.printf("\nNo hotels to book.\n");
+            System.out.printf("No hotels to book.\n");
         }
         else {
-            System.out.printf("\nHotels\n");
+            System.out.printf("Hotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
-                System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
+                System.out.printf("[%02d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
 
             hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
             hotel = this.hotels.get(hotelOption - 1);
+            
+            System.out.printf("-------------------------------------\n");
+
             guestName = promptGuestName();
             checkInDate = promptOption(1, 30, "Check-in Date");
             checkOutDate = promptOption(checkInDate + 1, 31, "Check-out Date");
@@ -181,14 +182,16 @@ public class HotelReservationSystem {
             roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
 
             if(roomIndex == -1) {
-                System.out.printf("\nNo rooms available given check-in and check-out dates.\n");
+                System.out.printf("No rooms available given check-in and check-out dates.\n");
             }
             else {
                 room = hotel.fetchRoom(roomIndex);
                 hotel.addReservation(guestName, checkInDate, checkOutDate, room);
 
-                System.out.printf("\nReservation saved!\n");
+                System.out.printf("Reservation saved!\n");
             }
+
+            System.out.printf("-------------------------------------\n");
         }
     }
 
@@ -325,20 +328,20 @@ public class HotelReservationSystem {
 
         if (confirmMod() == 1) {
             hotel.setHotelName(newName);
-            System.out.printf("Hotel name has been changed to \"%s\"", newName);
+            System.out.printf("Hotel name has been changed to \"%s\"\n", newName);
         }
         else {
-            System.out.printf("Hotel name remained as \"%s\"", hotel.getHotelName());
+            System.out.printf("Hotel name remained as \"%s\"\n", hotel.getHotelName());
         }
     }
 
     private void addRoom(Hotel hotel) {
         if (confirmMod() == 1) {
             hotel.addRoom();
-            System.out.printf("\nNew room has been added!\n");
+            System.out.printf("New room has been added!\n");
         }
         else {
-            System.out.printf("\nNo new room has been added.\n");
+            System.out.printf("No new room has been added.\n");
         }
     }
 
@@ -349,13 +352,13 @@ public class HotelReservationSystem {
         boolean booked = false;
 
         if(hotel.countRooms() == 1) {
-            System.out.printf("\nError: can't delete the only room in the hotel.\n");
+            System.out.printf("Error: can't delete the only room in the hotel.\n");
         }
         else {
-            System.out.printf("\nRooms\n");
+            System.out.printf("Rooms\n");
 
             for(int i = 0; i < hotel.countRooms(); i++) {
-                System.out.printf("%d - %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
+                System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
             }
             
             option = promptOption(1, hotel.countRooms(), "Room No.");
@@ -371,14 +374,14 @@ public class HotelReservationSystem {
             if (!booked) { // room has no reservation
                 if (confirmMod() == 1) {
                     hotel.removeRoom(option - 1);
-                    System.out.printf("\nRoom has been removed\n");
+                    System.out.printf("Room has been removed\n");
                 } 
                 else {
-                    System.out.printf("\nRoom has been retained\n");
+                    System.out.printf("Room has been retained\n");
                 }
             }
             else {
-                System.out.printf("\nRoom is currently booked.\n");
+                System.out.printf("Room is currently booked.\n");
             }
         }
     }
@@ -390,10 +393,10 @@ public class HotelReservationSystem {
         if (hotel.countReservations() == 0) {
             newPrice = promptPrice();
             hotel.updateRoomPrice(newPrice);
-            System.out.printf("\nBase Price updated!\n");
+            System.out.printf("Base Price updated!\n");
         }
         else {
-            System.out.printf("\nThere are currently reservations in the hotel. Base price cannot be changed.\n");
+            System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
         }
     }
 
@@ -418,10 +421,10 @@ public class HotelReservationSystem {
 
         if (hotel.countReservations() != 0) {   
             
-            System.out.printf("\nReservations\n");
+            System.out.printf("Reservations\n");
 
             for(int i = 0; i < hotel.countReservations(); i++) {
-                System.out.printf("[%d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
+                System.out.printf("[02d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
                         hotel.fetchReservation(i).getCheckInDate(), hotel.fetchReservation(i).getCheckOutDate());
             }
 
@@ -429,25 +432,27 @@ public class HotelReservationSystem {
 
             if (confirmMod() == 1) {
                 hotel.removeReservation(option - 1);
-                System.out.printf("\nReservation has been removed.\n");
+                System.out.printf("Reservation has been removed.\n");
             }
             else {
-                System.out.printf("\nReservation has been retained.\n");
+                System.out.printf("Reservation has been retained.\n");
             }
         }
         else {
-            System.out.printf("\nThere are currently no reservations in the hotel.\n");
+            System.out.printf("There are currently no reservations in the hotel.\n");
         }
     }
 
     private int removeHotel(int index) {
         if (confirmMod() == 1) {
             this.hotels.remove(index);
-            System.out.printf("\nHotel no. %d has been removed.\n", index + 1);
+            System.out.printf("Hotel no. %d has been removed.\n", index + 1);
+            System.out.printf("-------------------------------------\n");
             return 0;
         }
         else {
-            System.out.printf("\nHotel no. %d has been retained.\n", index + 1);
+            System.out.printf("Hotel no. %d has been retained.\n", index + 1);
+            System.out.printf("-------------------------------------\n");
             return 1;
         }
     }
@@ -479,11 +484,11 @@ public class HotelReservationSystem {
         String guestName;
 
         do { 
-            System.out.printf("\nEnter Guest Name: ");
+            System.out.printf("Enter Guest Name: ");
             guestName = sc.nextLine();
 
             if(guestName.length() == 0) {
-                System.out.printf("\nError: Guest name should be at least 1 character.\n");
+                System.out.printf("Error: Guest name should be at least 1 character.\n");
             }
         } while(guestName.length() == 0);
 
