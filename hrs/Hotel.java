@@ -181,6 +181,4 @@ public class Hotel {
     public void setHotelName(String newName) {
         this.hotelName = newName;
     }
-
-    
 }
