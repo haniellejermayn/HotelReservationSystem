@@ -247,6 +247,44 @@ public class HotelReservationSystem {
         return price;
     }
 
+    private String promptGuestName() {
+        Scanner sc = new Scanner(System.in);
+        String guestName;
+
+        do { 
+            System.out.printf("Enter Guest Name: ");
+            guestName = sc.nextLine();
+
+            if(guestName.length() == 0) {
+                System.out.printf("Error: Guest name should be at least 1 character.\n");
+            }
+        } while(guestName.length() == 0);
+
+        return guestName;
+    }
+
+    private int confirmMod() {
+        Scanner sc = new Scanner(System.in);
+        int option;
+        
+        do { 
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("Confirm modification?\n");
+            System.out.printf("[1] Yes\n");
+            System.out.printf("[0] No (The modification will be discarded)\n");
+            System.out.printf("Enter option: ");
+            option = sc.nextInt();
+
+            if(option < 0 || option > 1) {
+                System.out.printf("Error: Options are only 0 or 1.\n");
+            }
+        } while (option < 0 || option > 1);
+
+        System.out.printf("-------------------------------------\n");
+
+        return option;
+    }
+
     private void showDateAvailability(Hotel hotel) {
         int date = promptOption(1, 30, "Date");
         System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
@@ -454,43 +492,5 @@ public class HotelReservationSystem {
             System.out.printf("-------------------------------------\n");
             return 1;
         }
-    }
-
-    private int confirmMod() {
-        Scanner sc = new Scanner(System.in);
-        int option;
-        
-        do { 
-            System.out.printf("-------------------------------------\n");
-            System.out.printf("Confirm modification?\n");
-            System.out.printf("[1] Yes\n");
-            System.out.printf("[0] No (The modification will be discarded)\n");
-            System.out.printf("Enter option: ");
-            option = sc.nextInt();
-
-            if(option < 0 || option > 1) {
-                System.out.printf("Error: Options are only 0 or 1.\n");
-            }
-        } while (option < 0 || option > 1);
-
-        System.out.printf("-------------------------------------\n");
-
-        return option;
-    }
-
-    private String promptGuestName() {
-        Scanner sc = new Scanner(System.in);
-        String guestName;
-
-        do { 
-            System.out.printf("Enter Guest Name: ");
-            guestName = sc.nextLine();
-
-            if(guestName.length() == 0) {
-                System.out.printf("Error: Guest name should be at least 1 character.\n");
-            }
-        } while(guestName.length() == 0);
-
-        return guestName;
     }
 }
