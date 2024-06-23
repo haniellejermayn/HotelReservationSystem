@@ -66,6 +66,7 @@ public class Hotel {
     }
 
     public int[] checkRoomAvailability(Room room) {
+        //Note: 31 not included since no check in on the 31st
         int[] availableDays = new int[30]; 
         int start, end;
 
