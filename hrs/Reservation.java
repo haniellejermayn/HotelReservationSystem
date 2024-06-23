@@ -5,8 +5,6 @@ public class Reservation {
     private int checkInDate;
     private int checkOutDate;
     private Room room;
-    private float costPerNight;
-    private float totalPrice;
 
     // -- Constructor -- //
 
@@ -15,14 +13,16 @@ public class Reservation {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.room = room;
-        this.costPerNight = room.getBasePrice();
-        this.totalPrice = this.computeTotalPrice();
     }
 
-    // -- Private Method -- //
+    // -- Public Methods -- //
 
-    private float computeTotalPrice() {
-        return this.costPerNight * (this.checkOutDate - this.checkInDate);
+    public float retrieveCostPerNight() {
+        return this.room.getBasePrice();
+    }
+
+    public float computeTotalPrice() {
+        return this.retrieveCostPerNight() * (this.checkOutDate - this.checkInDate);
     }
 
     // -- Getters -- //
@@ -41,13 +41,5 @@ public class Reservation {
 
     public Room getRoom() {
         return this.room;
-    }
-
-    public float getCostPerNight() {
-        return this.costPerNight;
-    }
-
-    public float getTotalPrice() {
-        return this.totalPrice;
     }
 }

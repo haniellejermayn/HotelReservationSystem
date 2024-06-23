@@ -289,8 +289,8 @@ public class HotelReservationSystem {
             System.out.printf("Room: %s\n", reservation.getRoom().getRoomName());
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
-            System.out.printf("Price per Night: %.2f\n", reservation.getCostPerNight());
-            System.out.printf("Total Price: %.2f\n", reservation.getTotalPrice());
+            System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
+            System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
         }
     }
 

@@ -22,7 +22,7 @@ public class Hotel {
         float total = 0;
 
         for(int i = 0; i < reservations.size(); i++) {
-            total += reservations.get(i).getTotalPrice();
+            total += reservations.get(i).computeTotalPrice();
         }
 
         return total;
