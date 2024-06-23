@@ -8,6 +8,8 @@ public class Reservation {
     private float costPerNight;
     private float totalPrice;
 
+    // -- Constructor -- //
+
     public Reservation(String guestName, int checkInDate, int checkOutDate, Room room) {
         this.guestName = guestName;
         this.checkInDate = checkInDate;
@@ -17,9 +19,13 @@ public class Reservation {
         this.totalPrice = this.computeTotalPrice();
     }
 
+    // -- Private Method -- //
+
     private float computeTotalPrice() {
         return this.costPerNight * (this.checkOutDate - this.checkInDate);
     }
+
+    // -- Getters -- //
 
     public String getGuestName() {
         return this.guestName;

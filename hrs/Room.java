@@ -4,6 +4,8 @@ public class Room {
     private String roomName;
     private float basePrice;
 
+    // -- Constructors -- //
+
     public Room(String roomName) {
         this.roomName = roomName; 
         this.basePrice = 1299.0f;
@@ -13,6 +15,8 @@ public class Room {
         this.roomName = "TemporaryName"; 
         this.basePrice = basePrice;
     }
+
+    // -- Getters & Setters -- //
 
     public String getRoomName() {
         return this.roomName;

@@ -7,6 +7,8 @@ public class Hotel {
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
 
+    // -- Constructor -- //
+
     public Hotel(String hotelName, int roomAmt) {
         this.hotelName = hotelName;
         this.rooms = new ArrayList<Room>();
@@ -14,23 +16,7 @@ public class Hotel {
         this.reservations = new ArrayList<Reservation>();
     }
     
-    //initialize rooms in hotel
-    private void initializeRooms(int roomAmt) {
-        char letter = 'A';
-        int number = 1;
-
-        for(int i = 0; i < roomAmt; i++) {
-            this.rooms.add(new Room(letter + String.valueOf(number)));
-            
-            if(number == 5) {
-                number = 1;
-                letter += 1;
-            }
-            else {
-                number += 1;
-            }
-        }
-    }
+    // -- Public Methods -- //
 
     public float computeEarnings() {
         float total = 0;
@@ -40,6 +26,22 @@ public class Hotel {
         }
 
         return total;
+    }
+
+    public Reservation fetchReservation(int index) {
+        return this.reservations.get(index);
+    }
+
+    public Room fetchRoom(int index) {
+        return this.rooms.get(index);
+    }
+
+    public int countReservations() {
+        return this.reservations.size();
+    }
+
+    public int countRooms() {
+        return this.rooms.size();
     }
 
     public int countBookedRooms(int date) {
@@ -111,12 +113,8 @@ public class Hotel {
         this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room));
     }
 
-    public Room getRoom(int index) {
-        return this.rooms.get(index);
-    }
-
-    public int getRoomAmt() {
-        return this.rooms.size();
+    public void removeReservation(int index) {
+        this.reservations.remove(index);
     }
 
     public void addRoom() {
@@ -127,6 +125,31 @@ public class Hotel {
     public void removeRoom(int index) {
         this.rooms.remove(index);
         this.reinitializeRooms(this.rooms.get(0).getBasePrice());
+    }
+
+    public void updateRoomPrice(float newPrice) {
+        for(int i = 0; i < this.rooms.size(); i++) {
+            this.rooms.get(i).setBasePrice(newPrice);
+        }
+    }
+
+    // -- Private Methods -- //
+
+    private void initializeRooms(int roomAmt) {
+        char letter = 'A';
+        int number = 1;
+
+        for(int i = 0; i < roomAmt; i++) {
+            this.rooms.add(new Room(letter + String.valueOf(number)));
+            
+            if(number == 5) {
+                number = 1;
+                letter += 1;
+            }
+            else {
+                number += 1;
+            }
+        }
     }
 
     //reinitializes rooms name and basePrice (used for addRoom, removeRoom, & updatePrice)
@@ -148,17 +171,7 @@ public class Hotel {
         }
     }
 
-    public void removeReservation(int index) {
-        this.reservations.remove(index);
-    }
-    
-    public int getReservationAmt() {
-        return this.reservations.size();
-    }
-
-    public Reservation getReservation(int index) {
-        return this.reservations.get(index);
-    }
+    // -- Getter & Setter Methods -- //
 
     public String getHotelName() {
         return this.hotelName;
@@ -168,9 +181,5 @@ public class Hotel {
         this.hotelName = newName;
     }
 
-    public void setRoomPrice(float newPrice) {
-        for(int i = 0; i < this.rooms.size(); i++) {
-            this.rooms.get(i).setBasePrice(newPrice);
-        }
-    }
+    
 }
