@@ -24,10 +24,10 @@ public class HotelReservationSystem {
             System.out.printf("Enter Hotel Name: ");
             hotelName = sc.nextLine();
 
-            if(validateHotelName(hotelName) == 0) {
+            if(!validateHotelName(hotelName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (validateHotelName(hotelName) == 0);
+        } while (!validateHotelName(hotelName));
         
         roomAmt = promptOption(1, 50, "No. of Rooms");
 
@@ -197,13 +197,12 @@ public class HotelReservationSystem {
 
     // -- Private Methods -- //
 
-    //returns 1 if valid and 0 otherwise
-    private int validateHotelName(String name) {
-        int result = 1;
+    private boolean validateHotelName(String name) {
+        boolean result = true;
 
-        for(int i = 0; i < hotels.size() && result == 1; i++) {
+        for(int i = 0; i < hotels.size() && result == true; i++) {
             if(name.equals(hotels.get(i).getHotelName())) {
-                result = 0;
+                result = false;
             }
         }
 
@@ -321,10 +320,10 @@ public class HotelReservationSystem {
             newName = sc.nextLine();
 
             //Edit: consider if same as original name is entered (currently an error)
-            if(validateHotelName(newName) == 0) {
+            if(!validateHotelName(newName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (validateHotelName(newName) == 0);
+        } while (!validateHotelName(newName));
 
         if (confirmMod() == 1) {
             hotel.setHotelName(newName);
