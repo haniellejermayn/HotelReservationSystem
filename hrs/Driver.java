@@ -25,6 +25,8 @@ public class Driver {
                 }
             } while (option < 0 || option > 4);
 
+            System.out.printf("-------------------------------------\n");
+
             switch (option) {
                 case 1:
                     sys.createHotel();

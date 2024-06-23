@@ -35,6 +35,8 @@ public class HotelReservationSystem {
         this.hotels.add(new Hotel(hotelName, roomAmt));
 
         System.out.printf("%s added!\n", hotelName);
+
+        System.out.printf("-------------------------------------\n");
     }
 
     public void viewHotel() {
@@ -42,10 +44,10 @@ public class HotelReservationSystem {
         int option;
 
         if(this.hotels.isEmpty()) { 
-            System.out.printf("\nNo hotels in list.\n");
+            System.out.printf("No hotels in list.\n");
         }
         else {
-            System.out.printf("\nHotels\n");
+            System.out.printf("Hotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
                 System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
@@ -53,7 +55,8 @@ public class HotelReservationSystem {
             option = promptOption(1, this.hotels.size(), "Hotel No.");
             hotel = this.hotels.get(option - 1);
 
-            System.out.printf("\n\"%s\"\n", hotel.getHotelName());
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("\"%s\"\n", hotel.getHotelName());
             System.out.printf("Name: %s\n", hotel.getHotelName());
             System.out.printf("No. of Rooms: %d\n", hotel.countRooms());
             System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
@@ -68,6 +71,8 @@ public class HotelReservationSystem {
                 System.out.printf("[0] Go Back\n");
 
                 option = promptOption(0, 3, "Option");
+
+                System.out.printf("-------------------------------------\n");
 
                 switch (option) {
                     case 1:
@@ -93,22 +98,20 @@ public class HotelReservationSystem {
         int hotelOption, menuOption;
         
         if(this.hotels.isEmpty()) { 
-            System.out.printf("\nNo hotels in list.\n");
+            System.out.printf("No hotels in list.\n");
         }
         else {
-            System.out.printf("\nHotels\n");
+            System.out.printf("Hotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
-                System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
+                System.out.printf("[%02d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
             
             hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
             hotel = this.hotels.get(hotelOption - 1);
             
-            System.out.printf("-------------------------------------\n");
-            
             do { 
-
-                System.out.printf("\nMenu\n");
+                System.out.printf("-------------------------------------\n");
+                System.out.printf("Menu\n");
                 System.out.printf("1 - Change Name\n");
                 System.out.printf("2 - Add Room\n");
                 System.out.printf("3 - Remove Room\n");
@@ -119,7 +122,8 @@ public class HotelReservationSystem {
 
                 menuOption = promptOption(0, 6, "Option");
 
-                //Edit: complete switch function
+                System.out.printf("-------------------------------------\n");
+
                 switch (menuOption) {
                     case 1: 
                         changeHotelName(hotel);
@@ -229,6 +233,7 @@ public class HotelReservationSystem {
         int date = promptOption(1, 30, "Date");
         System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
         System.out.printf("Booked Rooms: %d\n", hotel.countBookedRooms(date));
+        System.out.printf("-------------------------------------\n");
     }
 
     private void showRoomInformation(Hotel hotel) {
@@ -237,25 +242,30 @@ public class HotelReservationSystem {
         int[] roomAvailability;
         int dayCounter = 0;
 
-        System.out.printf("\nRooms\n");
+        System.out.printf("Rooms\n");
 
         for(int i = 0; i < hotel.countRooms(); i++) {
-            System.out.printf("[%d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
+            System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
         }
 
         option = promptOption(1, hotel.countRooms(), "Room No.");
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
-        System.out.printf("\n\"%s\"\n", room.getRoomName());
+        System.out.printf("-------------------------------------\n");
+        System.out.printf("\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
         System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
-        System.out.printf("Available Dates: ");
+        System.out.printf("Available Dates:\n");
 
         for(int i = 0; i < 30; i++) {
             if(roomAvailability[i] == 0) {
-                System.out.printf("[%d] ", i + 1);
+                System.out.printf("[%02d] ", i + 1);
                 dayCounter += 1;
+            }
+
+            if(dayCounter % 5 == 0 && dayCounter > 0) {
+                System.out.printf("\n");
             }
         }
 
@@ -264,6 +274,7 @@ public class HotelReservationSystem {
         }
 
         System.out.printf("\n");
+        System.out.printf("-------------------------------------\n");
     }
 
     private void showReservationInformation(Hotel hotel) {
@@ -274,17 +285,18 @@ public class HotelReservationSystem {
             System.out.printf("No Reservations\n");
         }
         else {
-            System.out.printf("\nReservations\n");
+            System.out.printf("Reservations\n");
 
             for(int i = 0; i < hotel.countReservations(); i++) {
-                System.out.printf("[%d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
+                System.out.printf("[%02d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
                         hotel.fetchReservation(i).getCheckInDate(), hotel.fetchReservation(i).getCheckOutDate());
             }
 
             option = promptOption(1, hotel.countReservations(), "Reservation No.");
             reservation = hotel.fetchReservation(option - 1);
 
-            System.out.printf("\n\"%s's Reservation\"\n", reservation.getGuestName());
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
             System.out.printf("Room: %s\n", reservation.getRoom().getRoomName());
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
@@ -292,6 +304,8 @@ public class HotelReservationSystem {
             System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
             System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
         }
+
+        System.out.printf("-------------------------------------\n");
     }
 
     //Edit: should we add a cancel option
@@ -443,6 +457,7 @@ public class HotelReservationSystem {
         int option;
         
         do { 
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Confirm modification?\n");
             System.out.printf("[1] Yes\n");
             System.out.printf("[0] No (The modification will be discarded)\n");
@@ -453,6 +468,8 @@ public class HotelReservationSystem {
                 System.out.printf("Error: Options are only 0 or 1.\n");
             }
         } while (option < 0 || option > 1);
+
+        System.out.printf("-------------------------------------\n");
 
         return option;
     }
