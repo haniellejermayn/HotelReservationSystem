@@ -20,7 +20,7 @@ public class HotelReservationSystem {
         int roomAmt;
 
         do { 
-            System.out.printf("Press 0 to exit\n");
+            System.out.printf("Press 0 to cancel\n");
             System.out.printf("Enter Hotel Name: ");
             hotelName = sc.nextLine();
 
