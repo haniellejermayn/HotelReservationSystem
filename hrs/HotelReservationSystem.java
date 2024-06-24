@@ -305,7 +305,7 @@ public class HotelReservationSystem {
             price = sc.nextFloat();
 
             if(price < 100.0f) {
-                System.out.printf("Error: Price should be >= 100.0\n");
+                System.out.printf("Error: Price should be >= 100.00\n");
             }
         } while (price < 100.0f);
 
