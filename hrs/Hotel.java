@@ -71,10 +71,21 @@ public class Hotel {
         return this.reservations.size();
     }
 
+    /**
+     * Count the total number of rooms.
+     * 
+     * @return the number of rooms.
+     */
     public int countRooms() {
         return this.rooms.size();
     }
 
+    /**
+     * Counts the number of booked rooms on a specific date.
+     * 
+     * @param date the date to check
+     * @return the number of booked rooms on the specified date
+     */
     public int countBookedRooms(int date) {
         int counter = 0;
         int start, end;
@@ -92,10 +103,22 @@ public class Hotel {
         return counter;
     }
 
+    /**
+     * Counts the number of available rooms on a specified date.
+     * 
+     * @param date the date to check
+     * @return the number of available rooms on the specified date
+     */
     public int countAvailableRooms(int date) {
         return this.rooms.size() - this.countBookedRooms(date);
     }
 
+    /**
+     * Checks the availability of a specific room across all days of the month.
+     * 
+     * @param room the room to check
+     * @return an array representing the availability of the room (0 = available, 1 = booked)
+     */
     public int[] checkRoomAvailability(Room room) {
         //Note: 31 not included since no check in on the 31st
         int[] availableDays = new int[30]; 
@@ -116,7 +139,13 @@ public class Hotel {
         return availableDays;
     }
 
-    //returns room index if available and -1 otherwise
+    /**
+     * Checks date availability across all rooms and returns the index of an available room.
+     * 
+     * @param start the start date
+     * @param end the end date
+     * @return the index of an available room, or -1 if none are available
+     */
     public int checkDateAvailability(int start, int end) {
         int[] availableDays;
         int roomIndex = -1;
@@ -141,24 +170,50 @@ public class Hotel {
         return roomIndex;
     }
 
+    /**
+     * Adds a reservation to the hotel.
+     * 
+     * @param guestName the name of the guest
+     * @param checkInDate the check-in date
+     * @param checkOutDate the check-out date
+     * @param room the room to reserve
+     */
     public void addReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
         this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room));
     }
 
+    /**
+     * Removes a reservation by its index.
+     * 
+     * @param index the index of the reservation to remove
+     */
     public void removeReservation(int index) {
         this.reservations.remove(index);
     }
 
+    /**
+     * Adds a new room to the hotel.
+     */
     public void addRoom() {
         this.rooms.add(new Room(hotelName));
         this.reinitializeRooms(this.rooms.get(0).getBasePrice());
     }
 
+    /**
+     * Removes a room by its index.
+     * 
+     * @param index the index of the room to remove
+     */
     public void removeRoom(int index) {
         this.rooms.remove(index);
         this.reinitializeRooms(this.rooms.get(0).getBasePrice());
     }
 
+    /**
+     * Updates the base price of all rooms.
+     * 
+     * @param newPrice the new base price
+     */
     public void updateRoomPrice(float newPrice) {
         for(int i = 0; i < this.rooms.size(); i++) {
             this.rooms.get(i).setBasePrice(newPrice);
@@ -167,6 +222,11 @@ public class Hotel {
 
     // -- Private Methods -- //
 
+    /**
+     * Initializes rooms with a specified amount.
+     * 
+     * @param roomAmt the number of rooms to initialize
+     */
     private void initializeRooms(int roomAmt) {
         char letter = 'A';
         int number = 1;
@@ -184,7 +244,11 @@ public class Hotel {
         }
     }
 
-    //reinitializes rooms name and basePrice (used for addRoom, removeRoom, & updatePrice)
+    /**
+     * Reinitializes rooms' names and base prices.
+     * 
+     * @param basePrice the base price to set for all rooms
+     */
     private void reinitializeRooms(float basePrice) {
         char letter = 'A';
         int number = 1;
@@ -205,10 +269,20 @@ public class Hotel {
 
     // -- Getter & Setter Methods -- //
 
+    /**
+     * Gets the name of the hotel.
+     * 
+     * @return the name of the hotel
+     */
     public String getHotelName() {
         return this.hotelName;
     }
 
+    /**
+     * Sets the name of the hotel.
+     * 
+     * @param newName the new name of the hotel
+     */
     public void setHotelName(String newName) {
         this.hotelName = newName;
     }
