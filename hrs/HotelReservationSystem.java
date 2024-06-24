@@ -3,17 +3,29 @@ package hrs;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The HotelReservationSystem class represents a system for managing hotel reservations.
+ * It allows creating hotels, viewing and managing hotels, and booking rooms.
+ */
 public class HotelReservationSystem {
     private ArrayList<Hotel> hotels;
 
     // -- Constructor -- //
 
+    /**
+     * Constructs a new HotelReservationSystem with an empty list of hotels.
+     * Initializes the hotel list as an ArrayList of Hotel objects.
+     */
     public HotelReservationSystem() {
         this.hotels = new ArrayList<Hotel>();
     }
 
     // -- Public Methods -- //
 
+    /**
+     * Prompts the user to enter details for a new hotel and adds it to the hotel list.
+     * Ensures the hotel name is unique and prompts for the number of rooms.
+     */
     public void createHotel() {
         Scanner sc = new Scanner(System.in);
         String hotelName;
@@ -39,6 +51,11 @@ public class HotelReservationSystem {
         System.out.printf("-------------------------------------\n");
     }
 
+    /**
+     * Displays the list of hotels and prompts the user to select one.
+     * Shows detailed information (low-level and high-level) about the selected hotel including
+     * available rooms, room information, and reservation information.
+     */
     public void viewHotel() {
         Hotel hotel;
         int option;
@@ -93,6 +110,10 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Allows the user to manage an existing hotel by changing its name, adding or removing rooms,
+     * updating room prices, removing reservations, or removing the hotel itself.
+     */
     public void manageHotel() {
         Hotel hotel;
         int hotelOption, menuOption;
@@ -151,6 +172,10 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Prompts the user to select a hotel and book a room by providing the guest name, check-in, and check-out dates.
+     * If a room is available for the specified dates, the reservation is saved.
+     */
     public void bookRoom() {
         int hotelOption;
         Hotel hotel;
@@ -197,6 +222,12 @@ public class HotelReservationSystem {
 
     // -- Private Methods -- //
 
+    /**
+     * Validates the given hotel name to ensure it is unique among the existing hotels.
+     * 
+     * @param name the name of the hotel to validate
+     * @return true if the hotel name is unique, false otherwise
+     */
     private boolean validateHotelName(String name) {
         boolean result = true;
 
@@ -209,6 +240,14 @@ public class HotelReservationSystem {
         return result;
     }
 
+    /**
+     * Prompts the user to select an option within a specified range.
+     * 
+     * @param start the starting range of the option
+     * @param end the ending range of the option
+     * @param str the prompt message
+     * @return the selected option within the specified range
+     */
     private int promptOption(int start, int end, String str) {
         Scanner sc = new Scanner(System.in);
         int option;
@@ -231,6 +270,11 @@ public class HotelReservationSystem {
         return option;
     }
 
+    /**
+     * Prompts the user to enter a new price.
+     * 
+     * @return the new price entered by the user
+     */
     private float promptPrice() {
         Scanner sc = new Scanner(System.in);
         float price;
@@ -247,6 +291,11 @@ public class HotelReservationSystem {
         return price;
     }
 
+    /**
+     * Prompts the user to enter the guest name.
+     * 
+     * @return the guest name entered by the user
+     */
     private String promptGuestName() {
         Scanner sc = new Scanner(System.in);
         String guestName;
@@ -263,6 +312,11 @@ public class HotelReservationSystem {
         return guestName;
     }
 
+    /**
+     * Prompts the user to confirm a modification.
+     * 
+     * @return 1 if the modification is confirmed, 0 otherwise
+     */
     private int confirmMod() {
         Scanner sc = new Scanner(System.in);
         int option;
@@ -285,6 +339,11 @@ public class HotelReservationSystem {
         return option;
     }
 
+    /**
+     * Displays the date availability of the given hotel.
+     * 
+     * @param hotel the hotel to check date availabilty
+     */
     private void showDateAvailability(Hotel hotel) {
         int date = promptOption(1, 30, "Date");
         System.out.printf("Available Rooms: %d\n", hotel.countAvailableRooms(date));
@@ -292,6 +351,11 @@ public class HotelReservationSystem {
         System.out.printf("-------------------------------------\n");
     }
 
+    /**
+     * Displays the room information of the given hotel.
+     * 
+     * @param hotel the hotel to check room information
+     */
     private void showRoomInformation(Hotel hotel) {
         int option;
         Room room;
@@ -333,6 +397,11 @@ public class HotelReservationSystem {
         System.out.printf("-------------------------------------\n");
     }
 
+    /**
+     * Displays the reservation information of the given hotel.
+     * 
+     * @param hotel the hotel to check reservation information
+     */
     private void showReservationInformation(Hotel hotel) {
         int option;
         Reservation reservation;
@@ -365,6 +434,11 @@ public class HotelReservationSystem {
     }
 
     //Edit: should we add a cancel option
+    /**
+     * Changes the name of the given hoetel.
+     * 
+     * @param hotel the hotel to change the name
+     */
     private void changeHotelName(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         String newName;
@@ -388,6 +462,11 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Adds a new room to the given hotel,
+     * 
+     * @param hotel the hotel to add a new room
+     */
     private void addRoom(Hotel hotel) {
         if (confirmMod() == 1) {
             hotel.addRoom();
@@ -398,6 +477,11 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Removes a room from the given hotel.
+     * 
+     * @param hotel the hotel to remove a room
+     */
     private void removeRoom(Hotel hotel) { 
         int option;
         Room room;
@@ -439,6 +523,11 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Updates the base price of the rooms in the given hotel.
+     * 
+     * @param hotel the hotel to update the base price
+     */
     private void updateBasePrice(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         float newPrice;
@@ -453,6 +542,11 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Removes a reservation from the given hotel.
+     * 
+     * @param hotel the hotel to remove a reservation
+     */
     private void removeReservation(Hotel hotel) {
         int option;
 
@@ -480,6 +574,12 @@ public class HotelReservationSystem {
         }
     }
 
+    /**
+     * Removes a hotel from the hotel list.
+     * 
+     * @param index the index of the hotel to remove
+     * @return 0 if the hotel is removed, 1 if the hotel is retained
+     */
     private int removeHotel(int index) {
         if (confirmMod() == 1) {
             this.hotels.remove(index);
