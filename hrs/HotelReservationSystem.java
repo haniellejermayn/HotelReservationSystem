@@ -54,7 +54,6 @@ public class HotelReservationSystem {
             System.out.printf("\nCanceling...\n");
         }
 
-        sc.close();
         System.out.printf("-------------------------------------\n");
     }
 
@@ -281,8 +280,6 @@ public class HotelReservationSystem {
             }
         } while (option < start || option > end);
 
-        sc.close();
-
         return option;
     }
 
@@ -304,8 +301,6 @@ public class HotelReservationSystem {
             }
         } while (price < 100.0f);
 
-        sc.close();
-
         return price;
     }
 
@@ -326,8 +321,6 @@ public class HotelReservationSystem {
                 System.out.printf("Error: Guest name should be at least 1 character.\n");
             }
         } while(guestName.length() == 0);
-
-        sc.close();
 
         return guestName;
     }
@@ -354,7 +347,6 @@ public class HotelReservationSystem {
             }
         } while (option < 0 || option > 1);
 
-        sc.close();
         System.out.printf("-------------------------------------\n");
 
         return option;
@@ -494,7 +486,6 @@ public class HotelReservationSystem {
             System.out.printf("\nCanceling...\n");
         }
 
-        sc.close();
         System.out.printf("-------------------------------------\n");
     }
 
@@ -598,7 +589,6 @@ public class HotelReservationSystem {
             System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
         }
         
-        sc.close();
         System.out.printf("-------------------------------------\n");
     }
 
