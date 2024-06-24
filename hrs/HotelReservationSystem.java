@@ -80,16 +80,14 @@ public class HotelReservationSystem {
             option = promptOption(1, this.hotels.size(), "Hotel No.");
             hotel = this.hotels.get(option - 1);
 
-            System.out.printf("-------------------------------------\n");
-            System.out.printf("\"%s\"\n", hotel.getHotelName());
-            System.out.printf("Name: %s\n", hotel.getHotelName());
-            System.out.printf("No. of Rooms: %d\n", hotel.countRooms());
-            System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
-
-            System.out.printf("-------------------------------------\n");
-
             do { 
-                System.out.printf("Menu\n");
+                System.out.printf("-------------------------------------\n");
+                System.out.printf("\"%s\"\n", hotel.getHotelName());
+                System.out.printf("Name: %s\n", hotel.getHotelName());
+                System.out.printf("No. of Rooms: %d\n", hotel.countRooms());
+                System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
+                System.out.printf("-------------------------------------\n");
+                System.out.printf("View \"%s\"\n", hotel.getHotelName());
                 System.out.printf("[1] Date Availability\n");
                 System.out.printf("[2] Room Information\n");
                 System.out.printf("[3] Reservation Information\n");
