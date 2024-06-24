@@ -176,6 +176,8 @@ public class HotelReservationSystem {
                 }
 
             } while (menuOption != 0);
+
+            System.out.printf("-------------------------------------\n");
         }
     }
 
