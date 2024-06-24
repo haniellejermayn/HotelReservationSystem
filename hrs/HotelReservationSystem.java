@@ -39,6 +39,7 @@ public class HotelReservationSystem {
 
             if(!validateHotelName(hotelName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
+                System.out.printf("-------------------------------------\n");
             }
         } while (!validateHotelName(hotelName) && !hotelName.equals("0"));
         
@@ -127,6 +128,7 @@ public class HotelReservationSystem {
         
         if(this.hotels.isEmpty()) { 
             System.out.printf("No hotels in list.\n");
+            System.out.printf("-------------------------------------\n");
         }
         else {
             System.out.printf("Hotels\n");
@@ -137,8 +139,9 @@ public class HotelReservationSystem {
             hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
             hotel = this.hotels.get(hotelOption - 1);
             
+            System.out.printf("-------------------------------------\n");
+            
             do { 
-                System.out.printf("-------------------------------------\n");
                 System.out.printf("Menu\n");
                 System.out.printf("[1] Change Name\n");
                 System.out.printf("[2] Add Room\n");
@@ -149,8 +152,6 @@ public class HotelReservationSystem {
                 System.out.printf("[0] Go Back\n");
 
                 menuOption = promptOption(0, 6, "Option");
-
-                System.out.printf("-------------------------------------\n");
 
                 switch (menuOption) {
                     case 1: 
@@ -194,7 +195,10 @@ public class HotelReservationSystem {
 
 
         if(this.hotels.isEmpty()) {
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
             System.out.printf("No hotels to book.\n");
+            System.out.printf("-------------------------------------\n");
         }
         else {
             System.out.printf("Hotels\n");
@@ -215,6 +219,8 @@ public class HotelReservationSystem {
     
                 roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
     
+                System.out.printf("-------------------------------------\n");
+
                 if(roomIndex == -1) {
                     System.out.printf("No rooms available given check-in and check-out dates.\n");
                 }
@@ -293,6 +299,7 @@ public class HotelReservationSystem {
         float price;
         
         do { 
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Enter New Price: ");
             price = sc.nextFloat();
 
@@ -460,6 +467,7 @@ public class HotelReservationSystem {
         String newName;
 
         do { 
+            System.out.printf("-------------------------------------\n");
             System.out.printf("*Enter 0 to cancel*\n");
             System.out.printf("-------------------------------------\n");
             System.out.printf("Enter new Hotel Name: ");
@@ -471,7 +479,7 @@ public class HotelReservationSystem {
             else if(!validateHotelName(newName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (hotel.getHotelName() == newName && !validateHotelName(newName) && !newName.equals("0"));
+        } while ((hotel.getHotelName() == newName || !validateHotelName(newName)) && !newName.equals("0"));
 
         if (!newName.equals("0")) {
             if (confirmMod() == 1) {
@@ -499,13 +507,16 @@ public class HotelReservationSystem {
             if (confirmMod() == 1) {
                 hotel.addRoom();
                 System.out.printf("New room has been added!\n");
+                System.out.printf("-------------------------------------\n");
             }
             else {
                 System.out.printf("No new room added.\n");
+                System.out.printf("-------------------------------------\n");
             }
         } 
         else {
             System.out.printf("Maximum room capacity already reached.\n");
+            System.out.printf("-------------------------------------\n");
         }     
     }
 
@@ -521,9 +532,12 @@ public class HotelReservationSystem {
         boolean booked = false;
 
         if(hotel.countRooms() == 1) {
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Error: can't delete the only room in the hotel.\n");
+            System.out.printf("-------------------------------------\n");
         }
         else {
+            System.out.printf("-------------------------------------\n");
             System.out.printf("*Enter 0 to cancel*\n");
             System.out.printf("-------------------------------------\n");
             
@@ -555,6 +569,7 @@ public class HotelReservationSystem {
                     }
                 }
                 else {
+                    System.out.printf("-------------------------------------\n");
                     System.out.printf("Room is currently booked.\n");
                 }
             }
@@ -586,6 +601,7 @@ public class HotelReservationSystem {
             }
         }
         else {
+            System.out.printf("-------------------------------------\n");
             System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
         }
         
@@ -601,13 +617,14 @@ public class HotelReservationSystem {
         int option;
 
         if (hotel.countReservations() != 0) {   
+            System.out.printf("-------------------------------------\n");
             System.out.printf("*Enter 0 to cancel*\n");
             System.out.printf("-------------------------------------\n");
             
             System.out.printf("Reservations\n");
 
             for(int i = 0; i < hotel.countReservations(); i++) {
-                System.out.printf("[02d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
+                System.out.printf("[%02d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), 
                         hotel.fetchReservation(i).getCheckInDate(), hotel.fetchReservation(i).getCheckOutDate());
             }
 
@@ -627,6 +644,7 @@ public class HotelReservationSystem {
             }
         }
         else {
+            System.out.printf("-------------------------------------\n");
             System.out.printf("There are currently no reservations in the hotel.\n");
         }
 
