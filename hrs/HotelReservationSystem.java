@@ -19,22 +19,27 @@ public class HotelReservationSystem {
         String hotelName;
         int roomAmt;
 
-        //Edit: Should we add an exit signal for all input?
         do { 
+            System.out.printf("Press 0 to exit\n");
             System.out.printf("Enter Hotel Name: ");
             hotelName = sc.nextLine();
 
-            if(!validateHotelName(hotelName)) {
+            if(!validateHotelName(hotelName) && hotelName != "0") {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (!validateHotelName(hotelName));
+        } while (!validateHotelName(hotelName) && hotelName != "0");
         
-        roomAmt = promptOption(1, 50, "No. of Rooms");
-
-        //add hotel to list
-        this.hotels.add(new Hotel(hotelName, roomAmt));
-
-        System.out.printf("%s added!\n", hotelName);
+        if (hotelName != "0") {
+            roomAmt = promptOption(1, 50, "No. of Rooms");
+    
+            //add hotel to list
+            this.hotels.add(new Hotel(hotelName, roomAmt));
+    
+            System.out.printf("%s added!\n", hotelName);
+        }
+        else {
+            System.out.printf("\nCancelling...\n");
+        }
 
         System.out.printf("-------------------------------------\n");
     }
@@ -170,25 +175,31 @@ public class HotelReservationSystem {
                 System.out.printf("[%02d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
 
-            hotelOption = promptOption(1, this.hotels.size(), "Hotel No.");
-            hotel = this.hotels.get(hotelOption - 1);
-            
-            System.out.printf("-------------------------------------\n");
+            hotelOption = promptOption(0, this.hotels.size(), "Hotel No.");
 
-            guestName = promptGuestName();
-            checkInDate = promptOption(1, 30, "Check-in Date");
-            checkOutDate = promptOption(checkInDate + 1, 31, "Check-out Date");
-
-            roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
-
-            if(roomIndex == -1) {
-                System.out.printf("No rooms available given check-in and check-out dates.\n");
+            if (hotelOption != 0) {
+                hotel = this.hotels.get(hotelOption - 1);
+                
+                System.out.printf("-------------------------------------\n");
+    
+                guestName = promptGuestName();
+                checkInDate = promptOption(1, 30, "Check-in Date");
+                checkOutDate = promptOption(checkInDate + 1, 31, "Check-out Date");
+    
+                roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
+    
+                if(roomIndex == -1) {
+                    System.out.printf("No rooms available given check-in and check-out dates.\n");
+                }
+                else {
+                    room = hotel.fetchRoom(roomIndex);
+                    hotel.addReservation(guestName, checkInDate, checkOutDate, room);
+    
+                    System.out.printf("Reservation saved!\n");
+                }
             }
             else {
-                room = hotel.fetchRoom(roomIndex);
-                hotel.addReservation(guestName, checkInDate, checkOutDate, room);
-
-                System.out.printf("Reservation saved!\n");
+                System.out.printf("\nCancelling...\n");
             }
 
             System.out.printf("-------------------------------------\n");
@@ -214,6 +225,9 @@ public class HotelReservationSystem {
         int option;
         
         do { 
+            if (start == 0)
+                System.out.printf("Press 0 to cancel\n");
+
             System.out.printf("Enter %s: ", str);
             option = sc.nextInt();
 
@@ -305,6 +319,7 @@ public class HotelReservationSystem {
         }
 
         option = promptOption(1, hotel.countRooms(), "Room No.");
+
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
@@ -330,6 +345,7 @@ public class HotelReservationSystem {
         }
 
         System.out.printf("\n");
+
         System.out.printf("-------------------------------------\n");
     }
 
@@ -349,6 +365,7 @@ public class HotelReservationSystem {
             }
 
             option = promptOption(1, hotel.countReservations(), "Reservation No.");
+
             reservation = hotel.fetchReservation(option - 1);
 
             System.out.printf("-------------------------------------\n");
@@ -359,33 +376,42 @@ public class HotelReservationSystem {
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
             System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
             System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
+            
         }
 
         System.out.printf("-------------------------------------\n");
     }
 
-    //Edit: should we add a cancel option
     private void changeHotelName(Hotel hotel) {
         Scanner sc = new Scanner(System.in);
         String newName;
 
         do { 
+            System.out.printf("Press 0 to cancel\n");
             System.out.printf("Enter new Hotel Name: ");
             newName = sc.nextLine();
 
-            //Edit: consider if same as original name is entered (currently an error)
-            if(!validateHotelName(newName)) {
+            if (hotel.getHotelName() == newName) {
+                System.out.printf("Error: Hotel name is the same as its current name\n");
+            }
+            else if(!validateHotelName(newName) && newName != "0") {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (!validateHotelName(newName));
+        } while (hotel.getHotelName() == newName && !validateHotelName(newName) && newName != "0");
 
-        if (confirmMod() == 1) {
-            hotel.setHotelName(newName);
-            System.out.printf("Hotel name has been changed to \"%s\"\n", newName);
+        if (newName != "0") {
+            if (confirmMod() == 1) {
+                hotel.setHotelName(newName);
+                System.out.printf("Hotel name has been changed to \"%s\"\n", newName);
+            }
+            else {
+                System.out.printf("Hotel name remained as \"%s\"\n", hotel.getHotelName());
+            }
         }
         else {
-            System.out.printf("Hotel name remained as \"%s\"\n", hotel.getHotelName());
+            System.out.printf("\nCancelling...\n");
         }
+        System.out.printf("-------------------------------------\n");
     }
 
     private void addRoom(Hotel hotel) {
@@ -414,29 +440,36 @@ public class HotelReservationSystem {
                 System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
             }
             
-            option = promptOption(1, hotel.countRooms(), "Room No.");
-            room = hotel.fetchRoom(option - 1);
-            roomAvailability = hotel.checkRoomAvailability(room);
+            option = promptOption(0, hotel.countRooms(), "Room No.");
 
-            for(int i = 0; i < 30; i++) {
-                if(roomAvailability[i] == 1) {
-                    booked = true;
+            if (option != 0) {
+                room = hotel.fetchRoom(option - 1);
+                roomAvailability = hotel.checkRoomAvailability(room);
+    
+                for(int i = 0; i < 30; i++) {
+                    if(roomAvailability[i] == 1) {
+                        booked = true;
+                    }
                 }
-            }
-            
-            if (!booked) { // room has no reservation
-                if (confirmMod() == 1) {
-                    hotel.removeRoom(option - 1);
-                    System.out.printf("Room has been removed\n");
-                } 
+                
+                if (!booked) { // room has no reservation
+                    if (confirmMod() == 1) {
+                        hotel.removeRoom(option - 1);
+                        System.out.printf("Room has been removed\n");
+                    } 
+                    else {
+                        System.out.printf("Room has been retained\n");
+                    }
+                }
                 else {
-                    System.out.printf("Room has been retained\n");
+                    System.out.printf("Room is currently booked.\n");
                 }
             }
             else {
-                System.out.printf("Room is currently booked.\n");
+                System.out.printf("\nCancelling...\n");
             }
         }
+        System.out.printf("-------------------------------------\n");
     }
 
     private void updateBasePrice(Hotel hotel) {
@@ -451,6 +484,8 @@ public class HotelReservationSystem {
         else {
             System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
         }
+        
+        System.out.printf("-------------------------------------\n");
     }
 
     private void removeReservation(Hotel hotel) {
@@ -465,19 +500,26 @@ public class HotelReservationSystem {
                         hotel.fetchReservation(i).getCheckInDate(), hotel.fetchReservation(i).getCheckOutDate());
             }
 
-            option = promptOption(1, hotel.countReservations(), "Reservation No.");
+            option = promptOption(0, hotel.countReservations(), "Reservation No.");
 
-            if (confirmMod() == 1) {
-                hotel.removeReservation(option - 1);
-                System.out.printf("Reservation has been removed.\n");
+            if (option != 0) {
+                if (confirmMod() == 1) {
+                    hotel.removeReservation(option - 1);
+                    System.out.printf("Reservation has been removed.\n");
+                }
+                else {
+                    System.out.printf("Reservation has been retained.\n");
+                }
             }
             else {
-                System.out.printf("Reservation has been retained.\n");
+                System.out.printf("\nCancelling...\n");
             }
         }
         else {
             System.out.printf("There are currently no reservations in the hotel.\n");
         }
+
+        System.out.printf("-------------------------------------\n");
     }
 
     private int removeHotel(int index) {
