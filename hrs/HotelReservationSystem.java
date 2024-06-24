@@ -32,16 +32,17 @@ public class HotelReservationSystem {
         int roomAmt;
 
         do { 
-            System.out.printf("Press 0 to cancel\n");
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Enter Hotel Name: ");
             hotelName = sc.nextLine();
 
-            if(!validateHotelName(hotelName) && hotelName != "0") {
+            if(!validateHotelName(hotelName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (!validateHotelName(hotelName) && hotelName != "0");
+        } while (!validateHotelName(hotelName) && !hotelName.equals("0"));
         
-        if (hotelName != "0") {
+        if (!hotelName.equals("0")) {
             roomAmt = promptOption(1, 50, "No. of Rooms");
     
             //add hotel to list
@@ -50,7 +51,7 @@ public class HotelReservationSystem {
             System.out.printf("%s added!\n", hotelName);
         }
         else {
-            System.out.printf("\nCancelling...\n");
+            System.out.printf("\nCanceling...\n");
         }
 
         System.out.printf("-------------------------------------\n");
@@ -67,11 +68,12 @@ public class HotelReservationSystem {
 
         if(this.hotels.isEmpty()) { 
             System.out.printf("No hotels in list.\n");
+            System.out.printf("-------------------------------------\n");
         }
         else {
             System.out.printf("Hotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
-                System.out.printf("[%d] %s\n", i + 1, this.hotels.get(i).getHotelName());
+                System.out.printf("[%02d] %s\n", i + 1, this.hotels.get(i).getHotelName());
             }
             
             option = promptOption(1, this.hotels.size(), "Hotel No.");
@@ -224,7 +226,7 @@ public class HotelReservationSystem {
                 }
             }
             else {
-                System.out.printf("\nCancelling...\n");
+                System.out.printf("\nCanceling...\n");
             }
 
             System.out.printf("-------------------------------------\n");
@@ -264,9 +266,6 @@ public class HotelReservationSystem {
         int option;
         
         do { 
-            if (start == 0)
-                System.out.printf("Press 0 to cancel\n");
-
             System.out.printf("Enter %s: ", str);
             option = sc.nextInt();
 
@@ -298,7 +297,7 @@ public class HotelReservationSystem {
             price = sc.nextFloat();
 
             if(price < 100.0f) {
-                System.out.printf("Error: Price should be >= 100.0");
+                System.out.printf("Error: Price should be >= 100.0\n");
             }
         } while (price < 100.0f);
 
@@ -461,19 +460,20 @@ public class HotelReservationSystem {
         String newName;
 
         do { 
-            System.out.printf("Press 0 to cancel\n");
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Enter new Hotel Name: ");
             newName = sc.nextLine();
 
             if (hotel.getHotelName() == newName) {
                 System.out.printf("Error: Hotel name is the same as its current name\n");
             }
-            else if(!validateHotelName(newName) && newName != "0") {
+            else if(!validateHotelName(newName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (hotel.getHotelName() == newName && !validateHotelName(newName) && newName != "0");
+        } while (hotel.getHotelName() == newName && !validateHotelName(newName) && !newName.equals("0"));
 
-        if (newName != "0") {
+        if (!newName.equals("0")) {
             if (confirmMod() == 1) {
                 hotel.setHotelName(newName);
                 System.out.printf("Hotel name has been changed to \"%s\"\n", newName);
@@ -483,7 +483,7 @@ public class HotelReservationSystem {
             }
         }
         else {
-            System.out.printf("\nCancelling...\n");
+            System.out.printf("\nCanceling...\n");
         }
         System.out.printf("-------------------------------------\n");
     }
@@ -518,6 +518,9 @@ public class HotelReservationSystem {
             System.out.printf("Error: can't delete the only room in the hotel.\n");
         }
         else {
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
+            
             System.out.printf("Rooms\n");
 
             for(int i = 0; i < hotel.countRooms(); i++) {
@@ -550,7 +553,7 @@ public class HotelReservationSystem {
                 }
             }
             else {
-                System.out.printf("\nCancelling...\n");
+                System.out.printf("\nCanceling...\n");
             }
         }
         System.out.printf("-------------------------------------\n");
@@ -567,8 +570,14 @@ public class HotelReservationSystem {
 
         if (hotel.countReservations() == 0) {
             newPrice = promptPrice();
-            hotel.updateRoomPrice(newPrice);
-            System.out.printf("Base Price updated!\n");
+
+            if(confirmMod() == 1) {
+                hotel.updateRoomPrice(newPrice);
+                System.out.printf("Base Price updated!\n");
+            }
+            else {
+                System.out.printf("Base Price retained.\n");
+            }
         }
         else {
             System.out.printf("There are currently reservations in the hotel. Base price cannot be changed.\n");
@@ -586,6 +595,8 @@ public class HotelReservationSystem {
         int option;
 
         if (hotel.countReservations() != 0) {   
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
             
             System.out.printf("Reservations\n");
 
@@ -606,7 +617,7 @@ public class HotelReservationSystem {
                 }
             }
             else {
-                System.out.printf("\nCancelling...\n");
+                System.out.printf("\nCanceling...\n");
             }
         }
         else {
