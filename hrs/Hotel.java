@@ -2,6 +2,9 @@ package hrs;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a hotel with a name, list of rooms, and list of reservations.
+ */
 public class Hotel {
     private String hotelName;
     private ArrayList<Room> rooms;
@@ -9,6 +12,12 @@ public class Hotel {
 
     // -- Constructor -- //
 
+    /**
+     * Constructs a new Hotel with the specified name and number of rooms.
+     * 
+     * @param hotelName the name of the hotel
+     * @param roomAmt the number of rooms to initialize
+     */
     public Hotel(String hotelName, int roomAmt) {
         this.hotelName = hotelName;
         this.rooms = new ArrayList<Room>();
@@ -18,6 +27,11 @@ public class Hotel {
     
     // -- Public Methods -- //
 
+    /**
+     * Computes the total earnings from all reservations.
+     * 
+     * @return the total earnings
+     */
     public float computeEarnings() {
         float total = 0;
 
@@ -28,14 +42,31 @@ public class Hotel {
         return total;
     }
 
+    /**
+     * Fetches a reservation by its index.
+     * 
+     * @param index the index of the reservation
+     * @return the reservation at the specified index
+     */
     public Reservation fetchReservation(int index) {
         return this.reservations.get(index);
     }
 
+    /**
+     * Fetches a room by its index.
+     * 
+     * @param index the index of the room
+     * @return the room at the specified index
+     */
     public Room fetchRoom(int index) {
         return this.rooms.get(index);
     }
 
+    /**
+     * Counts the total number of reservations.
+     * 
+     * @return the number of reservations
+     */
     public int countReservations() {
         return this.reservations.size();
     }
