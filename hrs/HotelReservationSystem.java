@@ -489,18 +489,23 @@ public class HotelReservationSystem {
     }
 
     /**
-     * Adds a new room to the given hotel,
+     * Adds a new room to the given hotel.
      * 
      * @param hotel the hotel to add a new room
      */
     private void addRoom(Hotel hotel) {
-        if (confirmMod() == 1) {
-            hotel.addRoom();
-            System.out.printf("New room has been added!\n");
-        }
+        if (hotel.countRooms() < 50) {
+            if (confirmMod() == 1) {
+                hotel.addRoom();
+                System.out.printf("New room has been added!\n");
+            }
+            else {
+                System.out.printf("No new room added.\n");
+            }
+        } 
         else {
-            System.out.printf("No new room has been added.\n");
-        }
+            System.out.printf("Maximum room capacity already reached.\n");
+        }     
     }
 
     /**

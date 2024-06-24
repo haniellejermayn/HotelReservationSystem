@@ -119,12 +119,8 @@ public class Hotel {
     }
 
     public void addRoom() {
-        if (this.rooms.size() < 50) {
-            this.rooms.add(new Room(hotelName));
-            this.reinitializeRooms(this.rooms.get(0).getBasePrice());
-        } 
-        else 
-            System.out.printf("Maximum room capacity has been reached\n");
+        this.rooms.add(new Room(hotelName));
+        this.reinitializeRooms(this.rooms.get(0).getBasePrice());
     }
 
     public void removeRoom(int index) {
