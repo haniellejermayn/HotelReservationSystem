@@ -139,7 +139,7 @@ public class HotelReservationSystem {
             
             do { 
                 System.out.printf("-------------------------------------\n");
-                System.out.printf("Menu\n");
+                System.out.printf("Manage \"%s\"\n", hotel.getHotelName());
                 System.out.printf("[1] Change Name\n");
                 System.out.printf("[2] Add Room\n");
                 System.out.printf("[3] Remove Room\n");
@@ -465,13 +465,13 @@ public class HotelReservationSystem {
             System.out.printf("Enter new Hotel Name: ");
             newName = sc.nextLine();
 
-            if (hotel.getHotelName() == newName) {
+            if (hotel.getHotelName().equals(newName)) {
                 System.out.printf("Error: Hotel name is the same as its current name\n");
             }
             else if(!validateHotelName(newName)) {
                 System.out.printf("Error: Hotel name already taken.\n");
             }
-        } while (hotel.getHotelName() == newName && !validateHotelName(newName) && !newName.equals("0"));
+        } while ((hotel.getHotelName().equals(newName) || !validateHotelName(newName)) && !newName.equals("0"));
 
         if (!newName.equals("0")) {
             if (confirmMod() == 1) {
