@@ -660,13 +660,13 @@ public class HotelReservationSystem {
      */
     private int removeHotel(int index) {
         if (confirmMod() == 1) {
-            this.hotels.remove(index);
-            System.out.printf("Hotel no. %d has been removed.\n", index + 1);
+            System.out.printf("\"%s\" has been removed.\n", this.hotels.get(index).getHotelName());
             System.out.printf("-------------------------------------\n");
+            this.hotels.remove(index);
             return 0;
         }
         else {
-            System.out.printf("Hotel no. %d has been retained.\n", index + 1);
+            System.out.printf("\"%s\" was retained.\n", index + 1);
             System.out.printf("-------------------------------------\n");
             return 1;
         }
