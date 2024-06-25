@@ -398,7 +398,7 @@ public class HotelReservationSystem {
         System.out.printf("\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
         System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
-        System.out.printf("Available Dates:\n");
+        System.out.printf("Available Dates for Check-in:\n");
 
         for(int i = 0; i < 30; i++) {
             if(roomAvailability[i] == 0) {
@@ -412,7 +412,7 @@ public class HotelReservationSystem {
         }
 
         if(dayCounter == 0) {
-            System.out.printf("No available dates.");
+            System.out.printf("No available dates for check-in.");
         }
 
         System.out.printf("\n");
