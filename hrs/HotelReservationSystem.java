@@ -659,6 +659,11 @@ public class HotelReservationSystem {
      * @return 0 if the hotel is removed, 1 if the hotel is retained
      */
     private int removeHotel(int index) {
+        if(this.hotels.get(index).countReservations() > 0) {
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("Warning: There is/are active reservation/s in this hotel!\n");
+        }
+        
         if (confirmMod() == 1) {
             System.out.printf("\"%s\" has been removed.\n", this.hotels.get(index).getHotelName());
             System.out.printf("-------------------------------------\n");
