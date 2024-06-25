@@ -563,10 +563,10 @@ public class HotelReservationSystem {
                 if (!booked) { // room has no reservation
                     if (confirmMod() == 1) {
                         hotel.removeRoom(option - 1);
-                        System.out.printf("Room has been removed\n");
+                        System.out.printf("Room has been removed.\n");
                     } 
                     else {
-                        System.out.printf("Room has been retained\n");
+                        System.out.printf("Room was retained.\n");
                     }
                 }
                 else {
