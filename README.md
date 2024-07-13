@@ -1,2 +1,2 @@
 # HotelReservationSystem
- MCO1 Requirement for CCPROG3
+ MCO1 and MCO2 Requirement for CCPROG3
