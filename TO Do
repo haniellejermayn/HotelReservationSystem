@@ -20,14 +20,14 @@ X Change naming convention to 1A 1B 1C...
 X Discount Code for Reservations 
     X Show discount and final price on room information
 
-- Multiple Types of Rooms (Need to Test!)
+- Multiple Types of Rooms (Need to Test Thoroughly)
     X Ask for number of rooms per type when creating hotel
         X Fix Initialize Rooms
     X Ask for type when adding a room
         X Fix Reinitialize Rooms
     X Update BasePrice
-    - Ask for type when booking a room
-        - Check if there is available room based on type
-            - modify checkDateAvailability() and use instanceof
+    X Ask for type when booking a room
+        X Check if there is available room based on type
+            -Xmodify checkDateAvailability() and use instanceof
 
 - Date Price Modifier
