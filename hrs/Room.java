@@ -4,8 +4,8 @@ package hrs;
  * Represents a hotel room with a name and base price.
  */
 public class Room {
-    private String roomName;
-    private float basePrice;
+    protected String roomName;
+    protected float roomPrice;
 
     // -- Constructors -- //
 
@@ -14,9 +14,9 @@ public class Room {
      *
      * @param roomName the name of the room
      */
-    public Room(String roomName) {
+    public Room(String roomName, float basePrice) {
         this.roomName = roomName; 
-        this.basePrice = 1299.0f;
+        this.roomPrice = basePrice;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Room {
      */
     public Room(float basePrice) {
         this.roomName = "TemporaryName"; 
-        this.basePrice = basePrice;
+        this.roomPrice = basePrice;
     }
 
     // -- Getters & Setters -- //
@@ -45,8 +45,8 @@ public class Room {
      *
      * @return the base price
      */
-    public float getBasePrice() {
-        return this.basePrice;
+    public float getRoomPrice() {
+        return this.roomPrice;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Room {
      *
      * @param newPrice the new base price of the room
      */
-    public void setBasePrice(float newPrice) {
-        this.basePrice = newPrice;
+    public void setRoomPrice(float newPrice) {
+        this.roomPrice = newPrice;
     }
 }
