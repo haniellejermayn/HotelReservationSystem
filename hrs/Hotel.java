@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Hotel {
     private String hotelName;
-    protected float basePrice;
+    private float basePrice;
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
 

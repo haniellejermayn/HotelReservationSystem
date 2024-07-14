@@ -3,7 +3,7 @@ package hrs;
 public class IWorkHere extends DiscountCode {
 
     public IWorkHere() {
-        this.code = DiscountCode.CODE_LIST.get(0);
+        this.setCode(DiscountCode.CODE_LIST.get(0));
     }
 
     @Override

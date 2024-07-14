@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class DiscountCode {
-    protected String code;
+    private String code;
     
     public static final List<String> CODE_LIST;
 
@@ -23,5 +23,9 @@ public abstract class DiscountCode {
 
     public String getCode() {
         return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
