@@ -182,19 +182,19 @@ public class Hotel {
                 (type == Room.TYPE_EXECUTIVE && this.rooms.get(i) instanceof ExecutiveRoom) ||
                 (type == Room.TYPE_STANDARD && !(this.rooms.get(i) instanceof DeluxeRoom) && !(this.rooms.get(i) instanceof ExecutiveRoom))) {
 
-                    availableDays = this.checkRoomAvailability(this.rooms.get(i));
-                    isAvailable = true;
+                availableDays = this.checkRoomAvailability(this.rooms.get(i));
+                isAvailable = true;
 
-                    //end - 1 is the check-out date (not counted as booked)
-                    for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
-                        if(availableDays[j] == 1) {
-                            isAvailable = false;
-                        }
+                //end - 1 is the check-out date (not counted as booked)
+                for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
+                    if(availableDays[j] == 1) {
+                        isAvailable = false;
                     }
+                }
 
-                    if(isAvailable) {
-                        roomIndex = i;
-                    }
+                if(isAvailable) {
+                    roomIndex = i;
+                }
             } 
         }
 
