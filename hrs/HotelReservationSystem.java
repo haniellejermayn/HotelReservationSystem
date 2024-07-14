@@ -792,32 +792,34 @@ public class HotelReservationSystem {
             System.out.printf("Enter Discount Code: ");
             code = sc.next();
 
-            if(!(DiscountCode.CODE_LIST.contains(code)) && !code.equals("0")) {
-                System.out.printf("Error: Discount code does not exist.\n");
+            if(code.equals("0")) {
+                discountCode = null;
             }
-            else if(!code.equals("0")){ // Check if applicable given the reservation made
-                if(code.equals(DiscountCode.CODE_LIST.get(0))) {
-                    discountCode = new IWorkHere();
-                    applicable = discountCode.checkApplicability(hotel.fetchReservation(hotel.countReservations() - 1));
+            else {
+                if(!(DiscountCode.CODE_LIST.contains(code))) {
+                    System.out.printf("Error: Discount code does not exist.\n");
                 }
-                else if(code.equals(DiscountCode.CODE_LIST.get(1))) {
-                    discountCode = new Stay4Get1();
-                    applicable = discountCode.checkApplicability(hotel.fetchReservation(hotel.countReservations() - 1));
-                }
-                else if (code.equals(DiscountCode.CODE_LIST.get(2))) {
-                    discountCode = new Payday();
-                    applicable = discountCode.checkApplicability(hotel.fetchReservation(hotel.countReservations() - 1));
-                }
-
-                if(!applicable) {
-                    System.out.printf("Error: Discount code is not applicable.\n");
+                else { // Check if applicable given the reservation made
+                    if(code.equals(DiscountCode.CODE_LIST.get(0))) {
+                        discountCode = new IWorkHere();
+                    }
+                    else if(code.equals(DiscountCode.CODE_LIST.get(1))) {
+                        discountCode = new Stay4Get1();
+                    }
+                    else if (code.equals(DiscountCode.CODE_LIST.get(2))) {
+                        discountCode = new Payday();
+                    }
+    
+                    if(discountCode != null && discountCode.checkApplicability(hotel.fetchReservation(hotel.countReservations() - 1))) {
+                        applicable = true;
+                    }
+                    else {
+                        System.out.printf("Error: Discount code is not applicable.\n");
+                        discountCode = null;  // reset discountCode if not applicable
+                    }
                 }
             }
-        } while (((!(DiscountCode.CODE_LIST.contains(code))) || !applicable) && !code.equals("0"));
-
-        if(code == "0") {
-            discountCode = null;
-        }
+        } while(!code.equals("0") && !(applicable && discountCode != null));
 
         return discountCode;
     }
