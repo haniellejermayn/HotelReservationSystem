@@ -74,12 +74,36 @@ public class Hotel {
     }
 
     /**
-     * Count the total number of rooms.
+     * Counts the number of rooms per type. Also counts the total rooms.
      * 
-     * @return the number of rooms.
+     * @param type the type of room (0 - total, 1 - standard, 2 - deluxe, 3 - executive)
+     * @return the number of rooms given selected type.
      */
-    public int countRooms() {
-        return this.rooms.size();
+    public int countRooms(int type) {
+        int result = 0;
+        
+        if(type == 0) {
+            return this.rooms.size();
+        }
+        else if(type == 1) {
+            result = this.countRooms(0) - this.countRooms(2) - this.countRooms(3);
+        }
+        else if(type == 2) {
+            for(int i = 0; i < this.rooms.size(); i++) {
+                if(this.rooms.get(i) instanceof DeluxeRoom) {
+                    result += 1;
+                }
+            }
+        }
+        else if(type == 3) {
+            for(int i = 0; i < this.rooms.size(); i++) {
+                if(this.rooms.get(i) instanceof ExecutiveRoom) {
+                    result += 1;
+                }
+            }
+        }
+        
+        return result;
     }
 
     /**
@@ -148,25 +172,30 @@ public class Hotel {
      * @param end the end date
      * @return the index of an available room, or -1 if none are available
      */
-    public int checkDateAvailability(int start, int end) {
+    public int checkDateAvailability(int start, int end, int type) {
         int[] availableDays;
         int roomIndex = -1;
         boolean isAvailable;
 
         for(int i = 0; i < this.rooms.size() && roomIndex == -1; i++) {
-            availableDays = this.checkRoomAvailability(this.rooms.get(i));
-            isAvailable = true;
+            if ((type == Room.TYPE_DELUXE && this.rooms.get(i) instanceof DeluxeRoom) ||
+                (type == Room.TYPE_EXECUTIVE && this.rooms.get(i) instanceof ExecutiveRoom) ||
+                (type == Room.TYPE_STANDARD && !(this.rooms.get(i) instanceof DeluxeRoom) && !(this.rooms.get(i) instanceof ExecutiveRoom))) {
 
-            //end - 1 is the check-out date (not counted as booked)
-            for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
-                if(availableDays[j] == 1) {
-                    isAvailable = false;
-                }
-            }
+                    availableDays = this.checkRoomAvailability(this.rooms.get(i));
+                    isAvailable = true;
 
-            if(isAvailable) {
-                roomIndex = i;
-            }
+                    //end - 1 is the check-out date (not counted as booked)
+                    for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
+                        if(availableDays[j] == 1) {
+                            isAvailable = false;
+                        }
+                    }
+
+                    if(isAvailable) {
+                        roomIndex = i;
+                    }
+            } 
         }
 
         return roomIndex;

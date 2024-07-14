@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class DiscountCode {
     protected String code;
+    
     public static final List<String> CODE_LIST;
 
     // Static block to initialize code list

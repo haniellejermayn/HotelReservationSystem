@@ -93,7 +93,7 @@ public class HotelReservationSystem {
                 System.out.printf("-------------------------------------\n");
                 System.out.printf("\"%s\"\n", hotel.getHotelName());
                 System.out.printf("Name: %s\n", hotel.getHotelName());
-                System.out.printf("No. of Rooms: %d\n", hotel.countRooms());
+                System.out.printf("No. of Rooms: %d\n", hotel.countRooms(0));
                 System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
                 System.out.printf("-------------------------------------\n");
                 System.out.printf("Menu\n");
@@ -198,9 +198,10 @@ public class HotelReservationSystem {
         int hotelOption;
         Hotel hotel;
         int roomIndex;
-
+        
         String guestName;
         int checkInDate, checkOutDate;
+        int roomType;
         Room room;
         DiscountCode discountCode;
 
@@ -227,13 +228,30 @@ public class HotelReservationSystem {
                 guestName = promptGuestName();
                 checkInDate = promptOption(1, 30, "Check-in Date");
                 checkOutDate = promptOption(checkInDate + 1, 31, "Check-out Date");
-    
-                roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate);
+
+                System.out.printf("\nSelect Room Type\n");
+                System.out.printf("[1] Standard\n");
+                System.out.printf("[2] Deluxe\n");
+                System.out.printf("[3] Executive\n");
+
+                do { 
+                    roomType = promptOption(0, 3, "Option");
+
+                    if(hotel.countRooms(roomType) == 0) {
+                        System.out.printf("There are no rooms of this type in this hotel.\n\n");
+                    }
+                } while (hotel.countRooms(roomType) == 0);
+
+                roomIndex = hotel.checkDateAvailability(checkInDate, checkOutDate, roomType);
     
                 System.out.printf("-------------------------------------\n");
 
                 if(roomIndex == -1) {
-                    System.out.printf("No rooms available given check-in and check-out dates.\n");
+                    switch (roomType) {
+                        case 1: System.out.printf("No Standard room available given the check-in and check-out dates.\n"); break;
+                        case 2: System.out.printf("No Deluxe room available given the check-in and check-out dates.\n"); break;
+                        case 3: System.out.printf("No Executive room available given the check-in and check-out dates.\n"); break;
+                    }
                 }
                 else {
                     room = hotel.fetchRoom(roomIndex);
@@ -416,11 +434,11 @@ public class HotelReservationSystem {
 
         System.out.printf("Rooms\n");
 
-        for(int i = 0; i < hotel.countRooms(); i++) {
+        for(int i = 0; i < hotel.countRooms(0); i++) {
             System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
         }
 
-        option = promptOption(1, hotel.countRooms(), "Room No.");
+        option = promptOption(1, hotel.countRooms(0), "Room No.");
 
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
@@ -571,7 +589,7 @@ public class HotelReservationSystem {
         String typeString = "";
         int typeOption;
 
-        if (hotel.countRooms() < 50) {
+        if (hotel.countRooms(0) < 50) {
             
             System.out.printf("-------------------------------------\n");
             System.out.printf("Type of Room\n");
@@ -615,7 +633,7 @@ public class HotelReservationSystem {
         int[] roomAvailability;
         boolean booked = false;
 
-        if(hotel.countRooms() == 1) {
+        if(hotel.countRooms(0) == 1) {
             System.out.printf("-------------------------------------\n");
             System.out.printf("Error: can't delete the only room in the hotel.\n");
             System.out.printf("-------------------------------------\n");
@@ -627,11 +645,11 @@ public class HotelReservationSystem {
             
             System.out.printf("Rooms\n");
 
-            for(int i = 0; i < hotel.countRooms(); i++) {
+            for(int i = 0; i < hotel.countRooms(0); i++) {
                 System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
             }
             
-            option = promptOption(0, hotel.countRooms(), "Room No.");
+            option = promptOption(0, hotel.countRooms(0), "Room No.");
 
             if (option != 0) {
                 room = hotel.fetchRoom(option - 1);

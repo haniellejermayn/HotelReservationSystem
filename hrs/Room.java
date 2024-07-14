@@ -7,6 +7,10 @@ public class Room {
     protected String roomName;
     protected float roomPrice;
 
+    public static final int TYPE_STANDARD = 1;
+    public static final int TYPE_DELUXE = 2;
+    public static final int TYPE_EXECUTIVE = 3;
+
     // -- Constructors -- //
 
     /**
