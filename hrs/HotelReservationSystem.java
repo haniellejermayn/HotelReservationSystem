@@ -815,6 +815,10 @@ public class HotelReservationSystem {
             }
         } while (((!(DiscountCode.CODE_LIST.contains(code))) || !applicable) && !code.equals("0"));
 
+        if(code == "0") {
+            discountCode = null;
+        }
+
         return discountCode;
     }
 }
