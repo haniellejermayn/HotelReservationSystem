@@ -83,7 +83,7 @@ public class Hotel {
         int result = 0;
         
         if(type == 0) {
-            return this.rooms.size();
+            result = this.rooms.size();
         }
         else if(type == 1) {
             result = this.countRooms(0) - this.countRooms(2) - this.countRooms(3);
