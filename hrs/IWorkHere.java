@@ -1,0 +1,19 @@
+package hrs;
+
+public class IWorkHere extends DiscountCode {
+
+    public IWorkHere() {
+        this.code = DiscountCode.CODE_LIST.get(0);
+    }
+
+    @Override
+    public boolean checkApplicability(Reservation reservation) {
+        return true;
+    }
+
+    @Override
+    public float computeDiscount(Reservation reservation) {
+        return reservation.computeTotalPrice() * 0.10f;
+    }
+    
+}
