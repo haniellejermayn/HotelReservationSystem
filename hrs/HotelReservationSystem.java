@@ -403,8 +403,8 @@ public class HotelReservationSystem {
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
+        // For displaying room Type
         String roomType;
-
         if(room instanceof DeluxeRoom) {
             roomType = "Deluxe";
         }
@@ -466,10 +466,22 @@ public class HotelReservationSystem {
 
             reservation = hotel.fetchReservation(option - 1);
 
+            // For displaying room type
+            String roomType;
+            if(reservation.getRoom() instanceof DeluxeRoom) {
+                roomType = "Deluxe";
+            }
+            else if(reservation.getRoom() instanceof ExecutiveRoom) {
+                roomType = "Executive";
+            }
+            else {
+                roomType = "Standard";
+            }
+
             System.out.printf("-------------------------------------\n");
             System.out.printf("\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
-            System.out.printf("Room: %s\n", reservation.getRoom().getRoomName());
+            System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), roomType);
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
             System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
