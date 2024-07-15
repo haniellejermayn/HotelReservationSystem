@@ -202,6 +202,7 @@ public class HotelReservationSystem {
         String guestName;
         int checkInDate, checkOutDate;
         Room room;
+        DiscountCode discountCode;
 
 
         if(this.hotels.isEmpty()) {
@@ -237,7 +238,28 @@ public class HotelReservationSystem {
                 else {
                     room = hotel.fetchRoom(roomIndex);
                     hotel.addReservation(guestName, checkInDate, checkOutDate, room);
-    
+
+                    System.out.printf("Do you have a discount code?\n");
+                    System.out.printf("[1] Yes\n");
+                    System.out.printf("[0] No\n");
+                    hotelOption = promptOption(0, 1, "Option");
+                    
+                    if(hotelOption == 1) {
+                        discountCode = promptDiscountCode(hotel);
+                        
+                        if(discountCode == null) {
+                            System.out.printf("\nNo discount was applied.\n");
+                        }
+                        else {
+                            System.out.printf("\n%s was applied!\n", discountCode.getCode());
+                            hotel.fetchReservation(hotel.countReservations() - 1).setDiscountCode(discountCode);
+                        }
+                    }
+                    else {
+                        System.out.printf("\nNo discount was applied.\n");
+                    }
+
+                    System.out.printf("-------------------------------------\n");
                     System.out.printf("Reservation saved!\n");
                 }
             }
@@ -486,7 +508,15 @@ public class HotelReservationSystem {
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
             System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
             System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
-            
+
+            if(reservation.getDiscountCode() != null) {
+                System.out.printf("Discount: %.2f\n", reservation.getDiscountCode().computeDiscount(reservation));
+            }
+            else {
+                System.out.printf("Discount: 0\n");
+            }
+
+            System.out.printf("Final Price: %.2f\n", reservation.computeFinalPrice());    
         }
 
         System.out.printf("-------------------------------------\n");
@@ -728,5 +758,51 @@ public class HotelReservationSystem {
             System.out.printf("-------------------------------------\n");
             return 1;
         }
+    }
+
+    // Prompts for discount code, checking if the code valid and applicable
+    private DiscountCode promptDiscountCode(Hotel hotel) {
+        Scanner sc = new Scanner(System.in);
+        String code;
+        DiscountCode discountCode = null;
+        boolean applicable = false;
+
+        do { 
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("Enter Discount Code: ");
+            code = sc.next();
+
+            if(code.equals("0")) {
+                discountCode = null;
+            }
+            else {
+                if(!(DiscountCode.CODE_LIST.contains(code))) {
+                    System.out.printf("Error: Discount code does not exist.\n");
+                }
+                else { // Check if applicable given the reservation made
+                    if(code.equals(DiscountCode.CODE_LIST.get(0))) {
+                        discountCode = new IWorkHere();
+                    }
+                    else if(code.equals(DiscountCode.CODE_LIST.get(1))) {
+                        discountCode = new Stay4Get1();
+                    }
+                    else if (code.equals(DiscountCode.CODE_LIST.get(2))) {
+                        discountCode = new Payday();
+                    }
+    
+                    if(discountCode != null && discountCode.checkApplicability(hotel.fetchReservation(hotel.countReservations() - 1))) {
+                        applicable = true;
+                    }
+                    else {
+                        System.out.printf("Error: Discount code is not applicable.\n");
+                        discountCode = null;  // reset discountCode if not applicable
+                    }
+                }
+            }
+        } while(!code.equals("0") && !(applicable && discountCode != null));
+
+        return discountCode;
     }
 }

@@ -8,6 +8,7 @@ public class Reservation {
     private int checkInDate;
     private int checkOutDate;
     private Room room;
+    private DiscountCode discountCode;
 
     // -- Constructor -- //
 
@@ -38,15 +39,29 @@ public class Reservation {
     }
 
     /**
-     * Computes the total price of the reservation.
+     * Computes the total (undiscounted) price of the reservation.
      * 
-     * @return the total price
+     * @return the total (undiscounted) price
      */
     public float computeTotalPrice() {
         return this.retrieveCostPerNight() * (this.checkOutDate - this.checkInDate);
     }
 
-    // -- Getters -- //
+    /**
+     * Computes the final (discounted if applicable) price of the reservation.
+     * 
+     * @return the final (discounted if applicable) price
+     */
+    public float computeFinalPrice() {
+        if(this.discountCode == null) {
+            return this.computeTotalPrice();
+        }
+        else {
+            return this.computeTotalPrice() - this.discountCode.computeDiscount(this);
+        }
+    }
+
+    // -- Getter && Setter Methods -- //
 
     /**
      * Gets the name of the guest.
@@ -82,5 +97,23 @@ public class Reservation {
      */
     public Room getRoom() {
         return this.room;
+    }
+
+    /**
+     * Gets the applied discount code.
+     * 
+     * @return the discount code applied
+     */
+    public DiscountCode getDiscountCode() {
+        return this.discountCode;
+    }
+
+    /**
+     * Sets the applied discount code to the reservation.
+     * 
+     * @param discountCode the applied discount code
+     */
+    public void setDiscountCode(DiscountCode discountCode) {
+        this.discountCode = discountCode;
     }
 }
