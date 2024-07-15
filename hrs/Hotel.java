@@ -10,21 +10,22 @@ public class Hotel {
     protected float basePrice;
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
+    private ArrayList<Float> datePriceModifiers;
 
     // -- Constructor -- //
 
-    /**
-     * Constructs a new Hotel with the specified name and number of rooms.
-     * 
-     * @param hotelName the name of the hotel
-     * @param roomAmt the number of rooms to initialize
-     */
     public Hotel(String hotelName, int standardAmount, int deluxeAmount, int executiveAmount) {
         this.hotelName = hotelName;
         this.basePrice = 1299.0f;
         this.rooms = new ArrayList<Room>();
         this.initializeRooms(standardAmount, deluxeAmount, executiveAmount);
         this.reservations = new ArrayList<Reservation>();
+        this.datePriceModifiers = new ArrayList<Float>();
+        
+        //initialize datePriceMultipliers all to 1.0f
+        for(int i = 0; i < 30; i++) {
+            this.datePriceModifiers.add(1.0f);
+        }
     }
     
     // -- Public Methods -- //
@@ -210,7 +211,7 @@ public class Hotel {
      * @param room the room to reserve
      */
     public void addReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
-        this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room));
+        this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room, this.datePriceModifiers));
     }
 
     /**
@@ -245,15 +246,8 @@ public class Hotel {
         this.reinitializeRooms();
     }
 
-    /**
-     * Updates the base price of all rooms.
-     * 
-     * @param newPrice the new base price
-     */
-    public void updateRoomPrice(float newPrice) {
-        for(int i = 0; i < this.rooms.size(); i++) {
-            this.rooms.get(i).setRoomPrice(newPrice);
-        }
+    public void updateDatePrice(int day, float newPrice) {
+        this.datePriceModifiers.set(day - 1, newPrice);
     }
 
     // -- Private Methods -- //
@@ -324,6 +318,10 @@ public class Hotel {
         return this.hotelName;
     }
 
+    public float getBasePrice() {
+        return this.basePrice;
+    }
+
     /**
      * Sets the name of the hotel.
      * 
@@ -331,5 +329,9 @@ public class Hotel {
      */
     public void setHotelName(String newName) {
         this.hotelName = newName;
+    }
+
+    public void setBasePrice(float newPrice) {
+        this.basePrice = newPrice;
     }
 }

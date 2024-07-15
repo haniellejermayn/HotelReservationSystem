@@ -155,8 +155,9 @@ public class HotelReservationSystem {
                 System.out.printf("[2] Add Room\n");
                 System.out.printf("[3] Remove Room\n");
                 System.out.printf("[4] Update Base Price\n");
-                System.out.printf("[5] Remove Reservation\n");
-                System.out.printf("[6] Remove Hotel\n");
+                System.out.printf("[5] Edit Date Price Modifier\n");
+                System.out.printf("[6] Remove Reservation\n");
+                System.out.printf("[7] Remove Hotel\n");
                 System.out.printf("[0] Go Back\n");
 
                 menuOption = promptOption(0, 6, "Option");
@@ -174,10 +175,10 @@ public class HotelReservationSystem {
                     case 4:
                         updateBasePrice(hotel);
                         break;
-                    case 5:
+                    case 6:
                         removeReservation(hotel);
                         break;
-                    case 6: 
+                    case 7: 
                         menuOption = removeHotel(hotelOption - 1);
                         break;
                     default:
@@ -524,7 +525,11 @@ public class HotelReservationSystem {
             System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), roomType);
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
-            System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
+
+            System.out.printf("Cost Breakdown:\n");
+            for(int i = reservation.getCheckInDate(); i < reservation.getCheckOutDate(); i++) {
+                System.out.printf("    day %d - day %d -> %.2f\n", i, i + 1, reservation.retrieveCostPerNight(i));
+            }
             System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
 
             if(reservation.getDiscountCode() != null) {
@@ -695,7 +700,7 @@ public class HotelReservationSystem {
             newPrice = promptPrice();
 
             if(confirmMod() == 1) {
-                hotel.updateRoomPrice(newPrice);
+                hotel.setBasePrice(newPrice);
                 System.out.printf("Base Price updated!\n");
             }
             else {
@@ -822,5 +827,10 @@ public class HotelReservationSystem {
         } while(!code.equals("0") && !(applicable && discountCode != null));
 
         return discountCode;
+    }
+
+    // Updates Selected Date Price Modifier
+    public void editDatePriceModifier(Hotel hotel) {
+        
     }
 }

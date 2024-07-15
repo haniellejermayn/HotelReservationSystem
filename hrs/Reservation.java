@@ -1,5 +1,7 @@
 package hrs;
 
+import java.util.ArrayList;
+
 /**
  * Represents a reservation with guest details, check-in and check-out dates, and a room.
  */
@@ -9,6 +11,7 @@ public class Reservation {
     private int checkOutDate;
     private Room room;
     private DiscountCode discountCode;
+    private ArrayList<Float> datePriceModifiers;
 
     // -- Constructor -- //
 
@@ -20,31 +23,31 @@ public class Reservation {
      * @param checkOutDate the check-out date
      * @param room the room reserved
      */
-    public Reservation(String guestName, int checkInDate, int checkOutDate, Room room) {
+    public Reservation(String guestName, int checkInDate, int checkOutDate, Room room, ArrayList<Float> datePriceModifiers) {
         this.guestName = guestName;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.room = room;
+        this.datePriceModifiers = datePriceModifiers;
     }
 
     // -- Public Methods -- //
 
-    /**
-     * Retrieves the cost per night of the reservation.
-     * 
-     * @return the cost per night
-     */
-    public float retrieveCostPerNight() {
-        return this.room.getRoomPrice();
+    // Edit: Can incorporate Discount Code here
+    // Retrieves the cost per night of the reservation.
+    public float retrieveCostPerNight(int day) {
+        return this.room.getRoomPrice() * this.datePriceModifiers.get(day - 1);
     }
 
-    /**
-     * Computes the total (undiscounted) price of the reservation.
-     * 
-     * @return the total (undiscounted) price
-     */
+    // Computes the total (undiscounted) price of the reservation.
     public float computeTotalPrice() {
-        return this.retrieveCostPerNight() * (this.checkOutDate - this.checkInDate);
+        float total = 0;
+
+        for(int i = this.checkInDate; i < this.checkOutDate; i++) {
+            total += this.retrieveCostPerNight(i);
+        }
+
+        return total;
     }
 
     /**
