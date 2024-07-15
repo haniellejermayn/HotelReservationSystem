@@ -70,9 +70,9 @@ public class MainFrame extends JFrame implements ActionListener{
         logoName.setVerticalAlignment(JLabel.CENTER);
         logoName.setBounds(15, 15, 150, 50);
         
-        customFont15 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 15);
-        customFont30 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 30);
-        customFont60 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 60);
+        customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
+        customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
+        customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
         // DEFAULT PANELS
@@ -160,7 +160,7 @@ public class MainFrame extends JFrame implements ActionListener{
 
         // ---------- Fix ---------- //
 
-        //SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel("Kelsey");
+        SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel("Kelsey");
 
 
         this.setIconImage(logo.getImage());
@@ -169,16 +169,16 @@ public class MainFrame extends JFrame implements ActionListener{
         this.add(homePanel);
         this.add(hotelsPanel);
         this.add(selectedHotel);
-        //this.add(testSelectedHotel);
+        this.add(testSelectedHotel);
         this.add(accountPanel);
         this.add(datePanel);
         this.add(reservationsPanel);
 
 
-        //homePanel.setVisible(false);
+        homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         selectedHotel.setVisible(false);
-        //testSelectedHotel.setVisible(true);
+        testSelectedHotel.setVisible(true);
 
 
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
