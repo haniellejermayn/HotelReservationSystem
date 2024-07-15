@@ -88,7 +88,6 @@ public class SelectedHotelPanel extends RoundPanel{
         managePanel.setVisible(false);
 
         titlePanel = new RoundPanel(new Color(27, 43, 80));
-        //titlePanel = new RoundPanel(Color.red);
         titlePanel.setLayout(null);
         titlePanel.setBounds(0, 0, 620, 180);
         titlePanel.add(hotelName);
@@ -101,27 +100,20 @@ public class SelectedHotelPanel extends RoundPanel{
 
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
-        //dateAvailButton.setColor(bookButton.getColorOver());
-        //dateAvailButton.setColorOver(bookButton.getColorClick());
         dateAvailButton.setColorClick(dateAvailButton.getColorOver());
 
         dateAvailPanel = new DateAvailPanel(hotel);
-        dateAvailPanel.setBounds(50, 60, 520, 220);
+        dateAvailPanel.setBounds(40, 60, 540, 220);
 
         roomInfoButton = new OptionButton("Room Information"); 
         roomInfoButton.setBounds(240, 10, 140, 40);
-        //dateAvailButton.setColor(bookButton.getColorOver());
-        //dateAvailButton.setColorOver(bookButton.getColorClick());
         roomInfoButton.setColorClick(roomInfoButton.getColorOver());
 
         resInfoButton = new OptionButton("Reservation Information"); 
         resInfoButton.setBounds(390, 10, 140, 40);
-        //dateAvailButton.setColor(bookButton.getColorOver());
-        //dateAvailButton.setColorOver(bookButton.getColorClick());
         resInfoButton.setColorClick(resInfoButton.getColorOver());
 
         viewPanel = new RoundPanel(new Color(13, 22, 45));
-        //viewPanel = new RoundPanel(Color.red);
         viewPanel.setLayout(null);
         viewPanel.setBounds(0, 190, 620, 280);
         viewPanel.add(dateAvailButton);
