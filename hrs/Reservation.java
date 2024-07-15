@@ -34,7 +34,7 @@ public class Reservation {
      * @return the cost per night
      */
     public float retrieveCostPerNight() {
-        return this.room.getBasePrice();
+        return this.room.getRoomPrice();
     }
 
     /**

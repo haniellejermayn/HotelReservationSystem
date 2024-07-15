@@ -29,7 +29,7 @@ public class HotelReservationSystem {
     public void createHotel() {
         Scanner sc = new Scanner(System.in);
         String hotelName;
-        int roomAmt;
+        int standardAmount, deluxeAmount, executiveAmount;
 
         do { 
             System.out.printf("*Enter 0 to cancel*\n");
@@ -44,10 +44,19 @@ public class HotelReservationSystem {
         } while (!validateHotelName(hotelName) && !hotelName.equals("0"));
         
         if (!hotelName.equals("0")) {
-            roomAmt = promptOption(1, 50, "No. of Rooms");
+            do { 
+                standardAmount = promptOption(0, 50, "No. of Standard Rooms");
+                deluxeAmount = promptOption(0, 50 - standardAmount, "No. of Deluxe Rooms");
+                executiveAmount = promptOption(0, 50 - standardAmount - deluxeAmount, "No. of Executive Rooms");
+
+                if(standardAmount + deluxeAmount + executiveAmount == 0) {
+                    System.out.printf("Error: A hotel needs at least 1 room.\n");
+                    System.out.printf("-------------------------------------\n");
+                }
+            } while (standardAmount + deluxeAmount + executiveAmount == 0);
     
             //add hotel to list
-            this.hotels.add(new Hotel(hotelName, roomAmt));
+            this.hotels.add(new Hotel(hotelName, standardAmount, deluxeAmount, executiveAmount));
     
             System.out.printf("%s added!\n", hotelName);
         }
@@ -394,10 +403,23 @@ public class HotelReservationSystem {
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
+        // For displaying room Type
+        String roomType;
+        if(room instanceof DeluxeRoom) {
+            roomType = "Deluxe";
+        }
+        else if(room instanceof ExecutiveRoom) {
+            roomType = "Executive";
+        }
+        else {
+            roomType = "Standard";
+        }
+
         System.out.printf("-------------------------------------\n");
         System.out.printf("\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
-        System.out.printf("Price per Night: %.2f\n", room.getBasePrice());
+        System.out.printf("Type: %s\n", roomType);
+        System.out.printf("Price per Night: %.2f\n", room.getRoomPrice());
         System.out.printf("Available Dates for Check-in:\n");
 
         for(int i = 0; i < 30; i++) {
@@ -444,10 +466,22 @@ public class HotelReservationSystem {
 
             reservation = hotel.fetchReservation(option - 1);
 
+            // For displaying room type
+            String roomType;
+            if(reservation.getRoom() instanceof DeluxeRoom) {
+                roomType = "Deluxe";
+            }
+            else if(reservation.getRoom() instanceof ExecutiveRoom) {
+                roomType = "Executive";
+            }
+            else {
+                roomType = "Standard";
+            }
+
             System.out.printf("-------------------------------------\n");
             System.out.printf("\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
-            System.out.printf("Room: %s\n", reservation.getRoom().getRoomName());
+            System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), roomType);
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
             System.out.printf("Price per Night: %.2f\n", reservation.retrieveCostPerNight());
@@ -459,7 +493,7 @@ public class HotelReservationSystem {
     }
 
     /**
-     * Changes the name of the given hoetel.
+     * Changes the name of the given hotel.
      * 
      * @param hotel the hotel to change the name
      */
@@ -471,7 +505,7 @@ public class HotelReservationSystem {
             System.out.printf("-------------------------------------\n");
             System.out.printf("*Enter 0 to cancel*\n");
             System.out.printf("-------------------------------------\n");
-            System.out.printf("Enter new Hotel Name: ");
+            System.out.printf( "Enter new Hotel Name: ");
             newName = sc.nextLine();
 
             if (hotel.getHotelName().equals(newName)) {
@@ -504,10 +538,29 @@ public class HotelReservationSystem {
      * @param hotel the hotel to add a new room
      */
     private void addRoom(Hotel hotel) {
+        String typeString = "";
+        int typeOption;
+
         if (hotel.countRooms() < 50) {
+            
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("Type of Room\n");
+            System.out.printf("[1] Standard\n");
+            System.out.printf("[2] Deluxe\n");
+            System.out.printf("[3] Executive\n");
+
+            typeOption = promptOption(1, 3, "Option");
+
             if (confirmMod() == 1) {
-                hotel.addRoom();
-                System.out.printf("New room has been added!\n");
+                hotel.addRoom(typeOption);
+
+                switch(typeOption) {
+                    case 1: typeString = "Standard"; break;
+                    case 2: typeString = "Deluxe"; break;
+                    case 3: typeString = "Executive"; break;
+                }
+
+                System.out.printf("New %s room has been added!\n", typeString);
                 System.out.printf("-------------------------------------\n");
             }
             else {
