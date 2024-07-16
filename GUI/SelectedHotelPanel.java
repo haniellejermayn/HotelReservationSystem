@@ -20,7 +20,7 @@ public class SelectedHotelPanel extends RoundPanel{
     private OptionButton dateAvailButton;
     private DateAvailPanel dateAvailPanel;
     private OptionButton roomInfoButton;
-    //private RoomInfoPanel roomInfoPanel;
+    private RoomInfoPanel roomInfoPanel;
     private OptionButton resInfoButton;
     //private ResInfoPanel resInfoPanel;
     //private boolean isVisible = false;
@@ -109,6 +109,9 @@ public class SelectedHotelPanel extends RoundPanel{
         roomInfoButton.setBounds(240, 10, 140, 40);
         roomInfoButton.setColorClick(roomInfoButton.getColorOver());
 
+        roomInfoPanel = new RoomInfoPanel(hotel);
+        roomInfoPanel.setBounds(40, 60, 540, 220);
+
         resInfoButton = new OptionButton("Reservation Information"); 
         resInfoButton.setBounds(390, 10, 140, 40);
         resInfoButton.setColorClick(resInfoButton.getColorOver());
@@ -119,7 +122,11 @@ public class SelectedHotelPanel extends RoundPanel{
         viewPanel.add(dateAvailButton);
         viewPanel.add(dateAvailPanel);
         viewPanel.add(roomInfoButton);
+        viewPanel.add(roomInfoPanel);
         viewPanel.add(resInfoButton);
+
+
+        dateAvailPanel.setVisible(false);
         
 
 
