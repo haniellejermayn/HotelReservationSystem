@@ -3,8 +3,9 @@ package hrs;
 public class ExecutiveRoom extends Room {
     
     public ExecutiveRoom(String roomName, float basePrice) {
-        super(roomName, basePrice * 1.35f);
+        super(roomName, basePrice);
         this.setRoomType("Executive");
+        this.roomPrice = basePrice * 1.35f;
     }
 
     public ExecutiveRoom(float basePrice) {
