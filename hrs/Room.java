@@ -4,7 +4,8 @@ package hrs;
  * Represents a hotel room with a name and base price.
  */
 public class Room {
-    protected String roomName;
+    private String roomName;
+    private String roomType;
     protected float roomPrice;
 
     public static final int TYPE_STANDARD = 1;
@@ -20,6 +21,7 @@ public class Room {
      */
     public Room(String roomName, float basePrice) {
         this.roomName = roomName; 
+        this.roomType = "Standard";
         this.roomPrice = basePrice;
     }
 
@@ -30,6 +32,7 @@ public class Room {
      */
     public Room(float basePrice) {
         this.roomName = "TemporaryName"; 
+        this.roomType = "Standard";
         this.roomPrice = basePrice;
     }
 
@@ -42,6 +45,15 @@ public class Room {
      */
     public String getRoomName() {
         return this.roomName;
+    }
+
+    /**
+     * Gets the type of the room.
+     *
+     * @return the room type
+     */
+    public String getRoomType() {
+        return this.roomType;
     }
 
     /**
@@ -60,6 +72,15 @@ public class Room {
      */
     public void setRoomName(String newName) {
         this.roomName = newName;
+    }
+
+    /**
+     * Sets the type of the room.
+     *
+     * @param newName the new type of the room
+     */
+    public void setRoomType(String type) {
+        this.roomType = type;
     }
 
     /**

@@ -295,7 +295,7 @@ public class Hotel {
     /**
      * Reinitializes rooms' names and prices.
      */
-    private void reinitializeRooms() {
+    public void reinitializeRooms() {
         int number = 1;
         char letter = 'A';
 
@@ -337,7 +337,9 @@ public class Hotel {
         this.hotelName = newName;
     }
 
+    // also reinitializes rooms
     public void setBasePrice(float newPrice) {
         this.basePrice = newPrice;
+        this.reinitializeRooms();
     }
 }

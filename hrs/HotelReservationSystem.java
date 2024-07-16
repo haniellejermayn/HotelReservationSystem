@@ -211,12 +211,12 @@ public class HotelReservationSystem {
 
 
         if(this.hotels.isEmpty()) {
-            System.out.printf("*Enter 0 to cancel*\n");
-            System.out.printf("-------------------------------------\n");
             System.out.printf("No hotels to book.\n");
             System.out.printf("-------------------------------------\n");
         }
         else {
+            System.out.printf("*Enter 0 to cancel*\n");
+            System.out.printf("-------------------------------------\n");
             System.out.printf("Hotels\n");
             for(int i = 0; i < this.hotels.size(); i++) {
                 System.out.printf("[%02d] %s\n", i + 1, this.hotels.get(i).getHotelName());
