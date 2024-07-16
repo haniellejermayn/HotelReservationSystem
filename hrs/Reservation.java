@@ -33,7 +33,6 @@ public class Reservation {
 
     // -- Public Methods -- //
 
-    // Edit: Can incorporate Discount Code here
     // Retrieves the cost per night of the reservation.
     public float retrieveCostPerNight(int day) {
         return this.room.getRoomPrice() * this.datePriceModifiers.get(day - 1);

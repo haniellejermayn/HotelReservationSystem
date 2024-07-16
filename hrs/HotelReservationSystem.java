@@ -514,10 +514,10 @@ public class HotelReservationSystem {
             System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
 
             if(reservation.getDiscountCode() != null) {
-                System.out.printf("Discount: %.2f\n", reservation.getDiscountCode().computeDiscount(reservation));
+                System.out.printf("Discount: %.2f (%s)\n", reservation.getDiscountCode().computeDiscount(reservation), reservation.getDiscountCode().getCode());
             }
             else {
-                System.out.printf("Discount: 0\n");
+                System.out.printf("Discount: 0 (No discount applied)\n");
             }
 
             System.out.printf("Final Price: %.2f\n", reservation.computeFinalPrice());    
