@@ -234,6 +234,7 @@ public class Hotel {
         }
         
         this.reinitializeRooms();
+        this.datePriceModifiers.add(1.0f);
     }
 
     /**
@@ -244,6 +245,11 @@ public class Hotel {
     public void removeRoom(int index) {
         this.rooms.remove(index);
         this.reinitializeRooms();
+        this.datePriceModifiers.remove(index);
+    }
+
+    public float fetchDatePriceModifier(int day) {
+        return this.datePriceModifiers.get(day - 1);
     }
 
     public void updateDatePrice(int day, float newPrice) {

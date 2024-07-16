@@ -175,6 +175,9 @@ public class HotelReservationSystem {
                     case 4:
                         updateBasePrice(hotel);
                         break;
+                    case 5:
+                        editDatePriceModifier(hotel);
+                        break;
                     case 6:
                         removeReservation(hotel);
                         break;
@@ -338,28 +341,6 @@ public class HotelReservationSystem {
         } while (option < start || option > end);
 
         return option;
-    }
-
-    /**
-     * Prompts the user to enter a new price.
-     * 
-     * @return the new price entered by the user
-     */
-    private float promptPrice() {
-        Scanner sc = new Scanner(System.in);
-        float price;
-        
-        do { 
-            System.out.printf("-------------------------------------\n");
-            System.out.printf("Enter New Price: ");
-            price = sc.nextFloat();
-
-            if(price < 100.0f) {
-                System.out.printf("Error: Price should be >= 100.00\n");
-            }
-        } while (price < 100.0f);
-
-        return price;
     }
 
     /**
@@ -635,6 +616,7 @@ public class HotelReservationSystem {
     private void removeRoom(Hotel hotel) { 
         int option;
         Room room;
+        String roomType;
         int[] roomAvailability;
         boolean booked = false;
 
@@ -651,10 +633,22 @@ public class HotelReservationSystem {
             System.out.printf("Rooms\n");
 
             for(int i = 0; i < hotel.countRooms(0); i++) {
-                System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
+                room = hotel.fetchRoom(i);
+
+                if(room instanceof DeluxeRoom) {
+                    roomType = "Deluxe";
+                }
+                else if(room instanceof ExecutiveRoom) {
+                    roomType = "Executive";
+                }
+                else {
+                    roomType = "Standard";
+                }
+
+                System.out.printf("[%02d] %s (%s)\n", i + 1, room.getRoomName(), roomType);
             }
             
-            option = promptOption(0, hotel.countRooms(0), "Room No.");
+            option = promptOption(0, hotel.countRooms(0), "Room Option");
 
             if (option != 0) {
                 room = hotel.fetchRoom(option - 1);
@@ -697,7 +691,16 @@ public class HotelReservationSystem {
         float newPrice;
 
         if (hotel.countReservations() == 0) {
-            newPrice = promptPrice();
+            do { 
+                System.out.printf("-------------------------------------\n");
+                System.out.printf("Current Base Price: %.2f\n", hotel.getBasePrice());
+                System.out.printf("Enter New Base Price: ");
+                newPrice = sc.nextFloat();
+
+                if(newPrice < 100.0f) {
+                    System.out.printf("Error: Base price should be >= 100.00\n");
+                }
+            } while (newPrice < 100.0f);
 
             if(confirmMod() == 1) {
                 hotel.setBasePrice(newPrice);
@@ -829,8 +832,40 @@ public class HotelReservationSystem {
         return discountCode;
     }
 
-    // Updates Selected Date Price Modifier
+    // Edits Selected Date Price Modifier
     public void editDatePriceModifier(Hotel hotel) {
+        Scanner sc = new Scanner(System.in);
+        int day;
+        float newModifier;
+
+        if (hotel.countReservations() == 0) {
+            System.out.printf("-------------------------------------\n");
+            day = promptOption(1, 30, "Day to Edit Modifier");
+
+            do { 
+                System.out.printf("-------------------------------------\n");
+                System.out.printf("Current Modifier of day %d - day %d: %.2f%%\n", day, day + 1, hotel.fetchDatePriceModifier(day) * 100.0f);
+                System.out.printf("Enter New Modfier (in %%): ");
+                newModifier = sc.nextFloat();
+    
+                if(newModifier < 50.0f || newModifier > 150.0f) {
+                    System.out.printf("Error: Modifier should be from 50%% to 150%% only.\n");
+                }
+            } while (newModifier < 50.0f || newModifier > 150.0f);
+
+            if(confirmMod() == 1) {
+                hotel.updateDatePrice(day, newModifier / 100.0f);
+                System.out.printf("Day %d - day %d price modifier updated!\n", day, day + 1);
+            }
+            else {
+                System.out.printf("Day %d - day %d price modifier retained.\n", day, day + 1);
+            }
+        }
+        else {
+            System.out.printf("-------------------------------------\n");
+            System.out.printf("There are currently reservations in the hotel. Modifiers cannot be changed.\n");
+        }
         
+        System.out.printf("-------------------------------------\n");
     }
 }
