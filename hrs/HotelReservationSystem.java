@@ -417,7 +417,7 @@ public class HotelReservationSystem {
         System.out.printf("Rooms\n");
 
         for(int i = 0; i < hotel.countRooms(0); i++) {
-            System.out.printf("[%02d] %s\n", i + 1, hotel.fetchRoom(i).getRoomName());
+            System.out.printf("[%02d] %s (%s)\n", i + 1, hotel.fetchRoom(i).getRoomName(), hotel.fetchRoom(i).getRoomType());
         }
 
         option = promptOption(1, hotel.countRooms(0), "Room No.");
@@ -425,22 +425,10 @@ public class HotelReservationSystem {
         room = hotel.fetchRoom(option - 1);
         roomAvailability = hotel.checkRoomAvailability(room);
 
-        // For displaying room Type
-        String roomType;
-        if(room instanceof DeluxeRoom) {
-            roomType = "Deluxe";
-        }
-        else if(room instanceof ExecutiveRoom) {
-            roomType = "Executive";
-        }
-        else {
-            roomType = "Standard";
-        }
-
         System.out.printf("-------------------------------------\n");
         System.out.printf("\"%s\"\n", room.getRoomName());
         System.out.printf("Name: %s\n", room.getRoomName());
-        System.out.printf("Type: %s\n", roomType);
+        System.out.printf("Type: %s\n", room.getRoomType());
         System.out.printf("Price per Night: %.2f\n", room.getRoomPrice());
         System.out.printf("Available Dates for Check-in:\n");
 
@@ -488,22 +476,10 @@ public class HotelReservationSystem {
 
             reservation = hotel.fetchReservation(option - 1);
 
-            // For displaying room type
-            String roomType;
-            if(reservation.getRoom() instanceof DeluxeRoom) {
-                roomType = "Deluxe";
-            }
-            else if(reservation.getRoom() instanceof ExecutiveRoom) {
-                roomType = "Executive";
-            }
-            else {
-                roomType = "Standard";
-            }
-
             System.out.printf("-------------------------------------\n");
             System.out.printf("\"%s's Reservation\"\n", reservation.getGuestName());
             System.out.printf("Guest Name: %s\n", reservation.getGuestName());
-            System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), roomType);
+            System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), reservation.getRoom().getRoomType());
             System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
             System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
 
@@ -616,7 +592,6 @@ public class HotelReservationSystem {
     private void removeRoom(Hotel hotel) { 
         int option;
         Room room;
-        String roomType;
         int[] roomAvailability;
         boolean booked = false;
 
@@ -634,18 +609,7 @@ public class HotelReservationSystem {
 
             for(int i = 0; i < hotel.countRooms(0); i++) {
                 room = hotel.fetchRoom(i);
-
-                if(room instanceof DeluxeRoom) {
-                    roomType = "Deluxe";
-                }
-                else if(room instanceof ExecutiveRoom) {
-                    roomType = "Executive";
-                }
-                else {
-                    roomType = "Standard";
-                }
-
-                System.out.printf("[%02d] %s (%s)\n", i + 1, room.getRoomName(), roomType);
+                System.out.printf("[%02d] %s (%s)\n", i + 1, room.getRoomName(), room.getRoomType());
             }
             
             option = promptOption(0, hotel.countRooms(0), "Room Option");
