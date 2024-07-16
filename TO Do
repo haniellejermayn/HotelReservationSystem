@@ -30,12 +30,12 @@ X Discount Code for Reservations
         X Check if there is available room based on type
             X modify checkDateAvailability() and use instanceof
 
-- Date Price Modifier
-    - Edit Manage Hotel (HRS)
-        - Add Date Price Modifier Feature
-    - Update Hotel
-    - Update Reservation
-        - Put date prices in reservation 
-    - Incorporate Discount Code
-        - Start with retrieveCostPerNight
+- Date Price Modifier (Please test)
+    X Edit Manage Hotel (HRS)
+        X Add Date Price Modifier Feature
+    X Update Hotel
+    X Update Reservation
+        X Put date prices in reservation 
+    X Incorporate Discount Code
+        X Start with retrieveCostPerNight
 
