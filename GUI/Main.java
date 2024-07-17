@@ -1,9 +1,9 @@
 import java.util.*;
 
+
 public class Main {
 
     public static void main(String[] args) {
-        
         // change to Hotel
         ArrayList<String> hotels = new ArrayList<String>();
 
