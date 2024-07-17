@@ -1,6 +1,6 @@
 package hrs;
-import java.util.Scanner;
 import GUI.*;
+import java.util.Scanner;
 
 public class HRSController {
     private HRSModel model;
@@ -10,6 +10,10 @@ public class HRSController {
     public HRSController(HRSModel model, MainFrame view) {
         this.model = model;
         this.view = view;
+
+        //placeholder
+        model.addHotel(new Hotel("Hotel 1", 1, 1, 1));
+
         view.initializeMainFrame(model.getHotels(), model.countHotels());
     }
 
@@ -57,6 +61,7 @@ public class HRSController {
         */
     }
 
+    /*
     public void viewHotel() {
         Hotel hotel;
         int option;
@@ -574,4 +579,5 @@ public class HRSController {
             view.printError("There are currently reservations in the hotel. Modifiers cannot be changed.");
         }
     }
+    */
 }
