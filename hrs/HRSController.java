@@ -56,7 +56,7 @@ public class HRSController {
             view.printHotelsList(model.getHotels());
 
             option = this.promptIntInput(1, model.countHotels(), "Hotel No.");
-            hotel = model.getHotel(option - 1);
+            hotel = model.fetchHotel(option - 1);
 
             view.printBorder();
             do {
@@ -97,7 +97,7 @@ public class HRSController {
             view.printHotelsList(model.getHotels());
 
             hotelOption = this.promptIntInput(1, model.countHotels(), "Hotel No.");
-            hotel = model.getHotel(hotelOption - 1);
+            hotel = model.fetchHotel(hotelOption - 1);
 
             view.printBorder();
             do {
@@ -159,7 +159,7 @@ public class HRSController {
             view.printBorder();
 
             if (hotelOption != 0) {
-                hotel = model.getHotel(hotelOption - 1);
+                hotel = model.fetchHotel(hotelOption - 1);
 
                 guestName = this.promptStringInput("Guest Name");
                 checkInDate = this.promptIntInput(1, 30, "Check-in Date");
@@ -489,12 +489,12 @@ public class HRSController {
     }
 
     private int removeHotel(int index) {
-        if (model.getHotel(index).countReservations() > 0) {
+        if (model.fetchHotel(index).countReservations() > 0) {
             view.printError("Warning: There is/are active reservation/s in this hotel!");
         }
 
         if (confirmMod() == 1) {
-            view.printSuccessMessage(model.getHotel(index).getHotelName(), "removed");
+            view.printSuccessMessage(model.fetchHotel(index).getHotelName(), "removed");
             model.removeHotel(index);
             return 0;
         } 

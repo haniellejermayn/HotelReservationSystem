@@ -13,8 +13,7 @@ public class HRSModel {
         hotels.add(hotel);
     }
 
-    // Edit: fetchHotel
-    public Hotel getHotel(int index) {
+    public Hotel fetchHotel(int index) {
         return hotels.get(index);
     }
 
