@@ -32,6 +32,7 @@ public class MainFrame extends JFrame implements ActionListener{
     HomePanel homePanel;
     HotelsPanel hotelsPanel;
     SelectedHotelPanel selectedHotel;
+    private OptionButton bookButton;
     
     IconButton homeButton;
     IconButton hotelButton;
@@ -68,9 +69,9 @@ public class MainFrame extends JFrame implements ActionListener{
         logoName.setVerticalAlignment(JLabel.CENTER);
         logoName.setBounds(15, 15, 150, 50);
         
-        customFont15 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 15);
-        customFont30 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 30);
-        customFont60 = Customization.createCustomFont("POPPINS-SEMIBOLD.TTF", 60);
+        customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
+        customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
+        customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
         // DEFAULT PANELS
@@ -160,7 +161,12 @@ public class MainFrame extends JFrame implements ActionListener{
 
         // ---------- Fix ---------- //
 
-        //SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel("Kelsey");
+        SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel("Kelsey");
+
+        bookButton = testSelectedHotel.getBookButton();
+        bookButton.addActionListener(this);
+
+
 
 
         this.setIconImage(logo.getImage());
@@ -169,16 +175,16 @@ public class MainFrame extends JFrame implements ActionListener{
         this.add(homePanel);
         this.add(hotelsPanel);
         this.add(selectedHotel);
-        //this.add(testSelectedHotel);
+        this.add(testSelectedHotel);
         this.add(accountPanel);
         this.add(datePanel);
         this.add(reservationsPanel);
 
 
-        //homePanel.setVisible(false);
+        homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         selectedHotel.setVisible(false);
-        //testSelectedHotel.setVisible(true);
+        testSelectedHotel.setVisible(true);
 
 
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -197,6 +203,9 @@ public class MainFrame extends JFrame implements ActionListener{
             hotelsPanel.setVisible(true);
             homePanel.setVisible(false);
         }
+        else if (e.getSource() == bookButton){
+            this.darkenBackground(true);
+        }
         else { // Hotels Panel, gets Selected Hotel
             for (int i = 0; i < hotelOptions.size(); i++){
                 if (e.getSource() == hotelOptions.get(i)){
@@ -208,5 +217,18 @@ public class MainFrame extends JFrame implements ActionListener{
                 }
             }
         } 
+    }
+
+    public void darkenBackground(boolean darken){
+        if (darken){
+            JPanel glassPane = new JPanel();
+            glassPane.setBackground(new Color(0, 0, 0, 100));
+            glassPane.setOpaque(true);
+            this.setGlassPane(glassPane);
+            glassPane.setVisible(true);
+        }
+        else {
+            this.getGlassPane().setVisible(false);
+        }
     }
 }
