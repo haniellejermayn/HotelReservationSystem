@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 public class SelectedHotelPanel extends RoundPanel implements ActionListener{
     
@@ -101,7 +98,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         titlePanel.add(bookButton);
 
         bookPanel = new BookHotelPanel(hotel);
-        bookPanel.setBounds(142, 10, 355, 450);
+        bookPanel.setBounds(152, 10, 385, 420);
 
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
@@ -155,7 +152,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         this.add(viewPanel);
 
 
-        //bookPanel.setVisible(false);
+        bookPanel.setVisible(false);
 
 
 

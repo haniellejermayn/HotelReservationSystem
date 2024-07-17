@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public class MainFrame extends JFrame implements ActionListener{
@@ -44,7 +42,7 @@ public class MainFrame extends JFrame implements ActionListener{
     ArrayList<SelectedHotelPanel> selectedHotelPanels;
     
         // change to Hotel
-    MainFrame(ArrayList<String> hotels, int nHotel){
+    MainFrame(ArrayList<String> hotels, int nHotel){ // hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); // change(?)

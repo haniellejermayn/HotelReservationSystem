@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class RoundPanel extends JPanel{
     
-    Color color;
+    private Color color;
 
     RoundPanel(Color color){
         

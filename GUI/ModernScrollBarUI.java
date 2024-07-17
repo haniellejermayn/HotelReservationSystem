@@ -6,6 +6,14 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 public class ModernScrollBarUI extends BasicScrollBarUI {
 
     private final int THUMB_SIZE = 40;
+    private Color thumbColor;
+    private Color trackColor;
+
+    ModernScrollBarUI(Color thumbColor, Color trackColor){
+        this.thumbColor = thumbColor;
+        this.trackColor = trackColor;
+    }
+
 
     @Override
     protected Dimension getMaximumThumbSize() {
@@ -58,7 +66,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
             width = rctngl.width;
             height = size;
         }
-        g2.setColor(new Color(51, 88, 150));
+        g2.setColor(trackColor);
         //g2.fillRect(x, y, width - 1, height);
         g2.fillRoundRect(x, y, width, height, 10, 10);
 
@@ -79,7 +87,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
             x += 8;
             width -= 16;
         }
-        g2.setColor(scrollbar.getForeground());
+        g2.setColor(thumbColor);
         g2.fillRoundRect(x, y, width, height, 10, 10);
     }
 

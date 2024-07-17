@@ -1,9 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
@@ -23,7 +19,6 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
         super(new Color(40, 68, 117));
 
-        roomInfoContainer = new RoundPanel(new Color(40, 68, 117));
         //roomInfoContainer = new RoundPanel(Color.red);
 
         /*JScrollPane scrollPane = new JScrollPane(roomInfoContainer);
@@ -98,7 +93,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         availDates.setVerticalAlignment(JLabel.CENTER);
         availDates.setHorizontalAlignment(JLabel.CENTER);
 
-
+        roomInfoContainer = new RoundPanel(new Color(40, 68, 117));
         roomInfoContainer.setLayout(null);
         //roomInfoContainer.setBounds(5, 5, 530, 310);
         //roomInfoContainer.setBounds(5, 5, 530, 500);
@@ -109,7 +104,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomInfoContainer.add(roomPrice);
         roomInfoContainer.add(roomType);
 
-        ScrollPaneCustom scrollPane = new ScrollPaneCustom(roomInfoContainer);
+        ScrollPaneCustom scrollPane = new ScrollPaneCustom(roomInfoContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         scrollPane.setBounds(5, 5, 530, 210);
         /*scrollPane.setLayout(null);
         scrollPane.setOpaque(false);

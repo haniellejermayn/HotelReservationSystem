@@ -3,11 +3,14 @@ import java.awt.*;
 
 public class ScrollPaneCustom extends JScrollPane{
 
-    public ScrollPaneCustom(Component component){
+    private Color bgColor;
+
+    public ScrollPaneCustom(Component component, Color thumbColor, Color trackColor, Color bgColor){
         super(component);
-    
+        
+        this.bgColor = bgColor;
         //this.setBounds(100, 100, 200, 100);
-        this.setVerticalScrollBar(new ScrollBarCustom());
+        this.setVerticalScrollBar(new ScrollBarCustom(thumbColor, trackColor));
         this.setBorder(null);
         this.getViewport().setOpaque(false);
         this.setViewportBorder(null);
@@ -20,7 +23,7 @@ public class ScrollPaneCustom extends JScrollPane{
     protected void paintComponent(Graphics graphics){
         Graphics2D g2 = (Graphics2D)graphics;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(new Color(40, 68, 117));
+        g2.setColor(bgColor);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         super.paintComponent(g2);
     }

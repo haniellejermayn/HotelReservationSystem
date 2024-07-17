@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class OptionButton extends PanelButton{
     /*private boolean over;
