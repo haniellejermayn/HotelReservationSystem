@@ -14,7 +14,7 @@ public class Driver {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        HotelReservationSystem sys = new HotelReservationSystem();
+        HRSController sys = new HRSController();
         Scanner sc = new Scanner(System.in);
         int option;
 

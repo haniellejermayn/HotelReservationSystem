@@ -1,10 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
+import javax.swing.*;
 
 public class MainFrame extends JFrame implements ActionListener{
     
@@ -137,6 +135,7 @@ public class MainFrame extends JFrame implements ActionListener{
         homeButton = sidePanel.getHomeButton();
         homeButton.addActionListener(this);
         
+        // Edit: all hotels should be passed here
         hotelsPanel = new HotelsPanel(hotels, nHotel); 
         hotelButton = sidePanel.getHotelButton();
         hotelButton.addActionListener(this);
@@ -146,6 +145,7 @@ public class MainFrame extends JFrame implements ActionListener{
         hotelOptions = new ArrayList<HotelOption>();
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
+        // Edit: Fetch hotel
         selectedHotel = new SelectedHotelPanel(hotels.get(0));
 
         for (int i = 0; i < nHotel; i++){

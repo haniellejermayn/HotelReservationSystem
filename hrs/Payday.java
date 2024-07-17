@@ -3,7 +3,7 @@ package hrs;
 public class Payday extends DiscountCode {
     
     public Payday() {
-        this.code = DiscountCode.CODE_LIST.get(2);
+        this.setCode(DiscountCode.CODE_LIST.get(2));
     }
 
     @Override
