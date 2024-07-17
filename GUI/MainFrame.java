@@ -34,6 +34,7 @@ public class MainFrame extends JFrame implements ActionListener{
     HomePanel homePanel;
     HotelsPanel hotelsPanel;
     SelectedHotelPanel selectedHotel;
+    private OptionButton bookButton;
     
     IconButton homeButton;
     IconButton hotelButton;
@@ -162,6 +163,11 @@ public class MainFrame extends JFrame implements ActionListener{
 
         SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel("Kelsey");
 
+        bookButton = testSelectedHotel.getBookButton();
+        bookButton.addActionListener(this);
+
+
+
 
         this.setIconImage(logo.getImage());
         this.add(logoName);
@@ -197,6 +203,9 @@ public class MainFrame extends JFrame implements ActionListener{
             hotelsPanel.setVisible(true);
             homePanel.setVisible(false);
         }
+        else if (e.getSource() == bookButton){
+            this.darkenBackground(true);
+        }
         else { // Hotels Panel, gets Selected Hotel
             for (int i = 0; i < hotelOptions.size(); i++){
                 if (e.getSource() == hotelOptions.get(i)){
@@ -208,5 +217,18 @@ public class MainFrame extends JFrame implements ActionListener{
                 }
             }
         } 
+    }
+
+    public void darkenBackground(boolean darken){
+        if (darken){
+            JPanel glassPane = new JPanel();
+            glassPane.setBackground(new Color(0, 0, 0, 100));
+            glassPane.setOpaque(true);
+            this.setGlassPane(glassPane);
+            glassPane.setVisible(true);
+        }
+        else {
+            this.getGlassPane().setVisible(false);
+        }
     }
 }

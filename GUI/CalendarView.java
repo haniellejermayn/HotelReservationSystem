@@ -8,15 +8,11 @@ import java.util.*;
 public class CalendarView extends RoundPanel{
     
     private ArrayList<OptionButton> days;
-    private ButtonClickListener listener;
-
     private Font customFont;
 
     CalendarView(ButtonClickListener listener){
         
         super(new Color(27, 43, 80));
-
-        this.listener = listener;
 
         customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
 
@@ -49,5 +45,9 @@ public class CalendarView extends RoundPanel{
 
         this.setLayout(null);
         this.setBounds(10, 10, 335, 203);
+    }
+
+    public ArrayList<OptionButton> getDays(){
+        return days;
     }
 }

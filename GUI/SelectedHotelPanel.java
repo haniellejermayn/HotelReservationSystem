@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class SelectedHotelPanel extends RoundPanel{
+public class SelectedHotelPanel extends RoundPanel implements ActionListener{
     
     private RoundPanel titlePanel;
     private RoundPanel viewPanel;
@@ -16,6 +16,7 @@ public class SelectedHotelPanel extends RoundPanel{
     //private ArrayList<HotelOption> hotelCatalogue;
     private IconButton manageButton;
     private OptionButton bookButton;
+    private BookHotelPanel bookPanel;
     private ManagePanel managePanel;
     private OptionButton dateAvailButton;
     private DateAvailPanel dateAvailPanel;
@@ -73,6 +74,7 @@ public class SelectedHotelPanel extends RoundPanel{
         bookButton.setBounds(420, 130, 140, 40);
         bookButton.setColor(bookButton.getColorOver());
         bookButton.setColorOver(bookButton.getColorClick());
+        bookButton.addActionListener(this);
 
         // change icon
         ImageIcon manageIcon = new ImageIcon("Icons/StylusIcon.png"); // chage to manageIcon
@@ -82,7 +84,7 @@ public class SelectedHotelPanel extends RoundPanel{
         manageButton.setBounds(570, 130, 40, 40);
         manageButton.setColor(manageButton.getColorOver());
         manageButton.setColorOver(manageButton.getColorClick());
-        //manageButton.addActionListener(this);
+        manageButton.addActionListener(this);
 
         managePanel = new ManagePanel(new Color(40, 68, 117)); // create ManagePanel
         managePanel.setVisible(false);
@@ -98,9 +100,20 @@ public class SelectedHotelPanel extends RoundPanel{
         titlePanel.add(managePanel);
         titlePanel.add(bookButton);
 
+        bookPanel = new BookHotelPanel(hotel);
+        bookPanel.setBounds(142, 10, 355, 450);
+
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
         dateAvailButton.setColorClick(dateAvailButton.getColorOver());
+        dateAvailButton.addActionListener(this);
+        /*dateAvailButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+                this.buttonClicked(dateAvailButton.getName());
+            }
+        });*/
 
         dateAvailPanel = new DateAvailPanel(hotel);
         dateAvailPanel.setBounds(40, 60, 540, 220);
@@ -108,6 +121,7 @@ public class SelectedHotelPanel extends RoundPanel{
         roomInfoButton = new OptionButton("Room Information"); 
         roomInfoButton.setBounds(240, 10, 140, 40);
         roomInfoButton.setColorClick(roomInfoButton.getColorOver());
+        roomInfoButton.addActionListener(this);
 
         roomInfoPanel = new RoomInfoPanel(hotel);
         roomInfoPanel.setBounds(40, 60, 540, 220);
@@ -115,6 +129,7 @@ public class SelectedHotelPanel extends RoundPanel{
         resInfoButton = new OptionButton("Reservation Information"); 
         resInfoButton.setBounds(390, 10, 140, 40);
         resInfoButton.setColorClick(resInfoButton.getColorOver());
+        resInfoButton.addActionListener(this);
 
         viewPanel = new RoundPanel(new Color(13, 22, 45));
         viewPanel.setLayout(null);
@@ -127,6 +142,7 @@ public class SelectedHotelPanel extends RoundPanel{
 
 
         dateAvailPanel.setVisible(false);
+        roomInfoPanel.setVisible(false);
         
 
 
@@ -134,11 +150,12 @@ public class SelectedHotelPanel extends RoundPanel{
 
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
+        this.add(bookPanel);
         this.add(titlePanel);
         this.add(viewPanel);
 
 
-
+        //bookPanel.setVisible(false);
 
 
 
@@ -167,4 +184,45 @@ public class SelectedHotelPanel extends RoundPanel{
             filterButton.repaint();
         }
     }*/
+
+    /*@Override
+    public void buttonClicked(String buttonName) {
+
+        // change to necessary information
+        int nRooms = 30;
+        String name;
+        String type = "Deluxe";
+        float pricePerNight = 1299.00f;
+
+        for (int i = 0; i < nRooms; i++){
+            String roomIndex = String.format("%02d", i + 1);
+            String price = String.format("%.2f", pricePerNight * (i % 7)); // change later
+            name = roomIndex; 
+
+            if (buttonName.equals(roomIndex)){
+                roomName.setText("Room " + name);
+                roomPrice.setText(price + " per night");
+                roomType.setText(type + " Room");
+            }
+        }
+    }*/
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == dateAvailButton){
+            dateAvailPanel.setVisible(true);
+            roomInfoPanel.setVisible(false);
+        }
+        else if (e.getSource() == roomInfoButton){
+            roomInfoPanel.setVisible(true);
+            dateAvailPanel.setVisible(false);
+        }
+        else if (e.getSource() == bookButton){
+            bookPanel.setVisible(true);
+        }
+    }
+
+    public OptionButton getBookButton(){
+        return bookButton;
+    }
 }

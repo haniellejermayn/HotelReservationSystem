@@ -8,11 +8,55 @@ import java.util.*;
 public class BookCalendar extends CalendarView{
     
     ArrayList<RoundPanel> highlightedDays;
+    private ArrayList<OptionButton> days;
 
-    BookCalendar(ButtonClickListener listener){
+    public BookCalendar(ButtonClickListener listener){
+
         super(listener);
+        this.days = super.getDays();
+
+
+        /*Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
+
+        ArrayList<OptionButton> days = new ArrayList<OptionButton>();
+
+        for (int i = 0; i < 31; i++){
+
+            OptionButton day = new OptionButton(Integer.toString(i + 1));
+            String dayIndex = String.format("%02d", i + 1);
+
+            if ((i + 1) % 7 == 1){
+                day.setBounds((i % 7 * 41) + (i % 7 + 1) * 8, (i / 7 + 1) * 9 + (i / 7 * 30), 41, 30);
+            }
+            else {
+                day.setBounds((i % 7 * 41) + (i % 7 + 1) * 5 + 3, (i / 7 + 1) * 9 + (i / 7 * 30), 41, 30);
+            }
+
+            day.setFont(customFont);
+            day.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e){
+
+                    listener.buttonClicked(dayIndex);
+                }
+            });
+
+            days.add(day);
+            this.add(days.get(i));
+        }*/
+
         setHighlightedDays(1, 4);
 
+        int checkIn = 1;
+        int checkOut = 4;
+
+        for (int i = 0; i < 31; i++){
+            if (Integer.valueOf(days.get(i).getButtonName()) >= checkIn && Integer.valueOf(days.get(i).getButtonName()) <= checkOut){
+                days.get(i).setColor(new Color(51, 88, 150));
+                days.get(i).setColorOver(new Color(51, 88, 150));
+            }
+        }
     }
 
     public void setHighlightedDays(int checkIn, int checkOut){
