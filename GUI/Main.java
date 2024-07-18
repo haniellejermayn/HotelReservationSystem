@@ -10,7 +10,10 @@ public class Main {
         hotels.add("Kelsey Hotel");
         hotels.add("Hep Hotel");
         hotels.add("Hanielle Hotel");
+        hotels.add("Francine Hotel");
+        hotels.add("Justine Hotel");
+        hotels.add("Liane Hotel");
         
-        new MainFrame(hotels, 3);
+        new MainFrame(hotels, 6);
     }
 }

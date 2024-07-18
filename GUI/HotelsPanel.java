@@ -12,6 +12,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
     private FilterPanel filterPanel;
     private boolean isVisible = false;
     private ButtonClickListener listener;
+    private RoundPanel hotelContainer;
 
 
     Font customFont15;
@@ -61,19 +62,40 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
         createHotelButton = new IconButton(createHotelIcon, "Create Hotel"); // add picture
-        createHotelButton.setBounds(285, (nHotel + 1) * 60 + (nHotel * 60) + 10, 50, 50);
+        createHotelButton.setBounds(285, (nHotel + 1) * 10 + (nHotel * 110) + 10, 50, 50);
+
+        int hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
+
+        /*if (nHotel >= 3){
+            hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 20;
+        }
+        else {
+            hotelContainerHeight = 
+        }*/
+
+        hotelContainer = new RoundPanel(new Color(13, 22, 45));
+        hotelContainer.setLayout(null);
+        //roomInfoContainer.setBounds(5, 5, 530, 310);
+        //roomInfoContainer.setBounds(5, 5, 530, 500);
+        hotelContainer.setPreferredSize(new Dimension(620, hotelContainerHeight));
+
+        for (int i = 0; i < nHotel; i++){
+            hotelContainer.add(hotelCatalogue.get(i));
+        }
+
+        hotelContainer.add(createHotelButton);
+
+        ScrollPaneCustom scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
+        scrollPane.setBounds(0, 60, 620, 405);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
         this.add(hotelTitle);
         this.add(filterButton);
         this.add(filterPanel);
-        
-        for (int i = 0; i < nHotel; i++){
-            this.add(hotelCatalogue.get(i));
-        }
-
-        this.add(createHotelButton);
+        this.add(scrollPane);
+        //this.setBackground(Color.red);
 
 
 
@@ -94,7 +116,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         String hotelName = hotel; // change later
 
 
-        item.setBounds(0, (itemNo + 1) * 60 + (itemNo * 60), 620, 110); // fix
+        item.setBounds(0, (itemNo + 1) * 10 + (itemNo * 110), 600, 110); // fix
         item.setLayout(null);
 
         RoundLabel content = item.getContent();
@@ -105,7 +127,6 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 listener.buttonClicked(hotelName); // hotelName
-                
             }
         });
         

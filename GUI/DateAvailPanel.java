@@ -6,7 +6,6 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     CalendarView calendar;
     RoundLabel availPanel, bookedPanel;
     RoundLabel availRooms, bookedRooms;
-    RoundLabel availNo, bookedNo;
 
     Font customFont15;
     Font customFont50;
@@ -21,23 +20,11 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
 
         calendar = new CalendarView(this);
 
-        availNo = new RoundLabel(new Color(40, 68, 117));
-        availNo.setFont(customFont50);
-        availNo.setText("30");
-        availNo.setForeground(Color.white);
-        availNo.setBounds(410, 20, 100, 55);
-
         availRooms = new RoundLabel(new Color(40, 68, 117));
         availRooms.setFont(customFont15);
         availRooms.setText("      available rooms");
         availRooms.setForeground(Color.white);
         availRooms.setBounds(5, 61, 165, 20);
-        
-        bookedNo = new RoundLabel(new Color(40, 68, 117));
-        bookedNo.setFont(customFont50);
-        bookedNo.setText("20");
-        bookedNo.setForeground(Color.white);
-        bookedNo.setBounds(410, 120, 100, 55);
 
         bookedRooms = new RoundLabel(new Color(40, 68, 117));
         bookedRooms.setFont(customFont15);

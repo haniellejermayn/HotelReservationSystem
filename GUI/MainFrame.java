@@ -43,9 +43,10 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ArrayList<HotelOption> hotelOptions;
     ArrayList<SelectedHotelPanel> selectedHotelPanels;
     ArrayList<String> hotels;
+    int nHotels;
     
         // change to Hotel
-    MainFrame(ArrayList<String> hotels, int nHotel){ // hrs.getHotel();
+    MainFrame(ArrayList<String> hotels, int nHotels){ // hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); // change(?)
@@ -53,6 +54,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.getContentPane().setBackground(new Color(13, 22, 45));
 
         this.hotels = hotels;
+        this.nHotels = nHotels;
 
         // Allows for rounded components
         try {
@@ -137,17 +139,17 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotel); 
+        homePanel = new HomePanel(hotels, nHotels); 
         homeButton = sidePanel.getHomeButton();
         homeButton.addActionListener(this);
         
-        hotelsPanel = new HotelsPanel(hotels, nHotel, this); 
+        hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
         hotelButton = sidePanel.getHotelButton();
         hotelButton.addActionListener(this);
 
         // ---------- PlaceHolders ---------- //
 
-        SelectedHotelPanel kelseyHotel = new SelectedHotelPanel("Kelsey Hotel", this);
+        /*SelectedHotelPanel kelseyHotel = new SelectedHotelPanel("Kelsey Hotel", this);
         kelseyHotel.setVisible(false);
 
         bookButton = kelseyHotel.getBookButton();
@@ -163,7 +165,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         hepHotel.setVisible(false);
 
         bookButton = hepHotel.getBookButton();
-        bookButton.addActionListener(this);
+        bookButton.addActionListener(this);*/
 
         // ---------- Fix ---------- //
 
@@ -180,9 +182,28 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
-        selectedHotelPanels.add(kelseyHotel);
-        selectedHotelPanels.add(hepHotel);
-        selectedHotelPanels.add(hanielleHotel);
+
+        // Room rooms;
+        /*for(int i = 0; i < nHotel; i++){
+            HotelOption optionTemp = new HotelOption(hotels.get(i));
+            initializeSelectedHotels(hotels, nHotel);
+            selectedHotelPanels.add(optionTemp);
+        }*/
+        //selectedHotelPanels.add(kelseyHotel);
+        //selectedHotelPanels.add(hepHotel);
+        //selectedHotelPanels.add(hanielleHotel);
+
+        initializeSelectedHotels(hotels, nHotels);
+
+        /*for (int i = 0; i < nHotel; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            hotelTemp.setVisible(false);
+            this.selectedHotelPanels.add(hotelTemp);
+        }*/
+
+        //SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(0), this); // change to take Hotel
+        //hotelTemp.setVisible(false);
+        //selectedHotelPanels.add(hotelTemp);
 
         this.setIconImage(logo.getImage());
         this.add(logoName);
@@ -196,14 +217,22 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
         //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
-        kelseyHotel.setVisible(false);
+        /*kelseyHotel.setVisible(false);
         hepHotel.setVisible(false);
-        hanielleHotel.setVisible(false);
+        hanielleHotel.setVisible(false);*/
 
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+                                            // change to Hotel
+    public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
+        for (int i = 0; i < nHotels; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            hotelTemp.setVisible(false);
+            this.selectedHotelPanels.add(hotelTemp);
+        }
     }
 
     @Override
@@ -224,8 +253,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
     @Override
     public void buttonClicked(String buttonName) {
-
-        int nHotels = 3; // edit later
 
         for (int i = 0; i < nHotels; i++){
             String hotel = hotels.get(i); // change to getHotelName

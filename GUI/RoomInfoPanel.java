@@ -5,9 +5,9 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
     private CalendarView calendar;
     private RoundLabel roomName, roomPrice, roomType;
-    private RoundLabel availRooms, bookedRooms;
-    private RoundLabel availNo, bookedNo;
     private RoundLabel availDates;
+    private RoundLabel standardRooms, deluxeRooms, executiveRooms;
+    private RoundLabel standardRoomPanel, deluxeRoomPanel, executiveRoomPanel;
     private RoundPanel roomInfoContainer;
 
     private Font customFont15;
@@ -31,35 +31,12 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         //calendar = new CalendarView(this);
         //calendar.setBounds(5, 5, 335, 203);
 
+
         calendar = new CalendarView(this);
-        calendar.setBounds(180, 259, 335, 203);
-
-        availNo = new RoundLabel(new Color(40, 68, 117));
-        availNo.setFont(customFont50);
-        availNo.setText("30");
-        availNo.setForeground(Color.white);
-        availNo.setBounds(410, 20, 100, 55);
-
-        availRooms = new RoundLabel(new Color(40, 68, 117));
-        availRooms.setFont(customFont15);
-        availRooms.setText("      available rooms");
-        availRooms.setForeground(Color.white);
-        availRooms.setBounds(5, 61, 165, 20);
-        
-        bookedNo = new RoundLabel(new Color(40, 68, 117));
-        bookedNo.setFont(customFont50);
-        bookedNo.setText("20");
-        bookedNo.setForeground(Color.white);
-        bookedNo.setBounds(410, 120, 100, 55);
-
-        bookedRooms = new RoundLabel(new Color(40, 68, 117));
-        bookedRooms.setFont(customFont15);
-        bookedRooms.setText("       booked rooms");
-        bookedRooms.setForeground(Color.white);
-        bookedRooms.setBounds(5, 61, 165, 20);
+        calendar.setBounds(180, 239, 335, 203);
         
         roomName = new RoundLabel(new Color(40, 68, 117));
-        roomName.setBounds(0, 326, 175, 36);
+        roomName.setBounds(0, 306, 175, 36);
         roomName.setFont(customFont30);
         roomName.setText("Room 00");
         roomName.setForeground(Color.white);
@@ -67,7 +44,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomName.setHorizontalAlignment(JLabel.CENTER);
         
         roomPrice = new RoundLabel(new Color(40, 68, 117));
-        roomPrice.setBounds(0, 367, 175, 26);
+        roomPrice.setBounds(0, 347, 175, 26);
         roomPrice.setFont(customFont15);
         roomPrice.setText("1299.00 per night");
         roomPrice.setForeground(Color.white);
@@ -75,7 +52,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomPrice.setHorizontalAlignment(JLabel.CENTER);
         
         roomType = new RoundLabel(new Color(40, 68, 117));
-        roomType.setBounds(0, 388, 175, 26);
+        roomType.setBounds(0, 368, 175, 26);
         roomType.setFont(customFont15);
         roomType.setText("Standard Room");
         roomType.setForeground(Color.white);
@@ -85,7 +62,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         //availDates = new RoundLabel(new Color(40, 68, 117));
         //availDates.setBounds(267, 228, 175, 26);
         availDates = new RoundLabel(new Color(27, 43, 80));
-        availDates.setBounds(360, 425, 155, 26);
+        availDates.setBounds(360, 405, 155, 26);
         availDates.setFont(customFont15);
         availDates.setText("Available Dates");
         //availDates.setForeground(Color.white);
@@ -97,15 +74,97 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomInfoContainer.setLayout(null);
         //roomInfoContainer.setBounds(5, 5, 530, 310);
         //roomInfoContainer.setBounds(5, 5, 530, 500);
-        roomInfoContainer.setPreferredSize(new Dimension(530, 467));
+        roomInfoContainer.setPreferredSize(new Dimension(530, 447));
         roomInfoContainer.add(availDates);
         roomInfoContainer.add(calendar);
         roomInfoContainer.add(roomName);
         roomInfoContainer.add(roomPrice);
         roomInfoContainer.add(roomType);
 
+        int nRooms = 43; // change to No. of rooms
+
+        standardRooms = new RoundLabel(new Color(40, 68, 117));
+        standardRooms.setFont(customFont15);
+        standardRooms.setText("    standard rooms");
+        standardRooms.setForeground(Color.white);
+        standardRooms.setBounds(5, 61, 165, 20);
+
+        standardRoomPanel = new RoundLabel(new Color(40, 68, 117));
+        //standardRoomPanel = new RoundLabel(Color.red);
+        standardRoomPanel.setBounds(250, 20, 160, 86);
+        standardRoomPanel.setFont(customFont50);
+        standardRoomPanel.setText(Integer.toString(nRooms)); // change
+        standardRoomPanel.setForeground(Color.white);
+        standardRoomPanel.add(standardRooms);
+        standardRoomPanel.setVerticalAlignment(JLabel.TOP);;
+        standardRoomPanel.setHorizontalAlignment(JLabel.CENTER);
+
+        deluxeRooms = new RoundLabel(new Color(40, 68, 117));
+        deluxeRooms.setFont(customFont15);
+        deluxeRooms.setText("         deluxe rooms");
+        deluxeRooms.setForeground(Color.white);
+        deluxeRooms.setBounds(5, 61, 165, 20);
+
+        deluxeRoomPanel = new RoundLabel(new Color(40, 68, 117));
+        //deluxeRoomPanel = new RoundLabel(Color.blue);
+        deluxeRoomPanel.setBounds(375, 20, 175, 86);
+        deluxeRoomPanel.setFont(customFont50);
+        deluxeRoomPanel.setText(Integer.toString(nRooms)); // change
+        deluxeRoomPanel.setForeground(Color.white);
+        deluxeRoomPanel.add(deluxeRooms);
+        deluxeRoomPanel.setVerticalAlignment(JLabel.TOP);;
+        deluxeRoomPanel.setHorizontalAlignment(JLabel.CENTER);
+
+        executiveRooms = new RoundLabel(new Color(40, 68, 117));
+        executiveRooms.setFont(customFont15);
+        executiveRooms.setText("      executive rooms");
+        executiveRooms.setForeground(Color.white);
+        executiveRooms.setBounds(5, 61, 165, 20);
+
+        executiveRoomPanel = new RoundLabel(new Color(40, 68, 117));
+        //executiveRoomPanel = new RoundLabel(Color.green);
+        executiveRoomPanel.setBounds(303, 116, 175, 86);
+        executiveRoomPanel.setFont(customFont50);
+        executiveRoomPanel.setText(Integer.toString(nRooms)); // change
+        executiveRoomPanel.setForeground(Color.white);
+        executiveRoomPanel.add(executiveRooms);
+        executiveRoomPanel.setVerticalAlignment(JLabel.TOP);;
+        executiveRoomPanel.setHorizontalAlignment(JLabel.CENTER);
+
+        int roomViewHeight;
+
+        if (nRooms > 25){
+            roomViewHeight = (((nRooms - 1) / 5 - 3) * 9 + (((nRooms - 1) / 5 - 4) * 30)) + 198 - 10;
+        }
+        else {
+            roomViewHeight = 198;
+        }
+
+        RoomView roomView = new RoomView(this, nRooms);
+        roomView.setBounds(0, 0, 250, roomViewHeight);
+        roomView.setPreferredSize(new Dimension(250, roomViewHeight));
+
+        ScrollPaneCustom scrollPaneRoomView = new ScrollPaneCustom(roomView, new Color(40, 68, 117), new Color(40, 68, 117), new Color(27, 43, 80));
+        //ScrollPaneCustom scrollPaneRoomView = new ScrollPaneCustom(roomView, Color.white, Color.white, new Color(27, 43, 80));
+        scrollPaneRoomView.setBounds(0, 5, 250, 198);
+        scrollPaneRoomView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneRoomView.setPreferredSize(new Dimension(7, 7));
+
+        RoundPanel roomViewContainer = new RoundPanel(new Color(27, 43, 80));
+        roomViewContainer.setLayout(null);
+        roomViewContainer.setBounds(5, 5, 255, 203);
+        roomViewContainer.add(scrollPaneRoomView);
+        
+        roomInfoContainer.add(roomViewContainer);
+        roomInfoContainer.add(standardRoomPanel);
+        roomInfoContainer.add(deluxeRoomPanel);
+        roomInfoContainer.add(executiveRoomPanel);
+        
+
         ScrollPaneCustom scrollPane = new ScrollPaneCustom(roomInfoContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         scrollPane.setBounds(5, 5, 530, 210);
+        
+
         /*scrollPane.setLayout(null);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
