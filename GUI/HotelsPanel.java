@@ -11,6 +11,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
     private IconButton filterButton;
     private FilterPanel filterPanel;
     private boolean isVisible = false;
+    private ButtonClickListener listener;
 
 
     Font customFont15;
@@ -18,10 +19,12 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
     Font customFont70;
 
         // change to Hotel hotels
-    HotelsPanel(ArrayList<String> hotels, int nHotel){
+    HotelsPanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
 
         super(new Color(13, 22, 45));
         //super(Color.white);
+
+        this.listener = listener;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
@@ -97,6 +100,14 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         RoundLabel content = item.getContent();
         content.setText(hotelName);
         item.setVerticalAlignment(JLabel.CENTER);
+        item.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listener.buttonClicked(hotelName); // hotelName
+                
+            }
+        });
         
         
         item.setFocusable(false);

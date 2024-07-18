@@ -68,7 +68,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         }
         g2.setColor(trackColor);
         //g2.fillRect(x, y, width - 1, height);
-        g2.fillRoundRect(x, y, width, height, 10, 10);
+        g2.fillRoundRect(x, y + 15, width, height - 30, 10, 10);
 
     }
 

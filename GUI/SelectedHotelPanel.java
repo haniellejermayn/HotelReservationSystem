@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-public class SelectedHotelPanel extends RoundPanel implements ActionListener{
+public class SelectedHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
+    
+    private MainFrame mainFrame;
+    //private ArrayList<String> hotels;
     
     private RoundPanel titlePanel;
     private RoundPanel viewPanel;
@@ -29,9 +33,11 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
     Font customFont70;
 
         // change to Hotel hotels
-    SelectedHotelPanel(String hotel){
+    SelectedHotelPanel(String hotel, MainFrame mainFrame){
 
         super(new Color(13, 22, 45));
+
+        this.mainFrame = mainFrame;
         //super(Color.blue);
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
@@ -83,7 +89,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         manageButton.setColorOver(manageButton.getColorClick());
         manageButton.addActionListener(this);
 
-        managePanel = new ManagePanel(new Color(40, 68, 117)); // create ManagePanel
+        managePanel = new ManagePanel(new Color(51, 88, 150)); // create ManagePanel
         managePanel.setVisible(false);
 
         titlePanel = new RoundPanel(new Color(27, 43, 80));
@@ -97,7 +103,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         titlePanel.add(managePanel);
         titlePanel.add(bookButton);
 
-        bookPanel = new BookHotelPanel(hotel);
+        bookPanel = new BookHotelPanel(hotel, this);
         bookPanel.setBounds(152, 10, 385, 420);
 
         dateAvailButton = new OptionButton("Date Availability"); 
@@ -138,7 +144,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         viewPanel.add(resInfoButton);
 
 
-        dateAvailPanel.setVisible(false);
+        //dateAvailPanel.setVisible(false);
         roomInfoPanel.setVisible(false);
         
 
@@ -148,6 +154,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
         this.add(bookPanel);
+        this.add(managePanel);
         this.add(titlePanel);
         this.add(viewPanel);
 
@@ -215,11 +222,23 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
             dateAvailPanel.setVisible(false);
         }
         else if (e.getSource() == bookButton){
+            //mainFrame.darkenBackground(true); // fix
             bookPanel.setVisible(true);
+        }
+        else if (e.getSource() == manageButton){
+            managePanel.setVisible(true);
         }
     }
 
+
     public OptionButton getBookButton(){
         return bookButton;
+    }
+
+    @Override
+    public void buttonClicked(String buttonName) {
+        if (buttonName.equals("Book")){
+            bookPanel.setVisible(false);
+        }
     }
 }
