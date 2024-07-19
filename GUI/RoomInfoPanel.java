@@ -1,9 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
+    private int nRooms;
     private CalendarView calendar;
+    private ArrayList<OptionButton> days;
     private RoundLabel roomName, roomPrice, roomType;
     private RoundLabel availDates;
     private RoundLabel standardRooms, deluxeRooms, executiveRooms;
@@ -13,6 +16,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
     private Font customFont15;
     private Font customFont30;
     private Font customFont50;
+
 
                 // change to Hotel hotel
     RoomInfoPanel(String hotel){
@@ -34,6 +38,13 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
         calendar = new CalendarView(this);
         calendar.setBounds(180, 239, 335, 203);
+        days = calendar.getDays();
+        
+        for(int i = 0; i < days.size(); i++){
+            days.get(i).setEnabled(false);
+            days.get(i).setColorOver(days.get(i).getColor());
+            days.get(i).setColorClick(days.get(i).getColor());
+        }
         
         roomName = new RoundLabel(new Color(40, 68, 117));
         roomName.setBounds(0, 306, 175, 36);
@@ -81,7 +92,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomInfoContainer.add(roomPrice);
         roomInfoContainer.add(roomType);
 
-        int nRooms = 43; // change to No. of rooms
+        nRooms = 43; // change to No. of rooms
 
         standardRooms = new RoundLabel(new Color(40, 68, 117));
         standardRooms.setFont(customFont15);
@@ -91,7 +102,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
         standardRoomPanel = new RoundLabel(new Color(40, 68, 117));
         //standardRoomPanel = new RoundLabel(Color.red);
-        standardRoomPanel.setBounds(250, 20, 160, 86);
+        standardRoomPanel.setBounds(255, 20, 160, 86);
         standardRoomPanel.setFont(customFont50);
         standardRoomPanel.setText(Integer.toString(nRooms)); // change
         standardRoomPanel.setForeground(Color.white);
@@ -179,7 +190,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
     public void buttonClicked(String buttonName) {
 
         // change to necessary information
-        int nRooms = 30;
+        //int nRooms = 30;
         String name;
         String type = "Deluxe";
         float pricePerNight = 1299.00f;
@@ -187,12 +198,24 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         for (int i = 0; i < nRooms; i++){
             String roomIndex = String.format("%02d", i + 1);
             String price = String.format("%.2f", pricePerNight * (i % 7)); // change later
-            name = roomIndex; 
+            name = roomIndex;
 
             if (buttonName.equals(roomIndex)){
                 roomName.setText("Room " + name);
                 roomPrice.setText(price + " per night");
                 roomType.setText(type + " Room");
+                
+                int[] availDatesTemp = {3, 9, 12, 18, 21, 24, 26, 30};
+
+                for (int j = 0; j < availDatesTemp.length; j++){
+                    for (int k = 0; k < 31; k++){
+                        if (k + 1 == availDatesTemp[j]){ // change to available dates 
+                            days.get(k).setColor(new Color(51, 88, 150));
+                            days.get(k).setColorOver(new Color(51, 88, 150));
+                            days.get(k).setColorClick(new Color(51, 88, 150));
+                        } 
+                    }
+                }
             }
         }
     }

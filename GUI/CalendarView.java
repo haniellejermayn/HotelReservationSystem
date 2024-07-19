@@ -6,6 +6,7 @@ public class CalendarView extends RoundPanel{
     
     private ArrayList<OptionButton> days;
     private Font customFont;
+    private ActionListener action;
 
     CalendarView(ButtonClickListener listener){
         
@@ -27,6 +28,16 @@ public class CalendarView extends RoundPanel{
             }
 
             day.setFont(customFont);
+
+            /*action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    listener.buttonClicked(dayIndex);
+                }
+            };
+
+            day.addActionListener(action);*/
+
             day.addActionListener(new ActionListener(){
 
                 @Override
@@ -46,5 +57,9 @@ public class CalendarView extends RoundPanel{
 
     public ArrayList<OptionButton> getDays(){
         return days;
+    }
+
+    public ActionListener getActionListener(){
+        return action;
     }
 }
