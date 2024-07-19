@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
 
@@ -59,11 +60,18 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     @Override
     public void buttonClicked(String buttonName) {
         for (int i = 0; i < 31; i++){
+            ArrayList<OptionButton> days = calendar.getDays();
             String dayIndex = String.format("%02d", i + 1); // change to necessary information
 
             if (buttonName.equals(dayIndex)){
                 availPanel.setText(dayIndex);
                 bookedPanel.setText(dayIndex);
+                days.get(i).setColor(new Color(51, 88, 150));
+            }
+            else {
+                for (int j = 0; j < 31; j++){
+                    days.get(i).setColor(new Color(27, 43, 80));
+                }
             }
         }
     }

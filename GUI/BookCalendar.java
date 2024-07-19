@@ -3,7 +3,7 @@ import java.util.*;
 
 public class BookCalendar extends CalendarView{
     
-    ArrayList<RoundPanel> highlightedDays;
+    private ArrayList<RoundPanel> highlightedDays;
     private ArrayList<OptionButton> days;
 
     public BookCalendar(ButtonClickListener listener){
@@ -41,11 +41,11 @@ public class BookCalendar extends CalendarView{
             days.add(day);
             this.add(days.get(i));
         }*/
+    }
 
-        setHighlightedDays(1, 4);
+    public void setHighlightedDays(int checkIn, int checkOut){
 
-        int checkIn = 1;
-        int checkOut = 4;
+        highlightedDays = new ArrayList<RoundPanel>();
 
         for (int i = 0; i < 31; i++){
             if (Integer.valueOf(days.get(i).getButtonName()) >= checkIn && Integer.valueOf(days.get(i).getButtonName()) <= checkOut){
@@ -53,11 +53,6 @@ public class BookCalendar extends CalendarView{
                 days.get(i).setColorOver(new Color(51, 88, 150));
             }
         }
-    }
-
-    public void setHighlightedDays(int checkIn, int checkOut){
-
-        highlightedDays = new ArrayList<RoundPanel>();
         
         for (int i = 0; i < 5; i++){
 

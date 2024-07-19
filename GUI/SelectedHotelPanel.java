@@ -24,6 +24,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener, Bu
     private OptionButton roomInfoButton;
     private RoomInfoPanel roomInfoPanel;
     private OptionButton resInfoButton;
+    private ResInfoPanel resInfoPanel;
     //private ResInfoPanel resInfoPanel;
     //private boolean isVisible = false;
 
@@ -134,6 +135,9 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener, Bu
         resInfoButton.setColorClick(resInfoButton.getColorOver());
         resInfoButton.addActionListener(this);
 
+        resInfoPanel = new ResInfoPanel(hotel);
+        resInfoPanel.setBounds(40, 60, 540, 220);
+
         viewPanel = new RoundPanel(new Color(13, 22, 45));
         viewPanel.setLayout(null);
         viewPanel.setBounds(0, 190, 620, 280);
@@ -142,6 +146,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener, Bu
         viewPanel.add(roomInfoButton);
         viewPanel.add(roomInfoPanel);
         viewPanel.add(resInfoButton);
+        viewPanel.add(resInfoPanel);
 
 
         //dateAvailPanel.setVisible(false);
@@ -216,10 +221,26 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener, Bu
         if (e.getSource() == dateAvailButton){
             dateAvailPanel.setVisible(true);
             roomInfoPanel.setVisible(false);
+            resInfoPanel.setVisible(false);
+            dateAvailButton.setColor(new Color(40, 68, 117));
+            roomInfoButton.setColor(new Color(27, 43, 80));
+            resInfoButton.setColor(new Color(27, 43, 80));
         }
         else if (e.getSource() == roomInfoButton){
-            roomInfoPanel.setVisible(true);
             dateAvailPanel.setVisible(false);
+            roomInfoPanel.setVisible(true);
+            resInfoPanel.setVisible(false);
+            dateAvailButton.setColor(new Color(27, 43, 80));
+            roomInfoButton.setColor(new Color(40, 68, 117));
+            resInfoButton.setColor(new Color(27, 43, 80));
+        }
+        else if (e.getSource() == resInfoButton){
+            dateAvailPanel.setVisible(false);
+            roomInfoPanel.setVisible(false);
+            resInfoPanel.setVisible(true);
+            dateAvailButton.setColor(new Color(27, 43, 80));
+            roomInfoButton.setColor(new Color(27, 43, 80));
+            resInfoButton.setColor(new Color(40, 68, 117));
         }
         else if (e.getSource() == bookButton){
             //mainFrame.darkenBackground(true); // fix

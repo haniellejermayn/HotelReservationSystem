@@ -6,6 +6,7 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
     private int nRooms;
     private CalendarView calendar;
+    private RoomView roomView;
     private ArrayList<OptionButton> days;
     private RoundLabel roomName, roomPrice, roomType;
     private RoundLabel availDates;
@@ -81,28 +82,17 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         availDates.setVerticalAlignment(JLabel.CENTER);
         availDates.setHorizontalAlignment(JLabel.CENTER);
 
-        roomInfoContainer = new RoundPanel(new Color(40, 68, 117));
-        roomInfoContainer.setLayout(null);
-        //roomInfoContainer.setBounds(5, 5, 530, 310);
-        //roomInfoContainer.setBounds(5, 5, 530, 500);
-        roomInfoContainer.setPreferredSize(new Dimension(530, 447));
-        roomInfoContainer.add(availDates);
-        roomInfoContainer.add(calendar);
-        roomInfoContainer.add(roomName);
-        roomInfoContainer.add(roomPrice);
-        roomInfoContainer.add(roomType);
-
         nRooms = 43; // change to No. of rooms
 
         standardRooms = new RoundLabel(new Color(40, 68, 117));
         standardRooms.setFont(customFont15);
-        standardRooms.setText("    standard rooms");
+        standardRooms.setText("  standard rooms");
         standardRooms.setForeground(Color.white);
-        standardRooms.setBounds(5, 61, 165, 20);
+        standardRooms.setBounds(5, 61, 160, 20);
 
         standardRoomPanel = new RoundLabel(new Color(40, 68, 117));
         //standardRoomPanel = new RoundLabel(Color.red);
-        standardRoomPanel.setBounds(255, 20, 160, 86);
+        standardRoomPanel.setBounds(263, 20, 140, 86);
         standardRoomPanel.setFont(customFont50);
         standardRoomPanel.setText(Integer.toString(nRooms)); // change
         standardRoomPanel.setForeground(Color.white);
@@ -112,13 +102,13 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
 
         deluxeRooms = new RoundLabel(new Color(40, 68, 117));
         deluxeRooms.setFont(customFont15);
-        deluxeRooms.setText("         deluxe rooms");
+        deluxeRooms.setText("        deluxe rooms");
         deluxeRooms.setForeground(Color.white);
         deluxeRooms.setBounds(5, 61, 165, 20);
 
         deluxeRoomPanel = new RoundLabel(new Color(40, 68, 117));
         //deluxeRoomPanel = new RoundLabel(Color.blue);
-        deluxeRoomPanel.setBounds(375, 20, 175, 86);
+        deluxeRoomPanel.setBounds(375, 20, 165, 86);
         deluxeRoomPanel.setFont(customFont50);
         deluxeRoomPanel.setText(Integer.toString(nRooms)); // change
         deluxeRoomPanel.setForeground(Color.white);
@@ -145,19 +135,19 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         int roomViewHeight;
 
         if (nRooms > 25){
-            roomViewHeight = (((nRooms - 1) / 5 - 3) * 9 + (((nRooms - 1) / 5 - 4) * 30)) + 198 - 10;
+            roomViewHeight = (((nRooms - 1) / 5 - 3) * 9 + (((nRooms - 1) / 5 - 4) * 30)) + 198 - 15;
         }
         else {
             roomViewHeight = 198;
         }
 
-        RoomView roomView = new RoomView(this, nRooms);
+        roomView = new RoomView(this, nRooms);
         roomView.setBounds(0, 0, 250, roomViewHeight);
         roomView.setPreferredSize(new Dimension(250, roomViewHeight));
 
         ScrollPaneCustom scrollPaneRoomView = new ScrollPaneCustom(roomView, new Color(40, 68, 117), new Color(40, 68, 117), new Color(27, 43, 80));
         //ScrollPaneCustom scrollPaneRoomView = new ScrollPaneCustom(roomView, Color.white, Color.white, new Color(27, 43, 80));
-        scrollPaneRoomView.setBounds(0, 5, 250, 198);
+        scrollPaneRoomView.setBounds(2, 2, 250, 196);
         scrollPaneRoomView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPaneRoomView.setPreferredSize(new Dimension(7, 7));
 
@@ -166,6 +156,16 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         roomViewContainer.setBounds(5, 5, 255, 203);
         roomViewContainer.add(scrollPaneRoomView);
         
+        roomInfoContainer = new RoundPanel(new Color(40, 68, 117));
+        roomInfoContainer.setLayout(null);
+        //roomInfoContainer.setBounds(5, 5, 530, 310);
+        //roomInfoContainer.setBounds(5, 5, 530, 500);
+        roomInfoContainer.setPreferredSize(new Dimension(530, 447));
+        roomInfoContainer.add(availDates);
+        roomInfoContainer.add(calendar);
+        roomInfoContainer.add(roomName);
+        roomInfoContainer.add(roomPrice);
+        roomInfoContainer.add(roomType);
         roomInfoContainer.add(roomViewContainer);
         roomInfoContainer.add(standardRoomPanel);
         roomInfoContainer.add(deluxeRoomPanel);
@@ -196,15 +196,17 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
         float pricePerNight = 1299.00f;
 
         for (int i = 0; i < nRooms; i++){
-            String roomIndex = String.format("%02d", i + 1);
+            ArrayList<OptionButton> roomButtons = roomView.getRooms();
+            String roomIndex = String.format("%02d", i + 1); 
             String price = String.format("%.2f", pricePerNight * (i % 7)); // change later
-            name = roomIndex;
+            name = roomIndex; // change to room name
 
             if (buttonName.equals(roomIndex)){
                 roomName.setText("Room " + name);
                 roomPrice.setText(price + " per night");
                 roomType.setText(type + " Room");
-                
+                roomButtons.get(i).setColor(new Color(51, 88, 150));
+
                 int[] availDatesTemp = {3, 9, 12, 18, 21, 24, 26, 30};
 
                 for (int j = 0; j < availDatesTemp.length; j++){
@@ -215,6 +217,11 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
                             days.get(k).setColorClick(new Color(51, 88, 150));
                         } 
                     }
+                }
+            }
+            else {
+                for (int j = 0; j < nRooms; j++){
+                    roomButtons.get(i).setColor(new Color(27, 43, 80));
                 }
             }
         }

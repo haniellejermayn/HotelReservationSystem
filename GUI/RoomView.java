@@ -23,7 +23,7 @@ public class RoomView extends RoundPanel{
 
         
         for (int i = 0; i < nRooms; i++){
-            OptionButton room = new OptionButton(Integer.toString(i + 1));
+            OptionButton room = new OptionButton(Integer.toString(i + 1)); // change to hotel naming convention
             String dayIndex = String.format("%02d", i + 1); // change to hotel naming convention
 
             if ((i + 1) % 5 == 1){
@@ -54,5 +54,13 @@ public class RoomView extends RoundPanel{
 
         this.setLayout(null);
         //this.setBounds(10, 10, 240, 203);
+    }
+
+    public ArrayList<OptionButton> getRooms(){
+        return rooms;
+    }
+
+    public void setRooms( ArrayList<OptionButton> rooms){
+        this.rooms = rooms;
     }
 }
