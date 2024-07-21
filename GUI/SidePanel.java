@@ -89,5 +89,4 @@ public class SidePanel extends RoundPanel{
     public void setBackButton(IconButton backButton){
         this.backButton = backButton;
     }
-
 }

@@ -10,12 +10,6 @@ public class FilterPanel extends RoundPanel{
     FilterPanel(Color bgColor){
 
         super(bgColor);
-
-        //this.setOpaque(false);
-        //this.setBackground(new Color(27, 43, 80));
-        //this.setBackground(new Color(40, 68, 117));
-        this.setLayout(null);
-        this.setBounds(460, 0, 150, 210);
         
         mostBooked = new OptionButton("Most Booked");
         mostBooked.setBounds(5,50, 140, 30);
@@ -37,6 +31,8 @@ public class FilterPanel extends RoundPanel{
         newest.setColorOver(newest.getColorClick());
         newest.setText("Newest");
         
+        this.setLayout(null);
+        this.setBounds(460, 0, 150, 210);
         this.add(mostBooked);
         this.add(lowestPrice);
         this.add(highestPrice);

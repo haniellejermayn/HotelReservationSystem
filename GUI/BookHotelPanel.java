@@ -1,122 +1,157 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 public class BookHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
 
-    BookCalendar calendar;
-    RoundPanel bookContainer;
-    //RoundLabel guestName, roomType, discountCode;
-    //RoundLabel totalPrice;
-    //OptionButton bookButton;
+    private RoundLabel bookingTitle;
+    private BookCalendar calendar;
+    private RoundPanel bookContainer;
+    private RoundLabel roomTypeTitle;
+    private RoundPanel roomType;
+    private RoundLabel checkInNOut;
 
-    RoundPanel nameTextField, discountTextField;
+    private TextFieldCustom guestName;
+    private boolean roomTypeSelected;
+    private OptionButton standardRoom, deluxeRoom, executiveRoom;
+    private OptionButton bookButton;
+    private IconButton cancelButton;
 
-    TextFieldCustom guestName;
-    boolean roomTypeSelected;
-    OptionButton standardRoom, deluxeRoom, executiveRoom;
-    OptionButton bookButton;
+    private TextFieldCustom discount;
+    private OptionButton hasDiscount;
 
-    TextFieldCustom discount;
-    OptionButton hasDiscount;
+    private String nameInput, roomTypeInput, discountInput;
+    private int checkInInput, checkOutInput;
 
-    String nameInput, roomTypeInput, discountInput;
-    int checkIn, checkOut;
+    //private ButtonClickListener listener;
+    private ArrayList<OptionButton> days;
+    private ArrayList<String> clickedButtons;
 
-    ButtonClickListener listener;
+    private Font customFont13;
+    private Font customFont30;
 
-    Font customFont13;
-    Font customFont15;
-    Font customFont30;
-    Font customFont50;
-
-                // change to Hotel hotel
+                // TODO: change to Hotel hotel
     public BookHotelPanel(String hotel, ButtonClickListener listener){
 
         super(new Color(51, 88, 150));
 
-        this.listener = listener;
-
         customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
-        customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
-        customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
-        RoundLabel bookingTitle = new RoundLabel(new Color(51, 88, 150));
+        // * Title * //
+        bookingTitle = new RoundLabel(new Color(51, 88, 150));
         bookingTitle.setBounds(8, 10, 200, 40);
         bookingTitle.setText("Booking");
         bookingTitle.setFont(customFont30);
         bookingTitle.setForeground(Color.white);
 
-        //TextFieldCustom guestName = new TextFieldCustom(new Color(51, 88, 150));
-        TextFieldCustom guestName = new TextFieldCustom(new Color(40, 68, 117));
+        // * Guest Name * //
+        guestName = new TextFieldCustom(new Color(40, 68, 117));
         guestName.setBounds(5, 10, 355, 55);
         guestName.setFieldName("Name");
 
+        // * Room Types * //
         roomTypeSelected = false;
 
-        OptionButton standardRoom = new OptionButton("Standard");
+        standardRoom = new OptionButton("Standard");
         standardRoom.setBounds(32, 28, 100, 30);
         standardRoom.setColorOver(standardRoom.getColorClick());
         standardRoom.addActionListener(this);
         
-        OptionButton deluxeRoom = new OptionButton("Deluxe");
+        deluxeRoom = new OptionButton("Deluxe");
         deluxeRoom.setBounds(137, 28, 100, 30);
         deluxeRoom.setColorOver(deluxeRoom.getColorClick());
         deluxeRoom.addActionListener(this);
         
-        OptionButton executiveRoom = new OptionButton("Executive");
+        executiveRoom = new OptionButton("Executive");
         executiveRoom.setBounds(242, 28, 100, 30);
         executiveRoom.setColorOver(executiveRoom.getColorClick());
         executiveRoom.addActionListener(this);
 
-        //RoundLabel roomTypeTitle = new RoundLabel(new Color(51, 88, 150));
-        RoundLabel roomTypeTitle = new RoundLabel(new Color(40, 68, 117));
+        roomTypeTitle = new RoundLabel(new Color(40, 68, 117));
         roomTypeTitle.setBounds(8, 1, 100, 20);
         roomTypeTitle.setText("Room Type");
         roomTypeTitle.setFont(customFont13);
         roomTypeTitle.setForeground(Color.white);
         
-        //RoundPanel roomType = new RoundPanel(new Color(51, 88, 150));
-        RoundPanel roomType = new RoundPanel(new Color(40, 68, 117));
-        //RoundPanel roomType = new RoundPanel(Color.blue);
-        //RoundPanel roomType = new RoundPanel(Color.white);
+        roomType = new RoundPanel(new Color(40, 68, 117));
         roomType.setLayout(null);
         roomType.setBounds(5, 95, 350, 60);
         roomType.add(roomTypeTitle);
         roomType.add(standardRoom);
         roomType.add(deluxeRoom);
         roomType.add(executiveRoom);
-        
 
-        //RoundLabel checkInNOut = new RoundLabel(new Color(51, 88, 150));
-        RoundLabel checkInNOut = new RoundLabel(new Color(40, 68, 117));
+        // * Check In / Out * //
+        checkInNOut = new RoundLabel(new Color(40, 68, 117));
         checkInNOut.setBounds(13, 185, 200, 20);
         checkInNOut.setText("Check in / Check Out");
         checkInNOut.setFont(customFont13);
         checkInNOut.setForeground(Color.white);
 
+        clickedButtons = new ArrayList<String>();
+
         calendar = new BookCalendar(this);
         calendar.setBounds(18, 220, 335, 203);
+        days = calendar.getDays();
+        days.get(30).setEnabled(false);
+        days.get(30).setColor(new Color(27, 43, 80));
+        days.get(30).setColorOver(new Color(27, 43, 80));
+        days.get(30).setColorClick(new Color(27, 43, 80));
 
+        // * Discount * //
         hasDiscount = new OptionButton("Discount");
         hasDiscount.setText("I have a discount code");
         hasDiscount.setForeground(new Color(27, 43, 80));
         hasDiscount.setColor(new Color(51, 88, 150));
 
-        //discount = new TextFieldCustom(new Color(51, 88, 150));
         discount = new TextFieldCustom(new Color(40, 68, 117));
         discount.setBounds(5, 460, 355, 55);
         discount.setFieldName("Discount Code");
 
-        OptionButton bookButton = new OptionButton("Book");
-        //bookButton.setBounds(425, 545, 100, 30);
+        // * Book Button * //
+        bookButton = new OptionButton("Book");
         bookButton.setBounds(260, 540, 100, 30);
         bookButton.setColorOver(bookButton.getColorClick());
-        bookButton.addActionListener(this);
+        bookButton.addActionListener(new ActionListener(){
 
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setNameInput(guestName.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
+                setDiscountInput(discount.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
+                
+                // TODO: check if all fields are filled
+                // TODO: set all necessary info into Hotel
+                
 
+                listener.buttonClicked("Book");
+            }
+        });
+
+        // * Cancel * //
+        ImageIcon cancelIcon = new ImageIcon("Icons/CancelIcon.png");
+        cancelIcon = Customization.resizeIcon(cancelIcon, 20, 20); 
+
+        cancelButton = new IconButton(cancelIcon, "Book Cancel");
+        cancelButton.setBounds(335, 8, 40, 40);
+        cancelButton.setColorClick(bookButton.getColorOver());
+        cancelButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setNameInput(""); 
+                setRoomTypeInput("");
+                setCheckInInput(0);
+                setCheckOutInput(0);
+                setDiscountInput("");
+
+                listener.buttonClicked("Book Cancel");
+            }
+        });
+
+        // * Container * //
         bookContainer = new RoundPanel(new Color(40, 68, 117));
         bookContainer.setLayout(null);
         bookContainer.setPreferredSize(new Dimension(530, 585));
@@ -132,48 +167,85 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
         this.setLayout(null);
         this.add(bookingTitle);
+        this.add(cancelButton);
         this.add(scrollPane);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
         if (e.getSource() == standardRoom){
             roomTypeSelected = true;
-            standardRoom.setColor(standardRoom.getColorClick());
             deluxeRoom.setColor(new Color(27, 43, 80));
             executiveRoom.setColor(new Color(27, 43, 80));
-
+            standardRoom.setColor(new Color(51, 88, 150));
+            setRoomTypeInput("Standard");
         }
         else if (e.getSource() == deluxeRoom){
             roomTypeSelected = true;
-            deluxeRoom.setColor(standardRoom.getColorClick());
             standardRoom.setColor(new Color(27, 43, 80));
             executiveRoom.setColor(new Color(27, 43, 80));
-
+            deluxeRoom.setColor(new Color(51, 88, 150));
+            setRoomTypeInput("Deluxe");
         }
         else if (e.getSource() == executiveRoom){
             roomTypeSelected = true;
-            executiveRoom.setColor(standardRoom.getColorClick());
-            deluxeRoom.setColor(new Color(27, 43, 80));
             standardRoom.setColor(new Color(27, 43, 80));
-
-        }
-        
-        
-        if (e.getSource() == bookButton){
-                
-            String name = guestName.getTextField().getText().trim(); // Get text and trim any leading/trailing whitespace
-            
-            if (!name.isEmpty() && roomTypeSelected) {
-                listener.buttonClicked("Book");
-            } 
+            deluxeRoom.setColor(new Color(27, 43, 80));
+            executiveRoom.setColor(new Color(51, 88, 150));
+            setRoomTypeInput("Executive");
         }
     }
 
     @Override
     public void buttonClicked(String buttonName) {
-        
+
+        clickedButtons.add(buttonName);
+
+        if (clickedButtons.size() > 2){
+            clickedButtons.remove(0);
+            clickedButtons.remove(1);
+        }
+
+        if (clickedButtons.size() == 1){
+            
+            days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColor(new Color(51, 88, 150));
+            days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColorOver(new Color(51, 88, 150));
+            
+            for (int i = 0; i < 31; i++){
+                if (i < Integer.valueOf(clickedButtons.get(0)) - 1){
+                    days.get(i).setEnabled(false);
+                    days.get(i).setColor(new Color(27, 43, 80));
+                    days.get(i).setColorOver(new Color(27, 43, 80));
+                    days.get(i).setColorClick(new Color(27, 43, 80));
+                }
+            }
+            
+            days.get(30).setEnabled(true);
+            days.get(30).setColor(new Color(27, 43, 80));
+            days.get(30).setColorOver(new Color(40, 68, 117));
+            days.get(30).setColorClick(new Color(51, 88, 150));
+        }
+
+        if (clickedButtons.size() == 2 && !clickedButtons.get(0).equals(clickedButtons.get(1))){
+            calendar.setHighlightedDays(Integer.valueOf(clickedButtons.get(0)), Integer.valueOf(clickedButtons.get(1)));
+            setCheckInInput(Integer.valueOf(clickedButtons.get(0)));
+            setCheckOutInput(Integer.valueOf(clickedButtons.get(1)));
+
+            for (int i = 0; i < 31; i++){
+                if (i >= Integer.valueOf(clickedButtons.get(1))){
+                    days.get(i).setColor(new Color(27, 43, 80));
+                    days.get(i).setColorOver(new Color(27, 43, 80));
+                    days.get(i).setColorClick(new Color(27, 43, 80));
+                }
+                
+                if (i >= Integer.valueOf(clickedButtons.get(0)) && i < Integer.valueOf(clickedButtons.get(1))){
+                    days.get(i).setColor(new Color(51, 88, 150));
+                    days.get(i).setColorOver(new Color(51, 88, 150));
+                }
+
+                days.get(i).setEnabled(false);
+            }
+        }
     }
 
     public String getNameInput(){
@@ -184,21 +256,36 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         this.nameInput = nameInput;
     }
 
-    public String getroomTypeInput(){
-        return nameInput;
+    public String getRoomTypeInput(){
+        return roomTypeInput;
     }
 
-    public void setroomTypeInput(String roomTypeInput){
+    public void setRoomTypeInput(String roomTypeInput){
         this.roomTypeInput = roomTypeInput;
     }
 
+    public int getCheckInInput(){
+        return checkInInput;
+    }
+
+    public void setCheckInInput(int checkInInput){
+        this.checkInInput = checkInInput;
+    }
+
+    public int getCheckOutInput(){
+        return checkOutInput;
+    }
+
+    public void setCheckOutInput(int checkOutInput){
+        this.checkOutInput = checkOutInput;
+    }
+
     public String getDiscountInput(){
-        return nameInput;
+        discountInput = discount.getTextField().getText().trim();
+        return discountInput;
     }
 
     public void setDiscountInput(String discountInput){
         this.discountInput = discountInput;
     }
 }
-
-

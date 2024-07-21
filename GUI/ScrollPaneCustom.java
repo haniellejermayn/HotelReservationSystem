@@ -9,7 +9,6 @@ public class ScrollPaneCustom extends JScrollPane{
         super(component);
         
         this.bgColor = bgColor;
-        //this.setBounds(100, 100, 200, 100);
         this.setVerticalScrollBar(new ScrollBarCustom(thumbColor, trackColor));
         this.setBorder(null);
         this.getViewport().setOpaque(false);

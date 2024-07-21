@@ -137,6 +137,4 @@ public class HotelOption extends PanelButton{
     public void setButtonName(String buttonName){
         this.buttonName = buttonName;
     }
-
-
 }

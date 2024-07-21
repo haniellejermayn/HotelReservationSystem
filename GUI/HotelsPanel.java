@@ -6,24 +6,23 @@ import java.util.*;
 public class HotelsPanel extends RoundPanel implements ActionListener{
     
     private JLabel hotelTitle;
-    private ArrayList<HotelOption> hotelCatalogue;
     private IconButton createHotelButton;
     private IconButton filterButton;
     private FilterPanel filterPanel;
-    private boolean isVisible = false;
-    private ButtonClickListener listener;
     private RoundPanel hotelContainer;
+    private ButtonClickListener listener;
+    private ArrayList<HotelOption> hotelCatalogue;
+    private int hotelContainerHeight;
+    private boolean isVisible = false;
 
+    private Font customFont15;
+    private Font customFont35;
+    private Font customFont70;
 
-    Font customFont15;
-    Font customFont35;
-    Font customFont70;
-
-        // change to Hotel hotels
+        // TODO: change to Hotel hotels
     HotelsPanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
 
         super(new Color(13, 22, 45));
-        //super(Color.white);
 
         this.listener = listener;
 
@@ -31,22 +30,23 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
         customFont70 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 70);
 
+        // * Hotel Title * //
         hotelTitle = new JLabel("Hotels");
         hotelTitle.setFont(customFont35);
         hotelTitle.setForeground(Color.white);
         hotelTitle.setVerticalAlignment(JLabel.TOP);
         hotelTitle.setBounds(0, 0, 300, 100);
 
-        // if (hotels[] != EMPTY)
+        // * Hotel Catalogue * //
         hotelCatalogue = new ArrayList<HotelOption>();
 
-        // Room rooms;
         for(int i = 0; i < nHotel; i++){
             HotelOption optionTemp = new HotelOption(hotels.get(i));
             initializeHotelOption(optionTemp, hotels.get(i), i);
             hotelCatalogue.add(optionTemp);
         }
 
+        // * Filter * //
         ImageIcon filterIcon = new ImageIcon("Icons/FilterIcon.png"); 
         filterIcon = Customization.resizeIcon(filterIcon, 20, 20); 
         
@@ -58,25 +58,18 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         filterPanel = new FilterPanel(new Color(40, 68, 117));
         filterPanel.setVisible(false);
 
+        // * Create Hotel * //
         ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
         createHotelButton = new IconButton(createHotelIcon, "Create Hotel"); // add picture
         createHotelButton.setBounds(285, (nHotel + 1) * 10 + (nHotel * 110) + 10, 50, 50);
 
-        int hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
-
-        /*if (nHotel >= 3){
-            hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 20;
-        }
-        else {
-            hotelContainerHeight = 
-        }*/
+        // * Container * //
+        hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
 
         hotelContainer = new RoundPanel(new Color(13, 22, 45));
-        hotelContainer.setLayout(null);
-        //roomInfoContainer.setBounds(5, 5, 530, 310);
-        //roomInfoContainer.setBounds(5, 5, 530, 500);
+        hotelContainer.setLayout(null);;
         hotelContainer.setPreferredSize(new Dimension(620, hotelContainerHeight));
 
         for (int i = 0; i < nHotel; i++){
@@ -95,28 +88,15 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         this.add(filterButton);
         this.add(filterPanel);
         this.add(scrollPane);
-        //this.setBackground(Color.red);
-
-
-
-
-
-
-        // fix
-
-        /*scrollPane = new JScrollPane(homePage);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
-        
     }
 
-    // change to Hotel
+                                            // TODO: change to Hotel
     public void initializeHotelOption(HotelOption item, String hotel, int itemNo){
 
-        String hotelName = hotel; // change later
+        String hotelName = hotel; // TODO: change to hotel name
+        float price = 1299.00f; // TODO: change to hotel price
 
-
-        item.setBounds(0, (itemNo + 1) * 10 + (itemNo * 110), 600, 110); // fix
+        item.setBounds(0, (itemNo + 1) * 10 + (itemNo * 110), 600, 110);
         item.setLayout(null);
 
         RoundLabel content = item.getContent();
@@ -126,14 +106,14 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                listener.buttonClicked(hotelName); // hotelName
+                listener.buttonClicked(hotelName);
             }
         });
         
-        
         item.setFocusable(false);
-        //item.setText(price); // change to string
-    }   // add option if there is hotel picture
+        // TODO: add other hotel information
+        // TODO: add option if there is hotel picture
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

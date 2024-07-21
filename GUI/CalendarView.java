@@ -28,16 +28,6 @@ public class CalendarView extends RoundPanel{
             }
 
             day.setFont(customFont);
-
-            /*action = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    listener.buttonClicked(dayIndex);
-                }
-            };
-
-            day.addActionListener(action);*/
-
             day.addActionListener(new ActionListener(){
 
                 @Override

@@ -11,7 +11,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     Font customFont15;
     Font customFont50;
 
-                // change to Hotel hotel
+        // TODO: change to Hotel hotel
     DateAvailPanel(String hotel){
 
         super(new Color(40, 68, 117));
@@ -21,18 +21,13 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
 
         calendar = new CalendarView(this);
 
+        // * Available Rooms * //
         availRooms = new RoundLabel(new Color(40, 68, 117));
         availRooms.setFont(customFont15);
         availRooms.setText("      available rooms");
         availRooms.setForeground(Color.white);
         availRooms.setBounds(5, 61, 165, 20);
 
-        bookedRooms = new RoundLabel(new Color(40, 68, 117));
-        bookedRooms.setFont(customFont15);
-        bookedRooms.setText("       booked rooms");
-        bookedRooms.setForeground(Color.white);
-        bookedRooms.setBounds(5, 61, 165, 20);
-        
         availPanel = new RoundLabel(new Color(40, 68, 117));
         availPanel.setBounds(355, 20, 175, 86);
         availPanel.setFont(customFont50);
@@ -41,6 +36,13 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         availPanel.add(availRooms);
         availPanel.setVerticalAlignment(JLabel.TOP);;
         availPanel.setHorizontalAlignment(JLabel.CENTER);
+
+        // * Booked Rooms * //
+        bookedRooms = new RoundLabel(new Color(40, 68, 117));
+        bookedRooms.setFont(customFont15);
+        bookedRooms.setText("       booked rooms");
+        bookedRooms.setForeground(Color.white);
+        bookedRooms.setBounds(5, 61, 165, 20);
         
         bookedPanel = new RoundLabel(new Color(40, 68, 117));
         bookedPanel.setBounds(355, 116, 175, 86);

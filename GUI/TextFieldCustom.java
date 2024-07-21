@@ -11,9 +11,7 @@ public class TextFieldCustom extends RoundPanel{
     TextFieldCustom(Color bgColor){
         
         super(bgColor);
-        //super(Color.red);
 
-        Font customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         Font customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
 
         fieldName = new RoundLabel(bgColor);
@@ -22,7 +20,7 @@ public class TextFieldCustom extends RoundPanel{
         fieldName.setFont(customFont13);
         fieldName.setText(textFieldName);
 
-        JTextField textField = new JTextField();
+        textField = new JTextField();
         textField.setBackground(Color.white);
         textField.setOpaque(false);
         textField.setEditable(true);
@@ -64,5 +62,4 @@ public class TextFieldCustom extends RoundPanel{
     public void setTextContainer(RoundPanel textContainer){
         this.textContainer = textContainer;
     }
-    
 }

@@ -5,7 +5,6 @@ import java.util.*;
 public class RoomView extends RoundPanel{
     
     private ArrayList<OptionButton> rooms;
-    private ButtonClickListener listener;
 
     private Font customFont;
 
@@ -13,18 +12,13 @@ public class RoomView extends RoundPanel{
         
         super(new Color(27, 43, 80));
 
-        this.listener = listener;
-
         customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
 
         rooms = new ArrayList<OptionButton>();
-
-        //int nRooms = 50;
-
         
         for (int i = 0; i < nRooms; i++){
-            OptionButton room = new OptionButton(Integer.toString(i + 1)); // change to hotel naming convention
-            String dayIndex = String.format("%02d", i + 1); // change to hotel naming convention
+            OptionButton room = new OptionButton(Integer.toString(i + 1)); // TODO: change to hotel naming convention
+            String dayIndex = String.format("%02d", i + 1); // TODO: change to hotel naming convention
 
             if ((i + 1) % 5 == 1){
                 if (i >= 0 && i <= 4){
@@ -50,10 +44,7 @@ public class RoomView extends RoundPanel{
             rooms.add(room);
             this.add(rooms.get(i));
         }
-
-
         this.setLayout(null);
-        //this.setBounds(10, 10, 240, 203);
     }
 
     public ArrayList<OptionButton> getRooms(){

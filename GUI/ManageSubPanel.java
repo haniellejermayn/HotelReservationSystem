@@ -29,4 +29,8 @@ public class ManageSubPanel extends RoundPanel{
         this.add(headerPanel2);
         this.add(headerPanel);
     }
+
+    /*public void confirmMod(){
+        RoundPanel confirmModPanel = new RoundPanel(getColor())
+    }*/
 }
