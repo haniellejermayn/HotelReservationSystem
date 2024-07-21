@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        // change to Hotel
+        // TODO: change to Hotel
         ArrayList<String> hotels = new ArrayList<String>();
 
         hotels.add("Kelsey Hotel");

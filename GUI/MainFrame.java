@@ -33,11 +33,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
     HomePanel homePanel;
     HotelsPanel hotelsPanel;
-    //SelectedHotelPanel selectedHotel;
+    ReservationsPanel resPanel;
     private OptionButton bookButton;
     
     IconButton homeButton;
     IconButton hotelButton;
+    IconButton resButton;
     
     ArrayList<HotelItem> hotelCatalogue;
     ArrayList<HotelOption> hotelOptions;
@@ -146,6 +147,14 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
         hotelButton = sidePanel.getHotelButton();
         hotelButton.addActionListener(this);
+        
+        resPanel = new ReservationsPanel(hotels, nHotels); 
+        resButton = sidePanel.getReservationsButton();
+        resButton.addActionListener(this);
+
+        // TODO: Add reservations panel
+
+        // TODO: Add Account panel
 
         // ---------- PlaceHolders ---------- //
 
@@ -205,14 +214,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         //hotelTemp.setVisible(false);
         //selectedHotelPanels.add(hotelTemp);
 
-        // TODO: Add reservations panel
-        // TODO: Add Account panel
-
         this.setIconImage(logo.getImage());
         this.add(logoName);
         this.add(sidePanel);
         this.add(homePanel);
         this.add(hotelsPanel);
+        this.add(resPanel);
         this.add(accountPanel);
         this.add(datePanel);
         this.add(reservationsPanel);
@@ -220,6 +227,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
         //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
+        resPanel.setVisible(false);
         /*kelseyHotel.setVisible(false);
         hepHotel.setVisible(false);
         hanielleHotel.setVisible(false);*/
@@ -243,11 +251,19 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         if (e.getSource() == homeButton){
             homePanel.setVisible(true);
             hotelsPanel.setVisible(false);
+            resPanel.setVisible(false);
         }
         else if (e.getSource() == hotelButton){
-            hotelsPanel.setVisible(true);
             homePanel.setVisible(false);
+            hotelsPanel.setVisible(true);
+            resPanel.setVisible(false);
         }
+        else if (e.getSource() == resButton){
+            homePanel.setVisible(false);
+            hotelsPanel.setVisible(false);
+            resPanel.setVisible(true);
+        }
+
         /*else if (e.getSource() == bookButton){
             this.darkenBackground(true);
         }*/
