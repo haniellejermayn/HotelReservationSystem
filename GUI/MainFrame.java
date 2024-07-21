@@ -205,6 +205,9 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         //hotelTemp.setVisible(false);
         //selectedHotelPanels.add(hotelTemp);
 
+        // TODO: Add reservations panel
+        // TODO: Add Account panel
+
         this.setIconImage(logo.getImage());
         this.add(logoName);
         this.add(sidePanel);

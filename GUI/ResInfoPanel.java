@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ResInfoPanel extends RoundPanel implements ButtonClickListener{
+public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListener{
 
     private int nReservations; // TODO: remove
     private ReservationView resView;
@@ -105,23 +105,32 @@ public class ResInfoPanel extends RoundPanel implements ButtonClickListener{
     @Override
     public void buttonClicked(String buttonName) {
 
+    }
+
+    @Override
+    public void roomButtonClicked(String roomName) {
+
+    }
+
+    @Override
+    public void reservationButtonClicked(String reservationButtonName) {
         // TODO: change to hotel reservations
-        ArrayList<String> reservationsTemp = new ArrayList<String>();
+        /*ArrayList<String> reservationsTemp = new ArrayList<String>();
         reservationsTemp.add("Kelsey");
         reservationsTemp.add("Hep");
         reservationsTemp.add("Hanielle");
         reservationsTemp.add("Francine");
         reservationsTemp.add("Justine");
-        reservationsTemp.add("Liane");
+        reservationsTemp.add("Liane");*/
 
         String type = "Executive"; // change to reservation room type
 
         for (int i = 0; i < nReservations; i++){
             ArrayList<OptionButton> resButtons = resView.getReservations();
-            String resName = reservationsTemp.get(i); // TODO: change to reservation Name
+            String resName = resButtons.get(i).getButtonName(); // TODO: change to reservation Name
 
-            if (buttonName.equals(resName)){
-                guestInfoPanel.setText(reservationsTemp.get(i) + "'s Reservation");
+            if (reservationButtonName.equals(resName)){
+                guestInfoPanel.setText(resName + "'s Reservation");
                 guestInfoPanel.remove(roomType);
                 roomType.setText(type + " Room");
                 guestInfoPanel.add(roomType);

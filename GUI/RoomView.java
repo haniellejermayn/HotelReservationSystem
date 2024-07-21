@@ -8,7 +8,7 @@ public class RoomView extends RoundPanel{
 
     private Font customFont;
 
-    RoomView(ButtonClickListener listener, int nRooms){
+    RoomView(EnhancedButtonClickListener listener, int nRooms){
         
         super(new Color(27, 43, 80));
 
@@ -18,7 +18,7 @@ public class RoomView extends RoundPanel{
         
         for (int i = 0; i < nRooms; i++){
             OptionButton room = new OptionButton(Integer.toString(i + 1)); // TODO: change to hotel naming convention
-            String dayIndex = String.format("%02d", i + 1); // TODO: change to hotel naming convention
+            String name = String.valueOf(i + 1); // TODO: change to hotel naming convention
 
             if ((i + 1) % 5 == 1){
                 if (i >= 0 && i <= 4){
@@ -37,7 +37,7 @@ public class RoomView extends RoundPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    listener.buttonClicked(dayIndex);
+                    listener.roomButtonClicked(name);
                 }
             });
 

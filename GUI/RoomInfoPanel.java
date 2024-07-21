@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
+public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickListener{
 
     private int nRooms; // TODO: segragate into nStandardRooms, nDeluxeRooms, nExecutiveRooms
     private CalendarView calendar;
@@ -170,18 +170,21 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
     @Override
     public void buttonClicked(String buttonName) {
 
+    }
+
+    @Override
+    public void roomButtonClicked(String roomButtonName) {
+
         // TODO: change to necessary information
-        String name;
         String type = "Deluxe";
         float pricePerNight = 1299.00f;
 
         for (int i = 0; i < nRooms; i++){
             ArrayList<OptionButton> roomButtons = roomView.getRooms();
-            String roomIndex = String.format("%02d", i + 1); 
+            String name = roomButtons.get(i).getButtonName();
             String price = String.format("%.2f", pricePerNight * (i % 7)); 
-            name = roomIndex; // TODO: change to room name
 
-            if (buttonName.equals(roomIndex)){
+            if (roomButtonName.equals(name)){
                 roomName.setText("Room " + name);
                 roomPrice.setText(price + " per night");
                 roomType.setText(type + " Room");
@@ -206,5 +209,10 @@ public class RoomInfoPanel extends RoundPanel implements ButtonClickListener{
                 }
             }
         }
+    }
+
+    @Override
+    public void reservationButtonClicked(String reservationName) {
+
     }
 }

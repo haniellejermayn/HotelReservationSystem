@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class ManagePanel extends RoundPanel implements ActionListener{
+public class ManagePanel extends RoundPanel implements ActionListener, EnhancedButtonClickListener{
 
-    IconButton changeName;
+    private IconButton changeName;
     IconButton addRoom;
     IconButton updateBasePrice;
     IconButton datePriceModifier;
@@ -21,11 +22,22 @@ public class ManagePanel extends RoundPanel implements ActionListener{
     ManageSubPanel removeResPanel;
     ManageSubPanel removeHotelPanel;
 
+    String hotelNameInput;
+    int standardRoomInput, deluxeRoomInput, executiveRoomInput;
+    float basePriceInput;
+    int datePriceModInput;
+    String removeRoomInput;
+    String removeResInput;
+
+    RoomView roomView;
+    ReservationView resView;
+
     RoundPanel manageContainer;
 
-    ManagePanel(Color color) {
+    // TODO: change to Hotel
+    ManagePanel(String hotel, ButtonClickListener listener, Color color) {
         super(color);
-
+        
         this.setLayout(null);
         this.setBounds(152, 10, 385, 420);
 
@@ -35,6 +47,8 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         Font customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         Font customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
+
+        // * Change Name * //
         ImageIcon changeNameIcon = new ImageIcon("Icons/ChangeNameIcon.png"); // add icon
         changeNameIcon = Customization.resizeIcon(changeNameIcon, 20, 20);
 
@@ -57,9 +71,20 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         changeNamePanel = new ManageSubPanel("Change Name");
         changeNamePanel.add(currentName);
         changeNamePanel.add(newHotelName);
+        changeNamePanel.getUpdateButton().addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setHotelNameInput(newHotelName.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
+                
+                // TODO: set hotel name to getHotelNameInput();
+                listener.buttonClicked("Change Name");
+            }
+        });
 
 
-        ImageIcon addRoomIcon = new ImageIcon("Icons/AddIcon.png"); // add icon
+        // * Add Room * //
+        ImageIcon addRoomIcon = new ImageIcon("Icons/AddIcon.png");
         addRoomIcon = Customization.resizeIcon(addRoomIcon, 20, 20);
 
         addRoom = new IconButton(addRoomIcon, "Add Room");
@@ -68,8 +93,20 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         addRoom.addActionListener(this);
 
         addRoomPanel = new ManageSubPanel("Add Room");
+        addRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
 
-        ImageIcon updatePriceIcon = new ImageIcon("Icons/UpdatePriceIcon.png"); // add icon
+            @Override
+            public void actionPerformed(ActionEvent e){
+                
+                // TODO: add rooms based on room type using getStandardRoomInput(), getDeluxeRoomInput(), and getExecutiveRoomInput()
+                listener.buttonClicked("Add Room");
+            }
+        });
+
+
+
+        // * Update Price * //
+        ImageIcon updatePriceIcon = new ImageIcon("Icons/UpdatePriceIcon.png"); 
         updatePriceIcon = Customization.resizeIcon(updatePriceIcon, 20, 20);
 
         updateBasePrice = new IconButton(updatePriceIcon, "Update Base Price");
@@ -78,8 +115,8 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         updateBasePrice.addActionListener(this);
 
         RoundLabel currentBasePrice = new RoundLabel(new Color(40, 68, 117));
-        currentBasePrice.setBounds(142, 80, 200, 40); // set to border layout
-        currentBasePrice.setText("1299.00"); // set to curent base price
+        currentBasePrice.setBounds(142, 80, 200, 40); // TODO: set to border layout
+        currentBasePrice.setText("1299.00"); // TODO: set to curent base price
         currentBasePrice.setFont(customFont20);
         currentBasePrice.setForeground(Color.white);
 
@@ -91,8 +128,21 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         updateBasePricePanel = new ManageSubPanel("Update Base Price");
         updateBasePricePanel.add(currentBasePrice);
         updateBasePricePanel.add(newBasePrice);
+        updateBasePricePanel.getUpdateButton().addActionListener(new ActionListener(){
 
-        ImageIcon datePriceModifierIcon = new ImageIcon("Icons/DatePriceModifierIcon.png"); // add icon
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setBasePriceInput(Float.valueOf(newBasePrice.getTextField().getText().trim()));
+                
+                // TODO: set hotel base price to getBasePriceInput();
+
+                listener.buttonClicked("Update Base Price");
+            }
+        });
+
+
+        // * Date Price Modifier * //
+        ImageIcon datePriceModifierIcon = new ImageIcon("Icons/DatePriceModifierIcon.png"); 
         datePriceModifierIcon = Customization.resizeIcon(datePriceModifierIcon, 20, 20);
 
         datePriceModifier = new IconButton(datePriceModifierIcon, "Date Price Modifier");
@@ -101,8 +151,21 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         datePriceModifier.addActionListener(this);
 
         datePriceModifierPanel = new ManageSubPanel("Date Price Modifier");
+        datePriceModifierPanel.getUpdateButton().addActionListener(new ActionListener(){
 
-        ImageIcon removeRoomIcon = new ImageIcon("Icons/RoomIcon.png"); // add icon
+            @Override
+            public void actionPerformed(ActionEvent e){
+                setBasePriceInput(Float.valueOf(newBasePrice.getTextField().getText().trim()));
+                
+                // TODO: set hotel base price to getBasePriceInput();
+                
+                listener.buttonClicked("Date Price Modifier");
+            }
+        });
+
+
+        // * Remove Room * //
+        ImageIcon removeRoomIcon = new ImageIcon("Icons/RoomIcon.png"); 
         removeRoomIcon = Customization.resizeIcon(removeRoomIcon, 20, 20);
 
         removeRoom = new IconButton(removeRoomIcon, "Remove Room");
@@ -110,9 +173,47 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         removeRoom.setColorClick(removeRoom.getColorOver());
         removeRoom.addActionListener(this);
 
-        removeRoomPanel = new ManageSubPanel("Remove Room");
+        int nRooms = 30; // TODO: remove
+        int roomViewHeight;
 
-        ImageIcon removeResIcon = new ImageIcon("Icons/ReservationsIcon.png"); // add icon
+        if (nRooms > 25){
+            roomViewHeight = (((nRooms - 1) / 5 - 3) * 9 + (((nRooms - 1) / 5 - 4) * 30)) + 198 - 15;
+        }
+        else {
+            roomViewHeight = 198;
+        }
+
+        roomView = new RoomView(this, nRooms); // TODO: set to no. of rooms
+
+        roomView.setBounds(0, 0, 250, roomViewHeight);
+        roomView.setPreferredSize(new Dimension(250, roomViewHeight));
+
+        ScrollPaneCustom scrollPaneRoomView = new ScrollPaneCustom(roomView, new Color(40, 68, 117), new Color(40, 68, 117), new Color(27, 43, 80));
+        scrollPaneRoomView.setBounds(2, 2, 250, 196);
+        scrollPaneRoomView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneRoomView.setPreferredSize(new Dimension(7, 7));
+
+        RoundPanel roomViewContainer = new RoundPanel(new Color(27, 43, 80));
+        roomViewContainer.setLayout(null);
+        roomViewContainer.setBounds(60, 85, 255, 203);
+        roomViewContainer.add(scrollPaneRoomView);
+
+        removeRoomPanel = new ManageSubPanel("Remove Room");
+        removeRoomPanel.add(roomViewContainer);
+        removeRoomPanel.getUpdateButton().setText("Remove");
+        removeRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                // TODO: remove room from hotel using getRemoveRoomInput();
+                listener.buttonClicked("Remove Room");
+            }
+        });
+
+
+        // * Remove Reservation * //
+        ImageIcon removeResIcon = new ImageIcon("Icons/ReservationsIcon.png"); 
         removeResIcon = Customization.resizeIcon(removeResIcon, 20, 20);
 
         removeRes = new IconButton(removeResIcon, "Remove Reservation");
@@ -120,9 +221,39 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         removeRes.setColorClick(removeRes.getColorOver());
         removeRes.addActionListener(this);
 
-        removeResPanel = new ManageSubPanel("Remove Reservation");
+        int nReservations = 6; // TODO: remove
+        int resViewHeight = nReservations * 39 + 5;
 
-        ImageIcon removeHotelIcon = new ImageIcon("Icons/HotelsIcon.png"); // add icon
+        resView = new ReservationView(this, nReservations); // TODO: change to no. of reservations
+        resView.setBounds(0, 0, 250, resViewHeight);
+        resView.setPreferredSize(new Dimension(250, resViewHeight));
+
+        ScrollPaneCustom scrollPaneResView = new ScrollPaneCustom(resView, new Color(40, 68, 117), new Color(40, 68, 117), new Color(27, 43, 80));
+        scrollPaneResView.setBounds(2, 2, 250, 196);
+        scrollPaneResView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneResView.setPreferredSize(new Dimension(7, 7));
+
+        RoundPanel resViewContainer = new RoundPanel(new Color(27, 43, 80));
+        resViewContainer.setLayout(null);
+        resViewContainer.setBounds(60, 85, 255, 203);
+        resViewContainer.add(scrollPaneResView);
+
+        removeResPanel = new ManageSubPanel("Remove Reservation");
+        removeResPanel.add(resViewContainer);
+        removeResPanel.getUpdateButton().setText("Remove");
+        removeResPanel.getUpdateButton().addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                // TODO: remove room from hotel using getRemoveRoomInput();
+                listener.buttonClicked("Remove Reservation");
+            }
+        });
+
+
+        // * Remove Hotel * //
+        ImageIcon removeHotelIcon = new ImageIcon("Icons/HotelsIcon.png"); 
         removeHotelIcon = Customization.resizeIcon(removeHotelIcon, 20, 20);
 
         removeHotel = new IconButton(removeHotelIcon, "Remove Hotel");
@@ -131,6 +262,19 @@ public class ManagePanel extends RoundPanel implements ActionListener{
         removeHotel.addActionListener(this);
 
         removeHotelPanel = new ManageSubPanel("Remove Hotel");
+        removeHotelPanel.getUpdateButton().setText("Remove");
+        removeHotelPanel.getUpdateButton().setBounds(130, 170, 100, 30);
+        removeHotelPanel.getUpdateButton().addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                // TODO: remove room from hotel using getRemoveRoomInput();
+                listener.buttonClicked("Remove Hotel");
+            }
+        });
+
+        // TODO: add cancel button
         
 
         manageContainer = new RoundPanel(new Color(40, 68, 117));
@@ -242,5 +386,115 @@ public class ManagePanel extends RoundPanel implements ActionListener{
             removeHotelPanel.setVisible(true);
         }
     }
-    
+
+    @Override
+    public void buttonClicked(String buttonName) {
+        
+    }
+
+    @Override
+    public void roomButtonClicked(String roomButtonName) {
+        int nRooms = 30; // TODO: remove
+        String name = "";
+
+        for (int i = 0; i < nRooms; i++){
+            ArrayList<OptionButton> roomButtons = roomView.getRooms();
+            name = roomButtons.get(i).getButtonName();
+
+            if (roomButtonName.equals(name)){
+                roomButtons.get(i).setColor(new Color(51, 88, 150));
+                setRemoveRoomInput(name);
+            }
+            else {
+                for (int j = 0; j < nRooms; j++){
+                    roomButtons.get(i).setColor(new Color(27, 43, 80));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void reservationButtonClicked(String reservationButtonName) {
+        int nReservations = 6; // TODO: remove
+        String name = "";
+
+        for (int i = 0; i < nReservations; i++){
+            ArrayList<OptionButton> resButtons = resView.getReservations();
+            name = resButtons.get(i).getButtonName();
+
+            if (reservationButtonName.equals(name)){
+                resButtons.get(i).setColor(new Color(51, 88, 150));
+                setRemoveResInput(name);
+            }
+            else {
+                for (int j = 0; j < nReservations; j++){
+                    resButtons.get(i).setColor(new Color(27, 43, 80));
+                }
+            }
+        }
+    }
+
+    public String getHotelNameInput(){
+        return hotelNameInput;
+    }
+
+    public void setHotelNameInput(String hotelNameInput){
+        this.hotelNameInput = hotelNameInput;
+    }
+
+    public int getStandardRoomInput(){
+        return standardRoomInput;
+    }
+
+    public void setStandardRoomInput(int standardRoomInput){
+        this.standardRoomInput = standardRoomInput;
+    }
+
+    public int getDeluxeRoomInput(){
+        return deluxeRoomInput;
+    }
+
+    public void setDeluxeRoomInput(int deluxeRoomInput){
+        this.deluxeRoomInput = deluxeRoomInput;
+    }
+
+    public int getExecutiveRoomInput(){
+        return executiveRoomInput;
+    }
+
+    public void setExecutiveRoomInput(int executiveRoomInput){
+        this.executiveRoomInput = executiveRoomInput;
+    }
+
+    public float getBasePriceInput(){
+        return basePriceInput;
+    }
+
+    public void setBasePriceInput(float basePriceInput){
+        this.basePriceInput = basePriceInput;
+    }
+
+    public int getDatePriceModInput(){ 
+        return datePriceModInput;
+    }
+
+    public void setDatePriceModInput(int datePriceModInput){
+        this.datePriceModInput = datePriceModInput;
+    }
+
+    public String getRemoveRoomInput(){ 
+        return removeRoomInput;
+    }
+
+    public void setRemoveRoomInput(String removeRoomInput){
+        this.removeRoomInput = removeRoomInput;
+    }
+
+    public String getRemoveResInput(){ 
+        return removeResInput;
+    }
+
+    public void setRemoveResInput(String removeResInput){
+        this.removeResInput = removeResInput;
+    }
 }

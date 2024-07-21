@@ -171,7 +171,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
             this.add(bookPanel, JLayeredPane.POPUP_LAYER);
         }
         else if (e.getSource() == manageButton){
-            managePanel = new ManagePanel(new Color(51, 88, 150)); 
+            managePanel = new ManagePanel(hotel, this, new Color(51, 88, 150)); 
             this.add(managePanel, JLayeredPane.POPUP_LAYER);
         }
     }
@@ -189,6 +189,34 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         else if (buttonName.equals("Book Cancel")){
             bookPanel.setVisible(false);
             this.remove(bookPanel);
+        }
+        else if (buttonName.equals("Change Name")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Add Room")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Update Base Price")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Date Price Modifier")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Room")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Reservation")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Hotel")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
         }
     }
 }

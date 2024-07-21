@@ -8,7 +8,7 @@ public class ReservationView extends RoundPanel{
 
     private Font customFont;
 
-    ReservationView(ButtonClickListener listener, int nReservations){
+    ReservationView(EnhancedButtonClickListener listener, int nReservations){
         
         super(new Color(27, 43, 80));
 
@@ -37,7 +37,7 @@ public class ReservationView extends RoundPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    listener.buttonClicked(reservationName);
+                    listener.reservationButtonClicked(reservationName);
                 }
             });
 

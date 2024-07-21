@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ManageSubPanel extends RoundPanel{
+public class ManageSubPanel extends RoundPanel implements ActionListener{
     
+    private OptionButton updateButton;
+
     public ManageSubPanel(String title){
 
         super(new Color(40, 68, 117));
@@ -22,15 +26,34 @@ public class ManageSubPanel extends RoundPanel{
         panelTitle.setFont(customFont30);
         panelTitle.setForeground(Color.white);
 
+        updateButton = new OptionButton("Update");
+        updateButton.setBounds(255, 310, 100, 30);
+        updateButton.setColorOver(updateButton.getColorClick());
+
         this.setLayout(null);
         this.setPreferredSize(new Dimension(365, 350));
         this.setBounds(10, 60, 365, 350);
         this.add(panelTitle);
         this.add(headerPanel2);
         this.add(headerPanel);
+        this.add(updateButton);
     }
 
+    // TODO: implement confirmMod
     /*public void confirmMod(){
-        RoundPanel confirmModPanel = new RoundPanel(getColor())
+        RoundPanel confirmModPanel = new RoundPanel(new Color())
     }*/
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
+
+    public OptionButton getUpdateButton(){
+        return updateButton;
+    }
+
+    public void setUpdateButton(OptionButton updateButton){
+        this.updateButton = updateButton;
+    }
 }
