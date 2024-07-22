@@ -103,8 +103,7 @@ public class ReservationsPanel extends RoundPanel{
             data[i][1] = guestNameTemp[i - 1]; // TODO: change to guest name
             data[i][2] = roomTypeTemp[i - 1]; // TODO: change to room type
             data[i][3] = checkInTemp[i - 1] + " to " + checkOutTemp[i - 1]; // TODO: change to check In and check Out
-            data[i][4] = priceTemp[i - 1]; // TODO: change to price
-            
+            data[i][4] = priceTemp[i - 1]; // TODO: change to price   
         }
         
         DefaultTableModel model = new DefaultTableModel(data, columnNames); 

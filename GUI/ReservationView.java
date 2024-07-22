@@ -24,6 +24,15 @@ public class ReservationView extends RoundPanel{
         reservationsTemp.add("Francine");
         reservationsTemp.add("Justine");
         reservationsTemp.add("Liane");
+
+        if (nReservations == 0){
+            RoundLabel noReservations = new RoundLabel(new Color(27, 43, 80));
+            noReservations.setText("No Reservations");
+            noReservations.setFont(customFont);
+            noReservations.setForeground(Color.white);
+            noReservations.setBounds(85, 85, 100, 30);
+            this.add(noReservations);
+        }
         
         for (int i = 0; i < nReservations; i++){
             

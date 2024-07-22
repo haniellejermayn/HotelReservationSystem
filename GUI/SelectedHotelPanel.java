@@ -218,5 +218,9 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
             managePanel.setVisible(false);
             this.remove(managePanel);
         }
+        else if (buttonName.equals("Manage Cancel")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
     }
 }

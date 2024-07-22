@@ -63,7 +63,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     public void buttonClicked(String buttonName) {
         for (int i = 0; i < 31; i++){
             ArrayList<OptionButton> days = calendar.getDays();
-            String dayIndex = String.format("%02d", i + 1); // change to necessary information
+            String dayIndex = days.get(i).getButtonName(); 
 
             if (buttonName.equals(dayIndex)){
                 availPanel.setText(dayIndex);
