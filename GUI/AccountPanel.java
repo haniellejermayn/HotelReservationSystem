@@ -6,48 +6,97 @@ import java.util.*;
 public class AccountPanel extends RoundPanel implements ActionListener{
     
     private JLabel hotelTitle;
-    private IconButton createHotelButton;
-    private IconButton filterButton;
-    private FilterPanel filterPanel;
     private RoundPanel hotelContainer;
+    private RoundPanel header;
+    private RoundLabel headerLabel;
+    private RoundLabel profileLabel;
+    private RoundLabel name, status, idNumber;
+    private RoundPanel accountInfo;
     private ButtonClickListener listener;
     private ArrayList<HotelOption> hotelCatalogue;
     private int hotelContainerHeight;
     private boolean isVisible = false;
 
+    private Font customFont12;
     private Font customFont15;
-    private Font customFont35;
+    private Font customFont20;
     private Font customFont70;
 
         // TODO: change to Hotel hotels
-    AccountPanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
+    AccountPanel(ButtonClickListener listener){
 
         super(new Color(13, 22, 45));
 
         this.listener = listener;
 
+        customFont12 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 12);
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
-        customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
+        customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
         customFont70 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 70);
 
+        ImageIcon headerIcon = new ImageIcon("Icons/HeaderBackground.jpg");
+        //headerIcon = 
+
+        headerLabel = new RoundLabel(Color.red);
+        headerLabel.setIcon(headerIcon);
+        headerLabel.setBounds(2, 2, 616, 150);
+
+        ImageIcon profileIcon = new ImageIcon("Icons/AccountIcon.png");
+        profileIcon = Customization.resizeIcon(profileIcon, 90, 90);
+
+        profileLabel = new RoundLabel(new Color(27, 43, 80));
+        profileLabel.setIcon(profileIcon);
+        profileLabel.setBounds(25, 90, 120, 120);
+        profileLabel.setVerticalAlignment(JLabel.CENTER);
+        profileLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        header = new RoundPanel(new Color(13, 22, 45));
+        //header = new RoundPanel(Color.red);
+        header.setLayout(null);
+        header.setBounds(0, 0, 620, 215);
+        header.add(profileLabel);
+        header.add(headerLabel);
+
+        name = new RoundLabel(new Color(13, 22, 45));
+        //name = new RoundLabel(Color.green);
+        name.setBounds(5, 5, 200, 22);
+        name.setText("User #462005"); // TODO: change to account name
+        name.setFont(customFont20);
+        name.setForeground(Color.white);
+
+        idNumber = new RoundLabel(new Color(13, 22, 45));
+        //idNumber = new RoundLabel(Color.blue);
+        idNumber.setBounds(5, 42, 200, 16);
+        idNumber.setText("12356473"); // TODO: change to Account id number
+        idNumber.setFont(customFont15);
+        idNumber.setForeground(Color.white);
+
+        status = new RoundLabel(new Color(13, 22, 45));
+        //status = new RoundLabel(Color.red);
+        status.setBounds(5, 70, 200, 17);
+        status.setText("Guest"); // TODO: change to Account status (Guest / Employee)
+        status.setFont(customFont15);
+        status.setForeground(Color.white);
+
+        accountInfo = new RoundPanel(new Color(13, 22, 45));
+        //accountInfo = new RoundPanel(Color.yellow);
+        accountInfo.setLayout(null);
+        accountInfo.setBounds(20, 220, 300, 100);
+        accountInfo.add(name);
+        accountInfo.add(idNumber);
+        accountInfo.add(status);
+
+
+
         // * Hotel Title * //
-        hotelTitle = new JLabel("Hotels");
+        /*hotelTitle = new JLabel("Hotels");
         hotelTitle.setFont(customFont35);
         hotelTitle.setForeground(Color.white);
         hotelTitle.setVerticalAlignment(JLabel.TOP);
-        hotelTitle.setBounds(0, 0, 300, 100);
-
-        // * Hotel Catalogue * //
-        hotelCatalogue = new ArrayList<HotelOption>();
-
-        for(int i = 0; i < nHotel; i++){
-            HotelOption optionTemp = new HotelOption(hotels.get(i));
-            initializeHotelOption(optionTemp, hotels.get(i), i);
-            hotelCatalogue.add(optionTemp);
-        }
+        hotelTitle.setBounds(0, 0, 300, 100);*/
 
         // * Filter * //
-        ImageIcon filterIcon = new ImageIcon("Icons/FilterIcon.png"); 
+        /*ImageIcon filterIcon = new ImageIcon("Icons/AccountIcon.png"); 
         filterIcon = Customization.resizeIcon(filterIcon, 20, 20); 
         
         filterButton = new IconButton(filterIcon, "Filter");
@@ -56,17 +105,10 @@ public class AccountPanel extends RoundPanel implements ActionListener{
         filterButton.addActionListener(this);
 
         filterPanel = new FilterPanel(new Color(40, 68, 117));
-        filterPanel.setVisible(false);
-
-        // * Create Hotel * //
-        ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
-        createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
-
-        createHotelButton = new IconButton(createHotelIcon, "Create Hotel"); // add picture
-        createHotelButton.setBounds(285, (nHotel + 1) * 10 + (nHotel * 110) + 10, 50, 50);
+        filterPanel.setVisible(false);*/
 
         // * Container * //
-        hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
+        /*hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
 
         hotelContainer = new RoundPanel(new Color(13, 22, 45));
         hotelContainer.setLayout(null);;
@@ -76,18 +118,12 @@ public class AccountPanel extends RoundPanel implements ActionListener{
             hotelContainer.add(hotelCatalogue.get(i));
         }
 
-        hotelContainer.add(createHotelButton);
-
-        ScrollPaneCustom scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
-        scrollPane.setBounds(0, 60, 620, 405);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        hotelContainer.add(createHotelButton);*/
 
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
-        this.add(hotelTitle);
-        this.add(filterButton);
-        this.add(filterPanel);
-        this.add(scrollPane);
+        this.add(header);
+        this.add(accountInfo);
     }
 
                                             // TODO: change to Hotel
@@ -118,7 +154,7 @@ public class AccountPanel extends RoundPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == filterButton){
+        /*if (e.getSource() == filterButton){
             isVisible = !isVisible;
             filterPanel.setVisible(isVisible);
 
@@ -130,7 +166,7 @@ public class AccountPanel extends RoundPanel implements ActionListener{
             }
 
             filterButton.repaint();
-        }
+        }*/
     }
 
     public JLabel getHotelTitle(){
@@ -149,7 +185,7 @@ public class AccountPanel extends RoundPanel implements ActionListener{
         this.hotelCatalogue = hotelCatalogue;
     }
 
-    public IconButton getCreateHotelButton(){
+    /*public IconButton getCreateHotelButton(){
         return createHotelButton;
     }
 
@@ -179,5 +215,5 @@ public class AccountPanel extends RoundPanel implements ActionListener{
 
     public void getVisible(boolean isVisible){
         this.isVisible = isVisible;
-    }
+    }*/
 }

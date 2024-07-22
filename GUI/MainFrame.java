@@ -6,6 +6,10 @@ import java.util.*;
 
 public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
     
+    // TODO: fill empty panel;
+    // TODO: add listeners to homepage hotels
+    // TODO: add back button
+
     JPanel darkPanel;
 
     RoundPanel homePage;
@@ -13,7 +17,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     RoundPanel reservationsPage;
     RoundPanel settingsPopUp;
 
-    RoundPanel accountPanel;
+    RoundPanel accountSidePanel;
     RoundPanel datePanel;
     RoundPanel reservationsPanel;
     RoundPanel fillerPanel; // edit
@@ -34,10 +38,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     HomePanel homePanel;
     HotelsPanel hotelsPanel;
     ReservationsPanel resPanel;
+    AccountPanel accountPanel;
     
     IconButton homeButton;
     IconButton hotelButton;
     IconButton resButton;
+    IconButton accountButton;
     
     ArrayList<HotelItem> hotelCatalogue;
     ArrayList<HotelOption> hotelOptions;
@@ -81,16 +87,15 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
-        // DEFAULT PANELS
+        // * Default Panels * //
 
         ImageIcon accountIcon = new ImageIcon("Icons/AccountIcon.png");
-        accountIcon = Customization.resizeIcon(accountIcon, 100, 100);
+        accountIcon = Customization.resizeIcon(accountIcon, 120, 120);
         
-        // fix text gap
         RoundLabel account = new RoundLabel(new Color(27, 43, 80));
-        account.setBounds(10, 10, 100, 100);
+        account.setBounds(10, 20, 100, 100);
         account.setIcon(accountIcon);
-        account.setText("<html><p style='font-size: 15pt; margin:0;'>Gabrielle Kelsey</p><br><p style='font-size: 13pt; margin:0; text-align:center;'>12307572</p></html>"); // name, worker/guest
+        account.setText("User #462005"); // TODO: change to username
         account.setForeground(Color.white);
         account.setFont(customFont15);
         account.setVerticalTextPosition(JLabel.BOTTOM);
@@ -99,11 +104,11 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         account.setVerticalAlignment(JLabel.CENTER);
         account.setHorizontalAlignment(JLabel.CENTER);
         
-        accountPanel = new RoundPanel(new Color(27, 43, 80));
-        accountPanel.setLayout(new BorderLayout());
-        accountPanel.setBounds(775, 15, 200, 200);
-        accountPanel.setBackground(new Color(27, 43, 80));
-        accountPanel.add(account);
+        accountSidePanel = new RoundPanel(new Color(27, 43, 80));
+        accountSidePanel.setLayout(new BorderLayout());
+        accountSidePanel.setBounds(775, 15, 200, 200);
+        accountSidePanel.setBackground(new Color(27, 43, 80));
+        accountSidePanel.add(account);
         
         datePanel = new RoundPanel(new Color(27, 43, 80));
         datePanel.setBounds(775, 225, 200, 120);
@@ -151,29 +156,10 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         resButton = sidePanel.getReservationsButton();
         resButton.addActionListener(this);
 
-        // TODO: Add reservations panel
+        accountPanel = new AccountPanel(this);
+        accountButton = sidePanel.getAccountButton();
+        accountButton.addActionListener(this);
 
-        // TODO: Add Account panel
-
-        // ---------- PlaceHolders ---------- //
-
-        /*SelectedHotelPanel kelseyHotel = new SelectedHotelPanel("Kelsey Hotel", this);
-        kelseyHotel.setVisible(false);
-
-        bookButton = kelseyHotel.getBookButton();
-        bookButton.addActionListener(this);
-
-        SelectedHotelPanel hanielleHotel = new SelectedHotelPanel("Hanielle Hotel", this);
-        hanielleHotel.setVisible(false);
-
-        bookButton = hanielleHotel.getBookButton();
-        bookButton.addActionListener(this);
-
-        SelectedHotelPanel hepHotel = new SelectedHotelPanel("Hep Hotel", this);
-        hepHotel.setVisible(false);
-
-        bookButton = hepHotel.getBookButton();
-        bookButton.addActionListener(this);*/
 
         // ---------- Fix ---------- //
 
@@ -220,6 +206,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(hotelsPanel);
         this.add(resPanel);
         this.add(accountPanel);
+        this.add(accountSidePanel);
         this.add(datePanel);
         this.add(reservationsPanel);
 
@@ -227,6 +214,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
+        accountPanel.setVisible(false);
         /*kelseyHotel.setVisible(false);
         hepHotel.setVisible(false);
         hanielleHotel.setVisible(false);*/
@@ -251,16 +239,25 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
             homePanel.setVisible(true);
             hotelsPanel.setVisible(false);
             resPanel.setVisible(false);
+            accountPanel.setVisible(false);
         }
         else if (e.getSource() == hotelButton){
             homePanel.setVisible(false);
             hotelsPanel.setVisible(true);
             resPanel.setVisible(false);
+            accountPanel.setVisible(false);
         }
         else if (e.getSource() == resButton){
             homePanel.setVisible(false);
             hotelsPanel.setVisible(false);
             resPanel.setVisible(true);
+            accountPanel.setVisible(false);
+        }
+        else if (e.getSource() == accountButton){
+            homePanel.setVisible(false);
+            hotelsPanel.setVisible(false);
+            resPanel.setVisible(false);
+            accountPanel.setVisible(true);
         }
 
         /*else if (e.getSource() == bookButton){
