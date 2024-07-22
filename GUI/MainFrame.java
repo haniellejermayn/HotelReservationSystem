@@ -34,7 +34,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     HomePanel homePanel;
     HotelsPanel hotelsPanel;
     ReservationsPanel resPanel;
-    private OptionButton bookButton;
     
     IconButton homeButton;
     IconButton hotelButton;

@@ -15,9 +15,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
     private int hotelContainerHeight;
     private boolean isVisible = false;
 
-    private Font customFont15;
     private Font customFont35;
-    private Font customFont70;
 
         // TODO: change to Hotel hotels
     HotelsPanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
@@ -26,9 +24,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
 
         this.listener = listener;
 
-        customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
-        customFont70 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 70);
 
         // * Hotel Title * //
         hotelTitle = new JLabel("Hotels");
@@ -93,6 +89,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
                                             // TODO: change to Hotel
     public void initializeHotelOption(HotelOption item, String hotel, int itemNo){
 
+        // TODO: add price to hotelOption
         String hotelName = hotel; // TODO: change to hotel name
         float price = 1299.00f; // TODO: change to hotel price
 

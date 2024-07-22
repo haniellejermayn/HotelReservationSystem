@@ -3,23 +3,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 public class ReservationsPanel extends RoundPanel{
     
     private JLabel resTitle;
-    private RoundPanel hotelPanel;
-    private RoundPanel namePanel;
-    private RoundPanel roomTypePanel;
-    private RoundPanel checkInNOutPanel;
-    private RoundPanel totalPricePanel;
     private RoundPanel resContainer;
     private int resContainerHeight;
     private ArrayList<HotelOption> hotelCatalogue;
 
     private Font customFont15;
-    private Font customFont20;
     private Font customFont35;
 
         // TODO: change to Hotel hotels
@@ -28,7 +21,6 @@ public class ReservationsPanel extends RoundPanel{
         super(new Color(13, 22, 45));
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
-        customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
 
         // * Reservations Title * //

@@ -4,55 +4,65 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ManagePanel extends RoundPanel implements ActionListener, EnhancedButtonClickListener{
+public class ManagePanel extends LayeredRoundPanel implements ActionListener, EnhancedButtonClickListener{
 
     private IconButton changeName;
-    IconButton addRoom;
-    IconButton updateBasePrice;
-    IconButton datePriceModifier;
-    IconButton removeRoom;
-    IconButton removeRes;
-    IconButton removeHotel;
+    private IconButton addRoom;
+    private IconButton updateBasePrice;
+    private IconButton datePriceModifier;
+    private IconButton removeRoom;
+    private IconButton removeRes;
+    private IconButton removeHotel;
 
-    ManageSubPanel changeNamePanel;
-    ManageSubPanel addRoomPanel;
-    ManageSubPanel updateBasePricePanel;
-    ManageSubPanel datePriceModifierPanel;
-    ManageSubPanel removeRoomPanel;
-    ManageSubPanel removeResPanel;
-    ManageSubPanel removeHotelPanel;
+    private ManageSubPanel changeNamePanel;
+    private ManageSubPanel addRoomPanel;
+    private ManageSubPanel updateBasePricePanel;
+    private ManageSubPanel datePriceModifierPanel;
+    private ManageSubPanel removeRoomPanel;
+    private ManageSubPanel removeResPanel;
+    private ManageSubPanel removeHotelPanel;
+    private ManageSubPanel confirmModPanel;
 
-    String hotelNameInput;
-    int standardRoomInput, deluxeRoomInput, executiveRoomInput;
-    float basePriceInput;
-    int dateModInput;
-    float priceModInput;
-    String removeRoomInput;
-    String removeResInput;
+    private TextFieldCustom newHotelName;
+    private TextFieldCustom nStandardRooms, nDeluxeRooms, nExecutiveRooms;
+    private TextFieldCustom newBasePrice;
+    private TextFieldCustom newDatePrice;
 
-    RoomView roomView;
-    ReservationView resView;
-    CalendarView calendarView;
+    private String hotelNameInput;
+    private int standardRoomInput, deluxeRoomInput, executiveRoomInput;
+    private float basePriceInput;
+    private int dateModInput;
+    private float priceModInput;
+    private String removeRoomInput;
+    private String removeResInput;
 
-    RoundPanel manageContainer;
+    private ArrayList<OptionButton> days;
+    private OptionButton yesButton;
+    private OptionButton noButton;
+
+    private RoomView roomView;
+    private ReservationView resView;
+    private CalendarView calendarView;
+
+    private RoundPanel manageContainer;
+    private ButtonClickListener listener;
 
     // TODO: change to Hotel
     ManagePanel(String hotel, ButtonClickListener listener, Color color) {
         super(color);
         
+        this.listener = listener;
         this.setLayout(null);
         this.setBounds(152, 10, 385, 420);
 
-        Font customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
-        Font customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         Font customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
-        Font customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
-        Font customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
-        // TODO: consider empty inputs
+        // TODO: consider empty and invalid inputs
+
+
 
         // * Change Name * //
-        ImageIcon changeNameIcon = new ImageIcon("Icons/ChangeNameIcon.png"); // add icon
+        ImageIcon changeNameIcon = new ImageIcon("Icons/ChangeNameIcon.png"); 
         changeNameIcon = Customization.resizeIcon(changeNameIcon, 20, 20);
 
         changeName = new IconButton(changeNameIcon, "Change Name");
@@ -61,12 +71,12 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         changeName.addActionListener(this);
 
         RoundLabel currentName = new RoundLabel(new Color(40, 68, 117));
-        currentName.setBounds(122, 80, 200, 40); // change to border layout
-        currentName.setText("Kelsey Hotel"); // set to cureent hotel name
+        currentName.setBounds(122, 80, 200, 40); // TODO: change to border layout
+        currentName.setText("Kelsey Hotel"); // TODO: set to cureent hotel name
         currentName.setFont(customFont20);
         currentName.setForeground(Color.white);
 
-        TextFieldCustom newHotelName = new TextFieldCustom(new Color(40, 68, 117));
+        newHotelName = new TextFieldCustom(new Color(40, 68, 117));
         newHotelName.setBounds(5, 130, 350, 55);
         newHotelName.setFieldName("New Hotel Name");
         newHotelName.getTextContainer().setBounds(5, 25, 340, 27);
@@ -78,11 +88,12 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
             @Override
             public void actionPerformed(ActionEvent e){
-                setHotelNameInput(newHotelName.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
-                
-                // TODO: set hotel name to getHotelNameInput();
 
-                listener.buttonClicked("Change Name");
+                setHotelNameInput(newHotelName.getTextField().getText().trim()); 
+
+                // TODO: check if name is valid
+
+                confirmMod("Change Name");
             }
         });
         changeNamePanel.getCancelButton().addActionListener(new ActionListener(){
@@ -104,6 +115,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         });
 
 
+
         // * Add Room * //
         ImageIcon addRoomIcon = new ImageIcon("Icons/AddIcon.png");
         addRoomIcon = Customization.resizeIcon(addRoomIcon, 20, 20);
@@ -113,17 +125,17 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         addRoom.setColorClick(addRoom.getColorOver());
         addRoom.addActionListener(this);
 
-        TextFieldCustom nStandardRooms = new TextFieldCustom(new Color(40, 68, 117));
+        nStandardRooms = new TextFieldCustom(new Color(40, 68, 117));
         nStandardRooms.setBounds(5, 90, 350, 55);
         nStandardRooms.setFieldName("No. of Standard Rooms");
         nStandardRooms.getTextContainer().setBounds(5, 25, 340, 27);
 
-        TextFieldCustom nDeluxeRooms = new TextFieldCustom(new Color(40, 68, 117));
+        nDeluxeRooms = new TextFieldCustom(new Color(40, 68, 117));
         nDeluxeRooms.setBounds(5, 150, 350, 55);
         nDeluxeRooms.setFieldName("No. of Deluxe Rooms");
         nDeluxeRooms.getTextContainer().setBounds(5, 25, 340, 27);
 
-        TextFieldCustom nExecutiveRooms = new TextFieldCustom(new Color(40, 68, 117));
+        nExecutiveRooms = new TextFieldCustom(new Color(40, 68, 117));
         nExecutiveRooms.setBounds(5, 210, 350, 55);
         nExecutiveRooms.setFieldName("No. of Executive Rooms");
         nExecutiveRooms.getTextContainer().setBounds(5, 25, 340, 27);
@@ -136,13 +148,14 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
             @Override
             public void actionPerformed(ActionEvent e){
+
                 setStandardRoomInput(Integer.valueOf(nStandardRooms.getTextField().getText().trim()));
                 setDeluxeRoomInput(Integer.valueOf(nDeluxeRooms.getTextField().getText().trim()));
                 setExecutiveRoomInput(Integer.valueOf(nExecutiveRooms.getTextField().getText().trim()));
 
-                // TODO: add rooms based on room type using getStandardRoomInput(), getDeluxeRoomInput(), and getExecutiveRoomInput()
-                
-                listener.buttonClicked("Add Room");
+                // TODO: check if total no. of rooms is within 50
+
+                confirmMod("Add Room");
             }
         });
         addRoomPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -180,7 +193,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         currentBasePrice.setFont(customFont20);
         currentBasePrice.setForeground(Color.white);
 
-        TextFieldCustom newBasePrice = new TextFieldCustom(new Color(40, 68, 117));
+        newBasePrice = new TextFieldCustom(new Color(40, 68, 117));
         newBasePrice.setBounds(5, 130, 350, 55);
         newBasePrice.setFieldName("New Base Price");
         newBasePrice.getTextContainer().setBounds(5, 25, 340, 27);
@@ -192,11 +205,12 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
             @Override
             public void actionPerformed(ActionEvent e){
-                setBasePriceInput(Float.valueOf(newBasePrice.getTextField().getText().trim()));
-                
-                // TODO: set hotel base price to getBasePriceInput();
 
-                listener.buttonClicked("Update Base Price");
+                setBasePriceInput(Float.valueOf(newBasePrice.getTextField().getText().trim()));
+
+                // TODO: check if price is valid
+
+                confirmMod("Update Base Price");
             }
         });
         updateBasePricePanel.getCancelButton().addActionListener(new ActionListener(){
@@ -218,6 +232,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         });
 
 
+
         // * Date Price Modifier * //
         ImageIcon datePriceModifierIcon = new ImageIcon("Icons/DatePriceModifierIcon.png"); 
         datePriceModifierIcon = Customization.resizeIcon(datePriceModifierIcon, 20, 20);
@@ -229,8 +244,13 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
         calendarView = new CalendarView(this);
         calendarView.setBounds(2, 2, 335, 203);
+        days = calendarView.getDays();
+        days.get(30).setEnabled(false);
+        days.get(30).setColor(new Color(27, 43, 80));
+        days.get(30).setColorOver(new Color(27, 43, 80));
+        days.get(30).setColorClick(new Color(27, 43, 80));
 
-        TextFieldCustom newDatePrice = new TextFieldCustom(new Color(40, 68, 117));
+        newDatePrice = new TextFieldCustom(new Color(40, 68, 117));
         newDatePrice.setBounds(0, 220, 340, 55);
         newDatePrice.setFieldName("New Date Price");
         newDatePrice.getTextContainer().setBounds(5, 25, 330, 27);
@@ -257,11 +277,12 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
             @Override
             public void actionPerformed(ActionEvent e){
+
                 setPriceModInput(Float.valueOf(newDatePrice.getTextField().getText().trim()));
-                
-                // TODO: set getDateModInput() and getPriceModInput() to datePriceModifier parameters
-                
-                listener.buttonClicked("Date Price Modifier");
+
+                // TODO: check if valid percentage
+
+                confirmMod("Date Price Modifier");
             }
         });
         datePriceModifierPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -281,6 +302,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
                 listener.buttonClicked("Manage Cancel");
             }
         });
+
 
 
         // * Remove Room * //
@@ -325,9 +347,9 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
             @Override
             public void actionPerformed(ActionEvent e){
 
-                // TODO: remove room from hotel using getRemoveRoomInput();
-                
-                listener.buttonClicked("Remove Room");
+                // TODO: check if the room has no active reservation
+
+                confirmMod("Remove Room");
             }
         });
         removeRoomPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -347,6 +369,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
                 listener.buttonClicked("Manage Cancel");
             }
         });
+
 
 
         // * Remove Reservation * //
@@ -383,9 +406,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
             @Override
             public void actionPerformed(ActionEvent e){
 
-                // TODO: remove room from hotel using getRemoveRoomInput();
-                
-                listener.buttonClicked("Remove Reservation");
+                confirmMod("Remove Reservation");
             }
         });
         removeResPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -407,6 +428,7 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         });
 
 
+
         // * Remove Hotel * //
         ImageIcon removeHotelIcon = new ImageIcon("Icons/HotelsIcon.png"); 
         removeHotelIcon = Customization.resizeIcon(removeHotelIcon, 20, 20);
@@ -424,9 +446,8 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
             @Override
             public void actionPerformed(ActionEvent e){
 
-                // TODO: remove room from hotel using getRemoveRoomInput();
-                
-                listener.buttonClicked("Remove Hotel");
+                // TODO: check if there are no active reservations
+                confirmMod("Remove Hotel");
             }
         });
         removeHotelPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -445,21 +466,12 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
-
-        // TODO: add cancel button
-        
+        });        
 
         manageContainer = new RoundPanel(new Color(40, 68, 117));
         manageContainer.setLayout(null);
         manageContainer.setPreferredSize(new Dimension(530, 585));
         manageContainer.setBounds(10, 60, 365, 350);
-
-        //ScrollPaneCustom scrollPane = new ScrollPaneCustom(manageContainer, new Color(27, 43, 80), new Color(27, 43, 80), new Color(40, 68, 117));
-        /*ScrollPaneCustom scrollPane = new ScrollPaneCustom(changeNamePanel, new Color(27, 43, 80), new Color(27, 43, 80), new Color(40, 68, 117));
-        scrollPane.setBounds(10, 60, 365, 350);*/
-        //scrollPane.remove(manageContainer);
-        //scrollPane.add(changeNamePanel);
         
         this.add(manageContainer);
         this.add(changeName);
@@ -484,6 +496,84 @@ public class ManagePanel extends RoundPanel implements ActionListener, EnhancedB
         removeRoomPanel.setVisible(false);
         removeResPanel.setVisible(false);
         removeHotelPanel.setVisible(false);
+    }
+
+    public void confirmMod(String panelName){
+        yesButton = new OptionButton("Yes");
+        yesButton.setBounds(80, 170, 100, 30);
+        yesButton.setColorOver(yesButton.getColorClick());
+        
+        noButton = new OptionButton("No");
+        noButton.setBounds(185, 170, 100, 30);
+        noButton.setColorOver(noButton.getColorClick());
+
+        confirmModPanel = new ManageSubPanel("Confirm Modification");
+        confirmModPanel.getUpdateButton().setVisible(false);
+        confirmModPanel.getCancelButton().setVisible(false);
+        confirmModPanel.add(yesButton);
+        confirmModPanel.add(noButton);
+
+        this.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
+        confirmModPanel.setVisible(true);
+
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (panelName.equals("Change Name")){
+                    
+                    // TODO: set hotel name to getHotelNameInput();
+
+                    listener.buttonClicked(panelName);
+
+                }
+                else if (panelName.equals("Add Room")){
+    
+                    // TODO: add rooms based on room type using getStandardRoomInput(), getDeluxeRoomInput(), and getExecutiveRoomInput()
+                
+                    listener.buttonClicked(panelName);
+                }
+                else if (panelName.equals("Update Base Price")){
+                    
+                    // TODO: set hotel base price to getBasePriceInput();
+
+                    listener.buttonClicked(panelName);
+                }
+                else if (panelName.equals("Date Price Modifier")){
+                    
+                    // TODO: set getDateModInput() and getPriceModInput() to datePriceModifier parameters
+                
+                    listener.buttonClicked(panelName);
+                }
+                else if (panelName.equals("Remove Room")){
+                    
+                    // TODO: remove room from hotel using getRemoveRoomInput();
+
+                    listener.buttonClicked(panelName);
+                }
+                else if (panelName.equals("Remove Reservation")){
+
+                    // TODO: remove reservation from hotel using getRemoveResInput();
+
+                    listener.buttonClicked(panelName);
+                }
+                else if (panelName.equals("Remove Hotel")){
+
+                    // TODO: remove hotel
+
+                    listener.buttonClicked(panelName);
+                }
+
+                confirmModPanel.setVisible(false);
+            }
+        });
+
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmModPanel.setVisible(false);
+            }
+        });
     }
 
     @Override

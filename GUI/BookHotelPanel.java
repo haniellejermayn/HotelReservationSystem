@@ -53,7 +53,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         guestName.setFieldName("Name");
 
         // * Room Types * //
-        roomTypeSelected = false;
+        roomTypeSelected = false; 
 
         standardRoom = new OptionButton("Standard");
         standardRoom.setBounds(32, 28, 100, 30);
