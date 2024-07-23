@@ -1,3 +1,4 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -85,7 +86,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
-
 
         // * Default Panels * //
 
@@ -210,7 +210,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(datePanel);
         this.add(reservationsPanel);
 
-
         //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
@@ -218,7 +217,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         /*kelseyHotel.setVisible(false);
         hepHotel.setVisible(false);
         hanielleHotel.setVisible(false);*/
-
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -227,7 +225,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
                                             // change to Hotel
     public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
         for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // TODO: change to take Hotel
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
@@ -296,4 +294,3 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         }
     }*/
 }
-

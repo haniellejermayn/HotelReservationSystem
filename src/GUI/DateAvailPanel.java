@@ -1,5 +1,8 @@
-import javax.swing.*;
+//package GUI;
+
+//import hrs.*;
 import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
@@ -8,8 +11,8 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     RoundLabel availPanel, bookedPanel;
     RoundLabel availRooms, bookedRooms;
 
-    Font customFont15;
-    Font customFont50;
+    private Font customFont15;
+    private Font customFont50;
 
         // TODO: change to Hotel hotel
     DateAvailPanel(String hotel){
@@ -22,6 +25,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         calendar = new CalendarView(this);
 
         // * Available Rooms * //
+
         availRooms = new RoundLabel(new Color(40, 68, 117));
         availRooms.setFont(customFont15);
         availRooms.setText("      available rooms");

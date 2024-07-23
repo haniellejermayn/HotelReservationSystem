@@ -1,3 +1,5 @@
+//package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +16,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private JLabel hotelPrice;
     private JLabel hotelRooms;
     private JLabel hotelRes;
+
     private IconButton manageButton;
     private OptionButton bookButton;
     private BookHotelPanel bookPanel;
@@ -73,6 +76,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         bookButton.addActionListener(this);
 
         ImageIcon manageIcon = new ImageIcon("Icons/StylusIcon.png"); 
+
         manageIcon = Customization.resizeIcon(manageIcon, 20, 20); 
         
         manageButton = new IconButton(manageIcon, "Manage");
@@ -94,11 +98,11 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         titlePanel.add(bookButton);
 
         // * View Hotel * //
+
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
         dateAvailButton.setColorClick(dateAvailButton.getColorOver());
         dateAvailButton.addActionListener(this);
-
         dateAvailPanel = new DateAvailPanel(hotel);
         dateAvailPanel.setBounds(40, 60, 540, 220);
 
@@ -114,7 +118,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         resInfoButton.setBounds(390, 10, 140, 40);
         resInfoButton.setColorClick(resInfoButton.getColorOver());
         resInfoButton.addActionListener(this);
-
         resInfoPanel = new ResInfoPanel(hotel);
         resInfoPanel.setBounds(40, 60, 540, 220);
 

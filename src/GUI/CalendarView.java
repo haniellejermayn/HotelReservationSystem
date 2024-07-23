@@ -1,3 +1,7 @@
+
+//package GUI;
+
+//import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -8,7 +12,7 @@ public class CalendarView extends RoundPanel{
     private Font customFont;
     private ActionListener action;
 
-    CalendarView(ButtonClickListener listener){
+    public CalendarView(ButtonClickListener listener){
         
         super(new Color(27, 43, 80));
 

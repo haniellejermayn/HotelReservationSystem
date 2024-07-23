@@ -1,3 +1,5 @@
+//package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -51,6 +53,7 @@ public class HomePanel extends RoundPanel{
         star.setBounds(470, 0, 130, 170);
 
         // * Hotel Panel * //
+
         hotelTitle = new JLabel("Hotels");
         hotelTitle.setFont(customFont30);
         hotelTitle.setForeground(Color.white);

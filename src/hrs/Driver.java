@@ -1,20 +1,21 @@
 package hrs;
 
 import java.util.Scanner;
+import GUI.*;
 
 /**
  * The Driver class contains the main method to run the Hotel Reservation System (HRS).
  * It provides a console-based menu for users to create, view, manage hotels, and book rooms.
  */
-public class Driver {
+//public class Driver {
     /**
      * The main method to run the Hotel Reservation System.
      * Displays a menu and performs actions based on user input.
      *
      * @param args command-line arguments (not used)
-     */
+     
     public static void main(String[] args) {
-        HotelReservationSystem sys = new HotelReservationSystem();
+        HRSController sys = new HRSController();
         Scanner sc = new Scanner(System.in);
         int option;
 
@@ -56,3 +57,4 @@ public class Driver {
         } while (option != 0);
     }
 }
+*/

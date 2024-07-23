@@ -1,3 +1,4 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +12,7 @@ public class HotelOption extends PanelButton{
     private String buttonName;
     
     HotelOption(String buttonName){
-        
+
         super(buttonName);
 
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);

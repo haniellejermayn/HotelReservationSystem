@@ -1,3 +1,4 @@
+//package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -5,7 +6,6 @@ import java.util.*;
 public class RoomView extends RoundPanel{
     
     private ArrayList<OptionButton> rooms;
-
     private Font customFont;
 
     RoomView(EnhancedButtonClickListener listener, int nRooms){

@@ -1,3 +1,4 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,11 +14,9 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
     private RoundLabel standardRoomPanel, deluxeRoomPanel, executiveRoomPanel;
     private RoundPanel roomInfoContainer;
     private ArrayList<OptionButton> days;
-
     private Font customFont15;
     private Font customFont30;
     private Font customFont50;
-
 
         // TODO: change to Hotel hotel
     RoomInfoPanel(String hotel){
@@ -207,6 +206,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
                 for (int j = 0; j < nRooms; j++){
                     roomButtons.get(i).setColor(new Color(27, 43, 80));
                 }
+
             }
         }
     }

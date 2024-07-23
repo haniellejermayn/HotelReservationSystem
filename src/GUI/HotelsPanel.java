@@ -1,3 +1,4 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -27,6 +28,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
 
         // * Hotel Title * //
+
         hotelTitle = new JLabel("Hotels");
         hotelTitle.setFont(customFont35);
         hotelTitle.setForeground(Color.white);
@@ -43,6 +45,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         }
 
         // * Filter * //
+
         ImageIcon filterIcon = new ImageIcon("Icons/FilterIcon.png"); 
         filterIcon = Customization.resizeIcon(filterIcon, 20, 20); 
         
@@ -55,6 +58,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         filterPanel.setVisible(false);
 
         // * Create Hotel * //
+
         ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
@@ -91,9 +95,10 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
 
         // TODO: add price to hotelOption
         String hotelName = hotel; // TODO: change to hotel name
-        float price = 1299.00f; // TODO: change to hotel price
+        //float price = 1299.00f; // TODO: change to hotel price
 
         item.setBounds(0, (itemNo + 1) * 10 + (itemNo * 110), 600, 110);
+
         item.setLayout(null);
 
         RoundLabel content = item.getContent();

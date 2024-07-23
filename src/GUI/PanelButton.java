@@ -1,3 +1,4 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,6 +11,7 @@ public class PanelButton extends JButton implements MouseListener{
     private String buttonName;
     
     PanelButton(String buttonName){
+
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 8);
 
         this.color = new Color(27, 43, 80);
@@ -112,3 +114,4 @@ public class PanelButton extends JButton implements MouseListener{
         this.buttonName = buttonName;
     }
 }
+

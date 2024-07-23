@@ -1,3 +1,5 @@
+//package GUI;
+
 import java.awt.*;
 
 public class FilterPanel extends RoundPanel{

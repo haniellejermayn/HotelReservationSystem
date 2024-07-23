@@ -1,9 +1,13 @@
+
+//package GUI;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class RoundLabel extends JLabel{
     
     RoundLabel(Color bgColor){
+
         
         this.setOpaque(false);
         this.setBackground(bgColor);
@@ -18,3 +22,4 @@ public class RoundLabel extends JLabel{
         super.paintComponent(g2);
     }
 }
+

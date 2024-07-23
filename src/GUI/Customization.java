@@ -1,3 +1,6 @@
+
+//package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -5,14 +8,14 @@ import java.io.IOException;
 
 public class Customization {
     
-    Customization(){
+    public Customization(){
 
     }
 
     // * ---------- Thematic Components ---------- * //
 
     /*  
-     * Font: Poppins SemiBold
+     *  Font: Poppins SemiBold
      *  Background Color: (13, 22, 45) || 0D162D
      *  Panel/Button Color: (27, 43, 80) || 1B2B50
      *  Button Color Hover: (40, 68, 117) || 284475
@@ -23,7 +26,6 @@ public class Customization {
 
     /*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int screenWidth = (int)screenSize.getWidth();*/
-
     
     // * Resize Image * //
 
@@ -38,6 +40,7 @@ public class Customization {
     }
 
     // * Custom Font * //
+
     public static Font createCustomFont(String fontName, int size){
         Font customFont = new Font("Arial", Font.PLAIN, size);
 
@@ -56,3 +59,4 @@ public class Customization {
         return customFont;
     }
 }
+

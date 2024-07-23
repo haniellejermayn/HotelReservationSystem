@@ -7,22 +7,25 @@ import java.util.ArrayList;
  */
 public class Hotel {
     private String hotelName;
+    protected float basePrice;
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
+    private ArrayList<Float> datePriceModifiers;
 
     // -- Constructor -- //
 
-    /**
-     * Constructs a new Hotel with the specified name and number of rooms.
-     * 
-     * @param hotelName the name of the hotel
-     * @param roomAmt the number of rooms to initialize
-     */
-    public Hotel(String hotelName, int roomAmt) {
+    public Hotel(String hotelName, int standardAmount, int deluxeAmount, int executiveAmount) {
         this.hotelName = hotelName;
+        this.basePrice = 1299.0f;
         this.rooms = new ArrayList<Room>();
-        this.initializeRooms(roomAmt);
+        this.initializeRooms(standardAmount, deluxeAmount, executiveAmount);
         this.reservations = new ArrayList<Reservation>();
+        this.datePriceModifiers = new ArrayList<Float>();
+        
+        //initialize datePriceMultipliers all to 1.0f
+        for(int i = 0; i < 30; i++) {
+            this.datePriceModifiers.add(1.0f);
+        }
     }
     
     // -- Public Methods -- //
@@ -36,7 +39,7 @@ public class Hotel {
         float total = 0;
 
         for(int i = 0; i < reservations.size(); i++) {
-            total += reservations.get(i).computeTotalPrice();
+            total += reservations.get(i).computeFinalPrice();
         }
 
         return total;
@@ -72,12 +75,36 @@ public class Hotel {
     }
 
     /**
-     * Count the total number of rooms.
+     * Counts the number of rooms per type. Also counts the total rooms.
      * 
-     * @return the number of rooms.
+     * @param type the type of room (0 - total, 1 - standard, 2 - deluxe, 3 - executive)
+     * @return the number of rooms given selected type.
      */
-    public int countRooms() {
-        return this.rooms.size();
+    public int countRooms(int type) {
+        int result = 0;
+        
+        if(type == 0) {
+            result = this.rooms.size();
+        }
+        else if(type == 1) {
+            result = this.countRooms(0) - this.countRooms(2) - this.countRooms(3);
+        }
+        else if(type == 2) {
+            for(int i = 0; i < this.rooms.size(); i++) {
+                if(this.rooms.get(i) instanceof DeluxeRoom) {
+                    result += 1;
+                }
+            }
+        }
+        else if(type == 3) {
+            for(int i = 0; i < this.rooms.size(); i++) {
+                if(this.rooms.get(i) instanceof ExecutiveRoom) {
+                    result += 1;
+                }
+            }
+        }
+        
+        return result;
     }
 
     /**
@@ -146,25 +173,30 @@ public class Hotel {
      * @param end the end date
      * @return the index of an available room, or -1 if none are available
      */
-    public int checkDateAvailability(int start, int end) {
+    public int checkDateAvailability(int start, int end, int type) {
         int[] availableDays;
         int roomIndex = -1;
         boolean isAvailable;
 
         for(int i = 0; i < this.rooms.size() && roomIndex == -1; i++) {
-            availableDays = this.checkRoomAvailability(this.rooms.get(i));
-            isAvailable = true;
+            if ((type == Room.TYPE_DELUXE && this.rooms.get(i) instanceof DeluxeRoom) ||
+                (type == Room.TYPE_EXECUTIVE && this.rooms.get(i) instanceof ExecutiveRoom) ||
+                (type == Room.TYPE_STANDARD && !(this.rooms.get(i) instanceof DeluxeRoom) && !(this.rooms.get(i) instanceof ExecutiveRoom))) {
 
-            //end - 1 is the check-out date (not counted as booked)
-            for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
-                if(availableDays[j] == 1) {
-                    isAvailable = false;
+                availableDays = this.checkRoomAvailability(this.rooms.get(i));
+                isAvailable = true;
+
+                //end - 1 is the check-out date (not counted as booked)
+                for(int j = start - 1; j < end - 1 && isAvailable == true; j++) { 
+                    if(availableDays[j] == 1) {
+                        isAvailable = false;
+                    }
                 }
-            }
 
-            if(isAvailable) {
-                roomIndex = i;
-            }
+                if(isAvailable) {
+                    roomIndex = i;
+                }
+            } 
         }
 
         return roomIndex;
@@ -179,7 +211,7 @@ public class Hotel {
      * @param room the room to reserve
      */
     public void addReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
-        this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room));
+        this.reservations.add(new Reservation(guestName, checkInDate, checkOutDate, room, this.datePriceModifiers));
     }
 
     /**
@@ -194,9 +226,15 @@ public class Hotel {
     /**
      * Adds a new room to the hotel.
      */
-    public void addRoom() {
-        this.rooms.add(new Room(hotelName));
-        this.reinitializeRooms(this.rooms.get(0).getBasePrice());
+    public void addRoom(int type) {
+        switch(type) {
+            case 1: this.rooms.add(new Room(hotelName, this.basePrice)); break;
+            case 2: this.rooms.add(new DeluxeRoom(hotelName, this.basePrice)); break;
+            case 3: this.rooms.add(new ExecutiveRoom(hotelName, this.basePrice)); break;
+        }
+        
+        this.reinitializeRooms();
+        this.datePriceModifiers.add(1.0f);
     }
 
     /**
@@ -206,18 +244,16 @@ public class Hotel {
      */
     public void removeRoom(int index) {
         this.rooms.remove(index);
-        this.reinitializeRooms(this.rooms.get(0).getBasePrice());
+        this.reinitializeRooms();
+        this.datePriceModifiers.remove(index);
     }
 
-    /**
-     * Updates the base price of all rooms.
-     * 
-     * @param newPrice the new base price
-     */
-    public void updateRoomPrice(float newPrice) {
-        for(int i = 0; i < this.rooms.size(); i++) {
-            this.rooms.get(i).setBasePrice(newPrice);
-        }
+    public float fetchDatePriceModifier(int day) {
+        return this.datePriceModifiers.get(day - 1);
+    }
+
+    public void updateDatePrice(int day, float newPrice) {
+        this.datePriceModifiers.set(day - 1, newPrice);
     }
 
     // -- Private Methods -- //
@@ -227,42 +263,52 @@ public class Hotel {
      * 
      * @param roomAmt the number of rooms to initialize
      */
-    private void initializeRooms(int roomAmt) {
-        char letter = 'A';
+    private void initializeRooms(int standardAmount, int deluxeAmount, int executiveAmount) {
+        int totalRooms = standardAmount + deluxeAmount + executiveAmount;
+        int roomCounter = 0;
         int number = 1;
+        char letter = 'A';
 
-        for(int i = 0; i < roomAmt; i++) {
-            this.rooms.add(new Room(letter + String.valueOf(number)));
-            
-            if(number == 5) {
-                number = 1;
-                letter += 1;
+        for(int i = 0; i < totalRooms; i++) {
+            if(roomCounter < standardAmount) {
+                this.rooms.add(new Room(String.valueOf(number) + letter, this.basePrice));
+            }
+            else if(roomCounter < standardAmount + deluxeAmount) {
+                this.rooms.add(new DeluxeRoom(String.valueOf(number) + letter, this.basePrice));
             }
             else {
+                this.rooms.add(new ExecutiveRoom(String.valueOf(number) + letter, this.basePrice));
+            }
+
+            roomCounter += 1;
+            
+            if(letter == 'E') {
+                letter = 'A';
                 number += 1;
+            }
+            else {
+                letter += 1;
             }
         }
     }
 
     /**
-     * Reinitializes rooms' names and base prices.
-     * 
-     * @param basePrice the base price to set for all rooms
+     * Reinitializes rooms' names and prices.
      */
-    private void reinitializeRooms(float basePrice) {
-        char letter = 'A';
+    public void reinitializeRooms() {
         int number = 1;
+        char letter = 'A';
 
         for(int i = 0; i < this.rooms.size(); i++) {
-            this.rooms.get(i).setRoomName(letter + String.valueOf(number));
-            this.rooms.get(i).setBasePrice(basePrice);
+            this.rooms.get(i).setRoomName(String.valueOf(number) + letter);
+            this.rooms.get(i).setRoomPrice(this.basePrice);
             
-            if(number == 5) {
-                number = 1;
-                letter += 1;
+            if(letter == 'E') {
+                letter = 'A';
+                number += 1;
             }
             else {
-                number += 1;
+                letter += 1;
             }
         }
     }
@@ -278,6 +324,10 @@ public class Hotel {
         return this.hotelName;
     }
 
+    public float getBasePrice() {
+        return this.basePrice;
+    }
+
     /**
      * Sets the name of the hotel.
      * 
@@ -285,5 +335,11 @@ public class Hotel {
      */
     public void setHotelName(String newName) {
         this.hotelName = newName;
+    }
+
+    // also reinitializes rooms
+    public void setBasePrice(float newPrice) {
+        this.basePrice = newPrice;
+        this.reinitializeRooms();
     }
 }
