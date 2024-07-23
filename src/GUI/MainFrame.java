@@ -1,59 +1,68 @@
 package GUI;
 
-import hrs.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-import javax.swing.*;
 
-public class MainFrame extends JFrame implements ActionListener{
+public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
     
-    // Edit: placeholder
-    private CreateHotelPanel createHotelPanel;
+    // TODO: fill empty panel;
+    // TODO: add listeners to homepage hotels
+    // TODO: add back button
+
+    JPanel darkPanel;
+
+    RoundPanel homePage;
+    RoundPanel hotelsPage;
+    RoundPanel reservationsPage;
+    RoundPanel settingsPopUp;
+
+    RoundPanel accountSidePanel;
+    RoundPanel datePanel;
+    RoundPanel reservationsPanel;
+    RoundPanel fillerPanel; // edit
+    SidePanel sidePanel;
+    JScrollPane scrollPane;
+
+    JLabel reservationsNo;
+
+    ImageIcon logo;
+    ImageIcon logoAndName;
+    JLabel logoName;
+    JLabel hotelTitle;
+
+    Font customFont30;
+    Font customFont15;
+    Font customFont60;
+
+    HomePanel homePanel;
+    HotelsPanel hotelsPanel;
+    ReservationsPanel resPanel;
+    AccountPanel accountPanel;
     
-    private RoundPanel homePage;
-    private RoundPanel hotelsPage;
-    private RoundPanel reservationsPage;
-    private RoundPanel settingsPopUp;
-
-    private RoundPanel accountPanel;
-    private RoundPanel datePanel;
-    private RoundPanel reservationsPanel;
-    private RoundPanel fillerPanel; // edit
-    private SidePanel sidePanel;
-    private JScrollPane scrollPane;
-
-    private JLabel reservationsNo;
-
-    private ImageIcon logo;
-    private ImageIcon logoAndName;
-    private JLabel logoName;
-    private JLabel hotelTitle;
-
-    private Font customFont30;
-    private Font customFont15;
-    private Font customFont60;
-
-    private HomePanel homePanel;
-    private HotelsPanel hotelsPanel;
-    private SelectedHotelPanel selectedHotel;
-    private OptionButton bookButton;
+    IconButton homeButton;
+    IconButton hotelButton;
+    IconButton resButton;
+    IconButton accountButton;
     
-    private IconButton homeButton;
-    private IconButton hotelButton;
+    ArrayList<HotelItem> hotelCatalogue;
+    ArrayList<HotelOption> hotelOptions;
+    ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    ArrayList<String> hotels;
+    int nHotels;
     
-    private ArrayList<HotelItem> hotelCatalogue;
-    private ArrayList<HotelOption> hotelOptions;
-    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+        // change to Hotel
+    MainFrame(ArrayList<String> hotels, int nHotels){ // hrs.getHotel();
 
-    private HRSController controller;
-    
-    public MainFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); // change(?)
         this.setSize(1000, 600);
         this.getContentPane().setBackground(new Color(13, 22, 45));
+
+        this.hotels = hotels;
+        this.nHotels = nHotels;
 
         // Allows for rounded components
         try {
@@ -80,16 +89,15 @@ public class MainFrame extends JFrame implements ActionListener{
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
-        // DEFAULT PANELS
+        // * Default Panels * //
 
         ImageIcon accountIcon = new ImageIcon("Icons/AccountIcon.png");
-        accountIcon = Customization.resizeIcon(accountIcon, 100, 100);
+        accountIcon = Customization.resizeIcon(accountIcon, 120, 120);
         
-        // fix text gap
         RoundLabel account = new RoundLabel(new Color(27, 43, 80));
-        account.setBounds(10, 10, 100, 100);
+        account.setBounds(10, 20, 100, 100);
         account.setIcon(accountIcon);
-        account.setText("<html><p style='font-size: 15pt; margin:0;'>Gabrielle Kelsey</p><br><p style='font-size: 13pt; margin:0; text-align:center;'>12307572</p></html>"); // name, worker/guest
+        account.setText("User #462005"); // TODO: change to username
         account.setForeground(Color.white);
         account.setFont(customFont15);
         account.setVerticalTextPosition(JLabel.BOTTOM);
@@ -98,11 +106,11 @@ public class MainFrame extends JFrame implements ActionListener{
         account.setVerticalAlignment(JLabel.CENTER);
         account.setHorizontalAlignment(JLabel.CENTER);
         
-        accountPanel = new RoundPanel(new Color(27, 43, 80));
-        accountPanel.setLayout(new BorderLayout());
-        accountPanel.setBounds(775, 15, 200, 200);
-        accountPanel.setBackground(new Color(27, 43, 80));
-        accountPanel.add(account);
+        accountSidePanel = new RoundPanel(new Color(27, 43, 80));
+        accountSidePanel.setLayout(new BorderLayout());
+        accountSidePanel.setBounds(775, 15, 200, 200);
+        accountSidePanel.setBackground(new Color(27, 43, 80));
+        accountSidePanel.add(account);
         
         datePanel = new RoundPanel(new Color(27, 43, 80));
         datePanel.setBounds(775, 225, 200, 120);
@@ -137,65 +145,94 @@ public class MainFrame extends JFrame implements ActionListener{
 
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
-    }
 
-    public void initializeMainFrame(ArrayList<Hotel> hotels, int nHotels) {
         homePanel = new HomePanel(hotels, nHotels); 
         homeButton = sidePanel.getHomeButton();
         homeButton.addActionListener(this);
         
-        // Edit: all hotels should be passed here
-        hotelsPanel = new HotelsPanel(hotels, nHotels); 
+        hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
         hotelButton = sidePanel.getHotelButton();
         hotelButton.addActionListener(this);
+        
+        resPanel = new ReservationsPanel(hotels, nHotels); 
+        resButton = sidePanel.getReservationsButton();
+        resButton.addActionListener(this);
+
+        accountPanel = new AccountPanel(this);
+        accountButton = sidePanel.getAccountButton();
+        accountButton.addActionListener(this);
+
 
         // ---------- Fix ---------- //
 
-        hotelOptions = new ArrayList<HotelOption>();
+        /*darkPanel = new JPanel();
+        darkPanel.setBackground(new Color(0, 0, 0, 100)); // Semi-transparent black
+        darkPanel.setBounds(0, 0, getWidth(), getHeight());
+        darkPanel.setLayout(null); // Use null layout to cover entire frame
+        darkPanel.setVisible(false);
+
+
+        this.add(darkPanel);*/
+
+        // ---------- Fix ---------- //
+
+        
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
-        // Edit: Fetch hotel
-        selectedHotel = new SelectedHotelPanel(hotels.get(0));
+        // Room rooms;
+        /*for(int i = 0; i < nHotel; i++){
+            HotelOption optionTemp = new HotelOption(hotels.get(i));
+            initializeSelectedHotels(hotels, nHotel);
+            selectedHotelPanels.add(optionTemp);
+        }*/
+        //selectedHotelPanels.add(kelseyHotel);
+        //selectedHotelPanels.add(hepHotel);
+        //selectedHotelPanels.add(hanielleHotel);
 
-        for (int i = 0; i < nHotels; i++){
-            HotelOption option = new HotelOption("Hotel" + (i + 1));
-            option.addActionListener(this);
-            hotelOptions.add(option);
-            
-            SelectedHotelPanel selectedHotel = new SelectedHotelPanel(hotels.get(i)); //Edit: not sure
-            selectedHotel.setVisible(false);
-            selectedHotelPanels.add(selectedHotel);
-        }
+        initializeSelectedHotels(hotels, nHotels);
 
-        // ---------- Fix ---------- //
+        /*for (int i = 0; i < nHotel; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            hotelTemp.setVisible(false);
+            this.selectedHotelPanels.add(hotelTemp);
+        }*/
 
-        SelectedHotelPanel testSelectedHotel = new SelectedHotelPanel(hotels.get(0)); //Edit: not sure
-
-        bookButton = testSelectedHotel.getBookButton();
-        bookButton.addActionListener(this);
+        //SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(0), this); // change to take Hotel
+        //hotelTemp.setVisible(false);
+        //selectedHotelPanels.add(hotelTemp);
 
         this.setIconImage(logo.getImage());
         this.add(logoName);
         this.add(sidePanel);
         this.add(homePanel);
         this.add(hotelsPanel);
-        this.add(selectedHotel);
-        this.add(testSelectedHotel);
+        this.add(resPanel);
         this.add(accountPanel);
+        this.add(accountSidePanel);
         this.add(datePanel);
         this.add(reservationsPanel);
 
 
-        homePanel.setVisible(false);
+        //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
-        selectedHotel.setVisible(false);
-        testSelectedHotel.setVisible(true);
-
+        resPanel.setVisible(false);
+        accountPanel.setVisible(false);
+        /*kelseyHotel.setVisible(false);
+        hepHotel.setVisible(false);
+        hanielleHotel.setVisible(false);*/
 
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+                                            // change to Hotel
+    public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
+        for (int i = 0; i < nHotels; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            hotelTemp.setVisible(false);
+            this.selectedHotelPanels.add(hotelTemp);
+        }
     }
 
     @Override
@@ -203,42 +240,61 @@ public class MainFrame extends JFrame implements ActionListener{
         if (e.getSource() == homeButton){
             homePanel.setVisible(true);
             hotelsPanel.setVisible(false);
+            resPanel.setVisible(false);
+            accountPanel.setVisible(false);
         }
         else if (e.getSource() == hotelButton){
-            hotelsPanel.setVisible(true);
             homePanel.setVisible(false);
+            hotelsPanel.setVisible(true);
+            resPanel.setVisible(false);
+            accountPanel.setVisible(false);
         }
-        else if (e.getSource() == bookButton){
-            this.darkenBackground(true);
+        else if (e.getSource() == resButton){
+            homePanel.setVisible(false);
+            hotelsPanel.setVisible(false);
+            resPanel.setVisible(true);
+            accountPanel.setVisible(false);
         }
-        else { // Hotels Panel, gets Selected Hotel
-            for (int i = 0; i < hotelOptions.size(); i++){
-                if (e.getSource() == hotelOptions.get(i)){
-                    selectedHotel = selectedHotelPanels.get(i);
+        else if (e.getSource() == accountButton){
+            homePanel.setVisible(false);
+            hotelsPanel.setVisible(false);
+            resPanel.setVisible(false);
+            accountPanel.setVisible(true);
+        }
 
-                    selectedHotel.setVisible(true);
-                    hotelsPanel.setVisible(false);
-                    homePanel.setVisible(false);
-                }
-            }
-        } 
+        /*else if (e.getSource() == bookButton){
+            this.darkenBackground(true);
+        }*/
+        
     }
 
-    public void darkenBackground(boolean darken){
+    @Override
+    public void buttonClicked(String buttonName) {
+
+        for (int i = 0; i < nHotels; i++){
+            String hotel = hotels.get(i); // change to getHotelName
+
+            if (buttonName.equals(hotel)){
+                SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
+                selectedHotel.setVisible(true);
+                homePanel.setVisible(false);
+                hotelsPanel.setVisible(false);
+                this.add(selectedHotel);
+            }
+            else {
+                selectedHotelPanels.get(i).setVisible(false);
+            }
+        }
+    }
+
+    // fix 
+    /*public void darkenBackground(boolean darken){
         if (darken){
-            JPanel glassPane = new JPanel();
-            glassPane.setBackground(new Color(0, 0, 0, 100));
-            glassPane.setOpaque(true);
-            this.setGlassPane(glassPane);
-            glassPane.setVisible(true);
+            
+            darkPanel.setVisible(true); // Initially hidden
         }
         else {
-            this.getGlassPane().setVisible(false);
+            darkPanel.setVisible(false);
         }
-    }
-
-    // Edit: Placeholder
-    public CreateHotelPanel getCreateHotelPanel() {
-        return this.createHotelPanel;
-    }
+    }*/
 }
