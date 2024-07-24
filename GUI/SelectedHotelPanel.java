@@ -1,11 +1,14 @@
+//package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
-public class SelectedHotelPanel extends RoundPanel implements ActionListener{
+public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
+    
+    //private MainFrame mainFrame; // !: Darken background does not work
+    private String hotel;
+    // TODO: change String to Hotel
     
     private RoundPanel titlePanel;
     private RoundPanel viewPanel;
@@ -13,7 +16,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
     private JLabel hotelPrice;
     private JLabel hotelRooms;
     private JLabel hotelRes;
-    //private ArrayList<HotelOption> hotelCatalogue;
+
     private IconButton manageButton;
     private OptionButton bookButton;
     private BookHotelPanel bookPanel;
@@ -23,50 +26,46 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
     private OptionButton roomInfoButton;
     private RoomInfoPanel roomInfoPanel;
     private OptionButton resInfoButton;
-    //private ResInfoPanel resInfoPanel;
-    //private boolean isVisible = false;
+    private ResInfoPanel resInfoPanel;
 
-    Font customFont15;
-    Font customFont35;
-    Font customFont50;
-    Font customFont70;
+    private Font customFont15;
+    private Font customFont35;
+    private Font customFont50;
 
-        // change to Hotel hotels
-    SelectedHotelPanel(String hotel){
+            // TODO: change to Hotel
+    SelectedHotelPanel(String hotel, MainFrame mainFrame){
 
         super(new Color(13, 22, 45));
-        //super(Color.blue);
+
+        //this.mainFrame = mainFrame; // !: Darken Background does not work
+        this.hotel = hotel;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
-        customFont70 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 70);
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
-        hotelName = new JLabel(hotel);
+        // * Hotel Info * //
+        hotelName = new JLabel(hotel); // TODO: Change to hotel name
         hotelName.setFont(customFont35);
         hotelName.setForeground(Color.white);
-        //hotelName.setBackground(Color.black);
         hotelName.setVerticalAlignment(JLabel.TOP);
         hotelName.setBounds(15, 20, 300, 50);
         
-        hotelPrice = new JLabel("1,299.00");
+        hotelPrice = new JLabel("1,299.00"); // TODO: Change to hotel price
         hotelPrice.setFont(customFont50);
         hotelPrice.setForeground(Color.white);
-        //hotelPrice.setBackground(Color.black);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
         hotelPrice.setBounds(405, 10, 300, 100);
         
-        hotelRooms = new JLabel("30 Rooms");
+        hotelRooms = new JLabel("30 Rooms"); // TODO: Change to hotel rooms
         hotelRooms.setFont(customFont15);
         hotelRooms.setForeground(Color.white);
-        //hotelName.setBackground(Color.black);
         hotelRooms.setVerticalAlignment(JLabel.TOP);
         hotelRooms.setBounds(17, 75, 300, 17);
         
-        hotelRes = new JLabel("10 Reservations");
+        hotelRes = new JLabel("10 Reservations"); // TODO: Change to hotel reservations
         hotelRes.setFont(customFont15);
         hotelRes.setForeground(Color.white);
-        //hotelName.setBackground(Color.black);
         hotelRes.setVerticalAlignment(JLabel.TOP);
         hotelRes.setBounds(17, 100, 300, 17);
 
@@ -76,8 +75,8 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         bookButton.setColorOver(bookButton.getColorClick());
         bookButton.addActionListener(this);
 
-        // change icon
-        ImageIcon manageIcon = new ImageIcon("Icons/StylusIcon.png"); // chage to manageIcon
+        ImageIcon manageIcon = new ImageIcon("Icons/StylusIcon.png"); 
+
         manageIcon = Customization.resizeIcon(manageIcon, 20, 20); 
         
         manageButton = new IconButton(manageIcon, "Manage");
@@ -86,8 +85,7 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         manageButton.setColorOver(manageButton.getColorClick());
         manageButton.addActionListener(this);
 
-        managePanel = new ManagePanel(new Color(40, 68, 117)); // create ManagePanel
-        managePanel.setVisible(false);
+        // !: Manage Panel not finished
 
         titlePanel = new RoundPanel(new Color(27, 43, 80));
         titlePanel.setLayout(null);
@@ -97,24 +95,14 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         titlePanel.add(hotelRooms);
         titlePanel.add(hotelRes);
         titlePanel.add(manageButton);
-        titlePanel.add(managePanel);
         titlePanel.add(bookButton);
 
-        bookPanel = new BookHotelPanel(hotel);
-        bookPanel.setBounds(142, 10, 355, 450);
+        // * View Hotel * //
 
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
         dateAvailButton.setColorClick(dateAvailButton.getColorOver());
         dateAvailButton.addActionListener(this);
-        /*dateAvailButton.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-                this.buttonClicked(dateAvailButton.getName());
-            }
-        });*/
-
         dateAvailPanel = new DateAvailPanel(hotel);
         dateAvailPanel.setBounds(40, 60, 540, 220);
 
@@ -130,6 +118,8 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         resInfoButton.setBounds(390, 10, 140, 40);
         resInfoButton.setColorClick(resInfoButton.getColorOver());
         resInfoButton.addActionListener(this);
+        resInfoPanel = new ResInfoPanel(hotel);
+        resInfoPanel.setBounds(40, 60, 540, 220);
 
         viewPanel = new RoundPanel(new Color(13, 22, 45));
         viewPanel.setLayout(null);
@@ -139,90 +129,100 @@ public class SelectedHotelPanel extends RoundPanel implements ActionListener{
         viewPanel.add(roomInfoButton);
         viewPanel.add(roomInfoPanel);
         viewPanel.add(resInfoButton);
+        viewPanel.add(resInfoPanel);
 
-
-        dateAvailPanel.setVisible(false);
         roomInfoPanel.setVisible(false);
-        
-
-
-
+        resInfoPanel.setVisible(false);        
 
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
-        this.add(bookPanel);
-        this.add(titlePanel);
-        this.add(viewPanel);
-
-
-        //bookPanel.setVisible(false);
-
-
-
-        // fix
-
-        /*scrollPane = new JScrollPane(homePage);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
-        
+        this.add(titlePanel, JLayeredPane.DEFAULT_LAYER);
+        this.add(viewPanel, JLayeredPane.DEFAULT_LAYER);
     }
-
-    /*@Override
-    public void actionPerformed(ActionEvent e) {
-        
-        if (e.getSource() == filterButton){
-            isVisible = !isVisible;
-            filterPanel.setVisible(isVisible);
-
-            if (isVisible){
-                filterButton.setColor(new Color(40, 68, 117));
-            }
-            else {
-                filterButton.setColor(new Color(27, 43, 80));
-            }
-
-            filterButton.repaint();
-        }
-    }*/
-
-    /*@Override
-    public void buttonClicked(String buttonName) {
-
-        // change to necessary information
-        int nRooms = 30;
-        String name;
-        String type = "Deluxe";
-        float pricePerNight = 1299.00f;
-
-        for (int i = 0; i < nRooms; i++){
-            String roomIndex = String.format("%02d", i + 1);
-            String price = String.format("%.2f", pricePerNight * (i % 7)); // change later
-            name = roomIndex; 
-
-            if (buttonName.equals(roomIndex)){
-                roomName.setText("Room " + name);
-                roomPrice.setText(price + " per night");
-                roomType.setText(type + " Room");
-            }
-        }
-    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dateAvailButton){
             dateAvailPanel.setVisible(true);
             roomInfoPanel.setVisible(false);
+            resInfoPanel.setVisible(false);
+            dateAvailButton.setColor(new Color(40, 68, 117));
+            roomInfoButton.setColor(new Color(27, 43, 80));
+            resInfoButton.setColor(new Color(27, 43, 80));
         }
         else if (e.getSource() == roomInfoButton){
-            roomInfoPanel.setVisible(true);
             dateAvailPanel.setVisible(false);
+            roomInfoPanel.setVisible(true);
+            resInfoPanel.setVisible(false);
+            dateAvailButton.setColor(new Color(27, 43, 80));
+            roomInfoButton.setColor(new Color(40, 68, 117));
+            resInfoButton.setColor(new Color(27, 43, 80));
+        }
+        else if (e.getSource() == resInfoButton){
+            dateAvailPanel.setVisible(false);
+            roomInfoPanel.setVisible(false);
+            resInfoPanel.setVisible(true);
+            dateAvailButton.setColor(new Color(27, 43, 80));
+            roomInfoButton.setColor(new Color(27, 43, 80));
+            resInfoButton.setColor(new Color(40, 68, 117));
         }
         else if (e.getSource() == bookButton){
-            bookPanel.setVisible(true);
+            //mainFrame.darkenBackground(true); // !: Darken Background does not work
+            bookPanel = new BookHotelPanel(hotel, this);
+            bookPanel.setBounds(152, 10, 385, 420);
+            this.add(bookPanel, JLayeredPane.POPUP_LAYER);
+        }
+        else if (e.getSource() == manageButton){
+            managePanel = new ManagePanel(hotel, this, new Color(51, 88, 150)); 
+            this.add(managePanel, JLayeredPane.POPUP_LAYER);
         }
     }
 
     public OptionButton getBookButton(){
         return bookButton;
+    }
+
+    @Override
+    public void buttonClicked(String buttonName) {
+        if (buttonName.equals("Book")){
+            bookPanel.setVisible(false);
+            this.remove(bookPanel);
+        }
+        else if (buttonName.equals("Book Cancel")){
+            bookPanel.setVisible(false);
+            this.remove(bookPanel);
+        }
+        else if (buttonName.equals("Change Name")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Add Room")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Update Base Price")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Date Price Modifier")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Room")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Reservation")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Remove Hotel")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
+        else if (buttonName.equals("Manage Cancel")){
+            managePanel.setVisible(false);
+            this.remove(managePanel);
+        }
     }
 }

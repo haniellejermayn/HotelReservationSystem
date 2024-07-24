@@ -1,14 +1,16 @@
-import javax.swing.*;
+
+//package GUI;
+
+//import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public class CalendarView extends RoundPanel{
     
     private ArrayList<OptionButton> days;
     private Font customFont;
+    private ActionListener action;
 
     CalendarView(ButtonClickListener listener){
         
@@ -49,5 +51,9 @@ public class CalendarView extends RoundPanel{
 
     public ArrayList<OptionButton> getDays(){
         return days;
+    }
+
+    public ActionListener getActionListener(){
+        return action;
     }
 }

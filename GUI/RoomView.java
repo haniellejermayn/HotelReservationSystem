@@ -1,38 +1,35 @@
-import javax.swing.*;
+//package GUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public class RoomView extends RoundPanel{
     
     private ArrayList<OptionButton> rooms;
-    private ButtonClickListener listener;
-
     private Font customFont;
 
-    RoomView(ButtonClickListener listener){
+    RoomView(EnhancedButtonClickListener listener, int nRooms){
         
         super(new Color(27, 43, 80));
-
-        this.listener = listener;
 
         customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
 
         rooms = new ArrayList<OptionButton>();
-
-        int nRooms = 50;
         
         for (int i = 0; i < nRooms; i++){
-            OptionButton room = new OptionButton(Integer.toString(i + 1));
-            String dayIndex = String.format("%02d", i + 1);
+            OptionButton room = new OptionButton(Integer.toString(i + 1)); // TODO: change to hotel naming convention
+            String name = String.valueOf(i + 1); // TODO: change to hotel naming convention
 
-            if ((i + 1) % 7 == 1){
-                room.setBounds((i % 7 * 41) + (i % 7 + 1) * 8, (i / 7 + 1) * 9 + (i / 7 * 30), 41, 30);
+            if ((i + 1) % 5 == 1){
+                if (i >= 0 && i <= 4){
+                    room.setBounds((i % 5 * 41) + (i % 5 + 1) * 8, (i / 5 + 1) * 5 + (i / 5 * 30), 41, 30);
+                }
+                else {
+                    room.setBounds((i % 5 * 41) + (i % 5 + 1) * 8, (i / 5 + 1) * 9 - 4 + (i / 5 * 30), 41, 30);
+                }
             }
             else {
-                room.setBounds((i % 7 * 41) + (i % 7 + 1) * 5 + 3, (i / 7 + 1) * 9 + (i / 7 * 30), 41, 30);
+                room.setBounds((i % 5 * 41) + (i % 5 + 1) * 5 + 3, (i / 5 + 1) * 9 - 4 + (i / 5 * 30), 41, 30);
             }
 
             room.setFont(customFont);
@@ -40,16 +37,21 @@ public class RoomView extends RoundPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    listener.buttonClicked(dayIndex);
+                    listener.roomButtonClicked(name);
                 }
             });
 
             rooms.add(room);
             this.add(rooms.get(i));
         }
-
-
         this.setLayout(null);
-        this.setBounds(10, 10, 335, 203);
+    }
+
+    public ArrayList<OptionButton> getRooms(){
+        return rooms;
+    }
+
+    public void setRooms( ArrayList<OptionButton> rooms){
+        this.rooms = rooms;
     }
 }

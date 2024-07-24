@@ -1,8 +1,7 @@
+//package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 
 public class HotelItem extends PanelButton{
     private boolean over;
@@ -13,7 +12,7 @@ public class HotelItem extends PanelButton{
     private String buttonName;
     
     HotelItem(String buttonName){
-        
+
         super(buttonName);
 
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
@@ -139,6 +138,4 @@ public class HotelItem extends PanelButton{
     public void setButtonName(String buttonName){
         this.buttonName = buttonName;
     }
-
-
 }
