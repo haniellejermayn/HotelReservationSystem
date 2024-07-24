@@ -18,6 +18,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     private TextFieldCustom guestName;
     private boolean roomTypeSelected;
+    private boolean checkInNOutSelected;
     private OptionButton standardRoom, deluxeRoom, executiveRoom;
     private OptionButton bookButton;
     private IconButton cancelButton;
@@ -88,6 +89,8 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         roomType.add(executiveRoom);
 
         // * Check In / Out * //
+        checkInNOutSelected = false;
+
         checkInNOut = new RoundLabel(new Color(40, 68, 117));
         checkInNOut.setBounds(13, 185, 200, 20);
         checkInNOut.setText("Check in / Check Out");
@@ -122,14 +125,20 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
             @Override
             public void actionPerformed(ActionEvent e){
-                setNameInput(guestName.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
-                setDiscountInput(discount.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
-                
-                // TODO: check if all fields are filled
-                // TODO: set all necessary info into Hotel
-                
 
-                listener.buttonClicked("Book");
+                String name = guestName.getTextField().getText().trim();
+                String disc = discount.getTextField().getText().trim();
+
+                // TODO: (if filled) check if disc is valid 
+                // TODO: check if selected room type is available within the checkIn and checkOut dates
+                if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
+                    setNameInput(name);
+                    setDiscountInput(disc);
+                    
+                    // TODO: set all necessary info into Hotel
+    
+                    listener.buttonClicked("Book");
+                }
             }
         });
 
@@ -248,6 +257,8 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
                 days.get(i).setEnabled(false);
             }
+
+            checkInNOutSelected = true;
         }
     }
 

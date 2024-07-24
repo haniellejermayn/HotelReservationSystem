@@ -89,15 +89,23 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
 
             @Override
             public void actionPerformed(ActionEvent e){
-                setNameInput(hotelName.getTextField().getText().trim()); // Get text and trim any leading/trailing whitespace
-                setStandardRoomInput(Integer.valueOf(nStandardRooms.getTextField().getText().trim()));
-                setDeluxeRoomInput(Integer.valueOf(nDeluxeRooms.getTextField().getText().trim()));
-                setExecutiveRoomInput(Integer.valueOf(nExecutiveRooms.getTextField().getText().trim()));
-                
-                // TODO: check if all fields are filled
-                // TODO: set all necessary info into Hotel
-                
-                listener.buttonClicked("Create");
+
+                String name = hotelName.getTextField().getText().trim();
+                int standard = Integer.valueOf(nStandardRooms.getTextField().getText().trim());
+                int deluxe = Integer.valueOf(nDeluxeRooms.getTextField().getText().trim());
+                int executive = Integer.valueOf(nExecutiveRooms.getTextField().getText().trim());
+
+                // TODO: check if hotelName is unique
+                if (!name.isEmpty() && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
+                    setNameInput(name);
+                    setStandardRoomInput(standard);
+                    setDeluxeRoomInput(deluxe);
+                    setExecutiveRoomInput(executive);
+                    
+                    // TODO: set all necessary info into Hotel
+                    
+                    listener.buttonClicked("Create");
+                }
             }
         });
 
