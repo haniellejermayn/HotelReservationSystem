@@ -4,9 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class HotelsPanel extends RoundPanel implements ActionListener{
+public class HotelsPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
     
     private JLabel hotelTitle;
+    private CreateHotelPanel createHotelPanel;
     private IconButton createHotelButton;
     private IconButton filterButton;
     private FilterPanel filterPanel;
@@ -15,8 +16,8 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
     private ArrayList<HotelOption> hotelCatalogue;
     private int hotelContainerHeight;
     private boolean isVisible = false;
-
     private Font customFont35;
+    private ArrayList<String> hotels;
 
         // TODO: change to Hotel hotels
     HotelsPanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
@@ -24,6 +25,7 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         super(new Color(13, 22, 45));
 
         this.listener = listener;
+        this.hotels = hotels;
 
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
 
@@ -58,12 +60,13 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
         filterPanel.setVisible(false);
 
         // * Create Hotel * //
-
         ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
         createHotelButton = new IconButton(createHotelIcon, "Create Hotel"); // add picture
         createHotelButton.setBounds(285, (nHotel + 1) * 10 + (nHotel * 110) + 10, 50, 50);
+        createHotelButton.addActionListener(this);
+
 
         // * Container * //
         hotelContainerHeight = (nHotel + 1) * 10 + (nHotel * 110) + 70;
@@ -84,10 +87,10 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
 
         this.setLayout(null);
         this.setBounds(120, 80, 620, 470);
-        this.add(hotelTitle);
-        this.add(filterButton);
-        this.add(filterPanel);
-        this.add(scrollPane);
+        this.add(hotelTitle, JLayeredPane.DEFAULT_LAYER);
+        this.add(filterButton, JLayeredPane.DEFAULT_LAYER);
+        this.add(filterPanel, JLayeredPane.DEFAULT_LAYER);
+        this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
     }
 
                                             // TODO: change to Hotel
@@ -132,6 +135,23 @@ public class HotelsPanel extends RoundPanel implements ActionListener{
             }
 
             filterButton.repaint();
+        }
+        else if (e.getSource() == createHotelButton){
+            createHotelPanel = new CreateHotelPanel(hotels, this);
+            createHotelPanel.setBounds(152, 10, 385, 420);
+            this.add(createHotelPanel, JLayeredPane.POPUP_LAYER);
+        }
+    }
+
+    @Override
+    public void buttonClicked(String buttonName) {
+        if (buttonName == "Create"){
+            createHotelPanel.setVisible(false);
+            this.remove(createHotelPanel);
+        }
+        else if (buttonName == "Create Cancel"){
+            createHotelPanel.setVisible(false);
+            this.remove(createHotelPanel);
         }
     }
 
