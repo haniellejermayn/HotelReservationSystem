@@ -101,14 +101,18 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
 
         // TODO: add price to hotelOption
         String hotelName = hotel; // TODO: change to hotel name
-        //float price = 1299.00f; // TODO: change to hotel price
+        float price = 1299.00f; // TODO: change to hotel price
+        int rooms = 30; // TODO: change to hotel rooms
+        int reservations = 10; // TODO: change to hotel reservations
 
         item.setBounds(0, (itemNo + 1) * 10 + (itemNo * 110), 600, 110);
 
         item.setLayout(null);
 
-        RoundLabel content = item.getContent();
-        content.setText(hotelName);
+        item.getHotelName().setText(hotelName);
+        item.getHotelRooms().setText(String.valueOf(rooms) + " rooms");
+        item.getHotelRes().setText(String.valueOf(reservations) + " reservations");
+        item.getPrice().setText("$" + String.format("%.2f", price));
         item.setVerticalAlignment(JLabel.CENTER);
         item.addActionListener(new ActionListener() {
             
