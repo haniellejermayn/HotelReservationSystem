@@ -51,25 +51,25 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ArrayList<String> hotels;
     int nHotels;
     
-        // change to Hotel
-    MainFrame(ArrayList<String> hotels, int nHotels){ // hrs.getHotel();
+        // TODO: change to Hotel
+    MainFrame(ArrayList<String> hotels, int nHotels){ // TODO: change to hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null); // change(?)
+        this.setLayout(null); 
         this.setSize(1000, 600);
         this.getContentPane().setBackground(new Color(13, 22, 45));
 
         this.hotels = hotels;
         this.nHotels = nHotels;
 
-        // Allows for rounded components
+        // * Allows for rounded components * //
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // DEFAULT COMPONENTS
+        // * DEFAULT COMPONENTS * //
 
         logo = new ImageIcon("Icons/HRS_Logo.jpg");
 
@@ -144,7 +144,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotels); 
+        homePanel = new HomePanel(hotels, nHotels, this); 
         homeButton = sidePanel.getHomeButton();
         homeButton.addActionListener(this);
         
@@ -161,7 +161,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         accountButton.addActionListener(this);
 
 
-        // ---------- Fix ---------- //
+        // ! ---------- Fix ---------- ! //
 
         /*darkPanel = new JPanel();
         darkPanel.setBackground(new Color(0, 0, 0, 100)); // Semi-transparent black
@@ -172,32 +172,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
         this.add(darkPanel);*/
 
-        // ---------- Fix ---------- //
+        // ! ---------- Fix ---------- ! //
 
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
-        // Room rooms;
-        /*for(int i = 0; i < nHotel; i++){
-            HotelOption optionTemp = new HotelOption(hotels.get(i));
-            initializeSelectedHotels(hotels, nHotel);
-            selectedHotelPanels.add(optionTemp);
-        }*/
-        //selectedHotelPanels.add(kelseyHotel);
-        //selectedHotelPanels.add(hepHotel);
-        //selectedHotelPanels.add(hanielleHotel);
-
         initializeSelectedHotels(hotels, nHotels);
-
-        /*for (int i = 0; i < nHotel; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
-            hotelTemp.setVisible(false);
-            this.selectedHotelPanels.add(hotelTemp);
-        }*/
-
-        //SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(0), this); // change to take Hotel
-        //hotelTemp.setVisible(false);
-        //selectedHotelPanels.add(hotelTemp);
 
         this.setIconImage(logo.getImage());
         this.add(logoName);
@@ -211,23 +191,19 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(reservationsPanel);
 
 
-        //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
         accountPanel.setVisible(false);
-        /*kelseyHotel.setVisible(false);
-        hepHotel.setVisible(false);
-        hanielleHotel.setVisible(false);*/
 
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-                                            // change to Hotel
+                                            // TODO: change to Hotel
     public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
         for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // TODO: change to take Hotel
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
@@ -270,7 +246,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     public void buttonClicked(String buttonName) {
 
         for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i); // change to getHotelName
+            String hotel = hotels.get(i); // TODO: change to getHotelName
 
             if (buttonName.equals(hotel)){
                 SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
@@ -285,7 +261,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         }
     }
 
-    // fix 
+    // !: fix 
     /*public void darkenBackground(boolean darken){
         if (darken){
             
