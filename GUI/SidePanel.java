@@ -21,7 +21,7 @@ public class SidePanel extends RoundPanel{
         ImageIcon hotelIcon = new ImageIcon("Icons/HotelsIcon.png"); 
         ImageIcon reservationsIcon = new ImageIcon("Icons/BookIcon.png"); 
         ImageIcon accountIcon = new ImageIcon("Icons/AccountIcon.png"); 
-        ImageIcon backIcon = new ImageIcon("Icons/BackIcon.png"); 
+        ImageIcon backIcon = new ImageIcon("Icons/CancelIcon.png"); 
         
         homeIcon = Customization.resizeIcon(homeIcon, 30, 30); 
         hotelIcon = Customization.resizeIcon(hotelIcon, 30, 30); 

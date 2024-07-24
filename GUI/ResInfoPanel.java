@@ -7,11 +7,16 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
     private int nReservations; // TODO: remove
     private ReservationView resView;
     private BookCalendar calendar;
-    private RoundLabel totalPrice, roomType;
+    private ArrayList<JPanel> priceBreakdown;
+    private RoundLabel totalPrice;
+    private RoundLabel roomType;
     private RoundLabel guestInfoPanel;
     private RoundPanel resInfoContainer;
+    private RoundPanel priceBreakdownContainer;
     private ArrayList<OptionButton> days;
+    private ScrollPaneCustom priceScrollPane;
 
+    private Font customFont13;
     private Font customFont15;
 
 
@@ -20,6 +25,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
         super(new Color(40, 68, 117));
 
+        customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
 
         // * Check In / Out * //
@@ -28,7 +34,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
         calendar = new BookCalendar(this);
         calendar.setBounds(5, 239, 335, 203);
-        calendar.setHighlightedDays(checkIn, checkOut); // TODO: remove
+        calendar.setHighlightedDays(checkIn, checkOut);
         days = calendar.getDays();
         
         for(int i = 0; i < days.size(); i++){
@@ -56,7 +62,44 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         guestInfoPanel.setVerticalAlignment(JLabel.TOP);;
         guestInfoPanel.setHorizontalAlignment(JLabel.CENTER);
         
-        // TODO: add price breakdown
+        // * Price BreakDown * //
+
+        int nDates = 5; // TODO: remove
+        ArrayList<String> dates = new ArrayList<String>(); // TODO: remove and replace
+        dates.add("5th - 6th -> 110%");
+        dates.add("6th - 7th -> 110%");
+        dates.add("7th - 8th -> 100%");
+        dates.add("8th - 9th -> 90%");
+        dates.add("9th - 10th -> 120%");
+
+        priceBreakdownContainer = new RoundPanel(new Color(40, 68, 117));
+        priceBreakdownContainer.setPreferredSize(new Dimension(175, (nDates + 1) * 26 + nDates * 5));
+        priceBreakdownContainer.setFont(customFont15);
+        priceBreakdownContainer.setForeground(Color.white);
+
+        priceBreakdown = new ArrayList<JPanel>();
+
+        for (int i = 0; i < nDates; i++){ // TODO: replace with no. of dates
+            JLabel dateTemp = new JLabel();
+            dateTemp.setText(dates.get(i)); 
+            dateTemp.setFont(customFont13);
+            dateTemp.setForeground(Color.white);
+            //dateTemp.setBackground(new Color(40, 68, 117));
+            dateTemp.setVerticalAlignment(JLabel.CENTER);
+            dateTemp.setHorizontalAlignment(JLabel.LEFT);
+
+            JPanel panelTemp = new JPanel();
+            panelTemp.setBounds(5, i * 26 + 5, 175, 23);
+            panelTemp.setBackground(new Color(40, 68, 117));
+            panelTemp.add(dateTemp);
+            
+            priceBreakdown.add(panelTemp);
+            priceBreakdownContainer.add(priceBreakdown.get(i));
+        } 
+
+        priceScrollPane = new ScrollPaneCustom(priceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
+        priceScrollPane.setBounds(345, 250, 175, 150);
+        priceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // * Total Price * //
         totalPrice = new RoundLabel(new Color(40, 68, 117));
@@ -93,6 +136,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         resInfoContainer.add(guestInfoPanel);
         resInfoContainer.add(resViewContainer);
         resInfoContainer.add(calendar);
+        resInfoContainer.add(priceScrollPane);
         resInfoContainer.add(totalPrice);
 
         ScrollPaneCustom scrollPane = new ScrollPaneCustom(resInfoContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));

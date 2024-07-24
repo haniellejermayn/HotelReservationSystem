@@ -18,9 +18,8 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     RoundPanel settingsPopUp;
 
     RoundPanel accountSidePanel;
-    RoundPanel datePanel;
+    RoundPanel fillerPanel;
     RoundPanel reservationsPanel;
-    RoundPanel fillerPanel; // edit
     SidePanel sidePanel;
     JScrollPane scrollPane;
 
@@ -31,8 +30,9 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     JLabel logoName;
     JLabel hotelTitle;
 
-    Font customFont30;
     Font customFont15;
+    Font customFont25;
+    Font customFont30;
     Font customFont60;
 
     HomePanel homePanel;
@@ -44,6 +44,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     IconButton hotelButton;
     IconButton resButton;
     IconButton accountButton;
+    IconButton backButton;
     
     ArrayList<HotelItem> hotelCatalogue;
     ArrayList<HotelOption> hotelOptions;
@@ -51,25 +52,25 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ArrayList<String> hotels;
     int nHotels;
     
-        // change to Hotel
-    MainFrame(ArrayList<String> hotels, int nHotels){ // hrs.getHotel();
+        // TODO: change to Hotel
+    MainFrame(ArrayList<String> hotels, int nHotels){ // TODO: change to hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null); // change(?)
+        this.setLayout(null); 
         this.setSize(1000, 600);
         this.getContentPane().setBackground(new Color(13, 22, 45));
 
         this.hotels = hotels;
         this.nHotels = nHotels;
 
-        // Allows for rounded components
+        // * Allows for rounded components * //
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // DEFAULT COMPONENTS
+        // * DEFAULT COMPONENTS * //
 
         logo = new ImageIcon("Icons/HRS_Logo.jpg");
 
@@ -83,6 +84,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         logoName.setBounds(15, 15, 150, 50);
         
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
+        customFont25 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 25);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
@@ -110,12 +112,46 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         accountSidePanel.setBackground(new Color(27, 43, 80));
         accountSidePanel.add(account);
         
-        datePanel = new RoundPanel(new Color(27, 43, 80));
-        datePanel.setBounds(775, 225, 200, 120);
-        datePanel.setBackground(new Color(27, 43, 80));
+        RoundLabel filler1 = new RoundLabel(new Color(27, 43, 80));
+        filler1.setBounds(0, 20, 200, 35);
+        filler1.setText("New Features"); // TODO: change to username
+        filler1.setForeground(Color.white);
+        filler1.setFont(customFont25);
+        filler1.setVerticalAlignment(JLabel.CENTER);
+        filler1.setHorizontalAlignment(JLabel.CENTER);
+        
+        RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
+        filler2.setBounds(0, 70, 200, 35);
+        filler2.setText("Available!"); // TODO: change to username
+        filler2.setForeground(Color.white);
+        filler2.setFont(customFont25);
+        filler2.setVerticalAlignment(JLabel.CENTER);
+        filler2.setHorizontalAlignment(JLabel.CENTER);
+
+        /*RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
+        filler2.setBounds(0, 65, 190, 15);
+        filler2.setText("Discount Codes and"); // TODO: change to username
+        filler2.setForeground(Color.white);
+        filler2.setFont(customFont15);
+        filler2.setHorizontalAlignment(JLabel.RIGHT);
+
+        RoundLabel filler3 = new RoundLabel(new Color(27, 43, 80));
+        filler3.setBounds(0, 90, 190, 15);
+        filler3.setText("Date Price Modification"); // TODO: change to username
+        filler3.setForeground(Color.white);
+        filler3.setFont(customFont15);
+        filler3.setHorizontalAlignment(JLabel.RIGHT);*/
+        
+        fillerPanel = new RoundPanel(new Color(27, 43, 80));
+        fillerPanel.setLayout(null);
+        fillerPanel.setBounds(775, 225, 200, 120);
+        fillerPanel.setBackground(new Color(27, 43, 80));
+        fillerPanel.add(filler1);
+        fillerPanel.add(filler2);
+        //fillerPanel.add(filler3);
         
         reservationsNo = new JLabel();
-        reservationsNo.setText("462");
+        reservationsNo.setText("462"); // TODO: change to total reservations
         reservationsNo.setFont(customFont60);
         reservationsNo.setForeground(Color.white);
         reservationsNo.setBounds(10, 40, 150, 100);
@@ -144,7 +180,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotels); 
+        homePanel = new HomePanel(hotels, nHotels, this); 
         homeButton = sidePanel.getHomeButton();
         homeButton.addActionListener(this);
         
@@ -160,44 +196,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         accountButton = sidePanel.getAccountButton();
         accountButton.addActionListener(this);
 
-
-        // ---------- Fix ---------- //
-
-        /*darkPanel = new JPanel();
-        darkPanel.setBackground(new Color(0, 0, 0, 100)); // Semi-transparent black
-        darkPanel.setBounds(0, 0, getWidth(), getHeight());
-        darkPanel.setLayout(null); // Use null layout to cover entire frame
-        darkPanel.setVisible(false);
-
-
-        this.add(darkPanel);*/
-
-        // ---------- Fix ---------- //
-
+        backButton = sidePanel.getBackButton();
+        backButton.addActionListener(this);
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
-        // Room rooms;
-        /*for(int i = 0; i < nHotel; i++){
-            HotelOption optionTemp = new HotelOption(hotels.get(i));
-            initializeSelectedHotels(hotels, nHotel);
-            selectedHotelPanels.add(optionTemp);
-        }*/
-        //selectedHotelPanels.add(kelseyHotel);
-        //selectedHotelPanels.add(hepHotel);
-        //selectedHotelPanels.add(hanielleHotel);
-
         initializeSelectedHotels(hotels, nHotels);
-
-        /*for (int i = 0; i < nHotel; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
-            hotelTemp.setVisible(false);
-            this.selectedHotelPanels.add(hotelTemp);
-        }*/
-
-        //SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(0), this); // change to take Hotel
-        //hotelTemp.setVisible(false);
-        //selectedHotelPanels.add(hotelTemp);
 
         this.setIconImage(logo.getImage());
         this.add(logoName);
@@ -207,27 +211,22 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(resPanel);
         this.add(accountPanel);
         this.add(accountSidePanel);
-        this.add(datePanel);
+        this.add(fillerPanel);
         this.add(reservationsPanel);
 
 
-        //homePanel.setVisible(false);
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
         accountPanel.setVisible(false);
-        /*kelseyHotel.setVisible(false);
-        hepHotel.setVisible(false);
-        hanielleHotel.setVisible(false);*/
 
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-                                            // change to Hotel
+                                            // TODO: change to Hotel
     public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
         for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), this); // change to take Hotel
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i)); // TODO: change to take Hotel
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
@@ -259,18 +258,16 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
             resPanel.setVisible(false);
             accountPanel.setVisible(true);
         }
-
-        /*else if (e.getSource() == bookButton){
-            this.darkenBackground(true);
-        }*/
-        
+        else if (e.getSource() == backButton){
+            System.exit(0);
+        }
     }
 
     @Override
     public void buttonClicked(String buttonName) {
 
         for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i); // change to getHotelName
+            String hotel = hotels.get(i); // TODO: change to getHotelName
 
             if (buttonName.equals(hotel)){
                 SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
@@ -284,15 +281,4 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
             }
         }
     }
-
-    // fix 
-    /*public void darkenBackground(boolean darken){
-        if (darken){
-            
-            darkPanel.setVisible(true); // Initially hidden
-        }
-        else {
-            darkPanel.setVisible(false);
-        }
-    }*/
 }

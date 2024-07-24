@@ -33,7 +33,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     private int standardRoomInput, deluxeRoomInput, executiveRoomInput;
     private float basePriceInput;
     private int dateModInput;
-    private float priceModInput;
+    private int percentModInput;
     private String removeRoomInput;
     private String removeResInput;
 
@@ -61,7 +61,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         // TODO: consider empty and invalid inputs
 
 
-
         // * Change Name * //
         ImageIcon changeNameIcon = new ImageIcon("Icons/ChangeNameIcon.png"); 
         changeNameIcon = Customization.resizeIcon(changeNameIcon, 20, 20);
@@ -73,7 +72,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         RoundLabel currentName = new RoundLabel(new Color(40, 68, 117));
         currentName.setBounds(122, 80, 200, 40); // TODO: change to border layout
-        currentName.setText("Kelsey Hotel"); // TODO: set to cureent hotel name
+        currentName.setText("Kelsey Hotel"); // TODO: set to curent hotel name
         currentName.setFont(customFont20);
         currentName.setForeground(Color.white);
 
@@ -90,11 +89,15 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             @Override
             public void actionPerformed(ActionEvent e){
 
-                setHotelNameInput(newHotelName.getTextField().getText().trim()); 
+                String hotelName = newHotelName.getTextField().getText().trim();
 
                 // TODO: check if name is valid
 
-                confirmMod("Change Name");
+                if (!hotelName.isEmpty()){
+                    setHotelNameInput(hotelName); 
+    
+                    confirmMod("Change Name");
+                }
             }
         });
         changeNamePanel.getCancelButton().addActionListener(new ActionListener(){
@@ -149,14 +152,17 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
             @Override
             public void actionPerformed(ActionEvent e){
+                int standard = Integer.valueOf(nStandardRooms.getTextField().getText().trim());
+                int deluxe = Integer.valueOf(nDeluxeRooms.getTextField().getText().trim());
+                int executive = Integer.valueOf(nExecutiveRooms.getTextField().getText().trim());
 
-                setStandardRoomInput(Integer.valueOf(nStandardRooms.getTextField().getText().trim()));
-                setDeluxeRoomInput(Integer.valueOf(nDeluxeRooms.getTextField().getText().trim()));
-                setExecutiveRoomInput(Integer.valueOf(nExecutiveRooms.getTextField().getText().trim()));
-
-                // TODO: check if total no. of rooms is within 50
-
-                confirmMod("Add Room");
+                if (standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
+                    setStandardRoomInput(standard);
+                    setDeluxeRoomInput(deluxe);
+                    setExecutiveRoomInput(executive);
+        
+                    confirmMod("Add Room");
+                }
             }
         });
         addRoomPanel.getCancelButton().addActionListener(new ActionListener(){
@@ -207,11 +213,15 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             @Override
             public void actionPerformed(ActionEvent e){
 
-                setBasePriceInput(Float.valueOf(newBasePrice.getTextField().getText().trim()));
+                Float basePrice = Float.valueOf(newBasePrice.getTextField().getText().trim());
 
-                // TODO: check if price is valid
+                // TODO: check if there are no reservations
 
-                confirmMod("Update Base Price");
+                if (basePrice >= 100.00){
+                    setBasePriceInput(basePrice);
+        
+                    confirmMod("Update Base Price");
+                }
             }
         });
         updateBasePricePanel.getCancelButton().addActionListener(new ActionListener(){
@@ -279,9 +289,11 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             @Override
             public void actionPerformed(ActionEvent e){
 
-                setPriceModInput(Float.valueOf(newDatePrice.getTextField().getText().trim()));
+                int percentage = Integer.valueOf(newDatePrice.getTextField().getText().trim());
 
-                // TODO: check if valid percentage
+                // ?: is there a restriction for percentage input
+
+                setPriceModInput(percentage);
 
                 confirmMod("Date Price Modifier");
             }
@@ -348,7 +360,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             @Override
             public void actionPerformed(ActionEvent e){
 
-                // TODO: check if the room has no active reservation
+                // TODO: check if the selected room has no active reservation
 
                 confirmMod("Remove Room");
             }
@@ -407,6 +419,8 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             @Override
             public void actionPerformed(ActionEvent e){
 
+                // ?: is there a restriction for removing a reservation
+
                 confirmMod("Remove Reservation");
             }
         });
@@ -448,6 +462,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             public void actionPerformed(ActionEvent e){
 
                 // TODO: check if there are no active reservations
+                
                 confirmMod("Remove Hotel");
             }
         });
@@ -759,12 +774,12 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         this.dateModInput = dateModInput;
     }
 
-    public float getPriceModInput(){ 
-        return priceModInput;
+    public int getPriceModInput(){ 
+        return percentModInput;
     }
 
-    public void setPriceModInput(float priceModInput){
-        this.priceModInput = priceModInput;
+    public void setPriceModInput(int percentModInput){
+        this.percentModInput = percentModInput;
     }
 
     public String getRemoveRoomInput(){ 
