@@ -39,6 +39,13 @@ public class HRSModel {
         return this.hotels;
     }
 
+    // Newest to Oldest
+    public ArrayList<Hotel> sortNewest() {
+        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        Collections.reverse(sorted);
+        return sorted;
+    }
+
     // Most to Least Booked
     public ArrayList<Hotel> sortMostBooked() {
         ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
@@ -61,9 +68,9 @@ public class HRSModel {
         return sorted;
     }
 
-    // Newest to Oldest
-    public ArrayList<Hotel> sortNewest() {
-        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+    // Least to Most Booked
+    public ArrayList<Hotel> sortLeastBooked() {
+        ArrayList<Hotel> sorted = this.sortMostBooked();
         Collections.reverse(sorted);
         return sorted;
     }
