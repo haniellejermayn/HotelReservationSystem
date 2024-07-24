@@ -180,7 +180,6 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
                 initializeHotelOption(optionTemp, mostBooked.get(i), i);
                 mostBookedCatalogue.add(optionTemp);
                 hotelContainer.add(mostBookedCatalogue.get(i));
-                System.out.printf("\nhotel: %s", mostBookedCatalogue.get(i).getButtonName());
             }
 
             hotelContainer.add(createHotelButton);
@@ -214,7 +213,6 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
                 initializeHotelOption(optionTemp, lowestPrice.get(i), i);
                 lowestPriceCatalogue.add(optionTemp);
                 hotelContainer.add(lowestPriceCatalogue.get(i));
-                System.out.printf("\nhotel: %s", lowestPriceCatalogue.get(i).getButtonName());
             }
 
             hotelContainer.add(createHotelButton);
@@ -248,7 +246,6 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
                 initializeHotelOption(optionTemp, highestPrice.get(i), i);
                 highestPriceCatalogue.add(optionTemp);
                 hotelContainer.add(highestPriceCatalogue.get(i));
-                System.out.printf("\nhotel: %s", highestPriceCatalogue.get(i).getButtonName());
             }
 
             hotelContainer.add(createHotelButton);
@@ -282,7 +279,6 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
                 initializeHotelOption(optionTemp, newest.get(i), i);
                 newestCatalogue.add(optionTemp);
                 hotelContainer.add(newestCatalogue.get(i));
-                System.out.printf("\nhotel: %s", newestCatalogue.get(i).getButtonName());
             }
 
             hotelContainer.add(createHotelButton);

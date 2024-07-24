@@ -44,6 +44,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     IconButton hotelButton;
     IconButton resButton;
     IconButton accountButton;
+    IconButton backButton;
     
     ArrayList<HotelItem> hotelCatalogue;
     ArrayList<HotelOption> hotelOptions;
@@ -160,6 +161,9 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         accountButton = sidePanel.getAccountButton();
         accountButton.addActionListener(this);
 
+        backButton = sidePanel.getBackButton();
+        backButton.addActionListener(this);
+
 
         // ! ---------- Fix ---------- ! //
 
@@ -234,6 +238,9 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
             hotelsPanel.setVisible(false);
             resPanel.setVisible(false);
             accountPanel.setVisible(true);
+        }
+        else if (e.getSource() == backButton){
+            System.exit(0);
         }
 
         /*else if (e.getSource() == bookButton){
