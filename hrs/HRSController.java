@@ -1,21 +1,36 @@
 package hrs;
-
+import GUI.*;
 import java.util.Scanner;
 
 public class HRSController {
     private HRSModel model;
-    private HRSView view;
+    private MainFrame view;
     private Scanner sc;
 
-    public HRSController() {
-        this.model = new HRSModel();
-        this.view = new HRSView();
+    public HRSController(HRSModel model, MainFrame view) {
+        this.model = model;
+        this.view = view;
+
+        //placeholder
+        model.addHotel(new Hotel("Hotel 1", 1, 1, 1));
+
+        view.initializeMainFrame(model.getHotels(), model.countHotels());
     }
 
     public void createHotel() {
         String hotelName;
         int standardAmount, deluxeAmount, executiveAmount;
 
+        hotelName = this.view.getCreateHotelPanel().getHotelName();
+        standardAmount = this.view.getCreateHotelPanel().getStandardRooms();
+        deluxeAmount = this.view.getCreateHotelPanel().getDeluxeRooms();
+        executiveAmount = this.view.getCreateHotelPanel().getExecutiveRooms();
+
+        model.addHotel(new Hotel(hotelName, standardAmount, deluxeAmount, executiveAmount));
+
+        // Edit: success message
+
+        /* Console printing using HRSView
         do {
             view.printCancel();
             hotelName = this.promptStringInput("Hotel Name");
@@ -43,8 +58,10 @@ public class HRSController {
         }
 
         view.printBorder();
+        */
     }
 
+    /*
     public void viewHotel() {
         Hotel hotel;
         int option;
@@ -562,4 +579,5 @@ public class HRSController {
             view.printError("There are currently reservations in the hotel. Modifiers cannot be changed.");
         }
     }
+    */
 }
