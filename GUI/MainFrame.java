@@ -18,9 +18,8 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     RoundPanel settingsPopUp;
 
     RoundPanel accountSidePanel;
-    RoundPanel datePanel;
+    RoundPanel fillerPanel;
     RoundPanel reservationsPanel;
-    RoundPanel fillerPanel; // edit
     SidePanel sidePanel;
     JScrollPane scrollPane;
 
@@ -31,8 +30,9 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     JLabel logoName;
     JLabel hotelTitle;
 
-    Font customFont30;
     Font customFont15;
+    Font customFont25;
+    Font customFont30;
     Font customFont60;
 
     HomePanel homePanel;
@@ -84,6 +84,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         logoName.setBounds(15, 15, 150, 50);
         
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
+        customFont25 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 25);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
@@ -111,12 +112,46 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         accountSidePanel.setBackground(new Color(27, 43, 80));
         accountSidePanel.add(account);
         
-        datePanel = new RoundPanel(new Color(27, 43, 80));
-        datePanel.setBounds(775, 225, 200, 120);
-        datePanel.setBackground(new Color(27, 43, 80));
+        RoundLabel filler1 = new RoundLabel(new Color(27, 43, 80));
+        filler1.setBounds(0, 20, 200, 35);
+        filler1.setText("New Features"); // TODO: change to username
+        filler1.setForeground(Color.white);
+        filler1.setFont(customFont25);
+        filler1.setVerticalAlignment(JLabel.CENTER);
+        filler1.setHorizontalAlignment(JLabel.CENTER);
+        
+        RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
+        filler2.setBounds(0, 70, 200, 35);
+        filler2.setText("Available!"); // TODO: change to username
+        filler2.setForeground(Color.white);
+        filler2.setFont(customFont25);
+        filler2.setVerticalAlignment(JLabel.CENTER);
+        filler2.setHorizontalAlignment(JLabel.CENTER);
+
+        /*RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
+        filler2.setBounds(0, 65, 190, 15);
+        filler2.setText("Discount Codes and"); // TODO: change to username
+        filler2.setForeground(Color.white);
+        filler2.setFont(customFont15);
+        filler2.setHorizontalAlignment(JLabel.RIGHT);
+
+        RoundLabel filler3 = new RoundLabel(new Color(27, 43, 80));
+        filler3.setBounds(0, 90, 190, 15);
+        filler3.setText("Date Price Modification"); // TODO: change to username
+        filler3.setForeground(Color.white);
+        filler3.setFont(customFont15);
+        filler3.setHorizontalAlignment(JLabel.RIGHT);*/
+        
+        fillerPanel = new RoundPanel(new Color(27, 43, 80));
+        fillerPanel.setLayout(null);
+        fillerPanel.setBounds(775, 225, 200, 120);
+        fillerPanel.setBackground(new Color(27, 43, 80));
+        fillerPanel.add(filler1);
+        fillerPanel.add(filler2);
+        //fillerPanel.add(filler3);
         
         reservationsNo = new JLabel();
-        reservationsNo.setText("462");
+        reservationsNo.setText("462"); // TODO: change to total reservations
         reservationsNo.setFont(customFont60);
         reservationsNo.setForeground(Color.white);
         reservationsNo.setBounds(10, 40, 150, 100);
@@ -176,7 +211,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(resPanel);
         this.add(accountPanel);
         this.add(accountSidePanel);
-        this.add(datePanel);
+        this.add(fillerPanel);
         this.add(reservationsPanel);
 
 

@@ -34,7 +34,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
         calendar = new BookCalendar(this);
         calendar.setBounds(5, 239, 335, 203);
-        calendar.setHighlightedDays(checkIn, checkOut); // TODO: remove
+        calendar.setHighlightedDays(checkIn, checkOut);
         days = calendar.getDays();
         
         for(int i = 0; i < days.size(); i++){
