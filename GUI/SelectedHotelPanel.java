@@ -56,7 +56,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelPrice.setForeground(Color.white);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
         hotelPrice.setHorizontalAlignment(JLabel.RIGHT);
-        hotelPrice.setBounds(405, 10, 300, 100);
+        hotelPrice.setBounds(300, 10, 300, 100);
         
         hotelRooms = new JLabel("30 Rooms"); // TODO: Change to hotel rooms
         hotelRooms.setFont(customFont15);

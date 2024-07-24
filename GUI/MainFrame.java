@@ -163,21 +163,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
 
         backButton = sidePanel.getBackButton();
         backButton.addActionListener(this);
-
-
-        // ! ---------- Fix ---------- ! //
-
-        /*darkPanel = new JPanel();
-        darkPanel.setBackground(new Color(0, 0, 0, 100)); // Semi-transparent black
-        darkPanel.setBounds(0, 0, getWidth(), getHeight());
-        darkPanel.setLayout(null); // Use null layout to cover entire frame
-        darkPanel.setVisible(false);
-
-
-        this.add(darkPanel);*/
-
-        // ! ---------- Fix ---------- ! //
-
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
@@ -199,7 +184,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         resPanel.setVisible(false);
         accountPanel.setVisible(false);
 
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -242,11 +226,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         else if (e.getSource() == backButton){
             System.exit(0);
         }
-
-        /*else if (e.getSource() == bookButton){
-            this.darkenBackground(true);
-        }*/
-        
     }
 
     @Override
@@ -267,15 +246,4 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
             }
         }
     }
-
-    // !: fix 
-    /*public void darkenBackground(boolean darken){
-        if (darken){
-            
-            darkPanel.setVisible(true); // Initially hidden
-        }
-        else {
-            darkPanel.setVisible(false);
-        }
-    }*/
 }
