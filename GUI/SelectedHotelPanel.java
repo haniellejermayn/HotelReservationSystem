@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
     
-    //private MainFrame mainFrame; // !: Darken background does not work
     private String hotel;
     // TODO: change String to Hotel
     
@@ -33,11 +32,10 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private Font customFont50;
 
             // TODO: change to Hotel
-    SelectedHotelPanel(String hotel, MainFrame mainFrame){
+    SelectedHotelPanel(String hotel){
 
         super(new Color(13, 22, 45));
 
-        //this.mainFrame = mainFrame; // !: Darken Background does not work
         this.hotel = hotel;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
@@ -85,8 +83,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         manageButton.setColor(manageButton.getColorOver());
         manageButton.setColorOver(manageButton.getColorClick());
         manageButton.addActionListener(this);
-
-        // !: Manage Panel not finished
 
         titlePanel = new RoundPanel(new Color(27, 43, 80));
         titlePanel.setLayout(null);
@@ -168,7 +164,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
             resInfoButton.setColor(new Color(40, 68, 117));
         }
         else if (e.getSource() == bookButton){
-            //mainFrame.darkenBackground(true); // !: Darken Background does not work
             bookPanel = new BookHotelPanel(hotel, this);
             bookPanel.setBounds(152, 10, 385, 420);
             this.add(bookPanel, JLayeredPane.POPUP_LAYER);
