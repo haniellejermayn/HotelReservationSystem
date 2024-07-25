@@ -1,5 +1,6 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,8 +24,7 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
     private ButtonClickListener listener;
 
-        // TODO: change to Hotel hotels
-    HomePanel(ArrayList<String> hotels, int nHotel, ButtonClickListener listener){
+    public HomePanel(ArrayList<Hotel> hotels, int nHotel, ButtonClickListener listener){
 
         super(new Color(13, 22, 45));
 
@@ -87,10 +87,9 @@ public class HomePanel extends RoundPanel implements ActionListener{
         }
     }
 
-                                // TODO: change to Hotel
-    public void initializeHotelItem(HotelItem item, String hotel, int itemNo){
+    public void initializeHotelItem(HotelItem item, Hotel hotel, int itemNo){
 
-        String hotelName = hotel; // TODO: change to hotel name
+        String hotelName = hotel.getHotelName();
 
         item.setBounds(itemNo * 190 + (itemNo * 25), 240, 190, 230);
         item.setLayout(null);

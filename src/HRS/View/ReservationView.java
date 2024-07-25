@@ -1,7 +1,12 @@
 package src.HRS.View;
+
+import src.HRS.Model.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
+import src.HRS.Model.Reservation;
 
 public class ReservationView extends RoundPanel{
     
@@ -9,24 +14,17 @@ public class ReservationView extends RoundPanel{
 
     private Font customFont;
 
-    ReservationView(EnhancedButtonClickListener listener, int nReservations){
+    public ReservationView(EnhancedButtonClickListener listener, Hotel hotel){
         
         super(new Color(27, 43, 80));
 
         customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
 
         reservations = new ArrayList<OptionButton>();
+        
+        ArrayList<Reservation> reservationsTemp = hotel.getReservations();
 
-        // TODO: remove
-        ArrayList<String> reservationsTemp = new ArrayList<String>();
-        reservationsTemp.add("Kelsey");
-        reservationsTemp.add("Hep"); 
-        reservationsTemp.add("Hanielle");
-        reservationsTemp.add("Francine");
-        reservationsTemp.add("Justine");
-        reservationsTemp.add("Liane");
-
-        if (nReservations == 0){
+        if (hotel.countReservations() == 0){
             RoundLabel noReservations = new RoundLabel(new Color(27, 43, 80));
             noReservations.setText("No Reservations");
             noReservations.setFont(customFont);
@@ -35,9 +33,9 @@ public class ReservationView extends RoundPanel{
             this.add(noReservations);
         }
         
-        for (int i = 0; i < nReservations; i++){
+        for (int i = 0; i < hotel.countReservations(); i++){
             
-            String reservationName = reservationsTemp.get(i); // TODO: replace with hotel reservations
+            String reservationName = reservationsTemp.get(i).getGuestName();
             OptionButton reservation = new OptionButton(reservationName);
             
             reservation.setBounds(8, (i + 1) * 9 + (i * 30), 230, 30);

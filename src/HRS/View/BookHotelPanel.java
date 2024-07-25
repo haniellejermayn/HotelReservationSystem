@@ -1,7 +1,7 @@
 package src.HRS.View;
-//package GUI;
 
-//import hrs.*;
+import src.HRS.Model.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -36,10 +36,12 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
     private Font customFont13;
     private Font customFont30;
 
-                // TODO: change to Hotel hotel
-    public BookHotelPanel(String hotel, ButtonClickListener listener){
+    private Hotel hotel;
+
+    public BookHotelPanel(Hotel hotel, ButtonClickListener listener){
 
         super(new Color(51, 88, 150));
+        this.hotel = hotel;
 
         customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);

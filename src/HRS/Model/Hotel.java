@@ -328,6 +328,10 @@ public class Hotel {
         return this.basePrice;
     }
 
+    public ArrayList<Reservation> getReservations() {
+        return this.reservations;
+    }
+
     /**
      * Sets the name of the hotel.
      * 

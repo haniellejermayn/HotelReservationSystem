@@ -1,6 +1,9 @@
 package src.HRS.View;
 //package GUI;
 import javax.swing.*;
+
+import src.HRS.Model.Hotel;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -16,9 +19,9 @@ public class HotelOption extends PanelButton{
     private RoundLabel price;
     private String buttonName;
     
-    HotelOption(String buttonName){
+    HotelOption(Hotel hotel){
 
-        super(buttonName);
+        super(hotel.getHotelName());
 
         Font customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         Font customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);

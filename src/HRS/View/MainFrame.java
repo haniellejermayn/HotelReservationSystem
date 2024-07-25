@@ -1,9 +1,8 @@
 package src.HRS.View;
 
-import javax.swing.*;
-
 import src.HRS.Model.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,8 +52,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ArrayList<Hotel> hotels;
     int nHotels;
     
-        // TODO: change to Hotel
-    public MainFrame(ArrayList<Hotel> hotels, int nHotels){ // TODO: change to hrs.getHotel();
+    public MainFrame(ArrayList<Hotel> hotels, int nHotels){
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); 
@@ -136,9 +134,14 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         fillerPanel.add(filler1);
         fillerPanel.add(filler2);
         //fillerPanel.add(filler3);
+
+        int nReservations = 0;
+        for(int i = 0; i < hotels.size(); i++) {
+            nReservations += hotels.get(i).countReservations();
+        }
         
         reservationsNo = new JLabel();
-        reservationsNo.setText("462"); // TODO: change to total reservations
+        reservationsNo.setText(String.valueOf(nReservations)); 
         reservationsNo.setFont(customFont60);
         reservationsNo.setForeground(Color.white);
         reservationsNo.setBounds(10, 40, 150, 100);
@@ -210,10 +213,10 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-                                            // TODO: change to Hotel
-    public void initializeSelectedHotels(ArrayList<String> hotels, int nHotels){
+
+    public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
         for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i)); // TODO: change to take Hotel
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
@@ -254,7 +257,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     public void buttonClicked(String buttonName) {
 
         for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i); // TODO: change to getHotelName
+            String hotel = hotels.get(i).getHotelName(); 
 
             if (buttonName.equals(hotel)){
                 SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);

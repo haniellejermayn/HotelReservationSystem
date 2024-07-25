@@ -51,11 +51,6 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
         this.add(updateButton);
     }
 
-    // TODO: implement confirmMod
-    /*public void confirmMod(){
-        RoundPanel confirmModPanel = new RoundPanel(new Color())
-    }*/
-
     @Override
     public void actionPerformed(ActionEvent e) {
         

@@ -1,7 +1,7 @@
 package src.HRS.View;
-//package GUI;
 
-//import hrs.*;
+import src.HRS.Model.*;
+
 import java.awt.*;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -12,13 +12,15 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     RoundLabel availPanel, bookedPanel;
     RoundLabel availRooms, bookedRooms;
 
+    Hotel hotel;
+
     Font customFont15;
     Font customFont50;
 
-        // TODO: change to Hotel hotel
-    DateAvailPanel(String hotel){
+    DateAvailPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
+        this.hotel = hotel;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
@@ -71,8 +73,8 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
             String dayIndex = days.get(i).getButtonName(); 
 
             if (buttonName.equals(dayIndex)){
-                availPanel.setText(dayIndex);
-                bookedPanel.setText(dayIndex);
+                availPanel.setText(String.valueOf(hotel.countAvailableRooms(i)));
+                bookedPanel.setText(String.valueOf(hotel.countBookedRooms(i)));
                 days.get(i).setColor(new Color(51, 88, 150));
             }
             else {

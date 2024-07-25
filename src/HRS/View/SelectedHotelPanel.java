@@ -1,5 +1,6 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,8 +8,7 @@ import java.awt.event.*;
 
 public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
     
-    private String hotel;
-    // TODO: change String to Hotel
+    private Hotel hotel;
     
     private RoundPanel titlePanel;
     private RoundPanel viewPanel;
@@ -32,8 +32,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private Font customFont35;
     private Font customFont50;
 
-            // TODO: change to Hotel
-    SelectedHotelPanel(String hotel){
+    public SelectedHotelPanel(Hotel hotel){
 
         super(new Color(13, 22, 45));
 
@@ -44,26 +43,26 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
         // * Hotel Info * //
-        hotelName = new JLabel(hotel); // TODO: Change to hotel name
+        hotelName = new JLabel(hotel.getHotelName()); 
         hotelName.setFont(customFont35);
         hotelName.setForeground(Color.white);
         hotelName.setVerticalAlignment(JLabel.TOP);
         hotelName.setBounds(15, 20, 300, 50);
         
-        hotelPrice = new JLabel("1,299.00"); // TODO: Change to hotel price
+        hotelPrice = new JLabel(String.valueOf(hotel.getBasePrice())); 
         hotelPrice.setFont(customFont50);
         hotelPrice.setForeground(Color.white);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
         hotelPrice.setHorizontalAlignment(JLabel.RIGHT);
         hotelPrice.setBounds(300, 10, 300, 100);
         
-        hotelRooms = new JLabel("30 Rooms"); // TODO: Change to hotel rooms
+        hotelRooms = new JLabel(String.valueOf(hotel.countRooms(0)));
         hotelRooms.setFont(customFont15);
         hotelRooms.setForeground(Color.white);
         hotelRooms.setVerticalAlignment(JLabel.TOP);
         hotelRooms.setBounds(17, 75, 300, 17);
         
-        hotelRes = new JLabel("10 Reservations"); // TODO: Change to hotel reservations
+        hotelRes = new JLabel(String.valueOf(hotel.countReservations()));
         hotelRes.setFont(customFont15);
         hotelRes.setForeground(Color.white);
         hotelRes.setVerticalAlignment(JLabel.TOP);

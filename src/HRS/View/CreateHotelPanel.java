@@ -1,7 +1,7 @@
 package src.HRS.View;
-//package GUI;
 
-//import hrs.*;
+import src.HRS.Model.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -25,8 +25,7 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
 
     private Font customFont30;
 
-                // TODO: change to ArrayList<Hotel> hotel
-    public CreateHotelPanel(ArrayList<String> hotel, ButtonClickListener listener){
+    public CreateHotelPanel(ArrayList<Hotel> hotels, ButtonClickListener listener){
 
         super(new Color(51, 88, 150));
 

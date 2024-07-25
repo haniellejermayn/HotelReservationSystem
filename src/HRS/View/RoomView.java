@@ -1,5 +1,7 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -9,7 +11,7 @@ public class RoomView extends RoundPanel{
     private ArrayList<OptionButton> rooms;
     private Font customFont;
 
-    RoomView(EnhancedButtonClickListener listener, int nRooms){
+    public RoomView(Hotel hotel, EnhancedButtonClickListener listener){
         
         super(new Color(27, 43, 80));
 
@@ -17,9 +19,9 @@ public class RoomView extends RoundPanel{
 
         rooms = new ArrayList<OptionButton>();
         
-        for (int i = 0; i < nRooms; i++){
-            OptionButton room = new OptionButton(Integer.toString(i + 1)); // TODO: change to hotel naming convention
-            String name = String.valueOf(i + 1); // TODO: change to hotel naming convention
+        for (int i = 0; i < hotel.countRooms(0); i++){
+            OptionButton room = new OptionButton(hotel.fetchRoom(i).getRoomName()); 
+            String name = hotel.fetchRoom(i).getRoomName();
 
             if ((i + 1) % 5 == 1){
                 if (i >= 0 && i <= 4){

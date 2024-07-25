@@ -1,12 +1,14 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickListener{
 
-    private int nRooms; // TODO: segragate into nStandardRooms, nDeluxeRooms, nExecutiveRooms
+    private int nStandardRooms, nDeluxeRooms, nExecutiveRooms;
     private CalendarView calendar;
     private RoomView roomView;
     private RoundLabel roomName, roomPrice, roomType;
@@ -18,11 +20,12 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
     private Font customFont15;
     private Font customFont30;
     private Font customFont50;
+    private Hotel hotel;
 
-        // TODO: change to Hotel hotel
-    RoomInfoPanel(String hotel){
+    public RoomInfoPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
+        this.hotel = hotel;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
@@ -76,7 +79,9 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         availDates.setHorizontalAlignment(JLabel.CENTER);
 
         // * Room Types * //
-        nRooms = 43; // TODO: remove
+        nStandardRooms = 0;
+        nDeluxeRooms = 0;
+        nExecutiveRooms = 0;
 
         standardRooms = new RoundLabel(new Color(40, 68, 117));
         standardRooms.setFont(customFont15);
@@ -87,7 +92,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         standardRoomPanel = new RoundLabel(new Color(40, 68, 117));
         standardRoomPanel.setBounds(263, 20, 140, 86);
         standardRoomPanel.setFont(customFont50);
-        standardRoomPanel.setText(Integer.toString(nRooms)); // TODO: change to no. of standard rooms
+        standardRoomPanel.setText(Integer.toString(nStandardRooms));
         standardRoomPanel.setForeground(Color.white);
         standardRoomPanel.add(standardRooms);
         standardRoomPanel.setVerticalAlignment(JLabel.TOP);;
@@ -102,7 +107,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         deluxeRoomPanel = new RoundLabel(new Color(40, 68, 117));
         deluxeRoomPanel.setBounds(375, 20, 165, 86);
         deluxeRoomPanel.setFont(customFont50);
-        deluxeRoomPanel.setText(Integer.toString(nRooms)); // TODO: change to no. of deluxe rooms
+        deluxeRoomPanel.setText(Integer.toString(nDeluxeRooms)); 
         deluxeRoomPanel.setForeground(Color.white);
         deluxeRoomPanel.add(deluxeRooms);
         deluxeRoomPanel.setVerticalAlignment(JLabel.TOP);;
@@ -117,7 +122,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         executiveRoomPanel = new RoundLabel(new Color(40, 68, 117));
         executiveRoomPanel.setBounds(303, 116, 175, 86);
         executiveRoomPanel.setFont(customFont50);
-        executiveRoomPanel.setText(Integer.toString(nRooms)); // TODO: change to no. of executive rooms
+        executiveRoomPanel.setText(Integer.toString(nExecutiveRooms)); 
         executiveRoomPanel.setForeground(Color.white);
         executiveRoomPanel.add(executiveRooms);
         executiveRoomPanel.setVerticalAlignment(JLabel.TOP);;
@@ -125,14 +130,14 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
         int roomViewHeight;
 
-        if (nRooms > 25){
-            roomViewHeight = (((nRooms - 1) / 5 - 3) * 9 + (((nRooms - 1) / 5 - 4) * 30)) + 198 - 15;
+        if (hotel.countRooms(0) > 25){
+            roomViewHeight = (((hotel.countRooms(0) - 1) / 5 - 3) * 9 + (((hotel.countRooms(0) - 1) / 5 - 4) * 30)) + 198 - 15;
         }
         else {
             roomViewHeight = 198;
         }
 
-        roomView = new RoomView(this, nRooms);
+        roomView = new RoomView(hotel, this);
         roomView.setBounds(0, 0, 250, roomViewHeight);
         roomView.setPreferredSize(new Dimension(250, roomViewHeight));
 
@@ -174,14 +179,11 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
     @Override
     public void roomButtonClicked(String roomButtonName) {
-
-        // TODO: change to necessary information
-        String type = "Deluxe";
-        float pricePerNight = 1299.00f;
-
-        for (int i = 0; i < nRooms; i++){
+        for (int i = 0; i < hotel.countRooms(0); i++){
             ArrayList<OptionButton> roomButtons = roomView.getRooms();
-            String name = roomButtons.get(i).getButtonName();
+            String type = hotel.fetchRoom(i).getRoomType();
+            float pricePerNight = hotel.fetchRoom(i).getRoomPrice();
+            String name = hotel.fetchRoom(i).getRoomName();
             String price = String.format("%.2f", pricePerNight * (i % 7)); 
 
             if (roomButtonName.equals(name)){
@@ -190,12 +192,11 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
                 roomType.setText(type + " Room");
                 roomButtons.get(i).setColor(new Color(51, 88, 150));
 
-                // TODO: remove and replace with available dates
-                int[] availDatesTemp = {3, 9, 12, 18, 21, 24, 26, 30};
+                int[] availDatesTemp = hotel.checkRoomAvailability(hotel.fetchRoom(i));
 
                 for (int j = 0; j < availDatesTemp.length; j++){
                     for (int k = 0; k < 31; k++){
-                        if (k + 1 == availDatesTemp[j]){ // TODO: change to available dates 
+                        if (k + 1 == availDatesTemp[j]){ 
                             days.get(k).setColor(new Color(51, 88, 150));
                             days.get(k).setColorOver(new Color(51, 88, 150));
                             days.get(k).setColorClick(new Color(51, 88, 150));
@@ -204,7 +205,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
                 }
             }
             else {
-                for (int j = 0; j < nRooms; j++){
+                for (int j = 0; j < hotel.countRooms(0); j++){
                     roomButtons.get(i).setColor(new Color(27, 43, 80));
                 }
 

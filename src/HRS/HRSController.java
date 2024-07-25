@@ -11,4 +11,14 @@ public class HRSController {
         this.model = model;
         this.view = view;
     }
+
+    public void updateManagePanel(Hotel hotel) {
+        String input = view.getHotelNameInput();
+        boolean valid = model.isHotelNameUnique(input);
+
+        if(valid) {
+            model.get
+        }
+        view.setValid = valid;
+    }
 }

@@ -1,5 +1,7 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,11 +21,11 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
     private ScrollPaneCustom scrollPane;
     private boolean isVisible = false;
     private Font customFont35;
-    private ArrayList<String> hotels;
+    private ArrayList<Hotel> hotels;
     private int nHotels;
 
         // TODO: change to Hotel hotels
-    HotelsPanel(ArrayList<String> hotels, int nHotels, ButtonClickListener listener){
+    public HotelsPanel(ArrayList<Hotel> hotels, int nHotels, ButtonClickListener listener){
 
         super(new Color(13, 22, 45));
 

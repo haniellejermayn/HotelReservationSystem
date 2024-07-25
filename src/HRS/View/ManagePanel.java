@@ -1,5 +1,7 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,9 +51,12 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     private RoundPanel manageContainer;
     private ButtonClickListener listener;
 
-    // TODO: change to Hotel
-    ManagePanel(String hotel, ButtonClickListener listener, Color color) {
+    private Hotel hotel;
+
+
+    public ManagePanel(Hotel hotel, ButtonClickListener listener, Color color) {
         super(color);
+        this.hotel = hotel;
         
         this.listener = listener;
         this.setLayout(null);
@@ -73,7 +78,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         RoundLabel currentName = new RoundLabel(new Color(40, 68, 117));
         currentName.setBounds(122, 80, 200, 40); // TODO: change to border layout
-        currentName.setText("Kelsey Hotel"); // TODO: set to curent hotel name
+        currentName.setText(hotel.getHotelName());
         currentName.setFont(customFont20);
         currentName.setForeground(Color.white);
 

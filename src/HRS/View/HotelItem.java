@@ -1,5 +1,7 @@
 package src.HRS.View;
-//package GUI;
+
+import src.HRS.Model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,9 +14,9 @@ public class HotelItem extends PanelButton{
     private RoundLabel content;
     private String buttonName;
     
-    HotelItem(String buttonName){
+    public HotelItem(Hotel hotel){
 
-        super(buttonName);
+        super(hotel.getHotelName());
 
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
 
