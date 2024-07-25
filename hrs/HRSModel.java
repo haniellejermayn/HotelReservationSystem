@@ -1,6 +1,6 @@
 package hrs;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class HRSModel {
     private ArrayList<Hotel> hotels;
@@ -34,7 +34,73 @@ public class HRSModel {
         return true;
     }
 
+    // Original: Oldest to Newest
     public ArrayList<Hotel> getHotels() {
-        return hotels;
+        return this.hotels;
+    }
+
+    // Newest to Oldest
+    public ArrayList<Hotel> sortNewest() {
+        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        Collections.reverse(sorted);
+        return sorted;
+    }
+
+    // Most to Least Booked
+    public ArrayList<Hotel> sortMostBooked() {
+        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        int maxInd;
+
+        for(int i = 0; i < this.countHotels(); i++) {
+            maxInd = i;
+
+            for(int j = i + 1; j < this.countHotels(); j++) {
+                if(this.hotels.get(j).countReservations() > this.hotels.get(maxInd).countReservations()) {
+                    maxInd = j;
+                }
+            }
+
+            if(maxInd != i) {
+                Collections.swap(sorted, i, maxInd);
+            }
+        }
+
+        return sorted;
+    }
+
+    // Least to Most Booked
+    public ArrayList<Hotel> sortLeastBooked() {
+        ArrayList<Hotel> sorted = this.sortMostBooked();
+        Collections.reverse(sorted);
+        return sorted;
+    }
+
+    // Most to Least Expensive
+    public ArrayList<Hotel> sortMostExpensive() {
+        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        int maxInd;
+
+        for(int i = 0; i < this.countHotels(); i++) {
+            maxInd = i;
+
+            for(int j = i + 1; j < this.countHotels(); j++) {
+                if(this.hotels.get(j).getBasePrice() > this.hotels.get(maxInd).getBasePrice()) {
+                    maxInd = j;
+                }
+            }
+
+            if(maxInd != i) {
+                Collections.swap(sorted, i, maxInd);
+            }
+        }
+
+        return sorted;
+    }
+
+    // Least to Most Expensive
+    public ArrayList<Hotel> sortLeastExpensive() {
+        ArrayList<Hotel> sorted = this.sortMostExpensive();
+        Collections.reverse(sorted);
+        return sorted;
     }
 }
