@@ -54,7 +54,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     int nHotels;
     
         // TODO: change to Hotel
-    public class MainFrame(ArrayList<Hotel> hotels, int nHotels){ // TODO: change to hrs.getHotel();
+    public MainFrame(ArrayList<Hotel> hotels, int nHotels){ // TODO: change to hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); 
