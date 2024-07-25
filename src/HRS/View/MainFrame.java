@@ -1,5 +1,9 @@
 package src.HRS.View;
+
 import javax.swing.*;
+
+import src.HRS.Model.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,11 +50,11 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ArrayList<HotelItem> hotelCatalogue;
     ArrayList<HotelOption> hotelOptions;
     ArrayList<SelectedHotelPanel> selectedHotelPanels;
-    ArrayList<String> hotels;
+    ArrayList<Hotel> hotels;
     int nHotels;
     
         // TODO: change to Hotel
-    MainFrame(ArrayList<String> hotels, int nHotels){ // TODO: change to hrs.getHotel();
+    public class MainFrame(ArrayList<Hotel> hotels, int nHotels){ // TODO: change to hrs.getHotel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null); 
