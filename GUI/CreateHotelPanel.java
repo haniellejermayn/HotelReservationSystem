@@ -11,11 +11,8 @@ import javax.swing.ScrollPaneConstants;
 public class CreateHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
 
     private RoundLabel title;
-    private BookCalendar calendar;
     private RoundPanel createContainer;
-    private RoundLabel roomTypeTitle;
     private RoundPanel roomType;
-    private RoundLabel checkInNOut;
 
     private TextFieldCustom hotelName;
     private TextFieldCustom nStandardRooms, nDeluxeRooms, nExecutiveRooms;
@@ -25,23 +22,13 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
     private String hotelNameInput;
     private int standardRoomInput, deluxeRoomInput, executiveRoomInput;
 
-    private TextFieldCustom discount;
-    private OptionButton hasDiscount;
-
-
-    //private ButtonClickListener listener;
-    private ArrayList<OptionButton> days;
-    private ArrayList<String> clickedButtons;
-
-    private Font customFont13;
     private Font customFont30;
 
-                // TODO: change to Hotel hotel
+                // TODO: change to ArrayList<Hotel> hotel
     public CreateHotelPanel(ArrayList<String> hotel, ButtonClickListener listener){
 
         super(new Color(51, 88, 150));
 
-        customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
 
         // * Title * //
@@ -61,17 +48,14 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         nStandardRooms = new TextFieldCustom(new Color(40, 68, 117));
         nStandardRooms.setBounds(5, 10, 355, 55);
         nStandardRooms.setFieldName("No. of Standard Rooms");
-        //nStandardRooms.getTextContainer().setBounds(5, 25, 340, 27);
 
         nDeluxeRooms = new TextFieldCustom(new Color(40, 68, 117));
         nDeluxeRooms.setBounds(5, 70, 355, 55);
         nDeluxeRooms.setFieldName("No. of Deluxe Rooms");
-        //nDeluxeRooms.getTextContainer().setBounds(5, 25, 340, 27);
 
         nExecutiveRooms = new TextFieldCustom(new Color(40, 68, 117));
         nExecutiveRooms.setBounds(5, 130, 355, 55);
         nExecutiveRooms.setFieldName("No. of Executive Rooms");
-        //nExecutiveRooms.getTextContainer().setBounds(5, 25, 340, 27);
         
         roomType = new RoundPanel(new Color(40, 68, 117));
         roomType.setLayout(null);

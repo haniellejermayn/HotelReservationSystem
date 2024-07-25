@@ -6,10 +6,6 @@ import java.util.*;
 
 public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
     
-    // TODO: fill empty panel;
-    // TODO: add listeners to homepage hotels
-    // TODO: add back button
-
     JPanel darkPanel;
 
     RoundPanel homePage;
@@ -97,7 +93,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         RoundLabel account = new RoundLabel(new Color(27, 43, 80));
         account.setBounds(10, 20, 100, 100);
         account.setIcon(accountIcon);
-        account.setText("User #462005"); // TODO: change to username
+        account.setText("User #462005");
         account.setForeground(Color.white);
         account.setFont(customFont15);
         account.setVerticalTextPosition(JLabel.BOTTOM);
@@ -114,7 +110,7 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         
         RoundLabel filler1 = new RoundLabel(new Color(27, 43, 80));
         filler1.setBounds(0, 20, 200, 35);
-        filler1.setText("New Features"); // TODO: change to username
+        filler1.setText("New Features");
         filler1.setForeground(Color.white);
         filler1.setFont(customFont25);
         filler1.setVerticalAlignment(JLabel.CENTER);
@@ -122,25 +118,11 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         
         RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
         filler2.setBounds(0, 70, 200, 35);
-        filler2.setText("Available!"); // TODO: change to username
+        filler2.setText("Available!"); 
         filler2.setForeground(Color.white);
         filler2.setFont(customFont25);
         filler2.setVerticalAlignment(JLabel.CENTER);
         filler2.setHorizontalAlignment(JLabel.CENTER);
-
-        /*RoundLabel filler2 = new RoundLabel(new Color(27, 43, 80));
-        filler2.setBounds(0, 65, 190, 15);
-        filler2.setText("Discount Codes and"); // TODO: change to username
-        filler2.setForeground(Color.white);
-        filler2.setFont(customFont15);
-        filler2.setHorizontalAlignment(JLabel.RIGHT);
-
-        RoundLabel filler3 = new RoundLabel(new Color(27, 43, 80));
-        filler3.setBounds(0, 90, 190, 15);
-        filler3.setText("Date Price Modification"); // TODO: change to username
-        filler3.setForeground(Color.white);
-        filler3.setFont(customFont15);
-        filler3.setHorizontalAlignment(JLabel.RIGHT);*/
         
         fillerPanel = new RoundPanel(new Color(27, 43, 80));
         fillerPanel.setLayout(null);

@@ -29,7 +29,6 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
     private String nameInput, roomTypeInput, discountInput;
     private int checkInInput, checkOutInput;
 
-    //private ButtonClickListener listener;
     private ArrayList<OptionButton> days;
     private ArrayList<String> clickedButtons;
 
