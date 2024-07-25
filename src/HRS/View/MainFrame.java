@@ -8,10 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
+public class MainFrame extends JFrame{
     
-    JPanel darkPanel;
-
     RoundPanel homePage;
     RoundPanel hotelsPage;
     RoundPanel reservationsPage;
@@ -40,14 +38,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     ReservationsPanel resPanel;
     AccountPanel accountPanel;
     
-    IconButton homeButton;
-    IconButton hotelButton;
-    IconButton resButton;
-    IconButton accountButton;
-    IconButton backButton;
-    
-    ArrayList<HotelItem> hotelCatalogue;
-    ArrayList<HotelOption> hotelOptions;
     ArrayList<SelectedHotelPanel> selectedHotelPanels;
     ArrayList<Hotel> hotels;
     int nHotels;
@@ -170,24 +160,10 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotels, this); 
-        homeButton = sidePanel.getHomeButton();
-        homeButton.addActionListener(this);
-        
-        hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
-        hotelButton = sidePanel.getHotelButton();
-        hotelButton.addActionListener(this);
-        
+        homePanel = new HomePanel(hotels, nHotels);
+        hotelsPanel = new HotelsPanel(hotels, nHotels); 
         resPanel = new ReservationsPanel(hotels, nHotels); 
-        resButton = sidePanel.getReservationsButton();
-        resButton.addActionListener(this);
-
         accountPanel = new AccountPanel(this);
-        accountButton = sidePanel.getAccountButton();
-        accountButton.addActionListener(this);
-
-        backButton = sidePanel.getBackButton();
-        backButton.addActionListener(this);
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 
@@ -222,53 +198,59 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == homeButton){
-            homePanel.setVisible(true);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == hotelButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(true);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == resButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(true);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == accountButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(true);
-        }
-        else if (e.getSource() == backButton){
-            System.exit(0);
-        }
+    public SidePanel getSidePanel(){
+        return sidePanel;
     }
 
-    @Override
-    public void buttonClicked(String buttonName) {
+    public void setSidePanel(SidePanel sidePanel){
+        this.sidePanel = sidePanel;
+    }
 
-        for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i).getHotelName(); 
+    public JScrollPane getScrollPane(){
+        return scrollPane;
+    }
 
-            if (buttonName.equals(hotel)){
-                SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
-                selectedHotel.setVisible(true);
-                homePanel.setVisible(false);
-                hotelsPanel.setVisible(false);
-                this.add(selectedHotel);
-            }
-            else {
-                selectedHotelPanels.get(i).setVisible(false);
-            }
-        }
+    public void setSidePane(JScrollPane scrollPane){
+        this.scrollPane = scrollPane;
+    }
+
+    public HomePanel getHomePanel(){
+        return homePanel;
+    }
+
+    public void setHomePanel(HomePanel homePanel){
+        this.homePanel = homePanel;
+    }
+
+    public HotelsPanel getHotelsPanel(){
+        return hotelsPanel;
+    }
+
+    public void setHotelsPanel(HotelsPanel hotelsPanel){
+        this.hotelsPanel = hotelsPanel;
+    }
+
+    public ReservationsPanel getResPanel(){
+        return resPanel;
+    }
+
+    public void setResPanel(ReservationsPanel resPanel){
+        this.resPanel = resPanel;
+    }
+
+    public AccountPanel getAccountPanel(){
+        return accountPanel;
+    }
+
+    public void setAccountPanel(AccountPanel accountPanel){
+        this.accountPanel = accountPanel;
+    }
+
+    public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
+        return selectedHotelPanels;
+    }
+
+    public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
+        this.selectedHotelPanels = selectedHotelPanels;
     }
 }

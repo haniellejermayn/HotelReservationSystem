@@ -69,9 +69,9 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
-        createHotelButton = new IconButton(createHotelIcon, "Create Hotel"); // add picture
+        createHotelButton = new IconButton(createHotelIcon, "Create Hotel");
         createHotelButton.setBounds(285, (nHotels + 1) * 10 + (nHotels * 110) + 10, 50, 50);
-        createHotelButton.addActionListener(this);
+        //createHotelButton.addActionListener(this);
 
 
         // * Container * //
@@ -100,7 +100,7 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
     }
 
                                             // TODO: change to Hotel
-    public void initializeHotelOption(HotelOption item, String hotel, int itemNo){
+    public void initializeHotelOption(HotelOption item, Hotel hotel, int itemNo){
 
         // TODO: add price to hotelOption
         String hotelName = hotel; // TODO: change to hotel name

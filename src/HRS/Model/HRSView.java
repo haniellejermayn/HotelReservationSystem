@@ -1,183 +1,265 @@
 package src.HRS.Model;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JScrollPane;
+
+import src.HRS.View.AccountPanel;
+import src.HRS.View.CreateHotelPanel;
+import src.HRS.View.FilterPanel;
+import src.HRS.View.HomePanel;
+import src.HRS.View.HotelItem;
+import src.HRS.View.HotelOption;
+import src.HRS.View.HotelsPanel;
+import src.HRS.View.IconButton;
+import src.HRS.View.MainFrame;
+import src.HRS.View.ReservationsPanel;
+import src.HRS.View.SelectedHotelPanel;
+import src.HRS.View.SidePanel;
+
 public class HRSView {
-    private Scanner scanner;
+    
+    private MainFrame mainFrame;
+    private int nHotels;
 
-    public HRSView() {
-        this.scanner = new Scanner(System.in);
+    private SidePanel sidePanel;
+    private JScrollPane scrollPane;
+    private HomePanel homePanel;
+    private HotelsPanel hotelsPanel;
+    private ReservationsPanel resPanel;
+    private AccountPanel accountPanel;
+    
+    // * Side Panel * //
+    private IconButton homeButton;
+    private IconButton hotelButton;
+    private IconButton resButton;
+    private IconButton accountButton;
+    private IconButton backButton;
+
+    // * Home Panel * //
+    private ArrayList<HotelItem> hotelCatalogue;
+
+    // * Selected Hotel Panel * //
+    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    
+    // * Hotel Panel * //
+    private ArrayList<HotelOption> hotelOptions;
+    private IconButton createHotelButton;
+    private CreateHotelPanel createHotelPanel;
+    private IconButton filterButton;
+    private FilterPanel filterPanel; 
+    
+    public HRSView(ArrayList<Hotel> hotels, int nHotels){
+        mainFrame = new MainFrame(hotels, nHotels);
+        this.nHotels = nHotels;
+
+        homeButton = mainFrame.getSidePanel().getHomeButton();
+        homePanel = mainFrame.getHomePanel();
+        hotelCatalogue = homePanel.getHotelCatalogue();
+        
+        hotelButton = mainFrame.getSidePanel().getHotelButton();
+        hotelsPanel = mainFrame.getHotelsPanel();
+        hotelOptions = hotelsPanel.getHotelCatalogue();
+        createHotelButton = hotelsPanel.getCreateHotelButton();
+        filterButton = hotelsPanel.getFilterButton();
+        filterPanel = hotelsPanel.getFilterPanel();
+
+        resButton = mainFrame.getSidePanel().getReservationsButton();
+        resPanel = mainFrame.getResPanel();
+
+        accountButton = mainFrame.getSidePanel().getAccountButton();
+        accountPanel = mainFrame.getAccountPanel();
+
+        backButton = sidePanel.getBackButton();
     }
 
-    public void printViewMenu() {
-        System.out.printf("Menu\n");
-        System.out.printf("[1] Date Availability\n");
-        System.out.printf("[2] Room Information\n");
-        System.out.printf("[3] Reservation Information\n");
-        System.out.printf("[0] Go Back\n");
+    public void setSidePanelListener(ActionListener listener){
+        homeButton.addActionListener(listener);
+        hotelButton.addActionListener(listener);
+        resButton.addActionListener(listener);
+        accountButton.addActionListener(listener);
+        backButton.addActionListener(listener);
     }
 
-    public void printHotelsList(ArrayList<Hotel> hotels) {
-        System.out.printf("Hotels\n");
-        for (int i = 0; i < hotels.size(); i++) {
-            System.out.printf("[%02d] %s\n", i + 1, hotels.get(i).getHotelName());
+    public void setHotelSelectedListener(ActionListener listener) {
+        for (int i = 0; i < nHotels; i++){
+            hotelCatalogue.get(i).addActionListener(listener);
+            hotelOptions.get(i).addActionListener(listener);
         }
     }
 
-    public void printHotelDetails(Hotel hotel) {
-        System.out.printf("\"%s\"\n", hotel.getHotelName());
-        System.out.printf("Name: %s\n", hotel.getHotelName());
-        System.out.printf("No. of Rooms: %d\n", hotel.countRooms(0));
-        System.out.printf("Month's Estimated Earnings: %.2f\n", hotel.computeEarnings());
+    public void setHotelsPanelListener(Actionlistener listener){
+        createHotelButton.addActionListener(listener);
+        filterButton.addActionListener(listener);
     }
 
-    public void printRoomList(Hotel hotel) {
-        System.out.printf("Rooms\n");
-        for (int i = 0; i < hotel.countRooms(0); i++) {
-            System.out.printf("[%02d] %s (%s)\n", i + 1, hotel.fetchRoom(i).getRoomName(), hotel.fetchRoom(i).getRoomType());
+
+    /*for (int i = 0; i < model.countHotels(); i++){
+        String hotel = model.getHotels().get(i).getHotelName(); 
+
+        if (hotelName.equals(hotel)){
+            SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
+            selectedHotel.setVisible(true);
+            view.getHomePanel().setVisible(false);
+            view.getHotelsPanel().setVisible(false);
+            view.getMainFrame().add(selectedHotel);
         }
-    }
-
-    public void printRoomDetails(Room room) {
-        System.out.printf("\"%s\"\n", room.getRoomName());
-        System.out.printf("Name: %s\n", room.getRoomName());
-        System.out.printf("Type: %s\n", room.getRoomType());
-        System.out.printf("Price per Night: %.2f\n", room.getRoomPrice());
-    }
-
-    public void printReservationList(Hotel hotel) {
-        System.out.printf("Reservations\n");
-        for (int i = 0; i < hotel.countReservations(); i++) {
-            System.out.printf("[%02d] %s (%d to %d)\n", i + 1, hotel.fetchReservation(i).getGuestName(), hotel.fetchReservation(i).getCheckInDate(), hotel.fetchReservation(i).getCheckOutDate());
+        else {
+            view.getSelectedHotelPanels().get(i).setVisible(false);
         }
+    }*/
+
+    public MainFrame getMainFrame(){
+        return mainFrame;
     }
 
-    public void printReservationDetails(Reservation reservation) {
-        System.out.printf("\"%s's Reservation\"\n", reservation.getGuestName());
-        System.out.printf("Guest Name: %s\n", reservation.getGuestName());
-        System.out.printf("Room: %s (%s)\n", reservation.getRoom().getRoomName(), reservation.getRoom().getRoomType());
-        System.out.printf("Check-In Date: %d\n", reservation.getCheckInDate());
-        System.out.printf("Check-Out Date: %d\n", reservation.getCheckOutDate());
-        System.out.printf("Cost Breakdown:\n");
-        for (int i = reservation.getCheckInDate(); i < reservation.getCheckOutDate(); i++) {
-            System.out.printf("    day %d - day %d -> %.2f\n", i, i + 1, reservation.retrieveCostPerNight(i));
-        }
-        System.out.printf("Total Price: %.2f\n", reservation.computeTotalPrice());
-        if (reservation.getDiscountCode() != null) {
-            System.out.printf("Discount: %.2f (%s)\n", reservation.getDiscountCode().computeDiscount(reservation), reservation.getDiscountCode().getCode());
-        } else {
-            System.out.printf("Discount: 0 (No discount applied)\n");
-        }
-        System.out.printf("Final Price: %.2f\n", reservation.computeFinalPrice());
+    public void setMainFrame(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
     }
 
-    public void promptForRoomType() {
-        System.out.printf("Select Room Type\n");
-        System.out.printf("[1] Standard\n");
-        System.out.printf("[2] Deluxe\n");
-        System.out.printf("[3] Executive\n");
+    public SidePanel getSidePanel(){
+        return sidePanel;
     }
 
-    public void promptForDiscountCode() {
-        System.out.printf("Do you have a discount code?\n");
-        System.out.printf("[1] Yes\n");
-        System.out.printf("[0] No\n");
+    public void setSidePanel(SidePanel sidePanel){
+        this.sidePanel = sidePanel;
     }
 
-    public void printSuccessMessage(String str1, String str2) {
-        System.out.printf("\n%s was %s!\n", str1, str2);
+    public JScrollPane getScrollPane(){
+        return scrollPane;
     }
 
-    public void printAvailableRooms(int availableRooms) {
-        System.out.printf("Available Rooms: %d\n", availableRooms);
+    public void setSidePane(JScrollPane scrollPane){
+        this.scrollPane = scrollPane;
     }
 
-    public void printBookedRooms(int bookedRooms) {
-        System.out.printf("Booked Rooms: %d\n", bookedRooms);
+    public HomePanel getHomePanel(){
+        return homePanel;
     }
 
-    public void printAvailableDates(int[] roomAvailability) {
-        int dayCounter = 0;
-        for (int i = 0; i < roomAvailability.length; i++) {
-            if (roomAvailability[i] == 0) {
-                System.out.printf("[%02d] ", i + 1);
-                dayCounter++;
-            }
-            if (dayCounter % 5 == 0 && dayCounter > 0) {
-                System.out.printf("\n");
-            }
-        }
-        if (dayCounter == 0) {
-            System.out.printf("No available dates for check-in.");
-        }
-        System.out.printf("\n");
+    public void setHomePanel(HomePanel homePanel){
+        this.homePanel = homePanel;
     }
 
-    public void printNoHotelsMessage() {
-        System.out.printf("No hotels in list.\n");
-        System.out.printf("-------------------------------------\n");
+    public HotelsPanel getHotelsPanel(){
+        return hotelsPanel;
     }
 
-    public void printNoReservationsMessage() {
-        System.out.printf("No Reservations\n");
+    public void setHotelsPanel(HotelsPanel hotelsPanel){
+        this.hotelsPanel = hotelsPanel;
     }
 
-    public void printReservationSaved() {
-        System.out.printf("Reservation saved!\n");
+    public ReservationsPanel getResPanel(){
+        return resPanel;
     }
 
-    public void printCancelMessage() {
-        System.out.printf("\nCanceling...\n");
+    public void setResPanel(ReservationsPanel resPanel){
+        this.resPanel = resPanel;
     }
 
-    public void printError(String message) {
-        System.out.printf("Error: %s\n", message);
+    public AccountPanel getAccountPanel(){
+        return accountPanel;
     }
 
-    public void printCancel() {
-        System.out.printf("*Enter 0 to cancel*\n");
-        System.out.printf("-------------------------------------\n");
+    public void setAccountPanel(AccountPanel accountPanel){
+        this.accountPanel = accountPanel;
     }
 
-    public void promptForUserInput(String str) {
-        System.out.printf("Enter %s: ", str);
+    public IconButton getHomeButton(){
+        return homeButton;
     }
 
-
-    public void printConfirmation() {
-        System.out.printf("-------------------------------------\n");
-        System.out.printf("Confirm modification?\n");
-        System.out.printf("[1] Yes\n");
-        System.out.printf("[0] No (The modification will be discarded)\n");
+    public void setHomeButton(IconButton homeButton){
+        this.homeButton = homeButton;
     }
 
-    public void printManageMenu(String hotelName) {
-        System.out.printf("-------------------------------------\n");
-        System.out.printf("Manage \"%s\"\n", hotelName);
-        System.out.printf("[1] Change Name\n");
-        System.out.printf("[2] Add Room\n");
-        System.out.printf("[3] Remove Room\n");
-        System.out.printf("[4] Update Base Price\n");
-        System.out.printf("[5] Edit Date Price Modifier\n");
-        System.out.printf("[6] Remove Reservation\n");
-        System.out.printf("[7] Remove Hotel\n");
-        System.out.printf("[0] Go Back\n");
+    public IconButton getHotelButton(){
+        return hotelButton;
     }
 
-    public void printBorder() {
-        System.out.printf("-------------------------------------\n");
+    public void setHotelButton(IconButton hotelButton){
+        this.hotelButton = hotelButton;
     }
 
-    /* 
-    public int getUserInput() {
-        return scanner.nextInt();
+    public IconButton getResButton(){
+        return resButton;
     }
 
-    public String getUserInputString() {
-        return scanner.next();
+    public void setResButton(IconButton resButton){
+        this.resButton = resButton;
     }
-    */
 
+    public IconButton getAccountButton(){
+        return accountButton;
+    }
 
+    public void setAccountButton(IconButton accountButton){
+        this.accountButton = accountButton;
+    }
+
+    public IconButton getBackButton(){
+        return backButton;
+    }
+
+    public void setBackButton(IconButton backButton){
+        this.backButton = backButton;
+    }
+
+    public ArrayList<HotelItem> getHotelCatalogue(){
+        return hotelCatalogue;
+    }
+
+    public void setHotelCatalogue(ArrayList<HotelItem> hotelCatalogue){
+        this.hotelCatalogue = hotelCatalogue;
+    }
+
+    public ArrayList<HotelOption> getHotelOptions(){
+        return hotelOptions;
+    }
+
+    public void setHotelOptions(ArrayList<HotelOption> hotelOptions){
+        this.hotelOptions = hotelOptions;
+    }
+
+    public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
+        return selectedHotelPanels;
+    }
+
+    public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
+        this.selectedHotelPanels = selectedHotelPanels;
+    }
+
+    public IconButton getCreateHotelButton(){
+        return createHotelButton;
+    }
+
+    public void setCreateHotelButton(IconButton createHotelButton){
+        this.createHotelButton = createHotelButton;
+    }
+
+    public IconButton getFilterButton(){
+        return filterButton;
+    }
+
+    public void setFilterButton(IconButton filterButton){
+        this.filterButton = filterButton;
+    }
+
+    public FilterPanel getFilterPanel(){
+        return filterPanel;
+    }
+
+    public void setFilterPanel(FilterPanel filterPanel){
+        this.filterPanel = filterPanel;
+    }
+
+    public CreateHotelPanel getCreateHotelPanel(){
+        return createHotelPanel;
+    }
+
+    public void setCreateHotelPanel(CreateHotelPanel createHotelPanel){
+        this.createHotelPanel = createHotelPanel;
+    }
 }

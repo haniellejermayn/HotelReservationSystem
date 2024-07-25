@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public class HomePanel extends RoundPanel implements ActionListener{
@@ -22,13 +20,9 @@ public class HomePanel extends RoundPanel implements ActionListener{
     Font customFont30;
     Font customFont90;
 
-    private ButtonClickListener listener;
-
-    public HomePanel(ArrayList<Hotel> hotels, int nHotel, ButtonClickListener listener){
+    public HomePanel(ArrayList<Hotel> hotels, int nHotel){
 
         super(new Color(13, 22, 45));
-
-        this.listener = listener;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
@@ -96,14 +90,15 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
         RoundLabel content = item.getContent();
         content.setText(hotelName);
+        item.setButtonName(hotelName);
         item.setVerticalAlignment(JLabel.BOTTOM);
-        item.addActionListener(new ActionListener() {
+        /*item.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
                 listener.buttonClicked(hotelName);
             }
-        });
+        });*/
         
         item.setFocusable(false);
     }
@@ -113,4 +108,11 @@ public class HomePanel extends RoundPanel implements ActionListener{
         
     }
 
+    public ArrayList<HotelItem> getHotelCatalogue(){
+        return hotelCatalogue;
+    }
+
+    public void setHotelCatalogue(ArrayList<HotelItem> hotelCatalogue){
+        this.hotelCatalogue = hotelCatalogue;
+    }
 }

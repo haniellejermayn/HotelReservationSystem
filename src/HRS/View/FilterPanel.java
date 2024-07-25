@@ -1,5 +1,4 @@
 package src.HRS.View;
-//package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
