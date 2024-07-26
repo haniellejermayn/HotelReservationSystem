@@ -26,8 +26,8 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     private TextFieldCustom discountInput;
 
-    //private String nameInput, roomTypeInput, discountInput;
-    //private int checkInInput, checkOutInput;
+    private String roomTypeInput;
+    private int checkInInput, checkOutInput;
 
     private ArrayList<OptionButton> days;
     private ArrayList<String> clickedButtons;
@@ -100,7 +100,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
         clickedButtons = new ArrayList<String>();
 
-        calendar = new BookCalendar(this);
+        calendar = new BookCalendar();
         calendar.setBounds(18, 220, 335, 203);
         days = calendar.getDays();
         days.get(30).setEnabled(false);
@@ -186,7 +186,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == standardRoomInput){
+        /*if (e.getSource() == standardRoomInput){
             roomTypeSelected = true;
             standardRoomInput.setColor(new Color(51, 88, 150));
             deluxeRoomInput.setColor(new Color(27, 43, 80));
@@ -206,13 +206,13 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
             deluxeRoomInput.setColor(new Color(27, 43, 80));
             executiveRoomInput.setColor(new Color(51, 88, 150));
             setRoomTypeInput("Executive");
-        }
+        }*/
     }
 
     @Override
     public void buttonClicked(String buttonName) {
 
-        clickedButtons.add(buttonName);
+        /*clickedButtons.add(buttonName);
 
         if (clickedButtons.size() > 2){
             clickedButtons.remove(0);
@@ -260,7 +260,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
             }
 
             checkInNOutSelected = true;
-        }
+        }*/
     }
 
     public TextFieldCustom getGuestNameInput(){
@@ -304,6 +304,14 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         this.roomTypeInput = roomTypeInput;
     }
 
+    public BookCalendar getBookCalendar(){
+        return calendar;
+    }
+
+    public void setBookCalendar(BookCalendar calendar){
+        this.calendar = calendar;
+    }
+
     public int getCheckInInput(){
         return checkInInput;
     }
@@ -326,6 +334,22 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     public void setRoomTypeSelected(boolean roomTypeSelected){
         this.roomTypeSelected =roomTypeSelected;
+    }
+
+    public ArrayList<OptionButton> getDays(){
+        return days;
+    }
+
+    public void setDays(ArrayList<OptionButton> days){
+        this.days = days;
+    }
+
+    public ArrayList<String> getClickedButtons(){
+        return clickedButtons;
+    }
+
+    public void setClickedButtons(ArrayList<String> clickedButtons){
+        this.clickedButtons = clickedButtons;
     }
     
     public boolean getCheckInNOutSelected(){

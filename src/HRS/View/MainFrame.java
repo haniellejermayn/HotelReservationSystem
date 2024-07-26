@@ -163,7 +163,7 @@ public class MainFrame extends JFrame{
         homePanel = new HomePanel(hotels, nHotels);
         hotelsPanel = new HotelsPanel(hotels, nHotels); 
         resPanel = new ReservationsPanel(hotels, nHotels); 
-        accountPanel = new AccountPanel(this);
+        accountPanel = new AccountPanel();
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
 

@@ -415,6 +415,65 @@ public class HRSController{
                 view.getBookHotelPanel().setVisible(false);
                 view.getSelectedHotelPanel().remove(view.getBookHotelPanel());
             }
+
+            ArrayList<OptionButton> days = view.getBookHotelPanel().getDays();
+            ArrayList<String> clickedButtons = view.getBookHotelPanel().getClickedButtons();
+            BookCalendar calendar = view.getBookHotelPanel().getBookCalendar();
+
+            for (int i = 0; i < 31; i++){
+                if (e.getSource() == days.get(i)){
+
+                    clickedButtons.add(days.get(i).getButtonName());
+    
+                    if (clickedButtons.size() > 2){
+                        clickedButtons.remove(0);
+                        clickedButtons.remove(1);
+                    }
+    
+                    if (clickedButtons.size() == 1){
+                        
+                        days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColor(new Color(51, 88, 150));
+                        days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColorOver(new Color(51, 88, 150));
+                        
+                        for (int j = 0; j < 31; j++){
+                            if (j < Integer.valueOf(clickedButtons.get(0)) - 1){
+                                days.get(j).setEnabled(false);
+                                days.get(j).setColor(new Color(27, 43, 80));
+                                days.get(j).setColorOver(new Color(27, 43, 80));
+                                days.get(j).setColorClick(new Color(27, 43, 80));
+                            }
+                        }
+                        
+                        days.get(30).setEnabled(true);
+                        days.get(30).setColor(new Color(27, 43, 80));
+                        days.get(30).setColorOver(new Color(40, 68, 117));
+                        days.get(30).setColorClick(new Color(51, 88, 150));
+                    }
+    
+                    if (clickedButtons.size() == 2 && !clickedButtons.get(0).equals(clickedButtons.get(1))){
+                        calendar.setHighlightedDays(Integer.valueOf(clickedButtons.get(0)), Integer.valueOf(clickedButtons.get(1)));
+                        view.getBookHotelPanel().setCheckInInput(Integer.valueOf(clickedButtons.get(0)));
+                        view.getBookHotelPanel().setCheckOutInput(Integer.valueOf(clickedButtons.get(1)));
+    
+                        for (int j = 0; j < 31; j++){
+                            if (j >= Integer.valueOf(clickedButtons.get(1))){
+                                days.get(j).setColor(new Color(27, 43, 80));
+                                days.get(j).setColorOver(new Color(27, 43, 80));
+                                days.get(j).setColorClick(new Color(27, 43, 80));
+                            }
+                            
+                            if (j >= Integer.valueOf(clickedButtons.get(0)) && j < Integer.valueOf(clickedButtons.get(1))){
+                                days.get(j).setColor(new Color(51, 88, 150));
+                                days.get(j).setColorOver(new Color(51, 88, 150));
+                            }
+    
+                            days.get(j).setEnabled(false);
+                        }
+    
+                        view.getBookHotelPanel().setCheckInNOutSelected(true);
+                    }
+                }
+            }
         }
     }
 

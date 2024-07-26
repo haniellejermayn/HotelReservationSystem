@@ -97,6 +97,13 @@ public class HRSView {
     public void setBookHotelListener(ActionListener listener){
         bookHotelPanel.getBookButton().addActionListener(listener);
         bookHotelPanel.getCancelButton().addActionListener(listener);
+        bookHotelPanel.getStandardRoomInput().addActionListener(listener);
+        bookHotelPanel.getDeluxeRoomInput().addActionListener(listener);
+        bookHotelPanel.getExecutiveRoomInput().addActionListener(listener);
+
+        for (int i = 0; i < 31; i++){
+            bookHotelPanel.getDays().get(i).addActionListener(listener);
+        }
     }
 
     public void setManageHotelListener(ActionListener listener){

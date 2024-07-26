@@ -17,7 +17,7 @@ public class AccountPanel extends RoundPanel implements ActionListener{
     private Font customFont15;
     private Font customFont20;
 
-    AccountPanel(ButtonClickListener listener){
+    AccountPanel(){
 
         super(new Color(13, 22, 45));
 

@@ -9,9 +9,9 @@ public class BookCalendar extends CalendarView{
     ArrayList<RoundPanel> highlightedDays;
     private ArrayList<OptionButton> days;
 
-    public BookCalendar(ButtonClickListener listener){
+    public BookCalendar(){
 
-        super(listener);
+        super();
         this.days = super.getDays();
     }
 
