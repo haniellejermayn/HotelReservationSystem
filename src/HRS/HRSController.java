@@ -82,7 +82,7 @@ public class HRSController{
         public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < model.countHotels(); i++){
     
-                if (e.getSource() == view.getHotelCatalogue().get(i)){
+                if (e.getSource() == view.getHomePanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
                     selectedHotel.setVisible(true);
                     view.setSelectedHotelPanel(selectedHotel);
@@ -90,7 +90,7 @@ public class HRSController{
                     view.getHotelsPanel().setVisible(false);
                     view.getMainFrame().add(selectedHotel);
                 }
-                else if (e.getSource() == view.getHotelOptions().get(i)){
+                else if (e.getSource() == view.getHotelsPanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
                     selectedHotel.setVisible(true);
                     view.getHomePanel().setVisible(false);
@@ -198,7 +198,7 @@ public class HRSController{
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(mostBooked.get(i));
-                    initializeHotelOption(optionTemp, mostBooked.get(i), i); // ! TODO: fix
+                    hotelsPanel.initializeHotelOption(optionTemp, mostBooked.get(i), i);
                     mostBookedCatalogue.add(optionTemp);
                     hotelsPanel.getHotelContainer().add(mostBookedCatalogue.get(i));
                 }
@@ -231,7 +231,7 @@ public class HRSController{
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(lowestPrice.get(i));
-                    initializeHotelOption(optionTemp, lowestPrice.get(i), i); // ! TODO: fix
+                    hotelsPanel.initializeHotelOption(optionTemp, lowestPrice.get(i), i); 
                     lowestPriceCatalogue.add(optionTemp);
                     hotelsPanel.getHotelContainer().add(lowestPriceCatalogue.get(i));
                 }
@@ -264,7 +264,7 @@ public class HRSController{
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(highestPrice.get(i));
-                    initializeHotelOption(optionTemp, highestPrice.get(i), i); // ! TODO: fix
+                    hotelsPanel.initializeHotelOption(optionTemp, highestPrice.get(i), i);
                     highestPriceCatalogue.add(optionTemp);
                     hotelsPanel.getHotelContainer().add(highestPriceCatalogue.get(i));
                 }
@@ -297,7 +297,7 @@ public class HRSController{
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(newest.get(i));
-                    initializeHotelOption(optionTemp, newest.get(i), i); // ! TODO: fix
+                    hotelsPanel.initializeHotelOption(optionTemp, newest.get(i), i);
                     newestCatalogue.add(optionTemp);
                     hotelsPanel.getHotelContainer().add(newestCatalogue.get(i));
                 }
@@ -555,7 +555,6 @@ public class HRSController{
 
                     view.getManageHotelPanel().add(confirmModPanel, JLayeredPane.POPUP_LAYER);
                     confirmModPanel.setVisible(true);
-
                 }
             }
             else if (e.getSource() == updateBasePricePanel.getUpdateButton()){
@@ -568,7 +567,6 @@ public class HRSController{
 
                     view.getManageHotelPanel().add(confirmModPanel, JLayeredPane.POPUP_LAYER);
                     confirmModPanel.setVisible(true);
-
                 }
             }
             else if (e.getSource() == datePriceModifierPanel.getUpdateButton()){
@@ -842,14 +840,4 @@ public class HRSController{
         }
     }
 
-
-    /*public void updateManagePanel(Hotel hotel) {
-        String input = view.getHotelNameInput();
-        boolean valid = model.isHotelNameUnique(input);
-
-        if(valid) {
-            model.get
-        }
-        view.setValid = valid;
-    }*/
 }
