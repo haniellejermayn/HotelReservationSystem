@@ -9,6 +9,7 @@ import java.awt.event.*;
 public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
     
     private Hotel hotel;
+    private int hotelIndex;
     
     private RoundPanel titlePanel;
     private RoundPanel viewPanel;
@@ -32,11 +33,12 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private Font customFont35;
     private Font customFont50;
 
-    public SelectedHotelPanel(Hotel hotel){
+    public SelectedHotelPanel(Hotel hotel, int hotelIndex){
 
         super(new Color(13, 22, 45));
 
         this.hotel = hotel;
+        this.hotelindex = hotelIndex
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont35 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 35);
@@ -139,7 +141,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == dateAvailButton){
+        /*if (e.getSource() == dateAvailButton){
             dateAvailPanel.setVisible(true);
             roomInfoPanel.setVisible(false);
             resInfoPanel.setVisible(false);
@@ -171,16 +173,12 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         else if (e.getSource() == manageButton){
             managePanel = new ManagePanel(hotel, this, new Color(51, 88, 150)); 
             this.add(managePanel, JLayeredPane.POPUP_LAYER);
-        }
-    }
-
-    public OptionButton getBookButton(){
-        return bookButton;
+        }*/
     }
 
     @Override
     public void buttonClicked(String buttonName) {
-        if (buttonName.equals("Book")){
+        /*if (buttonName.equals("Book")){
             bookPanel.setVisible(false);
             this.remove(bookPanel);
         }
@@ -219,6 +217,134 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         else if (buttonName.equals("Manage Cancel")){
             managePanel.setVisible(false);
             this.remove(managePanel);
-        }
+        }*/
+    }
+
+    public IconButton getManageButton(){
+        return manageButton;
+    }
+
+    public void setManageButton(IconButton manageButton){
+        this.manageButton = manageButton;
+    }
+
+    public OptionButton getBookButton(){
+        return bookButton;
+    }
+
+    public void setBookButton(OptionButton bookButton){
+        this.bookButton = bookButton;
+    }
+
+    public BookHotelPanel getBookPanel(){
+        return bookPanel;
+    }
+
+    public void setBookPanel(BookHotelPanel bookPanel){
+        this.bookPanel = bookPanel;
+    }
+
+    public ManagePanel getManagePanel(){
+        return managePanel;
+    }
+
+    public void setManagePanel(ManagePanel managePanel){
+        this.managePanel = managePanel;
+    }
+
+    public OptionButton getDateAvailButton(){
+        return dateAvailButton;
+    }
+
+    public void setDateAvailButton(OptionButton dateAvailButton){
+        this.dateAvailButton = dateAvailButton;
+    }
+
+    public DateAvailPanel getDateAvailPanel(){
+        return dateAvailPanel;
+    }
+
+    public void setDateAvailPanel(DateAvailPanel dateAvailPanel){
+        this.dateAvailPanel = dateAvailPanel;
+    }
+
+    public OptionButton getRoomInfoButton(){
+        return roomInfoButton;
+    }
+
+    public void setRoomInfoButton(OptionButton roomInfoButton){
+        this.roomInfoButton = roomInfoButton;
+    }
+
+    public RoomInfoPanel getRoomInfoPanel(){
+        return roomInfoPanel;
+    }
+
+    public void setRoomInfoPanel(RoomInfoPanel roomInfoPanel){
+        this.roomInfoPanel = roomInfoPanel;
+    }
+
+    public OptionButton getResInfoButton(){
+        return resInfoButton;
+    }
+
+    public void setResInfoButton(OptionButton resInfoButton){
+        this.resInfoButton = resInfoButton;
+    }
+
+    public ResInfoPanel getResInfoPanel(){
+        return resInfoPanel;
+    }
+
+    public void setResInfoPanel(ResInfoPanel resInfoPanel){
+        this.resInfoPanel = resInfoPanel;
+    }
+
+    public Hotel getHotel(){
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel){
+        this.hotel = hotel;
+    }
+
+    public int getHotelIndex(){
+        return hotelIndex;
+    }
+
+    public void setHotel(int hotelIndex){
+        this.hotelIndex = hotelIndex;
+    }
+
+    public JLabel getHotelName(){
+        return hotelName;
+    }
+
+    public void setHotelName(JLabel hotelName){
+        this.hotelName = hotelName;
+    }
+
+    public JLabel getHotelPrice(){
+        return hotelPrice;
+    }
+
+    public void setHotelPrice(JLabel hotelPrice){
+        this.hotelPrice = hotelPrice;
+    }
+
+    public JLabel getHotelRooms(){
+        return hotelRooms;
+    }
+
+    public void setHotelRooms(JLabel hotelRooms){
+        this.hotelRooms = hotelRooms;
+    }
+
+    public JLabel getHotelRes(){
+        return hotelRes;
+    }
+
+    public void setHotelRes(JLabel hotelRes){
+        this.hotelRes = hotelRes;
     }
 }

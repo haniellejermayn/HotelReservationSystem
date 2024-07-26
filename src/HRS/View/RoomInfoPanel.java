@@ -32,7 +32,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
         // * Available Dates * //
-        calendar = new CalendarView(this);
+        calendar = new CalendarView();
         calendar.setBounds(180, 239, 335, 203);
         days = calendar.getDays();
         
@@ -179,7 +179,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
     @Override
     public void roomButtonClicked(String roomButtonName) {
-        for (int i = 0; i < hotel.countRooms(0); i++){
+        /*for (int i = 0; i < hotel.countRooms(0); i++){
             ArrayList<OptionButton> roomButtons = roomView.getRooms();
             String type = hotel.fetchRoom(i).getRoomType();
             float pricePerNight = hotel.fetchRoom(i).getRoomPrice();
@@ -210,11 +210,83 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
                 }
 
             }
-        }
+        }*/
     }
 
     @Override
     public void reservationButtonClicked(String reservationName) {
 
     }
+
+    public CalendarView getCalendar(){
+        return calendar;
+    }
+
+    public void setCalendar(CalendarView calendar){
+        this.calendar = calendar;
+    }
+
+    public RoomView getRoomView(){
+        return roomView;
+    }
+
+    public void setRoomView(RoomView roomView){
+        this.roomView = roomView;
+    }
+
+    public RoundLabel getRoomName(){
+        return roomName;
+    }
+
+    public void setRoomName(RoundLabel roomName){
+        this.roomName = roomName;
+    }
+
+    public RoundLabel getRoomPrice(){
+        return roomPrice;
+    }
+
+    public void setRoomPrice(RoundLabel roomPrice){
+        this.roomPrice = roomPrice;
+    }
+
+    public RoundLabel getRoomType(){
+        return roomType;
+    }
+
+    public void setRoomType(RoundLabel roomType){
+        this.roomType = roomType;
+    }
+
+    public RoundLabel getAvailDates(){
+        return availDates;
+    }
+
+    public void setAvailDates(RoundLabel availDates){
+        this.availDates = availDates;
+    }
+
+    public RoundLabel getStandardRooms(){
+        return standardRooms;
+    }
+
+    public void setStandardRooms(RoundLabel standardRooms){
+        this.standardRooms = standardRooms;
+    }
+
+    public RoundLabel getDeluxeRooms(){
+        return deluxeRooms;
+    }
+
+    public void setDeluxeRooms(RoundLabel deluxeRooms){
+        this.deluxeRooms = deluxeRooms;
+    }
+
+    public RoundLabel getExecutiveRooms(){
+        return executiveRooms;
+    }
+
+    public void setExecutiveRooms(RoundLabel executiveRooms){
+        this.executiveRooms = executiveRooms;
+    }    
 }

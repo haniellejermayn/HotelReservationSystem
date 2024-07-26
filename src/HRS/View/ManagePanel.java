@@ -25,40 +25,36 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     private ManageSubPanel removeRoomPanel;
     private ManageSubPanel removeResPanel;
     private ManageSubPanel removeHotelPanel;
-    private ManageSubPanel confirmModPanel;
+    private ConfirmModPanel confirmModPanel;
 
-    private TextFieldCustom newHotelName;
-    private TextFieldCustom nStandardRooms, nDeluxeRooms, nExecutiveRooms;
-    private TextFieldCustom newBasePrice;
-    private TextFieldCustom newDatePrice;
+    private TextFieldCustom newHotelNameInput;
+    private TextFieldCustom standardRoomInput, deluxeRoomInput, executiveRoomInput;
+    private TextFieldCustom newBasePriceInput;
+    private TextFieldCustom percentageInput;
 
-    private String hotelNameInput;
+    /*private String hotelNameInput;
     private int standardRoomInput, deluxeRoomInput, executiveRoomInput;
     private float basePriceInput;
     private int dateModInput;
     private int percentModInput;
     private String removeRoomInput;
-    private String removeResInput;
+    private String removeResInput;*/
 
     private ArrayList<OptionButton> days;
-    private OptionButton yesButton;
-    private OptionButton noButton;
 
     private RoomView roomView;
     private ReservationView resView;
     private CalendarView calendarView;
 
     private RoundPanel manageContainer;
-    private ButtonClickListener listener;
 
     private Hotel hotel;
 
 
-    public ManagePanel(Hotel hotel, ButtonClickListener listener, Color color) {
+    public ManagePanel(Hotel hotel, Color color) {
         super(color);
         this.hotel = hotel;
         
-        this.listener = listener;
         this.setLayout(null);
         this.setBounds(152, 10, 385, 420);
 
@@ -82,20 +78,20 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         currentName.setFont(customFont20);
         currentName.setForeground(Color.white);
 
-        newHotelName = new TextFieldCustom(new Color(40, 68, 117));
-        newHotelName.setBounds(5, 130, 350, 55);
-        newHotelName.setFieldName("New Hotel Name");
-        newHotelName.getTextContainer().setBounds(5, 25, 340, 27);
+        newHotelNameInput = new TextFieldCustom(new Color(40, 68, 117));
+        newHotelNameInput.setBounds(5, 130, 350, 55);
+        newHotelNameInput.setFieldName("New Hotel Name");
+        newHotelNameInput.getTextContainer().setBounds(5, 25, 340, 27);
 
         changeNamePanel = new ManageSubPanel("Change Name");
         changeNamePanel.add(currentName);
-        changeNamePanel.add(newHotelName);
-        changeNamePanel.getUpdateButton().addActionListener(new ActionListener(){
+        changeNamePanel.add(newHotelNameInput);
+        /*changeNamePanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
 
-                String hotelName = newHotelName.getTextField().getText().trim();
+                String hotelName = newHotelNameInput.getTextField().getText().trim();
 
                 // TODO: check if name is valid
 
@@ -105,10 +101,10 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
                     confirmMod("Change Name");
                 }
             }
-        });
-        changeNamePanel.getCancelButton().addActionListener(new ActionListener(){
+        });*/
+        /*changeNamePanel.getCancelButton().addActionListener(new ActionListener(){
 
-            @Override
+            /*@Override
             public void actionPerformed(ActionEvent e){
                 setHotelNameInput(""); 
                 setStandardRoomInput(0);
@@ -122,7 +118,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -135,32 +131,32 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         addRoom.setColorClick(addRoom.getColorOver());
         addRoom.addActionListener(this);
 
-        nStandardRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nStandardRooms.setBounds(5, 90, 350, 55);
-        nStandardRooms.setFieldName("No. of Standard Rooms");
-        nStandardRooms.getTextContainer().setBounds(5, 25, 340, 27);
+        standardRoomInput = new TextFieldCustom(new Color(40, 68, 117));
+        standardRoomInput.setBounds(5, 90, 350, 55);
+        standardRoomInput.setFieldName("No. of Standard Rooms");
+        standardRoomInput.getTextContainer().setBounds(5, 25, 340, 27);
 
-        nDeluxeRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nDeluxeRooms.setBounds(5, 150, 350, 55);
-        nDeluxeRooms.setFieldName("No. of Deluxe Rooms");
-        nDeluxeRooms.getTextContainer().setBounds(5, 25, 340, 27);
+        deluxeRoomInput = new TextFieldCustom(new Color(40, 68, 117));
+        deluxeRoomInput.setBounds(5, 150, 350, 55);
+        deluxeRoomInput.setFieldName("No. of Deluxe Rooms");
+        deluxeRoomInput.getTextContainer().setBounds(5, 25, 340, 27);
 
-        nExecutiveRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nExecutiveRooms.setBounds(5, 210, 350, 55);
-        nExecutiveRooms.setFieldName("No. of Executive Rooms");
-        nExecutiveRooms.getTextContainer().setBounds(5, 25, 340, 27);
+        executiveRoomInput = new TextFieldCustom(new Color(40, 68, 117));
+        executiveRoomInput.setBounds(5, 210, 350, 55);
+        executiveRoomInput.setFieldName("No. of Executive Rooms");
+        executiveRoomInput.getTextContainer().setBounds(5, 25, 340, 27);
 
         addRoomPanel = new ManageSubPanel("Add Room");
-        addRoomPanel.add(nStandardRooms);
-        addRoomPanel.add(nDeluxeRooms);
-        addRoomPanel.add(nExecutiveRooms);
-        addRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
+        addRoomPanel.add(standardRoomInput);
+        addRoomPanel.add(deluxeRoomInput);
+        addRoomPanel.add(executiveRoomInput);
+        /*addRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
-                int standard = Integer.valueOf(nStandardRooms.getTextField().getText().trim());
-                int deluxe = Integer.valueOf(nDeluxeRooms.getTextField().getText().trim());
-                int executive = Integer.valueOf(nExecutiveRooms.getTextField().getText().trim());
+                /*int standard = Integer.valueOf(standardRoomInput.getTextField().getText().trim());
+                int deluxe = Integer.valueOf(deluxeRoomInput.getTextField().getText().trim());
+                int executive = Integer.valueOf(executiveRoomInput.getTextField().getText().trim());
 
                 if (standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
                     setStandardRoomInput(standard);
@@ -187,7 +183,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -206,20 +202,20 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         currentBasePrice.setFont(customFont20);
         currentBasePrice.setForeground(Color.white);
 
-        newBasePrice = new TextFieldCustom(new Color(40, 68, 117));
-        newBasePrice.setBounds(5, 130, 350, 55);
-        newBasePrice.setFieldName("New Base Price");
-        newBasePrice.getTextContainer().setBounds(5, 25, 340, 27);
+        newBasePriceInput = new TextFieldCustom(new Color(40, 68, 117));
+        newBasePriceInput.setBounds(5, 130, 350, 55);
+        newBasePriceInput.setFieldName("New Base Price");
+        newBasePriceInput.getTextContainer().setBounds(5, 25, 340, 27);
 
         updateBasePricePanel = new ManageSubPanel("Update Base Price");
         updateBasePricePanel.add(currentBasePrice);
-        updateBasePricePanel.add(newBasePrice);
-        updateBasePricePanel.getUpdateButton().addActionListener(new ActionListener(){
+        updateBasePricePanel.add(newBasePriceInput);
+        /*updateBasePricePanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
 
-                Float basePrice = Float.valueOf(newBasePrice.getTextField().getText().trim());
+                /*Float basePrice = Float.valueOf(newBasePriceInput.getTextField().getText().trim());
 
                 // TODO: check if there are no reservations
 
@@ -246,7 +242,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -267,16 +263,16 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         days.get(30).setColorOver(new Color(27, 43, 80));
         days.get(30).setColorClick(new Color(27, 43, 80));
 
-        newDatePrice = new TextFieldCustom(new Color(40, 68, 117));
-        newDatePrice.setBounds(0, 220, 340, 55);
-        newDatePrice.setFieldName("New Date Price");
-        newDatePrice.getTextContainer().setBounds(5, 25, 330, 27);
+        percentageInput = new TextFieldCustom(new Color(40, 68, 117));
+        percentageInput.setBounds(0, 220, 340, 55);
+        percentageInput.setFieldName("New Date Price");
+        percentageInput.getTextContainer().setBounds(5, 25, 330, 27);
 
         RoundPanel datePriceContainer = new RoundPanel(new Color(40, 68, 117));
         datePriceContainer.setLayout(null);
         datePriceContainer.setPreferredSize(new Dimension(350, 280));
         datePriceContainer.add(calendarView);
-        datePriceContainer.add(newDatePrice);
+        datePriceContainer.add(percentageInput);
 
         ScrollPaneCustom scrollPaneDatePriceView = new ScrollPaneCustom(datePriceContainer, new Color(27, 43, 80), new Color(27, 43, 80), new Color(40, 68, 117));
         scrollPaneDatePriceView.setBounds(2, 5, 350, 230);
@@ -290,12 +286,12 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         datePriceModifierPanel = new ManageSubPanel("Date Price Modifier");
         datePriceModifierPanel.add(datePriceScrollView);
-        datePriceModifierPanel.getUpdateButton().addActionListener(new ActionListener(){
+        /*datePriceModifierPanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
 
-                int percentage = Integer.valueOf(newDatePrice.getTextField().getText().trim());
+                /*int percentage = Integer.valueOf(percentageInput.getTextField().getText().trim());
 
                 // ?: is there a restriction for percentage input
 
@@ -320,7 +316,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -361,7 +357,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeRoomPanel = new ManageSubPanel("Remove Room");
         removeRoomPanel.add(roomViewContainer);
         removeRoomPanel.getUpdateButton().setText("Remove");
-        removeRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
+        /*removeRoomPanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
@@ -387,7 +383,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -420,7 +416,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeResPanel = new ManageSubPanel("Remove Reservation");
         removeResPanel.add(resViewContainer);
         removeResPanel.getUpdateButton().setText("Remove");
-        removeResPanel.getUpdateButton().addActionListener(new ActionListener(){
+        /*removeResPanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
@@ -446,7 +442,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });
+        });*/
 
 
 
@@ -462,7 +458,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeHotelPanel = new ManageSubPanel("Remove Hotel");
         removeHotelPanel.getUpdateButton().setText("Remove");
         removeHotelPanel.getUpdateButton().setBounds(130, 170, 100, 30);
-        removeHotelPanel.getUpdateButton().addActionListener(new ActionListener(){
+        /*removeHotelPanel.getUpdateButton().addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e){
@@ -488,7 +484,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
                 listener.buttonClicked("Manage Cancel");
             }
-        });        
+        });*/
 
         manageContainer = new RoundPanel(new Color(40, 68, 117));
         manageContainer.setLayout(null);
@@ -521,7 +517,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     }
 
     public void confirmMod(String panelName){
-        yesButton = new OptionButton("Yes");
+        /*yesButton = new OptionButton("Yes");
         yesButton.setBounds(80, 170, 100, 30);
         yesButton.setColorOver(yesButton.getColorClick());
         
@@ -533,16 +529,18 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         confirmModPanel.getUpdateButton().setVisible(false);
         confirmModPanel.getCancelButton().setVisible(false);
         confirmModPanel.add(yesButton);
-        confirmModPanel.add(noButton);
+        confirmModPanel.add(noButton);*/
+
+        confirmModPanel = new ConfirmModPanel(panelName);
 
         this.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
         confirmModPanel.setVisible(true);
 
-        yesButton.addActionListener(new ActionListener() {
+        /*yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (panelName.equals("Change Name")){
+                /*if (panelName.equals("Change Name")){
                     
                     // TODO: set hotel name to getHotelNameInput();
 
@@ -595,12 +593,12 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             public void actionPerformed(ActionEvent e) {
                 confirmModPanel.setVisible(false);
             }
-        });
+        });*/
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == changeName){
+        /*if (e.getSource() == changeName){
             manageContainer.setVisible(false);
             changeNamePanel.setVisible(true);
             addRoomPanel.setVisible(false);
@@ -669,7 +667,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             removeRoomPanel.setVisible(false);
             removeResPanel.setVisible(false);
             removeHotelPanel.setVisible(true);
-        }
+        }*/
     }
 
     @Override
@@ -732,52 +730,196 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         }
     }
 
-    public String getHotelNameInput(){
-        return hotelNameInput;
+    public IconButton getChangeNameButton(){
+        return changeName;
     }
 
-    public void setHotelNameInput(String hotelNameInput){
-        this.hotelNameInput = hotelNameInput;
+    public void setChangeNameButton(IconButton changeName){
+        this.changeName = changeName;
     }
 
-    public int getStandardRoomInput(){
+    public IconButton getAddRoomButton(){
+        return addRoom;
+    }
+
+    public void setAddRoomButton(IconButton addRoom){
+        this.addRoom = addRoom;
+    }
+
+    public IconButton getUpdateBasePriceButton(){
+        return updateBasePrice;
+    }
+
+    public void setUpdateBasePriceButton(IconButton updateBasePrice){
+        this.updateBasePrice = updateBasePrice;
+    }
+
+    public IconButton getDatePriceModifierButton(){
+        return datePriceModifier;
+    }
+
+    public void setDatePriceModifierButton(IconButton datePriceModifier){
+        this.datePriceModifier = datePriceModifier;
+    }
+
+    public IconButton getRemoveRoomButton(){
+        return removeRoom;
+    }
+
+    public void setRemoveRoomButton(IconButton removeRoom){
+        this.removeRoom = removeRoom;
+    }
+
+    public IconButton getRemoveResButton(){
+        return removeRes;
+    }
+
+    public void setRemoveResButton(IconButton removeRes){
+        this.removeRes = removeRes;
+    }
+
+    public IconButton getRemoveHotelButton(){
+        return removeHotel;
+    }
+
+    public void setRemoveHotelButton(IconButton removeHotel){
+        this.removeHotel = removeHotel;
+    }
+
+    public ManageSubPanel getChangeNamePanel(){
+        return changeNamePanel;
+    }
+
+    public void setChangeNamePanel(ManageSubPanel changeNamePanel){
+        this.changeNamePanel = changeNamePanel;
+    }
+
+    public ManageSubPanel getAddRoomPanel(){
+        return addRoomPanel;
+    }
+
+    public void setAddRoomPanel(ManageSubPanel addRoomPanel){
+        this.addRoomPanel = addRoomPanel;
+    }
+
+    public ManageSubPanel getUpdateBasePricePanel(){
+        return updateBasePricePanel;
+    }
+
+    public void setUpdateBasePricePanel(ManageSubPanel updateBasePricePanel){
+        this.updateBasePricePanel = updateBasePricePanel;
+    }
+
+    public ManageSubPanel getDatePriceModifierPanel(){
+        return datePriceModifierPanel;
+    }
+
+    public void setDatePriceModifierPanel(ManageSubPanel datePriceModifierPanel){
+        this.datePriceModifierPanel = datePriceModifierPanel;
+    }
+
+    public ManageSubPanel getRemoveRoomPanel(){
+        return removeRoomPanel;
+    }
+
+    public void setRemoveRoomPanel(ManageSubPanel removeRoomPanel){
+        this.removeRoomPanel = removeRoomPanel;
+    }
+
+    public ManageSubPanel getRemoveResPanel(){
+        return removeResPanel;
+    }
+
+    public void setRemoveResPanel(ManageSubPanel removeResPanel){
+        this.removeResPanel = removeResPanel;
+    }
+
+    public ManageSubPanel getRemoveHotelPanel(){
+        return removeHotelPanel;
+    }
+
+    public void setRemoveHotelPanel(ManageSubPanel removeHotelPanel){
+        this.removeHotelPanel = removeHotelPanel;
+    }
+
+    public ConfirmModPanel getConfirmModPanel(){
+        return confirmModPanel;
+    }
+
+    public void setConfirmModPanel(ConfirmModPanel confirmModPanel){
+        this.confirmModPanel = confirmModPanel;
+    }
+
+    public OptionButton getYesButton(){
+        return yesButton;
+    }
+
+    public void setYesButton(OptionButton yesButton){
+        this.yesButton = yesButton;
+    }
+
+    public OptionButton getNoButton(){
+        return noButton;
+    }
+
+    public void setNoButton(OptionButton noButton){
+        this.noButton = noButton;
+    }
+
+    public RoundPanel getManageContainer(){
+        return manageContainer;
+    }
+
+    public void setManageContainer(RoundPanel manageContainer){
+        this.manageContainer = manageContainer;
+    }
+
+    public TextFieldCustom getHotelNameInput(){
+        return newHotelNameInput;
+    }
+
+    public void setHotelNameInput(TextFieldCustom newHotelNameInput){
+        this.newHotelNameInput = newHotelNameInput;
+    }
+
+    public TextFieldCustom getStandardRoomInput(){
         return standardRoomInput;
     }
 
-    public void setStandardRoomInput(int standardRoomInput){
+    public void setStandardRoomInput(TextFieldCustom standardRoomInput){
         this.standardRoomInput = standardRoomInput;
     }
 
-    public int getDeluxeRoomInput(){
+    public TextFieldCustom getDeluxeRoomInput(){
         return deluxeRoomInput;
     }
 
-    public void setDeluxeRoomInput(int deluxeRoomInput){
+    public void setDeluxeRoomInput(TextFieldCustom deluxeRoomInput){
         this.deluxeRoomInput = deluxeRoomInput;
     }
 
-    public int getExecutiveRoomInput(){
+    public TextFieldCustom getExecutiveRoomInput(){
         return executiveRoomInput;
     }
 
-    public void setExecutiveRoomInput(int executiveRoomInput){
+    public void setExecutiveRoomInput(TextFieldCustom executiveRoomInput){
         this.executiveRoomInput = executiveRoomInput;
     }
 
-    public float getBasePriceInput(){
-        return basePriceInput;
+    public TextFieldCustom getBasePriceInput(){
+        return newBasePriceInput;
     }
 
-    public void setBasePriceInput(float basePriceInput){
-        this.basePriceInput = basePriceInput;
+    public void setBasePriceInput(TextFieldCustom newBasePriceInput){
+        this.newBasePriceInput = newBasePriceInput;
     }
 
-    public int getDateModInput(){ 
-        return dateModInput;
+    public TextFieldCustom getPercentageInput(){ 
+        return percentageInput;
     }
 
-    public void setDateModInput(int dateModInput){
-        this.dateModInput = dateModInput;
+    public void setPercentageInput(TextFieldCustom percentageInput){
+        this.percentageInput = percentageInput;
     }
 
     public int getPriceModInput(){ 

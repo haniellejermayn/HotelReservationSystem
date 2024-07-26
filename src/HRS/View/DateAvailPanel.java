@@ -25,7 +25,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
-        calendar = new CalendarView(this);
+        calendar = new CalendarView();
 
         // * Available Rooms * //
 
@@ -38,7 +38,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         availPanel = new RoundLabel(new Color(40, 68, 117));
         availPanel.setBounds(355, 20, 175, 86);
         availPanel.setFont(customFont50);
-        availPanel.setText("30");
+        availPanel.setText("00");
         availPanel.setForeground(Color.white);
         availPanel.add(availRooms);
         availPanel.setVerticalAlignment(JLabel.TOP);;
@@ -54,7 +54,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         bookedPanel = new RoundLabel(new Color(40, 68, 117));
         bookedPanel.setBounds(355, 116, 175, 86);
         bookedPanel.setFont(customFont50);
-        bookedPanel.setText("20");
+        bookedPanel.setText("00");
         bookedPanel.setForeground(Color.white);
         bookedPanel.add(bookedRooms);
         bookedPanel.setVerticalAlignment(JLabel.TOP);
@@ -68,7 +68,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
 
     @Override
     public void buttonClicked(String buttonName) {
-        for (int i = 0; i < 31; i++){
+        /*for (int i = 0; i < 31; i++){
             ArrayList<OptionButton> days = calendar.getDays();
             String dayIndex = days.get(i).getButtonName(); 
 
@@ -82,7 +82,30 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
                     days.get(i).setColor(new Color(27, 43, 80));
                 }
             }
-        }
+        }*/
     }
 
+    public CalendarView getCalendar(){
+        return calendar;
+    }
+
+    public void setCalendar(CalendarView calendar){
+        this.calendar = calendar;
+    }
+
+    public RoundLabel getAvailPanel(){
+        return availPanel;
+    }
+
+    public void setAvailPanel(RoundLabel availPanel){
+        this.availPanel = availPanel;
+    }
+
+    public RoundLabel getBookedPanel(){
+        return bookedPanel;
+    }
+
+    public void setBookedPanel(RoundLabel bookedPanel){
+        this.bookedPanel =  bookedPanel;
+    }    
 }

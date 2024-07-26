@@ -8,10 +8,13 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
     
     private OptionButton updateButton;
     private IconButton cancelButton;
+    private String title;
 
     public ManageSubPanel(String title){
 
         super(new Color(40, 68, 117));
+
+        this.title = title;
 
         Font customFont28 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 28);
 
@@ -54,6 +57,14 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
+    }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public OptionButton getUpdateButton(){

@@ -13,10 +13,13 @@ public class HotelItem extends PanelButton{
     private Color colorClick;
     private RoundLabel content;
     private String buttonName;
+    private Hotel hotel;
     
     public HotelItem(Hotel hotel){
 
         super(hotel.getHotelName());
+
+        this.hotel = hotel;
 
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
 
@@ -140,5 +143,13 @@ public class HotelItem extends PanelButton{
 
     public void setButtonName(String buttonName){
         this.buttonName = buttonName;
+    }
+
+    public Hotel getHotel(){
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel){
+        this.hotel = hotel;
     }
 }

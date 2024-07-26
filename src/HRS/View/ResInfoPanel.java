@@ -157,7 +157,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
     @Override
     public void reservationButtonClicked(String reservationButtonName) {
-        ArrayList<Reservation> reservationsTemp = hotel.getReservations();
+        /*ArrayList<Reservation> reservationsTemp = hotel.getReservations();
 
         for (int i = 0; i < nReservations; i++){
             ArrayList<OptionButton> resButtons = resView.getReservations();
@@ -177,6 +177,70 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
                     resButtons.get(i).setColor(new Color(27, 43, 80));
                 }
             }
-        }
+        }*/
+    }
+
+    public ReservationView getResView(){
+        return resView;
+    }
+
+    public void setResView(ReservationView resView){
+        this.resView = resView;
+    }
+
+    public BookCalendar getBookCalendar(){
+        return calendar;
+    }
+
+    public void setBookCalendar(BookCalendar calendar){
+        this.calendar = calendar;
+    }
+
+    public ArrayList<JPanel> getPriceBreakdown(){
+        return priceBreakdown;
+    }
+
+    public void setPriceBreakdown(ArrayList<JPanel> priceBreakdown){
+        this.priceBreakdown = priceBreakdown;
+    }
+
+    public RoundLabel getTotalPrice(){
+        return totalPrice;
+    }
+
+    public void setTotalPrice(RoundLabel totalPrice){
+        this.totalPrice = totalPrice;
+    }
+
+    public RoundLabel getRoomType(){
+        return roomType;
+    }
+
+    public void setRoomType(RoundLabel roomType){
+        this.roomType = roomType;
+    }
+
+    public RoundLabel getGuestInfoPanel(){
+        return guestInfoPanel;
+    }
+
+    public void setGuestInfoPanel(RoundLabel guestInfoPanel){
+        this.guestInfoPanel = guestInfoPanel;
+    }
+
+    public RoundPanel getResInfoContainer(){
+        return resInfoContainer;
+    }
+
+    public void setResInfoContainer(RoundPanel resInfoContainer){
+        this.resInfoContainer = resInfoContainer;
+    }
+
+    public RoundPanel getPriceBreakdownContainer(){
+        return priceBreakdownContainer;
+    }
+
+    public void setPriceBreakdownContainer(RoundPanel priceBreakdownContainer){
+        this.priceBreakdownContainer = priceBreakdownContainer;
     }
 }

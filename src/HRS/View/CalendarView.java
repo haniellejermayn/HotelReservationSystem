@@ -12,7 +12,7 @@ public class CalendarView extends RoundPanel{
     private Font customFont;
     private ActionListener action;
 
-    CalendarView(ButtonClickListener listener){
+    CalendarView(){
         
         super(new Color(27, 43, 80));
 
@@ -32,13 +32,13 @@ public class CalendarView extends RoundPanel{
             }
 
             day.setFont(customFont);
-            day.addActionListener(new ActionListener(){
+            /*day.addActionListener(new ActionListener(){
 
                 @Override
                 public void actionPerformed(ActionEvent e){
                     listener.buttonClicked(dayIndex);
                 }
-            });
+            });*/
 
             days.add(day);
             this.add(days.get(i));

@@ -41,13 +41,13 @@ public class ReservationView extends RoundPanel{
             reservation.setBounds(8, (i + 1) * 9 + (i * 30), 230, 30);
 
             reservation.setFont(customFont);
-            reservation.addActionListener(new ActionListener(){
+            /*reservation.addActionListener(new ActionListener(){
 
                 @Override
                 public void actionPerformed(ActionEvent e){
                     listener.reservationButtonClicked(reservationName);
                 }
-            });
+            });*/
 
             reservations.add(reservation);
             this.add(reservations.get(i));

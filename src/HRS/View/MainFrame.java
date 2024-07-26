@@ -192,7 +192,7 @@ public class MainFrame extends JFrame{
 
     public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
         for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), i);
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }

@@ -6,94 +6,161 @@ import java.util.Scanner;
 
 import javax.swing.JScrollPane;
 
-import src.HRS.View.AccountPanel;
-import src.HRS.View.CreateHotelPanel;
-import src.HRS.View.FilterPanel;
-import src.HRS.View.HomePanel;
-import src.HRS.View.HotelItem;
-import src.HRS.View.HotelOption;
-import src.HRS.View.HotelsPanel;
-import src.HRS.View.IconButton;
-import src.HRS.View.MainFrame;
-import src.HRS.View.ReservationsPanel;
-import src.HRS.View.SelectedHotelPanel;
-import src.HRS.View.SidePanel;
+import src.HRS.View.*;
 
 public class HRSView {
     
     private MainFrame mainFrame;
     private int nHotels;
 
+    // * MainFrame * //
     private SidePanel sidePanel;
-    private JScrollPane scrollPane;
     private HomePanel homePanel;
     private HotelsPanel hotelsPanel;
     private ReservationsPanel resPanel;
     private AccountPanel accountPanel;
-    
-    // * Side Panel * //
-    private IconButton homeButton;
-    private IconButton hotelButton;
-    private IconButton resButton;
-    private IconButton accountButton;
-    private IconButton backButton;
 
     // * Home Panel * //
     private ArrayList<HotelItem> hotelCatalogue;
-
-    // * Selected Hotel Panel * //
-    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
     
     // * Hotel Panel * //
     private ArrayList<HotelOption> hotelOptions;
-    private IconButton createHotelButton;
+    //private IconButton createHotelButton;
     private CreateHotelPanel createHotelPanel;
-    private IconButton filterButton;
+    //private IconButton filterButton;
     private FilterPanel filterPanel; 
+    //private ScrollPaneCustom hotelScrollPane;
+    //private RoundPanel hotelContainer;
+    
+    // * Selected Hotel Panel * //
+    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    private SelectedHotelPanel selectedHotelPanel;
+    private BookHotelPanel bookHotelPanel;
+    private ManagePanel manageHotelPanel;
+    private DateAvailPanel dateAvailPanel;
+    private RoomInfoPanel roomInfoPanel;
+    private ResInfoPanel resInfoPanel;
+
     
     public HRSView(ArrayList<Hotel> hotels, int nHotels){
         mainFrame = new MainFrame(hotels, nHotels);
         this.nHotels = nHotels;
 
-        homeButton = mainFrame.getSidePanel().getHomeButton();
-        homePanel = mainFrame.getHomePanel();
-        hotelCatalogue = homePanel.getHotelCatalogue();
-        
-        hotelButton = mainFrame.getSidePanel().getHotelButton();
+        sidePanel = mainFrame.getSidePanel();
+        homePanel = mainFrame.getHomePanel();        
         hotelsPanel = mainFrame.getHotelsPanel();
-        hotelOptions = hotelsPanel.getHotelCatalogue();
-        createHotelButton = hotelsPanel.getCreateHotelButton();
-        filterButton = hotelsPanel.getFilterButton();
-        filterPanel = hotelsPanel.getFilterPanel();
-
-        resButton = mainFrame.getSidePanel().getReservationsButton();
         resPanel = mainFrame.getResPanel();
-
-        accountButton = mainFrame.getSidePanel().getAccountButton();
         accountPanel = mainFrame.getAccountPanel();
 
-        backButton = sidePanel.getBackButton();
+        createHotelPanel = hotelsPanel.getCreateHotelPanel();
+        filterPanel = hotelsPanel.getFilterPanel();
+
+        bookHotelPanel = selectedHotelPanel.getBookPanel();
+        manageHotelPanel = selectedHotelPanel.getManagePanel();
+
+        dateAvailPanel = selectedHotelPanel.getDateAvailPanel();
+        roomInfoPanel = selectedHotelPanel.getRoomInfoPanel();
+        resInfoPanel = selectedHotelPanel.getResInfoPanel();
+
     }
 
     public void setSidePanelListener(ActionListener listener){
-        homeButton.addActionListener(listener);
-        hotelButton.addActionListener(listener);
-        resButton.addActionListener(listener);
-        accountButton.addActionListener(listener);
-        backButton.addActionListener(listener);
+        sidePanel.getHomeButton().addActionListener(listener);
+        sidePanel.getHotelButton().addActionListener(listener);
+        sidePanel.getReservationsButton().addActionListener(listener);
+        sidePanel.getAccountButton().addActionListener(listener);
+        sidePanel.getBackButton().addActionListener(listener);
     }
 
     public void setHotelSelectedListener(ActionListener listener) {
         for (int i = 0; i < nHotels; i++){
-            hotelCatalogue.get(i).addActionListener(listener);
-            hotelOptions.get(i).addActionListener(listener);
+            mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
+            mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
         }
     }
 
-    public void setHotelsPanelListener(Actionlistener listener){
-        createHotelButton.addActionListener(listener);
-        filterButton.addActionListener(listener);
+    public void setHotelsPanelListener(ActionListener listener){
+        hotelsPanel.getCreateHotelButton().addActionListener(listener);
+        hotelsPanel.getFilterButton().addActionListener(listener);
     }
+
+    public void setCreateHotelListener(ActionListener listener){
+        createHotelPanel.getCreateButton().addActionListener(listener);
+        createHotelPanel.getCancelButton().addActionListener(listener);
+    }
+
+    public void setFilterPanelListener(ActionListener listener){
+        filterPanel.getMostBookedButton().addActionListener(listener);
+        filterPanel.getLowestPriceButton().addActionListener(listener);
+        filterPanel.getHighestPriceButton().addActionListener(listener);
+        filterPanel.getNewestButton().addActionListener(listener);
+    }
+
+    public void setSelectedHotelListener(ActionListener listener){
+        selectedHotelPanel.getDateAvailButton().addActionListener(listener);
+        selectedHotelPanel.getRoomInfoButton().addActionListener(listener);
+        selectedHotelPanel.getResInfoButton().addActionListener(listener);
+        selectedHotelPanel.getBookButton().addActionListener(listener);
+        selectedHotelPanel.getManageButton().addActionListener(listener);
+    }
+
+    public void setBookHotelListener(ActionListener listener){
+        bookHotelPanel.getBookButton().addActionListener(listener);
+        bookHotelPanel.getCancelButton().addActionListener(listener);
+    }
+
+    public void setManageHotelListener(ActionListener listener){
+        manageHotelPanel.getChangeNameButton().addActionListener(listener);
+        manageHotelPanel.getAddRoomButton().addActionListener(listener);
+        manageHotelPanel.getUpdateBasePriceButton().addActionListener(listener);
+        manageHotelPanel.getDatePriceModifierButton().addActionListener(listener);
+        manageHotelPanel.getRemoveRoomButton().addActionListener(listener);
+        manageHotelPanel.getRemoveResButton().addActionListener(listener);
+        manageHotelPanel.getRemoveHotelButton().addActionListener(listener);
+    }
+
+    public void setManageSubPanelListener(ActionListener listener){
+        manageHotelPanel.getChangeNamePanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getAddRoomPanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getUpdateBasePricePanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getDatePriceModifierPanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getRemoveRoomPanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getRemoveResPanel().getUpdateButton().addActionListener(listener);
+        manageHotelPanel.getRemoveHotelPanel().getUpdateButton().addActionListener(listener);
+
+        manageHotelPanel.getChangeNamePanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getAddRoomPanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getUpdateBasePricePanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getDatePriceModifierPanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getRemoveRoomPanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getRemoveResPanel().getCancelButton().addActionListener(listener);
+        manageHotelPanel.getRemoveHotelPanel().getCancelButton().addActionListener(listener);
+    }
+
+    public void setConfirmModListener(ActionListener listener){
+        manageHotelPanel.getConfirmModPanel().getYesButton().addActionListener(listener);
+        manageHotelPanel.getConfirmModPanel().getNoButton().addActionListener(listener);
+        manageHotelPanel.getConfirmModPanel().getCancelButton().addActionListener(listener);
+    }
+
+    public void setDateAvailabilityListener(ActionListener listener){
+        for (int i = 0; i < 31; i++){
+            dateAvailPanel.getCalendar().getDays().get(i).addActionListener(listener);
+        }
+    }
+
+    public void setRoomInfoListener(ActionListener listener){
+        for (int i = 0; i < selectedHotelPanel.getHotel().countRooms(0); i++){
+            roomInfoPanel.getRoomView().getRooms().get(i).addActionListener(listener);
+        }
+    }
+
+    public void setResInfoListener(ActionListener listener){
+        for (int i = 0; i < selectedHotelPanel.getHotel().countReservations(); i++){
+            resInfoPanel.getResView().getReservations().get(i).addActionListener(listener);
+        }
+    }
+
 
 
     /*for (int i = 0; i < model.countHotels(); i++){
@@ -125,14 +192,6 @@ public class HRSView {
 
     public void setSidePanel(SidePanel sidePanel){
         this.sidePanel = sidePanel;
-    }
-
-    public JScrollPane getScrollPane(){
-        return scrollPane;
-    }
-
-    public void setSidePane(JScrollPane scrollPane){
-        this.scrollPane = scrollPane;
     }
 
     public HomePanel getHomePanel(){
@@ -167,46 +226,6 @@ public class HRSView {
         this.accountPanel = accountPanel;
     }
 
-    public IconButton getHomeButton(){
-        return homeButton;
-    }
-
-    public void setHomeButton(IconButton homeButton){
-        this.homeButton = homeButton;
-    }
-
-    public IconButton getHotelButton(){
-        return hotelButton;
-    }
-
-    public void setHotelButton(IconButton hotelButton){
-        this.hotelButton = hotelButton;
-    }
-
-    public IconButton getResButton(){
-        return resButton;
-    }
-
-    public void setResButton(IconButton resButton){
-        this.resButton = resButton;
-    }
-
-    public IconButton getAccountButton(){
-        return accountButton;
-    }
-
-    public void setAccountButton(IconButton accountButton){
-        this.accountButton = accountButton;
-    }
-
-    public IconButton getBackButton(){
-        return backButton;
-    }
-
-    public void setBackButton(IconButton backButton){
-        this.backButton = backButton;
-    }
-
     public ArrayList<HotelItem> getHotelCatalogue(){
         return hotelCatalogue;
     }
@@ -231,20 +250,20 @@ public class HRSView {
         this.selectedHotelPanels = selectedHotelPanels;
     }
 
-    public IconButton getCreateHotelButton(){
-        return createHotelButton;
+    public SelectedHotelPanel getSelectedHotelPanel(){
+        return selectedHotelPanel;
     }
 
-    public void setCreateHotelButton(IconButton createHotelButton){
-        this.createHotelButton = createHotelButton;
+    public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
+        this.selectedHotelPanel = selectedHotelPanel;
     }
 
-    public IconButton getFilterButton(){
-        return filterButton;
+    public CreateHotelPanel getCreateHotelPanel(){
+        return createHotelPanel;
     }
 
-    public void setFilterButton(IconButton filterButton){
-        this.filterButton = filterButton;
+    public void setCreateHotelPanel(CreateHotelPanel createHotelPanel){
+        this.createHotelPanel = createHotelPanel;
     }
 
     public FilterPanel getFilterPanel(){
@@ -255,11 +274,20 @@ public class HRSView {
         this.filterPanel = filterPanel;
     }
 
-    public CreateHotelPanel getCreateHotelPanel(){
-        return createHotelPanel;
+    public BookHotelPanel getBookHotelPanel(){
+        return bookHotelPanel;
     }
 
-    public void setCreateHotelPanel(CreateHotelPanel createHotelPanel){
-        this.createHotelPanel = createHotelPanel;
+    public void setBookHotelPanel(BookHotelPanel bookHotelPanel){
+        this.bookHotelPanel = bookHotelPanel;
     }
+
+    public ManagePanel getManageHotelPanel(){
+        return manageHotelPanel;
+    }
+
+    public void setManageHotelPanel(ManagePanel manageHotelPanel){
+        this.manageHotelPanel = manageHotelPanel;
+    }
+
 }
