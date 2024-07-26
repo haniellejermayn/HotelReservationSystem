@@ -9,7 +9,7 @@ import javax.swing.*;
 import src.HRS.Model.*;
 import src.HRS.View.*;
 
-public class HRSController implements ButtonClickListener{
+public class HRSController{
     private HRSModel model;
     private HRSView view;
 
@@ -29,10 +29,11 @@ public class HRSController implements ButtonClickListener{
         view.setConfirmModListener(new ConfirmModListener());
         view.setDateAvailabilityListener(new DateAvailabilityListener());
         view.setRoomInfoListener(new RoomInfoListener());
+        view.setResInfoListener(new ResInfoListener());
     }
 
     public void start(){
-
+        view.setMainFrame(new MainFrame(model.getHotels(), model.countHotels()));
     }
 
     private class SidePanelListener implements ActionListener{
@@ -812,19 +813,25 @@ public class HRSController implements ButtonClickListener{
 
             ArrayList<OptionButton> resButtons = resInfoPanel.getResView().getReservations();
             ArrayList<Reservation> reservations = hotel.getReservations();
-            BookCalendarView calendar = resInfoPanel.getBookCalendar(); 
+            BookCalendar calendar = resInfoPanel.getBookCalendar();
 
             for (int i = 0; i < hotel.countReservations(); i++){
                 String resName = reservations.get(i).getGuestName(); 
                 String type = reservations.get(i).getRoom().getRoomType();
                 
                 if (e.getSource() == resButtons.get(i)){
-                    guestInfoPanel.setText(resName + "'s Reservation");
-                    guestInfoPanel.remove(roomType);
-                    roomType.setText(type + " Room"); 
-                    guestInfoPanel.add(roomType);
+                    resInfoPanel.getGuestInfoPanel().setText(resName + "'s Reservation");
+                    resInfoPanel.getRoomType().setText(type + " Room"); 
                     resButtons.get(i).setColor(new Color(51, 88, 150));
                     calendar.setHighlightedDays(reservations.get(i).getCheckInDate(), reservations.get(i).getCheckOutDate());
+
+                    PriceBreakdownPanel newPriceBreakdownContainer = new PriceBreakdownPanel(reservations.get(i));
+                    ScrollPaneCustom newPriceScrollPane = new ScrollPaneCustom(newPriceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
+                    newPriceScrollPane.setBounds(345, 250, 175, 150);
+                    newPriceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+                    resInfoPanel.setPriceScrollPane(newPriceScrollPane);
+
+                    resInfoPanel.getTotalPrice().setText(String.valueOf(hotel.getReservations().get(i).computeFinalPrice()));
                 }
                 else {
                     for (int j = 0; j < hotel.countReservations(); j++){
@@ -834,16 +841,6 @@ public class HRSController implements ButtonClickListener{
             }
         }
     }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-        
-    }
-
-
-
-
-
 
 
     /*public void updateManagePanel(Hotel hotel) {

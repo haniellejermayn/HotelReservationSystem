@@ -2,16 +2,13 @@ package src.HRS.Model;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import javax.swing.JScrollPane;
 
 import src.HRS.View.*;
 
 public class HRSView {
     
     private MainFrame mainFrame;
-    private int nHotels;
+    private ArrayList<Hotel> hotels;
 
     // * MainFrame * //
     private SidePanel sidePanel;
@@ -19,18 +16,10 @@ public class HRSView {
     private HotelsPanel hotelsPanel;
     private ReservationsPanel resPanel;
     private AccountPanel accountPanel;
-
-    // * Home Panel * //
-    private ArrayList<HotelItem> hotelCatalogue;
     
     // * Hotel Panel * //
-    private ArrayList<HotelOption> hotelOptions;
-    //private IconButton createHotelButton;
     private CreateHotelPanel createHotelPanel;
-    //private IconButton filterButton;
     private FilterPanel filterPanel; 
-    //private ScrollPaneCustom hotelScrollPane;
-    //private RoundPanel hotelContainer;
     
     // * Selected Hotel Panel * //
     private ArrayList<SelectedHotelPanel> selectedHotelPanels;
@@ -42,9 +31,10 @@ public class HRSView {
     private ResInfoPanel resInfoPanel;
 
     
-    public HRSView(ArrayList<Hotel> hotels, int nHotels){
-        mainFrame = new MainFrame(hotels, nHotels);
-        this.nHotels = nHotels;
+    //public HRSView(ArrayList<Hotel> hotels, int nHotels){
+    public HRSView(){
+        //mainFrame = new MainFrame(hotels, nHotels);
+        //hotels = hotels;
 
         sidePanel = mainFrame.getSidePanel();
         homePanel = mainFrame.getHomePanel();        
@@ -73,7 +63,7 @@ public class HRSView {
     }
 
     public void setHotelSelectedListener(ActionListener listener) {
-        for (int i = 0; i < nHotels; i++){
+        for (int i = 0; i < hotels.size(); i++){
             mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
             mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
         }
@@ -161,23 +151,6 @@ public class HRSView {
         }
     }
 
-
-
-    /*for (int i = 0; i < model.countHotels(); i++){
-        String hotel = model.getHotels().get(i).getHotelName(); 
-
-        if (hotelName.equals(hotel)){
-            SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
-            selectedHotel.setVisible(true);
-            view.getHomePanel().setVisible(false);
-            view.getHotelsPanel().setVisible(false);
-            view.getMainFrame().add(selectedHotel);
-        }
-        else {
-            view.getSelectedHotelPanels().get(i).setVisible(false);
-        }
-    }*/
-
     public MainFrame getMainFrame(){
         return mainFrame;
     }
@@ -224,22 +197,6 @@ public class HRSView {
 
     public void setAccountPanel(AccountPanel accountPanel){
         this.accountPanel = accountPanel;
-    }
-
-    public ArrayList<HotelItem> getHotelCatalogue(){
-        return hotelCatalogue;
-    }
-
-    public void setHotelCatalogue(ArrayList<HotelItem> hotelCatalogue){
-        this.hotelCatalogue = hotelCatalogue;
-    }
-
-    public ArrayList<HotelOption> getHotelOptions(){
-        return hotelOptions;
-    }
-
-    public void setHotelOptions(ArrayList<HotelOption> hotelOptions){
-        this.hotelOptions = hotelOptions;
     }
 
     public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){

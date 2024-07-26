@@ -15,7 +15,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
     private RoundLabel roomType;
     private RoundLabel guestInfoPanel;
     private RoundPanel resInfoContainer;
-    private RoundPanel priceBreakdownContainer;
+    private PriceBreakdownPanel priceBreakdownContainer;
     private ArrayList<OptionButton> days;
     private ScrollPaneCustom priceScrollPane;
     private Hotel hotel;
@@ -67,38 +67,13 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         
         // * Price BreakDown * //
 
-        int nDates = 0; 
-        ArrayList<String> dates = new ArrayList<String>(); 
-
-        priceBreakdownContainer = new RoundPanel(new Color(40, 68, 117));
-        priceBreakdownContainer.setPreferredSize(new Dimension(175, (nDates + 1) * 26 + nDates * 5));
-        priceBreakdownContainer.setFont(customFont15);
-        priceBreakdownContainer.setForeground(Color.white);
-
-        priceBreakdown = new ArrayList<JPanel>();
-
-        for (int i = 0; i < nDates; i++){ // TODO: replace with no. of dates
-            JLabel dateTemp = new JLabel();
-            dateTemp.setText(dates.get(i)); 
-            dateTemp.setFont(customFont13);
-            dateTemp.setForeground(Color.white);
-            //dateTemp.setBackground(new Color(40, 68, 117));
-            dateTemp.setVerticalAlignment(JLabel.CENTER);
-            dateTemp.setHorizontalAlignment(JLabel.LEFT);
-
-            JPanel panelTemp = new JPanel();
-            panelTemp.setBounds(5, i * 26 + 5, 175, 23);
-            panelTemp.setBackground(new Color(40, 68, 117));
-            panelTemp.add(dateTemp);
-            
-            priceBreakdown.add(panelTemp);
-            priceBreakdownContainer.add(priceBreakdown.get(i));
-        } 
+        priceBreakdownContainer = new PriceBreakdownPanel(hotel.fetchReservation(0));
 
         // TODO: Make a change in price breakdown !
         priceScrollPane = new ScrollPaneCustom(priceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         priceScrollPane.setBounds(345, 250, 175, 150);
         priceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        priceScrollPane.setVisible(false);
 
         // * Total Price * //
         totalPrice = new RoundLabel(new Color(40, 68, 117));
@@ -108,6 +83,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         totalPrice.setForeground(Color.white);
         totalPrice.setVerticalAlignment(JLabel.CENTER);
         totalPrice.setHorizontalAlignment(JLabel.CENTER);
+        totalPrice.setVisible(false);
 
         nReservations = hotel.countReservations(); 
 
@@ -236,11 +212,19 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         this.resInfoContainer = resInfoContainer;
     }
 
-    public RoundPanel getPriceBreakdownContainer(){
+    public PriceBreakdownPanel getPriceBreakdownContainer(){
         return priceBreakdownContainer;
     }
 
-    public void setPriceBreakdownContainer(RoundPanel priceBreakdownContainer){
+    public void setPriceBreakdownContainer(PriceBreakdownPanel priceBreakdownContainer){
         this.priceBreakdownContainer = priceBreakdownContainer;
+    }
+
+    public ScrollPaneCustom getPriceScrollPane(){
+        return priceScrollPane;
+    }
+
+    public void setPriceScrollPane(ScrollPaneCustom priceScrollPane){
+        this.priceScrollPane = priceScrollPane;
     }
 }

@@ -1,15 +1,15 @@
 package src.HRS;
 import src.HRS.Model.*;
-import src.HRS.View.MainFrame;
+//import src.HRS.View.MainFrame;
 
-import java.util.*;
+//import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
         HRSModel model = new HRSModel();
-        HRSView view = new HRSView(model.getHotels(), model.countHotels());
+        HRSView view = new HRSView();
         
         HRSController controller = new HRSController(model, view);
 
