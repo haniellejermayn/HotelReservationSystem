@@ -99,11 +99,10 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
     }
 
-                                            // TODO: change to Hotel
-    public void initializeHotelOption(HotelOption item, String hotel, int itemNo){
+    public void initializeHotelOption(HotelOption item, Hotel hotel, int itemNo){
 
         // TODO: add price to hotelOption
-        String hotelName = hotel; // TODO: change to hotel name
+        String hotelName = hotel.getHotelName(); // TODO: change to hotel name
         float price = 1299.00f; // TODO: change to hotel price
         int rooms = 30; // TODO: change to hotel rooms
         int reservations = 10; // TODO: change to hotel reservations
@@ -174,7 +173,7 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
             ArrayList<HotelOption> mostBookedCatalogue = new ArrayList<HotelOption>();
 
             // TODO: add filter function for most booked
-            ArrayList<String> mostBooked = new ArrayList<String>();
+            ArrayList<Hotel> mostBooked = new ArrayList<Hotel>();
             mostBooked.add(hotels.get(3));
             mostBooked.add(hotels.get(2));
             mostBooked.add(hotels.get(1));
@@ -207,7 +206,7 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
             ArrayList<HotelOption> lowestPriceCatalogue = new ArrayList<HotelOption>();
 
             // TODO: add filter function for lowest price
-            ArrayList<String> lowestPrice = new ArrayList<String>();
+            ArrayList<Hotel> lowestPrice = new ArrayList<Hotel>();
             lowestPrice.add(hotels.get(3));
             lowestPrice.add(hotels.get(2));
             lowestPrice.add(hotels.get(4));
@@ -240,7 +239,7 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
             ArrayList<HotelOption> highestPriceCatalogue = new ArrayList<HotelOption>();
 
             // TODO: add filter function for highest price
-            ArrayList<String> highestPrice = new ArrayList<String>();
+            ArrayList<Hotel> highestPrice = new ArrayList<Hotel>();
             highestPrice.add(hotels.get(4));
             highestPrice.add(hotels.get(3));
             highestPrice.add(hotels.get(2));
@@ -273,7 +272,7 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
             ArrayList<HotelOption> newestCatalogue = new ArrayList<HotelOption>();
 
             // TODO: add filter function for newest
-            ArrayList<String> newest = new ArrayList<String>();
+            ArrayList<Hotel> newest = new ArrayList<Hotel>();
             newest.add(hotels.get(0));
             newest.add(hotels.get(1));
             newest.add(hotels.get(2));

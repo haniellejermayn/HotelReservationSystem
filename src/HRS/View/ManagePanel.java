@@ -343,7 +343,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             roomViewHeight = 198;
         }
 
-        roomView = new RoomView(this, nRooms); // TODO: set to no. of rooms
+        roomView = new RoomView(hotel, this); // TODO: set to no. of rooms
 
         roomView.setBounds(0, 0, 250, roomViewHeight);
         roomView.setPreferredSize(new Dimension(250, roomViewHeight));
@@ -403,7 +403,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         int nReservations = 6; // TODO: remove
         int resViewHeight = nReservations * 39 + 5;
 
-        resView = new ReservationView(this, nReservations); // TODO: change to no. of reservations
+        resView = new ReservationView(this, hotel); // TODO: change to no. of reservations
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
 
