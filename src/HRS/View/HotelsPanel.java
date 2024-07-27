@@ -46,10 +46,12 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         // * Hotel Catalogue * //
         hotelCatalogue = new ArrayList<HotelOption>();
 
-        for(int i = 0; i < nHotels; i++){
-            HotelOption optionTemp = new HotelOption(hotels.get(i));
-            initializeHotelOption(optionTemp, hotels.get(i), i);
-            hotelCatalogue.add(optionTemp);
+        if (!hotels.isEmpty()){
+            for(int i = 0; i < nHotels; i++){
+                HotelOption optionTemp = new HotelOption(hotels.get(i));
+                initializeHotelOption(optionTemp, hotels.get(i), i);
+                hotelCatalogue.add(optionTemp);
+            }
         }
 
         // * Filter * //
@@ -61,6 +63,13 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         filterButton.setBounds(570, 0, 40, 40);
         filterButton.setColorClick(filterButton.getColorOver());
         filterButton.addActionListener(this);
+
+        if (hotels.isEmpty()){
+            filterButton.setVisible(false);
+        }
+        else {
+            filterButton.setVisible(true);
+        }
 
         filterPanel = new FilterPanel(new Color(40, 68, 117), this);
         filterPanel.setVisible(false);
@@ -81,8 +90,10 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         hotelContainer.setLayout(null);;
         hotelContainer.setPreferredSize(new Dimension(620, hotelContainerHeight));
 
-        for (int i = 0; i < nHotels; i++){
-            hotelContainer.add(hotelCatalogue.get(i));
+        if (!hotels.isEmpty()){
+            for (int i = 0; i < nHotels; i++){
+                hotelContainer.add(hotelCatalogue.get(i));
+            }
         }
 
         hotelContainer.add(createHotelButton);
@@ -157,6 +168,9 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         if (buttonName.equals("Create")){
             createHotelPanel.setVisible(false);
             this.remove(createHotelPanel);
+            Hotel newHotel = new Hotel("Kelsey", 20, 10, 15); // TODO: change to necessary info
+            hotels.add(newHotel);
+            //  BUG: does not show newly created hotel // !
             nHotels++;
         }
         else if (buttonName.equals("Create Cancel")){
@@ -165,135 +179,143 @@ public class HotelsPanel extends LayeredRoundPanel implements ActionListener, Bu
         }
         else if (buttonName.equals("Most Booked")){
 
-            scrollPane.setVisible(false);
-            this.remove(scrollPane);
-
-            hotelContainer.removeAll();
-
-            ArrayList<HotelOption> mostBookedCatalogue = new ArrayList<HotelOption>();
-
-            // TODO: add filter function for most booked
-            ArrayList<Hotel> mostBooked = new ArrayList<Hotel>();
-            mostBooked.add(hotels.get(3));
-            mostBooked.add(hotels.get(2));
-            mostBooked.add(hotels.get(1));
-            mostBooked.add(hotels.get(4));
-            mostBooked.add(hotels.get(0));
-            mostBooked.add(hotels.get(5));
-
-            for(int i = 0; i < nHotels; i++){
-                HotelOption optionTemp = new HotelOption(mostBooked.get(i));
-                initializeHotelOption(optionTemp, mostBooked.get(i), i);
-                mostBookedCatalogue.add(optionTemp);
-                hotelContainer.add(mostBookedCatalogue.get(i));
+            if (!hotels.isEmpty()){
+                scrollPane.setVisible(false);
+                this.remove(scrollPane);
+    
+                hotelContainer.removeAll();
+    
+                ArrayList<HotelOption> mostBookedCatalogue = new ArrayList<HotelOption>();
+    
+                // TODO: add filter function for most booked
+                ArrayList<Hotel> mostBooked = new ArrayList<Hotel>();
+                mostBooked.add(hotels.get(3));
+                mostBooked.add(hotels.get(2));
+                mostBooked.add(hotels.get(1));
+                mostBooked.add(hotels.get(4));
+                mostBooked.add(hotels.get(0));
+                mostBooked.add(hotels.get(5));
+    
+                for(int i = 0; i < nHotels; i++){
+                    HotelOption optionTemp = new HotelOption(mostBooked.get(i));
+                    initializeHotelOption(optionTemp, mostBooked.get(i), i);
+                    mostBookedCatalogue.add(optionTemp);
+                    hotelContainer.add(mostBookedCatalogue.get(i));
+                }
+    
+                hotelContainer.add(createHotelButton);
+    
+                scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
+                scrollPane.setBounds(0, 60, 620, 405);
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    
+                this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
             }
-
-            hotelContainer.add(createHotelButton);
-
-            scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
-            scrollPane.setBounds(0, 60, 620, 405);
-            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-            this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
         }
         else if (buttonName.equals("Lowest Price")){
 
-            scrollPane.setVisible(false);
-            this.remove(scrollPane);
-
-            hotelContainer.removeAll();
-
-            ArrayList<HotelOption> lowestPriceCatalogue = new ArrayList<HotelOption>();
-
-            // TODO: add filter function for lowest price
-            ArrayList<Hotel> lowestPrice = new ArrayList<Hotel>();
-            lowestPrice.add(hotels.get(3));
-            lowestPrice.add(hotels.get(2));
-            lowestPrice.add(hotels.get(4));
-            lowestPrice.add(hotels.get(1));
-            lowestPrice.add(hotels.get(5));
-            lowestPrice.add(hotels.get(0));
-
-            for(int i = 0; i < nHotels; i++){
-                HotelOption optionTemp = new HotelOption(lowestPrice.get(i));
-                initializeHotelOption(optionTemp, lowestPrice.get(i), i);
-                lowestPriceCatalogue.add(optionTemp);
-                hotelContainer.add(lowestPriceCatalogue.get(i));
+            if (!hotels.isEmpty()){
+                scrollPane.setVisible(false);
+                this.remove(scrollPane);
+    
+                hotelContainer.removeAll();
+    
+                ArrayList<HotelOption> lowestPriceCatalogue = new ArrayList<HotelOption>();
+    
+                // TODO: add filter function for lowest price
+                ArrayList<Hotel> lowestPrice = new ArrayList<Hotel>();
+                lowestPrice.add(hotels.get(3));
+                lowestPrice.add(hotels.get(2));
+                lowestPrice.add(hotels.get(4));
+                lowestPrice.add(hotels.get(1));
+                lowestPrice.add(hotels.get(5));
+                lowestPrice.add(hotels.get(0));
+    
+                for(int i = 0; i < nHotels; i++){
+                    HotelOption optionTemp = new HotelOption(lowestPrice.get(i));
+                    initializeHotelOption(optionTemp, lowestPrice.get(i), i);
+                    lowestPriceCatalogue.add(optionTemp);
+                    hotelContainer.add(lowestPriceCatalogue.get(i));
+                }
+    
+                hotelContainer.add(createHotelButton);
+    
+                scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
+                scrollPane.setBounds(0, 60, 620, 405);
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    
+                this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
             }
-
-            hotelContainer.add(createHotelButton);
-
-            scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
-            scrollPane.setBounds(0, 60, 620, 405);
-            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-            this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
         }
         else if (buttonName.equals("Highest Price")){
 
-            scrollPane.setVisible(false);
-            this.remove(scrollPane);
-
-            hotelContainer.removeAll();
-
-            ArrayList<HotelOption> highestPriceCatalogue = new ArrayList<HotelOption>();
-
-            // TODO: add filter function for highest price
-            ArrayList<Hotel> highestPrice = new ArrayList<Hotel>();
-            highestPrice.add(hotels.get(4));
-            highestPrice.add(hotels.get(3));
-            highestPrice.add(hotels.get(2));
-            highestPrice.add(hotels.get(5));
-            highestPrice.add(hotels.get(0));
-            highestPrice.add(hotels.get(1));
-
-            for(int i = 0; i < nHotels; i++){
-                HotelOption optionTemp = new HotelOption(highestPrice.get(i));
-                initializeHotelOption(optionTemp, highestPrice.get(i), i);
-                highestPriceCatalogue.add(optionTemp);
-                hotelContainer.add(highestPriceCatalogue.get(i));
+            if (!hotels.isEmpty()){
+                scrollPane.setVisible(false);
+                this.remove(scrollPane);
+    
+                hotelContainer.removeAll();
+    
+                ArrayList<HotelOption> highestPriceCatalogue = new ArrayList<HotelOption>();
+    
+                // TODO: add filter function for highest price
+                ArrayList<Hotel> highestPrice = new ArrayList<Hotel>();
+                highestPrice.add(hotels.get(4));
+                highestPrice.add(hotels.get(3));
+                highestPrice.add(hotels.get(2));
+                highestPrice.add(hotels.get(5));
+                highestPrice.add(hotels.get(0));
+                highestPrice.add(hotels.get(1));
+    
+                for(int i = 0; i < nHotels; i++){
+                    HotelOption optionTemp = new HotelOption(highestPrice.get(i));
+                    initializeHotelOption(optionTemp, highestPrice.get(i), i);
+                    highestPriceCatalogue.add(optionTemp);
+                    hotelContainer.add(highestPriceCatalogue.get(i));
+                }
+    
+                hotelContainer.add(createHotelButton);
+    
+                scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
+                scrollPane.setBounds(0, 60, 620, 405);
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    
+                this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
             }
-
-            hotelContainer.add(createHotelButton);
-
-            scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
-            scrollPane.setBounds(0, 60, 620, 405);
-            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-            this.add(scrollPane);
         }
         else if (buttonName.equals("Newest")){
 
-            scrollPane.setVisible(false);
-            this.remove(scrollPane);
-
-            hotelContainer.removeAll();
-
-            ArrayList<HotelOption> newestCatalogue = new ArrayList<HotelOption>();
-
-            // TODO: add filter function for newest
-            ArrayList<Hotel> newest = new ArrayList<Hotel>();
-            newest.add(hotels.get(0));
-            newest.add(hotels.get(1));
-            newest.add(hotels.get(2));
-            newest.add(hotels.get(3));
-            newest.add(hotels.get(4));
-            newest.add(hotels.get(5));
-
-            for(int i = 0; i < nHotels; i++){
-                HotelOption optionTemp = new HotelOption(newest.get(i));
-                initializeHotelOption(optionTemp, newest.get(i), i);
-                newestCatalogue.add(optionTemp);
-                hotelContainer.add(newestCatalogue.get(i));
+            if (!hotels.isEmpty()){
+                scrollPane.setVisible(false);
+                this.remove(scrollPane);
+    
+                hotelContainer.removeAll();
+    
+                ArrayList<HotelOption> newestCatalogue = new ArrayList<HotelOption>();
+    
+                // TODO: add filter function for newest
+                ArrayList<Hotel> newest = new ArrayList<Hotel>();
+                newest.add(hotels.get(0));
+                newest.add(hotels.get(1));
+                newest.add(hotels.get(2));
+                newest.add(hotels.get(3));
+                newest.add(hotels.get(4));
+                newest.add(hotels.get(5));
+    
+                for(int i = 0; i < nHotels; i++){
+                    HotelOption optionTemp = new HotelOption(newest.get(i));
+                    initializeHotelOption(optionTemp, newest.get(i), i);
+                    newestCatalogue.add(optionTemp);
+                    hotelContainer.add(newestCatalogue.get(i));
+                }
+    
+                hotelContainer.add(createHotelButton);
+    
+                scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
+                scrollPane.setBounds(0, 60, 620, 405);
+                scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    
+                this.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
             }
-
-            hotelContainer.add(createHotelButton);
-
-            scrollPane = new ScrollPaneCustom(hotelContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
-            scrollPane.setBounds(0, 60, 620, 405);
-            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-            this.add(scrollPane);
         }
     }
 

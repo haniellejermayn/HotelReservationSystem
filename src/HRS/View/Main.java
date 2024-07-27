@@ -8,6 +8,6 @@ public class Main {
         
         ArrayList<Hotel> hotels = new ArrayList<Hotel>();
         
-        new MainFrame(hotels, 6);
+        new MainFrame(hotels, hotels.size());
     }
 }

@@ -215,10 +215,12 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
     }
 
     public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
-        for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
-            hotelTemp.setVisible(false);
-            this.selectedHotelPanels.add(hotelTemp);
+        if (!hotels.isEmpty()){
+            for (int i = 0; i < nHotels; i++){
+                SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
+                hotelTemp.setVisible(false);
+                this.selectedHotelPanels.add(hotelTemp);
+            }
         }
     }
 

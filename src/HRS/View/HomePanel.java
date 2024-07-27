@@ -70,10 +70,12 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
         hotelCatalogue = new ArrayList<HotelItem>();
 
-        for(int i = 0; i < nHotel; i++){
-            HotelItem itemTemp = new HotelItem(hotels.get(i));
-            initializeHotelItem(itemTemp, hotels.get(i), i);
-            hotelCatalogue.add(itemTemp);
+        if (!hotels.isEmpty()){
+            for(int i = 0; i < nHotel; i++){
+                HotelItem itemTemp = new HotelItem(hotels.get(i));
+                initializeHotelItem(itemTemp, hotels.get(i), i);
+                hotelCatalogue.add(itemTemp);
+            }
         }
 
         this.setLayout(null);
@@ -82,8 +84,10 @@ public class HomePanel extends RoundPanel implements ActionListener{
         this.add(titlePanel);
         this.add(star);
 
-        for (int i = 0; i < nHotel; i++){
-            this.add(hotelCatalogue.get(i));
+        if (!hotels.isEmpty()){
+            for (int i = 0; i < nHotel; i++){
+                this.add(hotelCatalogue.get(i));
+            }
         }
     }
 
