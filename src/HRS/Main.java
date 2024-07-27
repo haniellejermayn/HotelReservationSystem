@@ -1,8 +1,9 @@
 package src.HRS;
-import src.HRS.Model.*;
-//import src.HRS.View.MainFrame;
 
 //import java.util.*;
+
+import src.HRS.Model.HRSModel;
+import src.HRS.View.HRSView;
 
 public class Main {
 

@@ -1,5 +1,6 @@
 package src.HRS.Model;
 import GUI.*;
+
 import java.util.Scanner;
 
 public class HRSController {

@@ -1,9 +1,10 @@
-package src.HRS.Model;
+package src.HRS.View;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import src.HRS.View.*;
+import src.HRS.Model.Hotel;
+
 
 public class HRSView {
     
