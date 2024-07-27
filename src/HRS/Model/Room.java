@@ -16,7 +16,7 @@ public class Room {
     // -- Constructors -- //
 
     /**
-     * Constructs a new Standard Room with the specified name and a default base price.
+     * Constructs a new (Standard) Room with the specified name and a default base price.
      *
      * @param roomName the name of the room
      */
@@ -27,7 +27,7 @@ public class Room {
     }
 
     /**
-     * Constructs a new Standard Room with the specified base price and a temporary name.
+     * Constructs a new (Standard) Room with the specified base price and a temporary name.
      *
      * @param basePrice the base price of the room
      */
