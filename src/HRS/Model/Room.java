@@ -1,13 +1,14 @@
 package src.HRS.Model;
 
 /**
- * Represents a hotel room with a name and base price.
+ * Represents a hotel room with a name, type, and base price.
  */
 public class Room {
     private String roomName;
     private String roomType;
     protected float roomPrice;
 
+    // Static constants for room type
     public static final int TYPE_STANDARD = 1;
     public static final int TYPE_DELUXE = 2;
     public static final int TYPE_EXECUTIVE = 3;
@@ -15,7 +16,7 @@ public class Room {
     // -- Constructors -- //
 
     /**
-     * Constructs a new Room with the specified name and a default base price.
+     * Constructs a new Standard Room with the specified name and a default base price.
      *
      * @param roomName the name of the room
      */
@@ -26,7 +27,7 @@ public class Room {
     }
 
     /**
-     * Constructs a new Room with the specified base price and a temporary name.
+     * Constructs a new Standard Room with the specified base price and a temporary name.
      *
      * @param basePrice the base price of the room
      */
