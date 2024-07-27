@@ -223,18 +223,19 @@ public class Hotel {
         this.reservations.remove(index);
     }
 
-    /**
-     * Adds a new room to the hotel.
-     */
-    public void addRoom(int type) {
-        switch(type) {
-            case 1: this.rooms.add(new Room(hotelName, this.basePrice)); break;
-            case 2: this.rooms.add(new DeluxeRoom(hotelName, this.basePrice)); break;
-            case 3: this.rooms.add(new ExecutiveRoom(hotelName, this.basePrice)); break;
+    // Add rooms to hotel
+    public void addRooms(int standardAmount, int deluxeAmount, int executiveAmount) {
+        for(int i = 0; i < standardAmount; i++) {
+            this.rooms.add(new Room(this.basePrice));
+        }
+        for(int i = 0; i < deluxeAmount; i++) {
+            this.rooms.add(new DeluxeRoom(this.basePrice));
+        }
+        for(int i = 0; i < executiveAmount; i++) {
+            this.rooms.add(new ExecutiveRoom(this.basePrice));
         }
         
         this.reinitializeRooms();
-        this.datePriceModifiers.add(1.0f);
     }
 
     /**
