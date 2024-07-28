@@ -105,14 +105,14 @@ public class HRSView {
     }
 
     public void setBookHotelListener(ActionListener listener){
-        bookHotelPanel.getBookButton().addActionListener(listener);
-        bookHotelPanel.getCancelButton().addActionListener(listener);
-        bookHotelPanel.getStandardRoomButton().addActionListener(listener);
-        bookHotelPanel.getDeluxeRoomButton().addActionListener(listener);
-        bookHotelPanel.getExecutiveRoomButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookPanel().getBookButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookPanel().getCancelButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookPanel().getStandardRoomButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookPanel().getDeluxeRoomButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookPanel().getExecutiveRoomButton().addActionListener(listener);
 
         for (int i = 0; i < 31; i++){
-            bookHotelPanel.getDays().get(i).addActionListener(listener);
+            mainFrame.getSelectedHotelPanel().getBookPanel().getDays().get(i).addActionListener(listener);
         }
     }
 

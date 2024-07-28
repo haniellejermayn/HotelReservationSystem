@@ -54,7 +54,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelName.setVerticalAlignment(JLabel.TOP);
         hotelName.setBounds(15, 20, 300, 50);
         
-        hotelPrice = new JLabel(String.format("%.2f", hotel.getBasePrice())); // ! // BUG: doesn't show 2 dec points and $ symbol
+        hotelPrice = new JLabel(String.format("$%.2f", hotel.getBasePrice())); // ! // BUG: doesn't show 2 dec points and $ symbol
         hotelPrice.setFont(customFont50);
         hotelPrice.setForeground(Color.white);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
@@ -151,6 +151,14 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     @Override
     public void buttonClicked(String buttonName) {
         
+    }
+
+    public RoundPanel getTitlePanel(){
+        return titlePanel;
+    }
+
+    public void setTitlePanel(RoundPanel titlePanel){
+        this.titlePanel = titlePanel;
     }
 
     public IconButton getManageButton(){

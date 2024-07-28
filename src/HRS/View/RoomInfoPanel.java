@@ -44,6 +44,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
             days.get(i).setColorOver(days.get(i).getColor());
             days.get(i).setColorClick(days.get(i).getColor());
         }
+        days.get(30).setVisible(false);
         
         // * Room Name * //
         roomName = new RoundLabel(new Color(40, 68, 117));
