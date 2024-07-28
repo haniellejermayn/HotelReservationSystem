@@ -42,6 +42,7 @@ public class MainFrame extends JFrame{
     AccountPanel accountPanel;
     
     ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    SelectedHotelPanel selectedHotelPanel;
     ArrayList<Hotel> hotels;
     int nHotels;
     
@@ -255,5 +256,13 @@ public class MainFrame extends JFrame{
 
     public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
         this.selectedHotelPanels = selectedHotelPanels;
+    }
+
+    public SelectedHotelPanel getSelectedHotelPanel(){
+        return selectedHotelPanel;
+    }
+
+    public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
+        this.selectedHotelPanel = selectedHotelPanel;
     }
 }

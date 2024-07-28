@@ -1,6 +1,6 @@
-package src;
+package src.HRS.Controller;
 
-import src.HRS.Model.HRSController;
+//import src.HRS.Controller.HRSController;
 import src.HRS.Model.HRSModel;
 import src.HRS.View.HRSView;
 

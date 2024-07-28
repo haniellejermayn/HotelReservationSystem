@@ -1,4 +1,4 @@
-package src;
+package src.HRS.Controller;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,59 +17,84 @@ public class HRSController{
         this.model = model;
         this.view = view;
 
-        view.setHotelSelectedListener(new HotelSelectedListener());
-        view.setSidePanelListener(new SidePanelListener());
-        view.setHotelsPanelListener(new HotelsPanelListener());
-        view.setCreateHotelListener(new CreateHotelListener());
-        view.setFilterPanelListener(new FilterPanelListener());
-        view.setSelectedHotelListener(new SelectedHotelListener());
-        view.setBookHotelListener(new BookHotelListener());
-        view.setManageHotelListener(new ManageHotelListener());
-        view.setManageSubPanelListener(new ManageSubPanelListener());
-        view.setConfirmModListener(new ConfirmModListener());
-        view.setDateAvailabilityListener(new DateAvailabilityListener());
-        view.setRoomInfoListener(new RoomInfoListener());
-        view.setResInfoListener(new ResInfoListener());
+        //view.setHotelSelectedListener(new HotelSelectedListener());
+        //view.setSidePanelListener(new SidePanelListener());
+        //view.setHotelsPanelListener(new HotelsPanelListener());
+        //view.setCreateHotelListener(new CreateHotelListener());
+        //view.setFilterPanelListener(new FilterPanelListener());
+        //view.setSelectedHotelListener(new SelectedHotelListener());
+        //view.setBookHotelListener(new BookHotelListener());
+        //view.setManageHotelListener(new ManageHotelListener());
+        //view.setManageSubPanelListener(new ManageSubPanelListener());
+        //view.setConfirmModListener(new ConfirmModListener());
+        //view.setDateAvailabilityListener(new DateAvailabilityListener());
+        //view.setRoomInfoListener(new RoomInfoListener());
+        //view.setResInfoListener(new ResInfoListener());
     }
 
     public void start(){
         view.setMainFrame(new MainFrame(model.getHotels(), model.countHotels()));
+        view.setSidePanelListener(new SidePanelListener());
     }
 
     private class SidePanelListener implements ActionListener{
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            IconButton homeButton = view.getSidePanel().getHomeButton();
-            IconButton hotelButton = view.getSidePanel().getHotelButton();
-            IconButton resButton = view.getSidePanel().getReservationsButton();
-            IconButton accountButton = view.getSidePanel().getAccountButton();
-            IconButton backButton = view.getSidePanel().getBackButton();
+
+            MainFrame mainFrame = view.getMainFrame();
+
+            IconButton homeButton = mainFrame.getSidePanel().getHomeButton();
+            IconButton hotelButton = mainFrame.getSidePanel().getHotelButton();
+            IconButton resButton = mainFrame.getSidePanel().getReservationsButton();
+            IconButton accountButton = mainFrame.getSidePanel().getAccountButton();
+            IconButton backButton = mainFrame.getSidePanel().getBackButton();
 
             if (e.getSource() == homeButton){
-                view.setHomePanel(new HomePanel(model.getHotels(), model.countHotels()));
-                view.getHomePanel().setVisible(true);
-                view.getHotelsPanel().setVisible(false);
-                view.getResPanel().setVisible(false);
-                view.getAccountPanel().setVisible(false);
+                HomePanel newHomePanel = new HomePanel(model.getHotels(), model.countHotels());
+
+                mainFrame.getHotelsPanel().setVisible(false);
+                mainFrame.getResPanel().setVisible(false);
+                mainFrame.getAccountPanel().setVisible(false);
+                mainFrame.remove(mainFrame.getHomePanel());
+                mainFrame.add(newHomePanel);
+                mainFrame.setHomePanel(newHomePanel);
+                mainFrame.getHomePanel().setVisible(true);
             }
             else if (e.getSource() == hotelButton){
-                view.getHomePanel().setVisible(false);
-                view.setHotelsPanel(new HotelsPanel(model.getHotels(), model.countHotels()));
-                view.getResPanel().setVisible(false);
-                view.getAccountPanel().setVisible(false);
+                HotelsPanel newHotelsPanel = new HotelsPanel(model.getHotels(), model.countHotels());
+
+                mainFrame.getHomePanel().setVisible(false);
+                mainFrame.getResPanel().setVisible(false);
+                mainFrame.getAccountPanel().setVisible(false);
+                mainFrame.remove(mainFrame.getHotelsPanel());
+                mainFrame.add(newHotelsPanel);
+                mainFrame.setHotelsPanel(newHotelsPanel);
+                mainFrame.getHotelsPanel().setVisible(true);
+
+                view.setHotelsPanelListener(new HotelsPanelListener());
             }
             else if (e.getSource() == resButton){
-                view.getHomePanel().setVisible(false);
-                view.getHotelsPanel().setVisible(false);
-                view.setResPanel(new ReservationsPanel(model.getHotels(), model.countHotels()));
-                view.getAccountPanel().setVisible(false);
+                ReservationsPanel newReservationsPanel = new ReservationsPanel(model.getHotels(), model.countHotels());
+
+                mainFrame.getHomePanel().setVisible(false);
+                mainFrame.getHotelsPanel().setVisible(false);
+                mainFrame.getAccountPanel().setVisible(false);
+                mainFrame.remove(mainFrame.getResPanel());
+                mainFrame.add(newReservationsPanel);
+                mainFrame.setResPanel(newReservationsPanel);
+                mainFrame.getResPanel().setVisible(true);
             }
             else if (e.getSource() == accountButton){
-                view.getHomePanel().setVisible(false);
-                view.getHotelsPanel().setVisible(false);
-                view.getResPanel().setVisible(false);
-                view.setAccountPanel(new AccountPanel());
+                AccountPanel newAccountPanel = new AccountPanel();
+
+                mainFrame.getHomePanel().setVisible(false);
+                mainFrame.getHotelsPanel().setVisible(false);
+                mainFrame.getResPanel().setVisible(false);
+                mainFrame.remove(mainFrame.getAccountPanel());
+                mainFrame.add(newAccountPanel);
+                mainFrame.setAccountPanel(newAccountPanel);
+                mainFrame.getAccountPanel().setVisible(true);
             }
             else if (e.getSource() == backButton){
                 System.exit(0);
@@ -83,6 +108,7 @@ public class HRSController{
         public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < model.countHotels(); i++){
     
+                System.out.println("hotel selected");
                 if (e.getSource() == view.getHomePanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
                     selectedHotel.setVisible(true);
@@ -90,13 +116,32 @@ public class HRSController{
                     view.getHomePanel().setVisible(false);
                     view.getHotelsPanel().setVisible(false);
                     view.getMainFrame().add(selectedHotel);
+
+                    view.setSelectedHotelListener(new SelectedHotelListener());
+                    view.setBookHotelListener(new BookHotelListener());
+                    view.setManageHotelListener(new ManageHotelListener());
+                    view.setManageSubPanelListener(new ManageSubPanelListener());
+                    view.setConfirmModListener(new ConfirmModListener());
+                    view.setDateAvailabilityListener(new DateAvailabilityListener());
+                    view.setRoomInfoListener(new RoomInfoListener());
+                    view.setResInfoListener(new ResInfoListener());
                 }
                 else if (e.getSource() == view.getHotelsPanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = view.getSelectedHotelPanels().get(i);
                     selectedHotel.setVisible(true);
+                    view.setSelectedHotelPanel(selectedHotel);
                     view.getHomePanel().setVisible(false);
                     view.getHotelsPanel().setVisible(false);
                     view.getMainFrame().add(selectedHotel);
+
+                    view.setSelectedHotelListener(new SelectedHotelListener());
+                    view.setBookHotelListener(new BookHotelListener());
+                    view.setManageHotelListener(new ManageHotelListener());
+                    view.setManageSubPanelListener(new ManageSubPanelListener());
+                    view.setConfirmModListener(new ConfirmModListener());
+                    view.setDateAvailabilityListener(new DateAvailabilityListener());
+                    view.setRoomInfoListener(new RoomInfoListener());
+                    view.setResInfoListener(new ResInfoListener());
                 }
                 else {
                     view.getSelectedHotelPanels().get(i).setVisible(false);
@@ -109,26 +154,37 @@ public class HRSController{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Boolean isVisible = false;
+
+            MainFrame mainFrame = view.getMainFrame();
+            HotelsPanel hotelsPanel = mainFrame.getHotelsPanel();
+            Boolean isVisible = hotelsPanel.getFilterPanelVisible();
             
-            if (e.getSource() == view.getHotelsPanel().getFilterButton()){
+            if (e.getSource() == hotelsPanel.getFilterButton()){
                 isVisible = !isVisible;
-                view.getFilterPanel().setVisible(isVisible);
+                hotelsPanel.setFilterPanelVisible(isVisible);
+                hotelsPanel.getFilterPanel().setVisible(isVisible);
 
                 if (isVisible){
-                    view.getHotelsPanel().getFilterButton().setColor(new Color(40, 68, 117));
+                    hotelsPanel.getFilterButton().setColor(new Color(40, 68, 117));
                 }
                 else {
-                    view.getHotelsPanel().getFilterButton().setColor(new Color(27, 43, 80));
+                    hotelsPanel.getFilterButton().setColor(new Color(27, 43, 80));
                 }
 
-                view.getHotelsPanel().getFilterButton().repaint();
+                hotelsPanel.getFilterButton().repaint();
+
+                view.setFilterPanelListener(new FilterPanelListener());
             }
-            else if (e.getSource() == view.getHotelsPanel().getCreateHotelButton()){
-                CreateHotelPanel createHotelPanel = new CreateHotelPanel(model.getHotels());
-                createHotelPanel.setBounds(152, 10, 385, 420);
-                view.setCreateHotelPanel(createHotelPanel);
-                view.getHotelsPanel().add(createHotelPanel, JLayeredPane.POPUP_LAYER);
+            else if (e.getSource() == hotelsPanel.getCreateHotelButton()){
+
+                CreateHotelPanel newCreateHotelPanel = new CreateHotelPanel();
+                newCreateHotelPanel.setBounds(152, 10, 385, 420);
+
+                hotelsPanel.setCreateHotelPanel(newCreateHotelPanel);
+                hotelsPanel.add(newCreateHotelPanel);
+                hotelsPanel.getCreateHotelPanel().setVisible(true);
+                hotelsPanel.add(newCreateHotelPanel, JLayeredPane.POPUP_LAYER);
+                view.setCreateHotelListener(new CreateHotelListener());
             }
         }
     }
@@ -137,17 +193,20 @@ public class HRSController{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == view.getCreateHotelPanel().getCreateButton()){
+            MainFrame mainFrame = view.getMainFrame();
+            CreateHotelPanel createHotelPanel = mainFrame.getHotelsPanel().getCreateHotelPanel();
 
-                TextFieldCustom nameInput = view.getCreateHotelPanel().getNameInput();
-                TextFieldCustom standardInput = view.getCreateHotelPanel().getStandardRoomInput();
-                TextFieldCustom deluxeInput = view.getCreateHotelPanel().getDeluxeRoomInput();
-                TextFieldCustom executiveInput = view.getCreateHotelPanel().getExecutiveRoomInput();
+            if (e.getSource() == mainFrame.getHotelsPanel().getCreateHotelPanel().getCreateButton()){
 
-                String name = nameInput.getTextField().getText().trim();
-                int standard = Integer.valueOf(standardInput.getTextField().getText().trim());
-                int deluxe = Integer.valueOf(deluxeInput.getTextField().getText().trim());
-                int executive = Integer.valueOf(executiveInput.getTextField().getText().trim());
+                TextFieldCustom nameTextField = createHotelPanel.getNameTextField();
+                TextFieldCustom standardTextField = createHotelPanel.getStandardRoomTextField();
+                TextFieldCustom deluxeTextField = createHotelPanel.getDeluxeRoomTextField();
+                TextFieldCustom executiveTextField = createHotelPanel.getExecutiveRoomTextField();
+
+                String name = nameTextField.getTextField().getText().trim();
+                int standard = Integer.valueOf(standardTextField.getTextField().getText().trim());
+                int deluxe = Integer.valueOf(deluxeTextField.getTextField().getText().trim());
+                int executive = Integer.valueOf(executiveTextField.getTextField().getText().trim());
 
                 // TODO: check if hotelName is unique
 
@@ -155,19 +214,35 @@ public class HRSController{
 
                 if (!name.isEmpty() && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
                     
-                    // TODO: set all necessary info into Hotel
                     Hotel newHotel = new Hotel(name, standard, deluxe, executive);
                     model.addHotel(newHotel);
+
+                    createHotelPanel.setVisible(false);
+                    mainFrame.getHotelsPanel().remove(createHotelPanel);
+    
+                    HomePanel newHomePanel = new HomePanel(model.getHotels(), model.countHotels());
+                    newHomePanel.setVisible(false);
+                    mainFrame.remove(mainFrame.getHomePanel());
+                    mainFrame.add(newHomePanel);
+                    mainFrame.setHomePanel(newHomePanel);
+    
+                    HotelsPanel newHotelsPanel = new HotelsPanel(model.getHotels(), model.countHotels());
+                    newHotelsPanel.setVisible(false);
+                    mainFrame.remove(mainFrame.getHotelsPanel());
+                    mainFrame.add(newHotelsPanel);
+                    mainFrame.setHotelsPanel(newHotelsPanel);
+                    
+                    newHotelsPanel.setVisible(true);
+                    
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
+                    view.setHotelsPanelListener(new HotelsPanelListener());
+                    view.setHotelSelectedListener(new HotelSelectedListener());
                 }
-
-                view.getCreateHotelPanel().setVisible(false);
-                view.getHotelsPanel().remove(view.getCreateHotelPanel());
-                view.setHotelsPanel(new HotelsPanel(model.getHotels(), model.countHotels()));
             }
-            else if (e.getSource() == view.getCreateHotelPanel().getCancelButton()){
+            else if (e.getSource() == mainFrame.getHotelsPanel().getCreateHotelPanel().getCancelButton()){
 
-                view.getCreateHotelPanel().setVisible(false);
-                view.getHotelsPanel().remove(view.getCreateHotelPanel());
+                createHotelPanel.setVisible(false);
+                mainFrame.getHotelsPanel().remove(createHotelPanel);
             }
         }
     }
@@ -192,14 +267,7 @@ public class HRSController{
     
                 ArrayList<HotelOption> mostBookedCatalogue = new ArrayList<HotelOption>();
     
-                // TODO: add filter function for most booked
-                ArrayList<Hotel> mostBooked = new ArrayList<Hotel>();
-                mostBooked.add(model.getHotels().get(3));
-                mostBooked.add(model.getHotels().get(2));
-                mostBooked.add(model.getHotels().get(1));
-                mostBooked.add(model.getHotels().get(4));
-                mostBooked.add(model.getHotels().get(0));
-                mostBooked.add(model.getHotels().get(5));
+                ArrayList<Hotel> mostBooked = model.sortMostBooked();
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(mostBooked.get(i));
@@ -225,14 +293,7 @@ public class HRSController{
     
                 ArrayList<HotelOption> lowestPriceCatalogue = new ArrayList<HotelOption>();
     
-                // TODO: add filter function for lowest price
-                ArrayList<Hotel> lowestPrice = new ArrayList<Hotel>();
-                lowestPrice.add(model.getHotels().get(3));
-                lowestPrice.add(model.getHotels().get(2));
-                lowestPrice.add(model.getHotels().get(4));
-                lowestPrice.add(model.getHotels().get(1));
-                lowestPrice.add(model.getHotels().get(5));
-                lowestPrice.add(model.getHotels().get(0));
+                ArrayList<Hotel> lowestPrice = model.sortLeastExpensive();
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(lowestPrice.get(i));
@@ -258,14 +319,7 @@ public class HRSController{
     
                 ArrayList<HotelOption> highestPriceCatalogue = new ArrayList<HotelOption>();
     
-                // TODO: add filter function for highest price
-                ArrayList<Hotel> highestPrice = new ArrayList<Hotel>();
-                highestPrice.add(model.getHotels().get(4));
-                highestPrice.add(model.getHotels().get(3));
-                highestPrice.add(model.getHotels().get(2));
-                highestPrice.add(model.getHotels().get(5));
-                highestPrice.add(model.getHotels().get(0));
-                highestPrice.add(model.getHotels().get(1));
+                ArrayList<Hotel> highestPrice = model.sortMostExpensive();
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(highestPrice.get(i));
@@ -291,14 +345,7 @@ public class HRSController{
     
                 ArrayList<HotelOption> newestCatalogue = new ArrayList<HotelOption>();
     
-                // TODO: add filter function for newest
-                ArrayList<Hotel> newest = new ArrayList<Hotel>();
-                newest.add(model.getHotels().get(0));
-                newest.add(model.getHotels().get(1));
-                newest.add(model.getHotels().get(2));
-                newest.add(model.getHotels().get(3));
-                newest.add(model.getHotels().get(4));
-                newest.add(model.getHotels().get(5));
+                ArrayList<Hotel> newest = model.sortNewest();
     
                 for(int i = 0; i < model.countHotels(); i++){
                     HotelOption optionTemp = new HotelOption(newest.get(i));
@@ -323,6 +370,8 @@ public class HRSController{
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            SelectedHotelPanel selectedHotelPanel = view.getSelectedHotelPanel();
+
             OptionButton dateAvailButton = view.getSelectedHotelPanel().getDateAvailButton();
             OptionButton roomInfoButton = view.getSelectedHotelPanel().getRoomInfoButton();
             OptionButton resInfoButton = view.getSelectedHotelPanel().getResInfoButton();
@@ -336,7 +385,7 @@ public class HRSController{
             ManagePanel managePanel = view.getSelectedHotelPanel().getManagePanel();
 
             if (e.getSource() == dateAvailButton){
-                dateAvailPanel.setVisible(true);
+                selectedHotelPanel.setDateAvailPanel(new DateAvailPanel(selectedHotelPanel.getHotel()));
                 roomInfoPanel.setVisible(false);
                 resInfoPanel.setVisible(false);
                 dateAvailButton.setColor(new Color(40, 68, 117));
@@ -345,7 +394,7 @@ public class HRSController{
             }
             else if (e.getSource() == roomInfoButton){
                 dateAvailPanel.setVisible(false);
-                roomInfoPanel.setVisible(true);
+                selectedHotelPanel.setRoomInfoPanel(new RoomInfoPanel(selectedHotelPanel.getHotel()));
                 resInfoPanel.setVisible(false);
                 dateAvailButton.setColor(new Color(27, 43, 80));
                 roomInfoButton.setColor(new Color(40, 68, 117));
@@ -354,7 +403,7 @@ public class HRSController{
             else if (e.getSource() == resInfoButton){
                 dateAvailPanel.setVisible(false);
                 roomInfoPanel.setVisible(false);
-                resInfoPanel.setVisible(true);
+                selectedHotelPanel.setResInfoPanel(new ResInfoPanel(selectedHotelPanel.getHotel()));
                 dateAvailButton.setColor(new Color(27, 43, 80));
                 roomInfoButton.setColor(new Color(27, 43, 80));
                 resInfoButton.setColor(new Color(40, 68, 117));
@@ -375,36 +424,41 @@ public class HRSController{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            OptionButton standardRoomInput = view.getBookHotelPanel().getStandardRoomInput();
-            OptionButton deluxeRoomInput = view.getBookHotelPanel().getDeluxeRoomInput();
-            OptionButton executiveRoomInput = view.getBookHotelPanel().getExecutiveRoomInput();
+            int hotelIndex = view.getSelectedHotelPanel().getHotelIndex();
+            OptionButton standardRoomButton = view.getBookHotelPanel().getStandardRoomButton();
+            OptionButton deluxeRoomButton = view.getBookHotelPanel().getDeluxeRoomButton();
+            OptionButton executiveRoomButton = view.getBookHotelPanel().getExecutiveRoomButton();
 
-            if (e.getSource() == standardRoomInput){
-                standardRoomInput.setColor(new Color(51, 88, 150));
-                deluxeRoomInput.setColor(new Color(27, 43, 80));
-                executiveRoomInput.setColor(new Color(27, 43, 80));
-                view.getBookHotelPanel().setRoomTypeInput("Standard");
+            if (e.getSource() == standardRoomButton){
+                standardRoomButton.setColor(new Color(51, 88, 150));
+                deluxeRoomButton.setColor(new Color(27, 43, 80));
+                executiveRoomButton.setColor(new Color(27, 43, 80));
+                view.getBookHotelPanel().setRoomTypeInput(1);
                 view.getBookHotelPanel().setRoomTypeSelected(true);
             }
-            else if (e.getSource() == deluxeRoomInput){
-                standardRoomInput.setColor(new Color(27, 43, 80));
-                deluxeRoomInput.setColor(new Color(51, 88, 150));
-                executiveRoomInput.setColor(new Color(27, 43, 80));
-                view.getBookHotelPanel().setRoomTypeInput("Deluxe");
+            else if (e.getSource() == deluxeRoomButton){
+                standardRoomButton.setColor(new Color(27, 43, 80));
+                deluxeRoomButton.setColor(new Color(51, 88, 150));
+                executiveRoomButton.setColor(new Color(27, 43, 80));
+                view.getBookHotelPanel().setRoomTypeInput(2);
                 view.getBookHotelPanel().setRoomTypeSelected(true);
             }
-            else if (e.getSource() == executiveRoomInput){
-                standardRoomInput.setColor(new Color(27, 43, 80));
-                deluxeRoomInput.setColor(new Color(27, 43, 80));
-                executiveRoomInput.setColor(new Color(51, 88, 150));
-                view.getBookHotelPanel().setRoomTypeInput("Executive");
+            else if (e.getSource() == executiveRoomButton){
+                standardRoomButton.setColor(new Color(27, 43, 80));
+                deluxeRoomButton.setColor(new Color(27, 43, 80));
+                executiveRoomButton.setColor(new Color(51, 88, 150));
+                view.getBookHotelPanel().setRoomTypeInput(3);
                 view.getBookHotelPanel().setRoomTypeSelected(true);
             }
             else if (e.getSource() == view.getBookHotelPanel().getBookButton()){
-                String name = view.getBookHotelPanel().getGuestNameInput().getTextField().getText().trim();
-                String disc = view.getBookHotelPanel().getDiscountInput().getTextField().getText().trim();
+                String name = view.getBookHotelPanel().getGuestNameTextField().getTextField().getText().trim();
+                String disc = view.getBookHotelPanel().getDiscountTextField().getTextField().getText().trim();
                 boolean roomTypeSelected = view.getBookHotelPanel().getRoomTypeSelected();
+                int roomType = view.getBookHotelPanel().getRoomTypeInput();
                 boolean checkInNOutSelected = view.getBookHotelPanel().getCheckInNOutSelected();
+                int checkIn = view.getBookHotelPanel().getCheckInInput();
+                int checkOut = view.getBookHotelPanel().getCheckOutInput();
+                Hotel hotel = model.getHotels().get(view.getSelectedHotelPanel().getHotelIndex());
 
                 // TODO: (if filled) check if disc is valid 
                 // TODO: check if selected room type is available within the checkIn and checkOut dates
@@ -414,6 +468,7 @@ public class HRSController{
     
                     view.getBookHotelPanel().setVisible(false);
                     view.getSelectedHotelPanel().remove(view.getBookHotelPanel());
+                    view.setSelectedHotelPanel(new SelectedHotelPanel(model.getHotels().get(hotelIndex), hotelIndex));
                 }
             }
             else if (e.getSource() == view.getBookHotelPanel().getCancelButton()){
@@ -581,6 +636,8 @@ public class HRSController{
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            int hotelIndex = view.getSelectedHotelPanel().getHotelIndex();
+
             ManageSubPanel changeNamePanel = view.getManageHotelPanel().getChangeNamePanel();
             ManageSubPanel addRoomPanel = view.getManageHotelPanel().getAddRoomPanel();
             ManageSubPanel updateBasePricePanel = view.getManageHotelPanel().getUpdateBasePricePanel();
@@ -589,18 +646,19 @@ public class HRSController{
             ManageSubPanel removeResPanel = view.getManageHotelPanel().getRemoveResPanel();
             ManageSubPanel removeHotelPanel = view.getManageHotelPanel().getRemoveHotelPanel();
 
-            TextFieldCustom hotelNameInput = view.getManageHotelPanel().getHotelNameInput();
-            TextFieldCustom standardRoomInput = view.getManageHotelPanel().getStandardRoomInput();
-            TextFieldCustom deluxeRoomInput = view.getManageHotelPanel().getDeluxeRoomInput();
-            TextFieldCustom executiveRoomInput = view.getManageHotelPanel().getExecutiveRoomInput();
-            TextFieldCustom basePriceInput = view.getManageHotelPanel().getBasePriceInput();
-            TextFieldCustom percentageInput = view.getManageHotelPanel().getPercentageInput();
+            TextFieldCustom hotelNameTextField = view.getManageHotelPanel().getHotelNameTextField();
+            TextFieldCustom standardRoomTextField = view.getManageHotelPanel().getStandardRoomTextField();
+            TextFieldCustom deluxeRoomTextField = view.getManageHotelPanel().getDeluxeRoomTextField();
+            TextFieldCustom executiveRoomTextField = view.getManageHotelPanel().getExecutiveRoomTextField();
+            TextFieldCustom basePriceTextField = view.getManageHotelPanel().getBasePriceTextField();
+            TextFieldCustom percentageTextField = view.getManageHotelPanel().getPercentageTextField();
 
 
             if (e.getSource() == changeNamePanel.getUpdateButton()){
-                String hotelName = hotelNameInput.getTextField().getText().trim();
+                String hotelName = hotelNameTextField.getTextField().getText().trim();
 
                 // TODO: check if name is valid
+                // TODO: put validateHotelName method in model
 
                 if (!hotelName.isEmpty()){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Change Name");
@@ -610,9 +668,9 @@ public class HRSController{
                 }
             }
             else if (e.getSource() == addRoomPanel.getUpdateButton()){
-                int standard = Integer.valueOf(standardRoomInput.getTextField().getText().trim());
-                int deluxe = Integer.valueOf(deluxeRoomInput.getTextField().getText().trim());
-                int executive = Integer.valueOf(executiveRoomInput.getTextField().getText().trim());
+                int standard = Integer.valueOf(standardRoomTextField.getTextField().getText().trim());
+                int deluxe = Integer.valueOf(deluxeRoomTextField.getTextField().getText().trim());
+                int executive = Integer.valueOf(executiveRoomTextField.getTextField().getText().trim());
 
                 if (standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Add Room");
@@ -622,9 +680,10 @@ public class HRSController{
                 }
             }
             else if (e.getSource() == updateBasePricePanel.getUpdateButton()){
-                Float basePrice = Float.valueOf(basePriceInput.getTextField().getText().trim());
+                Float basePrice = Float.valueOf(basePriceTextField.getTextField().getText().trim());
 
                 // TODO: check if there are no reservations
+                // TODO: create a countAllReservation method in model
 
                 if (basePrice >= 100.00){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Update Base Price");
@@ -634,9 +693,9 @@ public class HRSController{
                 }
             }
             else if (e.getSource() == datePriceModifierPanel.getUpdateButton()){
-                int percentage = Integer.valueOf(percentageInput.getTextField().getText().trim());
 
-                // ?: is there a restriction for percentage input
+                int percentage = Integer.valueOf(percentageTextField.getTextField().getText().trim());
+
                 ConfirmModPanel confirmModPanel = new ConfirmModPanel("Date Price Modifier");
 
                 view.getManageHotelPanel().add(confirmModPanel, JLayeredPane.POPUP_LAYER);
@@ -645,8 +704,7 @@ public class HRSController{
             }
             else if (e.getSource() == removeRoomPanel.getUpdateButton()){
                 
-                // TODO: check if the selected room has no active reservation
-                if (true){
+                if (model.getHotels().get(hotelIndex).countReservations() == 0){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Remove Room");
 
                     view.getManageHotelPanel().add(confirmModPanel, JLayeredPane.POPUP_LAYER);
@@ -656,7 +714,6 @@ public class HRSController{
             }
             else if (e.getSource() == removeResPanel.getUpdateButton()){
 
-                // ?: is there a restriction for removing a reservation
                 ConfirmModPanel confirmModPanel = new ConfirmModPanel("Remove Reservation");
 
                 view.getManageHotelPanel().add(confirmModPanel, JLayeredPane.POPUP_LAYER);
@@ -666,6 +723,8 @@ public class HRSController{
             else if (e.getSource() == removeHotelPanel.getUpdateButton()){
                 
                 // TODO: check if there are no active reservations
+                // TODO: create a countAllReservation method in model
+                
                 if (true){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Remove Hotel");
 
@@ -685,15 +744,14 @@ public class HRSController{
             }
 
             for (int i = 0; i < view.getSelectedHotelPanel().getHotel().countReservations(); i++){
-                int nReservations = 6; // TODO: remove
-                String name = "";
+                int nReservations = model.getHotels().get(hotelIndex).countReservations();
 
                 ArrayList<OptionButton> resButtons = view.getManageHotelPanel().getResView().getReservations();
-                name = resButtons.get(i).getButtonName();
 
                 if (e.getSource() == resButtons.get(i)){
+                    int resIndex = i;
                     resButtons.get(i).setColor(new Color(51, 88, 150));
-                    //setRemoveResInput(name); // ! TODO: fix
+                    view.getManageHotelPanel().setRemoveResInput(resIndex); 
                 }
                 else {
                     for (int j = 0; j < nReservations; j++){
@@ -703,15 +761,14 @@ public class HRSController{
             }
 
             for (int i = 0; i < view.getSelectedHotelPanel().getHotel().countRooms(0); i++){
-                int nRooms = 30; // TODO: remove
-                String name = "";
+                int nRooms = model.getHotels().get(hotelIndex).countRooms(0);
 
                 ArrayList<OptionButton> roomButtons = view.getManageHotelPanel().getRoomView().getRooms();
-                name = roomButtons.get(i).getButtonName();
 
                 if (e.getSource() == roomButtons.get(i)){
+                    int roomIndex = i;
                     roomButtons.get(i).setColor(new Color(51, 88, 150));
-                    //setRemoveRoomInput(name); // ! TODO: fix
+                    view.getManageHotelPanel().setRemoveRoomInput(roomIndex);
                 }
                 else {
                     for (int j = 0; j < nRooms; j++){
@@ -722,11 +779,11 @@ public class HRSController{
 
             for (int i = 0; i < 31; i++){
                 ArrayList<OptionButton> days = view.getManageHotelPanel().getCalendarView().getDays();
-                String dayIndex = days.get(i).getButtonName(); 
     
                 if (e.getSource() == days.get(i)){
+                    int dateIndex = i;
                     days.get(i).setColor(new Color(51, 88, 150));
-                    //setDateModInput(i); // ! TODO: fix
+                    view.getManageHotelPanel().setDateModInput(dateIndex);
                 }
                 else {
                     for (int j = 0; j < 31; j++){
@@ -742,12 +799,13 @@ public class HRSController{
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            TextFieldCustom hotelNameInput = view.getManageHotelPanel().getHotelNameInput();
-            TextFieldCustom standardRoomInput = view.getManageHotelPanel().getStandardRoomInput();
-            TextFieldCustom deluxeRoomInput = view.getManageHotelPanel().getDeluxeRoomInput();
-            TextFieldCustom executiveRoomInput = view.getManageHotelPanel().getExecutiveRoomInput();
-            TextFieldCustom basePriceInput = view.getManageHotelPanel().getBasePriceInput();
-            TextFieldCustom percentageInput = view.getManageHotelPanel().getPercentageInput();
+            ManagePanel managePanel = view.getManageHotelPanel();
+            TextFieldCustom hotelNameTextField = view.getManageHotelPanel().getHotelNameTextField();
+            TextFieldCustom standardRoomTextField = view.getManageHotelPanel().getStandardRoomTextField();
+            TextFieldCustom deluxeRoomTextField = view.getManageHotelPanel().getDeluxeRoomTextField();
+            TextFieldCustom executiveRoomTextField = view.getManageHotelPanel().getExecutiveRoomTextField();
+            TextFieldCustom basePriceTextField = view.getManageHotelPanel().getBasePriceTextField();
+            TextFieldCustom percentageTextField = view.getManageHotelPanel().getPercentageTextField();
             String panelName = view.getManageHotelPanel().getConfirmModPanel().getPanelName();
 
             SelectedHotelPanel selectedHotelPanel = view.getSelectedHotelPanel();
@@ -755,52 +813,41 @@ public class HRSController{
             int hotelIndex = selectedHotelPanel.getHotelIndex();
 
             if (panelName.equals("Change Name")){
-                String newHotelName = hotelNameInput.getTextField().getText().trim();
+                String newHotelName = hotelNameTextField.getTextField().getText().trim();
                     
-                // TODO: set hotel name to getHotelNameInput() in model
+                // TODO: set hotel name to newHotelName in model
 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
                 newSelectedHotelPanel.setVisible(true);
                 view.getMainFrame().add(newSelectedHotelPanel);
-
-                // * Alternative * //
-                //selectedHotelPanel.getHotelName().setText(hotel.getHotelName());
-
             }
             else if (panelName.equals("Add Room")){
-                int standardRoom = Integer.valueOf(standardRoomInput.getTextField().getText().trim());
-                int deluxeRoom = Integer.valueOf(deluxeRoomInput.getTextField().getText().trim());
-                int executiveRoom = Integer.valueOf(executiveRoomInput.getTextField().getText().trim());
+                int standardRoom = Integer.valueOf(standardRoomTextField.getTextField().getText().trim());
+                int deluxeRoom = Integer.valueOf(deluxeRoomTextField.getTextField().getText().trim());
+                int executiveRoom = Integer.valueOf(executiveRoomTextField.getTextField().getText().trim());
 
-                // TODO: add rooms based on room type using getStandardRoomInput(), getDeluxeRoomInput(), and getExecutiveRoomInput() in model
+                // TODO: add rooms based on room type in model
                 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
                 newSelectedHotelPanel.setVisible(true);
                 view.getMainFrame().add(newSelectedHotelPanel);
-
-                // * Alternative * //
-                //selectedHotelPanel.getHotelRooms().setText(String.valueOf(hotel.countRooms(0))); 
             }
             else if (panelName.equals("Update Base Price")){
-                Float newBasePrice = Float.valueOf(basePriceInput.getTextField().getText().trim());
+                Float newBasePrice = Float.valueOf(basePriceTextField.getTextField().getText().trim());
                 
-                // TODO: set hotel base price to getBasePriceInput() in model
+                // TODO: set hotel base price to newBasePrice in model
 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
                 newSelectedHotelPanel.setVisible(true);
                 view.getMainFrame().add(newSelectedHotelPanel);
-
-                // * Alternative * //
-                //selectedHotelPanel.getHotelPrice().setText(String.valueOf(hotel.getBasePrice()));
-
             }
             else if (panelName.equals("Date Price Modifier")){
-                int percentage = Integer.valueOf(percentageInput.getTextField().getText().trim());
+                int percentage = Integer.valueOf(percentageTextField.getTextField().getText().trim());
                 
-                // TODO: set percentageInput to datePriceModifier parameters in model
+                // TODO: set percentage to datePriceModifier parameters in model
 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
@@ -808,37 +855,30 @@ public class HRSController{
                 view.getMainFrame().add(newSelectedHotelPanel);
             }
             else if (panelName.equals("Remove Room")){
-                String roomName = "Standard"; // TODO: replace with correct input from RoomListener
+                String roomName = "B5"; // TODO: replace with correct input from RoomListener
 
-                // TODO: remove room from hotel using getRemoveRoomInput() in model
+                // TODO: remove room from hotel in model
 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
                 newSelectedHotelPanel.setVisible(true);
                 view.getMainFrame().add(newSelectedHotelPanel);
-
-                // * Alternative * //
-                //selectedHotelPanel.getHotelRooms().setText(String.valueOf(hotel.countRooms(0))); 
             }
             else if (panelName.equals("Remove Reservation")){
-                String resName = "Hanielle"; // TODO: replace with correct input from ResListener
+                int resIndex = view.getManageHotelPanel().getRemoveResInput();
 
-                // TODO: remove reservation from hotel using getRemoveResInput() in model
+                model.getHotels().get(hotelIndex).removeReservation(resIndex);
 
                 view.getMainFrame().remove(selectedHotelPanel);
                 SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
                 newSelectedHotelPanel.setVisible(true);
                 view.getMainFrame().add(newSelectedHotelPanel);
-
-                // * Alternative *//
-                //selectedHotelPanel.getHotelRes().setText(String.valueOf(hotel.countReservations())); 
             }
             else if (panelName.equals("Remove Hotel")){
-
-                // TODO: remove hotel in model
-
+                
                 selectedHotelPanel.setVisible(false);
                 view.getMainFrame().remove(selectedHotelPanel);
+                model.getHotels().remove(hotelIndex);
                 view.setHotelsPanel(new HotelsPanel(model.getHotels(), model.countHotels()));
                 view.getHotelsPanel().setVisible(true);
             }
@@ -960,5 +1000,4 @@ public class HRSController{
             }
         }
     }
-
 }

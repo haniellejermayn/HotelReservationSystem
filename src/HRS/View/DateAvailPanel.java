@@ -20,7 +20,7 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
     Font customFont15;
     Font customFont50;
 
-    DateAvailPanel(Hotel hotel){
+    public DateAvailPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
         this.hotel = hotel;

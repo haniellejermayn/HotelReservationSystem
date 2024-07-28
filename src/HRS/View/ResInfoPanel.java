@@ -70,10 +70,11 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         
         // * Price BreakDown * //
 
-        priceBreakdownContainer = new PriceBreakdownPanel(hotel.fetchReservation(0));
+        // ! // BUG: index out of bounds
+        //priceBreakdownContainer = new PriceBreakdownPanel(hotel.fetchReservation());
 
         // TODO: Make a change in price breakdown !
-        priceScrollPane = new ScrollPaneCustom(priceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
+        /*priceScrollPane = new ScrollPaneCustom(priceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         priceScrollPane.setBounds(345, 250, 175, 150);
         priceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         priceScrollPane.setVisible(false);
@@ -86,7 +87,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         totalPrice.setForeground(Color.white);
         totalPrice.setVerticalAlignment(JLabel.CENTER);
         totalPrice.setHorizontalAlignment(JLabel.CENTER);
-        totalPrice.setVisible(false);
+        totalPrice.setVisible(false);*/
 
         nReservations = hotel.countReservations(); 
 
@@ -114,8 +115,8 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         resInfoContainer.add(guestInfoPanel);
         resInfoContainer.add(resViewContainer);
         resInfoContainer.add(calendar);
-        resInfoContainer.add(priceScrollPane);
-        resInfoContainer.add(totalPrice);
+        //resInfoContainer.add(priceScrollPane); // ! // BUG: index out of bounds
+        //resInfoContainer.add(totalPrice);
 
         ScrollPaneCustom scrollPane = new ScrollPaneCustom(resInfoContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         scrollPane.setBounds(5, 5, 530, 210);

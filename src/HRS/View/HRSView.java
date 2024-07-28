@@ -10,6 +10,7 @@ public class HRSView {
     
     private MainFrame mainFrame;
     private ArrayList<Hotel> hotels;
+    private int nHotels;
 
     // * MainFrame * //
     private SidePanel sidePanel;
@@ -34,9 +35,12 @@ public class HRSView {
     
     public HRSView(ArrayList<Hotel> hotels, int nHotels){
     //public HRSView(){
-        mainFrame = new MainFrame(hotels, nHotels);
-        //hotels = hotels;
+        //mainFrame = new MainFrame(hotels, nHotels);
+        this.hotels = hotels;
+        this.nHotels = nHotels;
+    }
 
+    public void initializeMainFrame(){
         sidePanel = mainFrame.getSidePanel();
         homePanel = mainFrame.getHomePanel();        
         hotelsPanel = mainFrame.getHotelsPanel();
@@ -45,14 +49,17 @@ public class HRSView {
 
         createHotelPanel = hotelsPanel.getCreateHotelPanel();
         filterPanel = hotelsPanel.getFilterPanel();
+    }
 
+    public void initializeSelectedHotelPanel(){
+        // BUG: should get actual selected hotel
+        selectedHotelPanel = new SelectedHotelPanel(hotels.get(0), 0);
         bookHotelPanel = selectedHotelPanel.getBookPanel();
         manageHotelPanel = selectedHotelPanel.getManagePanel();
 
         dateAvailPanel = selectedHotelPanel.getDateAvailPanel();
         roomInfoPanel = selectedHotelPanel.getRoomInfoPanel();
         resInfoPanel = selectedHotelPanel.getResInfoPanel();
-
     }
 
     public void setSidePanelListener(ActionListener listener){
@@ -64,20 +71,22 @@ public class HRSView {
     }
 
     public void setHotelSelectedListener(ActionListener listener) {
-        for (int i = 0; i < hotels.size(); i++){
-            mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
-            mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
+        if (nHotels != 0){
+            for (int i = 0; i < hotels.size(); i++){
+                mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
+                mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
+            }
         }
     }
 
     public void setHotelsPanelListener(ActionListener listener){
-        hotelsPanel.getCreateHotelButton().addActionListener(listener);
-        hotelsPanel.getFilterButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getCreateHotelButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getFilterButton().addActionListener(listener);
     }
 
     public void setCreateHotelListener(ActionListener listener){
-        createHotelPanel.getCreateButton().addActionListener(listener);
-        createHotelPanel.getCancelButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getCreateHotelPanel().getCreateButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getCreateHotelPanel().getCancelButton().addActionListener(listener);
     }
 
     public void setFilterPanelListener(ActionListener listener){
@@ -98,9 +107,9 @@ public class HRSView {
     public void setBookHotelListener(ActionListener listener){
         bookHotelPanel.getBookButton().addActionListener(listener);
         bookHotelPanel.getCancelButton().addActionListener(listener);
-        bookHotelPanel.getStandardRoomInput().addActionListener(listener);
-        bookHotelPanel.getDeluxeRoomInput().addActionListener(listener);
-        bookHotelPanel.getExecutiveRoomInput().addActionListener(listener);
+        bookHotelPanel.getStandardRoomButton().addActionListener(listener);
+        bookHotelPanel.getDeluxeRoomButton().addActionListener(listener);
+        bookHotelPanel.getExecutiveRoomButton().addActionListener(listener);
 
         for (int i = 0; i < 31; i++){
             bookHotelPanel.getDays().get(i).addActionListener(listener);
@@ -165,14 +174,17 @@ public class HRSView {
 
     public void setMainFrame(MainFrame mainFrame){
         this.mainFrame = mainFrame;
+        initializeMainFrame();
     }
 
     public SidePanel getSidePanel(){
         return sidePanel;
+        
     }
 
     public void setSidePanel(SidePanel sidePanel){
         this.sidePanel = sidePanel;
+        mainFrame.setSidePanel(sidePanel);
     }
 
     public HomePanel getHomePanel(){
@@ -181,6 +193,7 @@ public class HRSView {
 
     public void setHomePanel(HomePanel homePanel){
         this.homePanel = homePanel;
+        mainFrame.setHomePanel(homePanel);
     }
 
     public HotelsPanel getHotelsPanel(){
@@ -189,6 +202,7 @@ public class HRSView {
 
     public void setHotelsPanel(HotelsPanel hotelsPanel){
         this.hotelsPanel = hotelsPanel;
+        mainFrame.setHotelsPanel(hotelsPanel);
     }
 
     public ReservationsPanel getResPanel(){
@@ -197,6 +211,7 @@ public class HRSView {
 
     public void setResPanel(ReservationsPanel resPanel){
         this.resPanel = resPanel;
+        mainFrame.setResPanel(resPanel);
     }
 
     public AccountPanel getAccountPanel(){
@@ -205,6 +220,7 @@ public class HRSView {
 
     public void setAccountPanel(AccountPanel accountPanel){
         this.accountPanel = accountPanel;
+        mainFrame.setAccountPanel(accountPanel);
     }
 
     public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
@@ -213,6 +229,7 @@ public class HRSView {
 
     public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
         this.selectedHotelPanels = selectedHotelPanels;
+        mainFrame.setselectedHotelPanels(selectedHotelPanels);
     }
 
     public SelectedHotelPanel getSelectedHotelPanel(){
@@ -221,6 +238,8 @@ public class HRSView {
 
     public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
         this.selectedHotelPanel = selectedHotelPanel;
+        mainFrame.setSelectedHotelPanel(selectedHotelPanel);
+        initializeSelectedHotelPanel();
     }
 
     public CreateHotelPanel getCreateHotelPanel(){
@@ -229,6 +248,7 @@ public class HRSView {
 
     public void setCreateHotelPanel(CreateHotelPanel createHotelPanel){
         this.createHotelPanel = createHotelPanel;
+        hotelsPanel.setCreateHotelPanel(createHotelPanel);
     }
 
     public FilterPanel getFilterPanel(){
@@ -237,6 +257,7 @@ public class HRSView {
 
     public void setFilterPanel(FilterPanel filterPanel){
         this.filterPanel = filterPanel;
+        hotelsPanel.setFilterPanel(filterPanel);
     }
 
     public BookHotelPanel getBookHotelPanel(){
@@ -245,6 +266,7 @@ public class HRSView {
 
     public void setBookHotelPanel(BookHotelPanel bookHotelPanel){
         this.bookHotelPanel = bookHotelPanel;
+        selectedHotelPanel.setBookPanel(bookHotelPanel);
     }
 
     public ManagePanel getManageHotelPanel(){
@@ -253,6 +275,7 @@ public class HRSView {
 
     public void setManageHotelPanel(ManagePanel manageHotelPanel){
         this.manageHotelPanel = manageHotelPanel;
+        selectedHotelPanel.setManagePanel(manageHotelPanel);
     }
 
 }

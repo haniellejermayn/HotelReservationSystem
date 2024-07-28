@@ -117,13 +117,6 @@ public class HotelsPanel extends LayeredRoundPanel{
         item.getHotelRes().setText(String.valueOf(reservations) + " reservations");
         item.getPrice().setText("$" + String.format("%.2f", price));
         item.setVerticalAlignment(JLabel.CENTER);
-        /*item.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listener.buttonClicked(hotelName);
-            }
-        });*/
         
         item.setFocusable(false);
     }
@@ -176,11 +169,11 @@ public class HotelsPanel extends LayeredRoundPanel{
         this.filterPanel = filterPanel;
     }
 
-    public boolean getVisible(){
+    public boolean getFilterPanelVisible(){
         return isVisible;
     }
 
-    public void getVisible(boolean isVisible){
+    public void setFilterPanelVisible(boolean isVisible){
         this.isVisible = isVisible;
     }
 
