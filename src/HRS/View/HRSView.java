@@ -53,13 +53,13 @@ public class HRSView {
 
     public void initializeSelectedHotelPanel(){
         // BUG: should get actual selected hotel
-        selectedHotelPanel = new SelectedHotelPanel(hotels.get(0), 0);
-        bookHotelPanel = selectedHotelPanel.getBookPanel();
-        manageHotelPanel = selectedHotelPanel.getManagePanel();
+        //selectedHotelPanel = new SelectedHotelPanel(hotels.get(0), 0);
+        bookHotelPanel = mainFrame.getSelectedHotelPanel().getBookPanel();
+        manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
 
-        dateAvailPanel = selectedHotelPanel.getDateAvailPanel();
-        roomInfoPanel = selectedHotelPanel.getRoomInfoPanel();
-        resInfoPanel = selectedHotelPanel.getResInfoPanel();
+        dateAvailPanel = mainFrame.getSelectedHotelPanel().getDateAvailPanel();
+        roomInfoPanel = mainFrame.getSelectedHotelPanel().getRoomInfoPanel();
+        resInfoPanel = mainFrame.getSelectedHotelPanel().getResInfoPanel();
     }
 
     public void setSidePanelListener(ActionListener listener){
@@ -71,7 +71,7 @@ public class HRSView {
     }
 
     public void setHotelSelectedListener(ActionListener listener) {
-        if (nHotels != 0){
+        if (mainFrame.getHotelsPanel().getnHotels() != 0){
             for (int i = 0; i < hotels.size(); i++){
                 mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
                 mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
@@ -97,11 +97,11 @@ public class HRSView {
     }
 
     public void setSelectedHotelListener(ActionListener listener){
-        selectedHotelPanel.getDateAvailButton().addActionListener(listener);
-        selectedHotelPanel.getRoomInfoButton().addActionListener(listener);
-        selectedHotelPanel.getResInfoButton().addActionListener(listener);
-        selectedHotelPanel.getBookButton().addActionListener(listener);
-        selectedHotelPanel.getManageButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getDateAvailButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getRoomInfoButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getResInfoButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getBookButton().addActionListener(listener);
+        mainFrame.getSelectedHotelPanel().getManageButton().addActionListener(listener);
     }
 
     public void setBookHotelListener(ActionListener listener){
@@ -151,20 +151,21 @@ public class HRSView {
     }
 
     public void setDateAvailabilityListener(ActionListener listener){
+
         for (int i = 0; i < 31; i++){
-            dateAvailPanel.getCalendar().getDays().get(i).addActionListener(listener);
+            mainFrame.getSelectedHotelPanel().getDateAvailPanel().getCalendar().getDays().get(i).addActionListener(listener);
         }
     }
 
     public void setRoomInfoListener(ActionListener listener){
-        for (int i = 0; i < selectedHotelPanel.getHotel().countRooms(0); i++){
-            roomInfoPanel.getRoomView().getRooms().get(i).addActionListener(listener);
+        for (int i = 0; i < mainFrame.getSelectedHotelPanel().getHotel().countRooms(0); i++){
+            mainFrame.getSelectedHotelPanel().getRoomInfoPanel().getRoomView().getRooms().get(i).addActionListener(listener);
         }
     }
 
     public void setResInfoListener(ActionListener listener){
-        for (int i = 0; i < selectedHotelPanel.getHotel().countReservations(); i++){
-            resInfoPanel.getResView().getReservations().get(i).addActionListener(listener);
+        for (int i = 0; i < mainFrame.getSelectedHotelPanel().getHotel().countReservations(); i++){
+            mainFrame.getSelectedHotelPanel().getResInfoPanel().getResView().getReservations().get(i).addActionListener(listener);
         }
     }
 

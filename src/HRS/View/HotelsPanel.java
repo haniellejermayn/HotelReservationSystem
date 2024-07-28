@@ -192,4 +192,20 @@ public class HotelsPanel extends LayeredRoundPanel{
     public void setHotelContainer(RoundPanel hotelContainer){
         this.hotelContainer = hotelContainer;
     }
+
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
+    }
+
+    public void setHotels(ArrayList<Hotel> hotels){
+        this. hotels = hotels;
+    }
+
+    public int getnHotels(){
+        return nHotels;
+    }
+
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
+    }
 }

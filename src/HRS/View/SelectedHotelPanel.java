@@ -54,20 +54,20 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelName.setVerticalAlignment(JLabel.TOP);
         hotelName.setBounds(15, 20, 300, 50);
         
-        hotelPrice = new JLabel(String.valueOf(hotel.getBasePrice())); 
+        hotelPrice = new JLabel(String.format("%.2f", hotel.getBasePrice())); // ! // BUG: doesn't show 2 dec points and $ symbol
         hotelPrice.setFont(customFont50);
         hotelPrice.setForeground(Color.white);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
         hotelPrice.setHorizontalAlignment(JLabel.RIGHT);
         hotelPrice.setBounds(300, 10, 300, 100);
         
-        hotelRooms = new JLabel(String.valueOf(hotel.countRooms(0)));
+        hotelRooms = new JLabel(String.valueOf(hotel.countRooms(0) + " rooms"));
         hotelRooms.setFont(customFont15);
         hotelRooms.setForeground(Color.white);
         hotelRooms.setVerticalAlignment(JLabel.TOP);
         hotelRooms.setBounds(17, 75, 300, 17);
         
-        hotelRes = new JLabel(String.valueOf(hotel.countReservations()));
+        hotelRes = new JLabel(String.valueOf(hotel.countReservations() + " reservations"));
         hotelRes.setFont(customFont15);
         hotelRes.setForeground(Color.white);
         hotelRes.setVerticalAlignment(JLabel.TOP);
@@ -133,6 +133,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         viewPanel.add(resInfoButton);
         viewPanel.add(resInfoPanel);
 
+        dateAvailPanel.setVisible(false);
         roomInfoPanel.setVisible(false);
         resInfoPanel.setVisible(false);        
 
@@ -144,83 +145,12 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*if (e.getSource() == dateAvailButton){
-            dateAvailPanel.setVisible(true);
-            roomInfoPanel.setVisible(false);
-            resInfoPanel.setVisible(false);
-            dateAvailButton.setColor(new Color(40, 68, 117));
-            roomInfoButton.setColor(new Color(27, 43, 80));
-            resInfoButton.setColor(new Color(27, 43, 80));
-        }
-        else if (e.getSource() == roomInfoButton){
-            dateAvailPanel.setVisible(false);
-            roomInfoPanel.setVisible(true);
-            resInfoPanel.setVisible(false);
-            dateAvailButton.setColor(new Color(27, 43, 80));
-            roomInfoButton.setColor(new Color(40, 68, 117));
-            resInfoButton.setColor(new Color(27, 43, 80));
-        }
-        else if (e.getSource() == resInfoButton){
-            dateAvailPanel.setVisible(false);
-            roomInfoPanel.setVisible(false);
-            resInfoPanel.setVisible(true);
-            dateAvailButton.setColor(new Color(27, 43, 80));
-            roomInfoButton.setColor(new Color(27, 43, 80));
-            resInfoButton.setColor(new Color(40, 68, 117));
-        }
-        else if (e.getSource() == bookButton){
-            bookPanel = new BookHotelPanel(hotel, this);
-            bookPanel.setBounds(152, 10, 385, 420);
-            this.add(bookPanel, JLayeredPane.POPUP_LAYER);
-        }
-        else if (e.getSource() == manageButton){
-            managePanel = new ManagePanel(hotel, this, new Color(51, 88, 150)); 
-            this.add(managePanel, JLayeredPane.POPUP_LAYER);
-        }*/
+        
     }
 
     @Override
     public void buttonClicked(String buttonName) {
-        /*if (buttonName.equals("Book")){
-            bookPanel.setVisible(false);
-            this.remove(bookPanel);
-        }
-        else if (buttonName.equals("Book Cancel")){
-            bookPanel.setVisible(false);
-            this.remove(bookPanel);
-        }
-        else if (buttonName.equals("Change Name")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Add Room")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Update Base Price")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Date Price Modifier")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Remove Room")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Remove Reservation")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Remove Hotel")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }
-        else if (buttonName.equals("Manage Cancel")){
-            managePanel.setVisible(false);
-            this.remove(managePanel);
-        }*/
+        
     }
 
     public IconButton getManageButton(){
@@ -253,6 +183,14 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
 
     public void setManagePanel(ManagePanel managePanel){
         this.managePanel = managePanel;
+    }
+
+    public RoundPanel getViewPanel(){
+        return viewPanel;
+    }
+
+    public void setViewPanel(RoundPanel viewPanel){
+        this.viewPanel = viewPanel;
     }
 
     public OptionButton getDateAvailButton(){

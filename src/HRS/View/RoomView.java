@@ -17,7 +17,7 @@ public class RoomView extends RoundPanel{
         
         super(new Color(27, 43, 80));
 
-        customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
+        customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 9);
 
         rooms = new ArrayList<OptionButton>();
         

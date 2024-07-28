@@ -82,9 +82,9 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         availDates.setHorizontalAlignment(JLabel.CENTER);
 
         // * Room Types * //
-        nStandardRooms = 0;
-        nDeluxeRooms = 0;
-        nExecutiveRooms = 0;
+        nStandardRooms = hotel.countRooms(1);
+        nDeluxeRooms = hotel.countRooms(2);
+        nExecutiveRooms = hotel.countRooms(3);
 
         standardRooms = new RoundLabel(new Color(40, 68, 117));
         standardRooms.setFont(customFont15);
@@ -182,38 +182,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
     @Override
     public void roomButtonClicked(String roomButtonName) {
-        /*for (int i = 0; i < hotel.countRooms(0); i++){
-            ArrayList<OptionButton> roomButtons = roomView.getRooms();
-            String type = hotel.fetchRoom(i).getRoomType();
-            float pricePerNight = hotel.fetchRoom(i).getRoomPrice();
-            String name = hotel.fetchRoom(i).getRoomName();
-            String price = String.format("%.2f", pricePerNight * (i % 7)); 
-
-            if (roomButtonName.equals(name)){
-                roomName.setText("Room " + name);
-                roomPrice.setText(price + " per night");
-                roomType.setText(type + " Room");
-                roomButtons.get(i).setColor(new Color(51, 88, 150));
-
-                int[] availDatesTemp = hotel.checkRoomAvailability(hotel.fetchRoom(i));
-
-                for (int j = 0; j < availDatesTemp.length; j++){
-                    for (int k = 0; k < 31; k++){
-                        if (k + 1 == availDatesTemp[j]){ 
-                            days.get(k).setColor(new Color(51, 88, 150));
-                            days.get(k).setColorOver(new Color(51, 88, 150));
-                            days.get(k).setColorClick(new Color(51, 88, 150));
-                        } 
-                    }
-                }
-            }
-            else {
-                for (int j = 0; j < hotel.countRooms(0); j++){
-                    roomButtons.get(i).setColor(new Color(27, 43, 80));
-                }
-
-            }
-        }*/
+        
     }
 
     @Override

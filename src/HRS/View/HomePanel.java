@@ -13,19 +13,24 @@ import java.util.*;
 
 public class HomePanel extends RoundPanel implements ActionListener{
     
-    JLabel hotelTitle;
-    RoundPanel titlePanel;
-    RoundLabel title;
-    RoundLabel description;
-    ArrayList<HotelItem> hotelCatalogue;
+    private ArrayList<Hotel> hotels;
+    private int nHotels;
+    
+    private JLabel hotelTitle;
+    private RoundPanel titlePanel;
+    private RoundLabel title;
+    private RoundLabel description;
+    private ArrayList<HotelItem> hotelCatalogue;
 
-    Font customFont15;
-    Font customFont30;
-    Font customFont90;
+    private Font customFont15;
+    private Font customFont30;
+    private Font customFont90;
 
-    public HomePanel(ArrayList<Hotel> hotels, int nHotel){
+    public HomePanel(ArrayList<Hotel> hotels, int nHotels){
 
         super(new Color(13, 22, 45));
+        this.hotels = hotels;
+        this.nHotels = nHotels;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
@@ -67,7 +72,7 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
         hotelCatalogue = new ArrayList<HotelItem>();
 
-        for(int i = 0; i < nHotel; i++){
+        for(int i = 0; i < nHotels; i++){
             HotelItem itemTemp = new HotelItem(hotels.get(i));
             initializeHotelItem(itemTemp, hotels.get(i), i);
             hotelCatalogue.add(itemTemp);
@@ -79,7 +84,7 @@ public class HomePanel extends RoundPanel implements ActionListener{
         this.add(titlePanel);
         this.add(star);
 
-        for (int i = 0; i < nHotel; i++){
+        for (int i = 0; i < nHotels; i++){
             this.add(hotelCatalogue.get(i));
         }
     }
@@ -117,5 +122,21 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
     public void setHotelCatalogue(ArrayList<HotelItem> hotelCatalogue){
         this.hotelCatalogue = hotelCatalogue;
+    }
+
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
+    }
+
+    public void setHotels(ArrayList<Hotel> hotels){
+        this. hotels = hotels;
+    }
+
+    public int getnHotels(){
+        return nHotels;
+    }
+
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
     }
 }
