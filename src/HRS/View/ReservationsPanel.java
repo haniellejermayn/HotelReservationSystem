@@ -100,7 +100,7 @@ public class ReservationsPanel extends RoundPanel{
                     data[rowCounter][1] = temp.fetchReservation(j - 1).getGuestName();
                     data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType(); 
                     data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate(); 
-                    data[rowCounter][4] = temp.fetchReservation(j - 1).computeFinalPrice(); 
+                    data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice()); 
 
                     rowCounter += 1;
                 }

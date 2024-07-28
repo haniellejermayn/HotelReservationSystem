@@ -13,38 +13,40 @@ import java.util.*;
 
 public class MainFrame extends JFrame{
     
-    RoundPanel homePage;
-    RoundPanel hotelsPage;
-    RoundPanel reservationsPage;
-    RoundPanel settingsPopUp;
+    private RoundPanel homePage;
+    private RoundPanel hotelsPage;
+    private RoundPanel reservationsPage;
+    private RoundPanel settingsPopUp;
 
-    RoundPanel accountSidePanel;
-    RoundPanel fillerPanel;
-    RoundPanel reservationsPanel;
-    SidePanel sidePanel;
-    JScrollPane scrollPane;
+    private RoundPanel accountSidePanel;
+    private RoundPanel fillerPanel;
+    private RoundPanel reservationsPanel;
+    private SidePanel sidePanel;
+    private JScrollPane scrollPane;
 
-    JLabel reservationsNo;
+    private JLabel reservationsNo;
 
-    ImageIcon logo;
-    ImageIcon logoAndName;
-    JLabel logoName;
-    JLabel hotelTitle;
+    private ImageIcon logo;
+    private ImageIcon logoAndName;
+    private JLabel logoName;
+    private JLabel hotelTitle;
 
-    Font customFont15;
-    Font customFont25;
-    Font customFont30;
-    Font customFont60;
+    private Font customFont15;
+    private Font customFont25;
+    private Font customFont30;
+    private Font customFont60;
 
-    HomePanel homePanel;
-    HotelsPanel hotelsPanel;
-    ReservationsPanel resPanel;
-    AccountPanel accountPanel;
+    private HomePanel homePanel;
+    private HotelsPanel hotelsPanel;
+    private ReservationsPanel resPanel;
+    private AccountPanel accountPanel;
     
-    ArrayList<SelectedHotelPanel> selectedHotelPanels;
-    SelectedHotelPanel selectedHotelPanel;
-    ArrayList<Hotel> hotels;
-    int nHotels;
+    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    private SelectedHotelPanel selectedHotelPanel;
+    private boolean isHotelSelected;
+
+    private ArrayList<Hotel> hotels;
+    private int nHotels;
     
     public MainFrame(ArrayList<Hotel> hotels, int nHotels){
 
@@ -170,6 +172,7 @@ public class MainFrame extends JFrame{
         accountPanel = new AccountPanel();
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
+        setIsHotelSelected(false);
 
         initializeSelectedHotels(hotels, nHotels);
 
@@ -264,5 +267,13 @@ public class MainFrame extends JFrame{
 
     public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
         this.selectedHotelPanel = selectedHotelPanel;
+    }
+
+    public boolean isHotelSelected(){
+        return isHotelSelected;
+    }
+
+    public void setIsHotelSelected(boolean isHotelSelected){
+        this.isHotelSelected = isHotelSelected;
     }
 }

@@ -24,6 +24,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private IconButton manageButton;
     private OptionButton bookButton;
     private BookHotelPanel bookPanel;
+    private boolean hasBookPanel;
     private ManagePanel managePanel;
     private OptionButton dateAvailButton;
     private DateAvailPanel dateAvailPanel;
@@ -54,7 +55,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelName.setVerticalAlignment(JLabel.TOP);
         hotelName.setBounds(15, 20, 300, 50);
         
-        hotelPrice = new JLabel(String.format("$%.2f", hotel.getBasePrice())); // ! // BUG: doesn't show 2 dec points and $ symbol
+        hotelPrice = new JLabel(String.format("$%.2f", hotel.getBasePrice())); 
         hotelPrice.setFont(customFont50);
         hotelPrice.setForeground(Color.white);
         hotelPrice.setVerticalAlignment(JLabel.TOP);
@@ -78,6 +79,8 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         bookButton.setColor(bookButton.getColorOver());
         bookButton.setColorOver(bookButton.getColorClick());
         bookButton.addActionListener(this);
+
+        setHasBookPanel(false);
 
         ImageIcon manageIcon = new ImageIcon("Icons/StylusIcon.png"); 
 
@@ -161,6 +164,38 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         this.titlePanel = titlePanel;
     }
 
+    public JLabel getHotelNameLabel(){
+        return hotelName;
+    }
+
+    public void setHotelNameLabel(JLabel hotelName){
+        this.hotelName = hotelName;
+    }
+
+    public JLabel getHotelPriceLabel(){
+        return hotelPrice;
+    }
+
+    public void setHotelPriceLabel(JLabel hotelPrice){
+        this.hotelPrice = hotelPrice;
+    }
+
+    public JLabel getHotelRoomsLabel(){
+        return hotelRooms;
+    }
+
+    public void setHotelRoomsLabel(JLabel hotelRooms){
+        this.hotelRooms = hotelRooms;
+    }
+
+    public JLabel getHotelResLabel(){
+        return hotelRes;
+    }
+
+    public void setHotelResLabel(JLabel hotelRes){
+        this.hotelRes = hotelRes;
+    }
+    
     public IconButton getManageButton(){
         return manageButton;
     }
@@ -175,6 +210,14 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
 
     public void setBookButton(OptionButton bookButton){
         this.bookButton = bookButton;
+    }
+
+    public boolean hasBookPanel(){
+        return hasBookPanel;
+    }
+
+    public void setHasBookPanel(boolean hasBookPanel){
+        this.hasBookPanel = hasBookPanel;
     }
 
     public BookHotelPanel getBookPanel(){

@@ -63,11 +63,11 @@ public class HRSView {
     }
 
     public void setSidePanelListener(ActionListener listener){
-        sidePanel.getHomeButton().addActionListener(listener);
-        sidePanel.getHotelButton().addActionListener(listener);
-        sidePanel.getReservationsButton().addActionListener(listener);
-        sidePanel.getAccountButton().addActionListener(listener);
-        sidePanel.getBackButton().addActionListener(listener);
+        mainFrame.getSidePanel().getHomeButton().addActionListener(listener);
+        mainFrame.getSidePanel().getHotelButton().addActionListener(listener);
+        mainFrame.getSidePanel().getReservationsButton().addActionListener(listener);
+        mainFrame.getSidePanel().getAccountButton().addActionListener(listener);
+        mainFrame.getSidePanel().getBackButton().addActionListener(listener);
     }
 
     public void setHotelSelectedListener(ActionListener listener) {
@@ -90,10 +90,10 @@ public class HRSView {
     }
 
     public void setFilterPanelListener(ActionListener listener){
-        filterPanel.getMostBookedButton().addActionListener(listener);
-        filterPanel.getLowestPriceButton().addActionListener(listener);
-        filterPanel.getHighestPriceButton().addActionListener(listener);
-        filterPanel.getNewestButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getFilterPanel().getMostBookedButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getFilterPanel().getLowestPriceButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getFilterPanel().getHighestPriceButton().addActionListener(listener);
+        mainFrame.getHotelsPanel().getFilterPanel().getNewestButton().addActionListener(listener);
     }
 
     public void setSelectedHotelListener(ActionListener listener){
@@ -117,6 +117,7 @@ public class HRSView {
     }
 
     public void setManageHotelListener(ActionListener listener){
+        ManagePanel manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
         manageHotelPanel.getChangeNameButton().addActionListener(listener);
         manageHotelPanel.getAddRoomButton().addActionListener(listener);
         manageHotelPanel.getUpdateBasePriceButton().addActionListener(listener);
@@ -127,6 +128,7 @@ public class HRSView {
     }
 
     public void setManageSubPanelListener(ActionListener listener){
+        ManagePanel manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
         manageHotelPanel.getChangeNamePanel().getUpdateButton().addActionListener(listener);
         manageHotelPanel.getAddRoomPanel().getUpdateButton().addActionListener(listener);
         manageHotelPanel.getUpdateBasePricePanel().getUpdateButton().addActionListener(listener);
@@ -142,9 +144,25 @@ public class HRSView {
         manageHotelPanel.getRemoveRoomPanel().getCancelButton().addActionListener(listener);
         manageHotelPanel.getRemoveResPanel().getCancelButton().addActionListener(listener);
         manageHotelPanel.getRemoveHotelPanel().getCancelButton().addActionListener(listener);
+
+        ArrayList<OptionButton> days = manageHotelPanel.getCalendarView().getDays();
+        for (int i = 0; i < days.size(); i++){
+            days.get(i).addActionListener(listener);
+        }
+
+        ArrayList<OptionButton> rooms = manageHotelPanel.getRoomView().getRooms();
+        for (int i = 0; i < rooms.size(); i++){
+            rooms.get(i).addActionListener(listener);
+        }
+
+        ArrayList<OptionButton> reservations = manageHotelPanel.getResView().getReservations();
+        for (int i = 0; i < reservations.size(); i++){
+            reservations.get(i).addActionListener(listener);
+        }
     }
 
     public void setConfirmModListener(ActionListener listener){
+        ManagePanel manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
         manageHotelPanel.getConfirmModPanel().getYesButton().addActionListener(listener);
         manageHotelPanel.getConfirmModPanel().getNoButton().addActionListener(listener);
         manageHotelPanel.getConfirmModPanel().getCancelButton().addActionListener(listener);

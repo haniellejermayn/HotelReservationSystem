@@ -38,11 +38,13 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     private String hotelNameInput;
     private float basePriceInput;
     private int dateModInput;
-    private int percentModInput;
+    private float percentModInput;
     private int removeRoomInput;
     private int removeResInput;
 
     private ArrayList<OptionButton> days;
+    private ArrayList<OptionButton> rooms;
+    private ArrayList<OptionButton> reservations;
 
     private RoomView roomView;
     private ReservationView resView;
@@ -192,7 +194,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeRoom.setColorClick(removeRoom.getColorOver());
         removeRoom.addActionListener(this);
 
-        int nRooms = 30; // TODO: remove
+        int nRooms = hotel.countRooms(0);
         int roomViewHeight;
 
         if (nRooms > 25){
@@ -202,7 +204,8 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
             roomViewHeight = 198;
         }
 
-        roomView = new RoomView(hotel); // TODO: set to no. of rooms
+        roomView = new RoomView(hotel);
+        rooms = roomView.getRooms();
 
         roomView.setBounds(0, 0, 250, roomViewHeight);
         roomView.setPreferredSize(new Dimension(250, roomViewHeight));
@@ -230,10 +233,11 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeRes.setColorClick(removeRes.getColorOver());
         removeRes.addActionListener(this);
 
-        int nReservations = 6; // TODO: remove
+        int nReservations = hotel.countReservations(); 
         int resViewHeight = nReservations * 39 + 5;
 
-        resView = new ReservationView(hotel); // TODO: change to no. of reservations
+        resView = new ReservationView(hotel); 
+        reservations = resView.getReservations();
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
 
@@ -498,11 +502,11 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         this.percentageTextField = percentageTextField;
     }
 
-    public int getPriceModInput(){ 
+    public float getPriceModInput(){ 
         return percentModInput;
     }
 
-    public void setPriceModInput(int percentModInput){
+    public void setPriceModInput(float percentModInput){
         this.percentModInput = percentModInput;
     }
 
@@ -538,6 +542,14 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         this.resView = resView;
     }
 
+    public ArrayList<OptionButton> getReservations(){
+        return reservations;
+    }
+
+    public void setReservations(ArrayList<OptionButton> reservations){
+        this.reservations = reservations;
+    }
+
     public RoomView getRoomView(){
         return roomView;
     }
@@ -546,11 +558,27 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         this.roomView = roomView;
     }
 
+    public ArrayList<OptionButton> getRooms(){
+        return rooms;
+    }
+
+    public void setRooms(ArrayList<OptionButton> rooms){
+        this.rooms = rooms;
+    }
+    
     public CalendarView getCalendarView(){
         return calendarView;
     }
-
+    
     public void setCalendarView(CalendarView calendarView){
         this.calendarView = calendarView;
+    }
+    
+    public ArrayList<OptionButton> getDays(){
+        return days;
+    }
+
+    public void setDays(ArrayList<OptionButton> days){
+        this.days = days;
     }
 }

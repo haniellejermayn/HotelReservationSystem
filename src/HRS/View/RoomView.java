@@ -13,7 +13,7 @@ public class RoomView extends RoundPanel{
     private ArrayList<OptionButton> rooms;
     private Font customFont;
 
-    public RoomView(Hotel hotel){ // TODO: remove vutton listener
+    public RoomView(Hotel hotel){ 
         
         super(new Color(27, 43, 80));
 
@@ -23,7 +23,6 @@ public class RoomView extends RoundPanel{
         
         for (int i = 0; i < hotel.countRooms(0); i++){
             OptionButton room = new OptionButton(hotel.fetchRoom(i).getRoomName()); 
-            String name = hotel.fetchRoom(i).getRoomName();
 
             if ((i + 1) % 5 == 1){
                 if (i >= 0 && i <= 4){

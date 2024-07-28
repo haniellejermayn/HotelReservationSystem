@@ -245,7 +245,7 @@ public class Hotel {
     public void removeRoom(int index) {
         this.rooms.remove(index);
         this.reinitializeRooms();
-        this.datePriceModifiers.remove(index);
+        //this.datePriceModifiers.remove(index);
     }
 
     public float fetchDatePriceModifier(int day) {
