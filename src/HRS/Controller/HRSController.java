@@ -507,7 +507,6 @@ public class HRSController{
                 int checkOut = bookHotelPanel.getCheckOutInput();
 
                 // TODO: (if filled) check if disc is valid 
-                // TODO: check if selected room type is available within the checkIn and checkOut dates
                 if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
 
                     Hotel hotel = model.getHotels().get(hotelIndex); 
@@ -520,6 +519,34 @@ public class HRSController{
 
                         Room room = hotel.fetchRoom(roomIndex);
                         hotel.addReservation(name, checkIn, checkOut, room);
+                        Reservation newRes = hotel.fetchReservation(hotel.countReservations() - 1);
+
+                        if (!disc.isEmpty()){
+                            if (disc.equals("I_WORK_HERE")){
+
+                                IWorkHere iWorkHereDiscount = new IWorkHere();
+                                boolean applicable = iWorkHereDiscount.checkApplicability(newRes);
+                                if (applicable){
+                                    newRes.setDiscountCode(iWorkHereDiscount);
+                                }
+                            }
+                            else if (disc.equals("STAY4_GET1")){
+
+                                Stay4Get1 stay4Get1Discount = new Stay4Get1();
+                                boolean applicable = stay4Get1Discount.checkApplicability(newRes);
+                                if (applicable){
+                                    newRes.setDiscountCode(stay4Get1Discount);
+                                }
+                            }
+                            else if (disc.equals("PAYDAY")){
+
+                                Payday paydayDiscount = new Payday();
+                                boolean applicable = paydayDiscount.checkApplicability(newRes);
+                                if (applicable){
+                                    newRes.setDiscountCode(paydayDiscount);
+                                }
+                            }
+                        }
 
                         initializeMainListeners("Home Panel", 0);
                         initializeMainListeners("Hotels Panel", 0);
@@ -541,7 +568,7 @@ public class HRSController{
                                 totalReservations++;
                             }
                         }
-                        //mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); // ! // BUG: does not change reservation number
+                        mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); // ! // BUG: does not change reservation number
                     
                     }
                 }

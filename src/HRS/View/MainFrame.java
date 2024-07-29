@@ -244,12 +244,12 @@ public class MainFrame extends JFrame{
         this.scrollPane = scrollPane;
     }
 
-    public RoundPanel getSideResPanel(){
-        return reservationsPanel;
+    public JLabel getSideResPanel(){
+        return reservationsNo;
     }
 
-    public void setSideResPanel(RoundPanel reservationsPanel){
-        this.reservationsPanel = reservationsPanel;
+    public void setSideResPanel(JLabel reservationsNo){
+        this.reservationsNo = reservationsNo;
     }
 
     public HomePanel getHomePanel(){
