@@ -5,3 +5,4 @@ Bugs:
 - Have not implemented discount feature
 - Have not implemented price breakdown
 - No error message for invalid inputs
+- Filters have not been implemented yet
