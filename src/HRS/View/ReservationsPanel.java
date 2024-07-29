@@ -99,21 +99,18 @@ public class ReservationsPanel extends RoundPanel{
         while(rowCounter <= nReservations) {
 
             for (int i = 1; i <= tableHotels.size(); i++){
-
-                //rowCounter = 0;
-                //while(rowCounter <= tableHotels.get(i).countReservations()) {         
-                    temp = tableHotels.get(i - 1);
-                    data[rowCounter][0] = temp.getHotelName();
         
-                    for (int j = 1; j <= temp.countReservations(); j++) {
-                        data[rowCounter][1] = temp.fetchReservation(j - 1).getGuestName();
-                        data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType(); 
-                        data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate(); 
-                        data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice()); 
+                temp = tableHotels.get(i - 1);
 
-                        rowCounter += 1;
-                    }
-                //}
+                for (int j = 1; j <= temp.countReservations(); j++) {
+                    data[rowCounter][0] = temp.getHotelName();
+                    data[rowCounter][1] = temp.fetchReservation(j - 1).getGuestName();
+                    data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType(); 
+                    data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate(); 
+                    data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice()); 
+
+                    rowCounter += 1;
+                }
             }
         }
         

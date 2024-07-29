@@ -238,6 +238,8 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         resView = new ReservationView(hotel); 
         reservations = resView.getReservations();
+
+        
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
 

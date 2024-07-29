@@ -849,6 +849,7 @@ public class HRSController{
 
                 if (e.getSource() == resButtons.get(i)){
                     int resIndex = i;
+                    
                     resButtons.get(i).setColor(new Color(51, 88, 150));
                     managePanel.setRemoveResInput(resIndex); 
                 }
@@ -1011,7 +1012,8 @@ public class HRSController{
                     selectedHotelPanel.remove(managePanel);
 
                     int resIndex = managePanel.getRemoveResInput();
-                    model.getHotels().get(hotelIndex).removeReservation(resIndex);
+
+                    model.getHotels().get(hotelIndex).removeReservation(resIndex); // ! // BUG: improper indexing of 
 
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
