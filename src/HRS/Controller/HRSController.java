@@ -52,6 +52,7 @@ public class HRSController{
                 }
 
                 initializeMainListeners("Home Panel", 0);
+                view.setHotelSelectedListener(new HotelSelectedListener());
                 mainFrame.getHomePanel().setVisible(true);
 
             }
@@ -509,7 +510,7 @@ public class HRSController{
                 // TODO: (if filled) check if disc is valid 
                 // TODO: check if selected room type is available within the checkIn and checkOut dates
                 if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
-                    
+
                     Hotel hotel = model.getHotels().get(hotelIndex);  // ! // BUG: index out of bounds in the second booking
                     int roomIndex = hotel.checkDateAvailability(checkIn, checkOut, roomType);
 
@@ -524,6 +525,13 @@ public class HRSController{
                         initializeMainListeners("Home Panel", 0);
                         initializeMainListeners("Hotels Panel", 0);
                         initializeMainListeners("Reservations Panel", 0);
+
+                        for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
+                            mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
+                        }
+
+                        hotelIndex = selectedHotelPanel.getHotelIndex();
+
                         mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                         initializeMainListeners("Selected Hotel Panel", hotelIndex);
                         mainFrame.getSelectedHotelPanel().setVisible(true);
@@ -935,7 +943,7 @@ public class HRSController{
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
                 }
-                else if (panelName.equals("Update Base Price")){
+                else if (panelName.equals("Update Base Price")){ // ! // BUG: does not work for the second time
                     managePanel.getConfirmModPanel().setVisible(false);
                     managePanel.remove(managePanel.getConfirmModPanel());
                     managePanel.setVisible(false);
@@ -977,14 +985,7 @@ public class HRSController{
 
                     int roomIndex = managePanel.getRemoveRoomInput();
                     model.getHotels().get(hotelIndex).removeRoom(roomIndex);
-                        
-                    /*SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
-                    newSelectedHotelPanel.setVisible(true);
-                    mainFrame.remove(selectedHotelPanel);
-                    mainFrame.add(newSelectedHotelPanel);
-                    mainFrame.setSelectedHotelPanel(newSelectedHotelPanel);
-                    view.setSelectedHotelListener(new SelectedHotelListener());*/
-
+                    
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
@@ -1001,13 +1002,6 @@ public class HRSController{
 
                     int resIndex = view.getManageHotelPanel().getRemoveResInput();
                     model.getHotels().get(hotelIndex).removeReservation(resIndex);
-                        
-                    /*SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.fetchHotel(hotelIndex), hotelIndex);
-                    newSelectedHotelPanel.setVisible(true);
-                    mainFrame.remove(selectedHotelPanel);
-                    mainFrame.add(newSelectedHotelPanel);
-                    mainFrame.setSelectedHotelPanel(newSelectedHotelPanel);
-                    view.setSelectedHotelListener(new SelectedHotelListener());*/
 
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
@@ -1024,33 +1018,17 @@ public class HRSController{
                     managePanel.remove(managePanel.getConfirmModPanel());
                     managePanel.setVisible(false);
                     selectedHotelPanel.remove(managePanel);
+                    selectedHotelPanel.setVisible(false);
                     mainFrame.remove(selectedHotelPanel);
 
                     model.getHotels().remove(hotelIndex);
-                    
-                    mainFrame.getHotelsPanel().setVisible(true);
-
-                    /*HomePanel newHomePanel = new HomePanel(model.getHotels(), model.countHotels());
-                    newHomePanel.setVisible(false);
-                    mainFrame.remove(mainFrame.getHomePanel());
-                    mainFrame.add(newHomePanel);
-                    mainFrame.setHomePanel(newHomePanel);
-    
-                    HotelsPanel newHotelsPanel = new HotelsPanel(model.getHotels(), model.countHotels());
-                    newHotelsPanel.setVisible(false);
-                    mainFrame.remove(mainFrame.getHotelsPanel());
-                    mainFrame.add(newHotelsPanel);
-                    mainFrame.setHotelsPanel(newHotelsPanel);
-                                            
-                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
-                    view.setHotelsPanelListener(new HotelsPanelListener());
-                    view.setHotelSelectedListener(new HotelSelectedListener());*/
 
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+
                     mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
-                    initializeMainListeners("Selected Hotel Panel", hotelIndex);
+                    //initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getHotelsPanel().setVisible(true);
                 }
             }
@@ -1215,8 +1193,6 @@ public class HRSController{
             for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
                 mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
             }
-            
-            view.setHotelSelectedListener(new HotelSelectedListener());
         }
         else if (listenerName.equals("Hotels Panel")){
             HotelsPanel newHotelsPanel = new HotelsPanel(model.getHotels(), model.countHotels());
@@ -1236,7 +1212,7 @@ public class HRSController{
                 mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
             }
 
-            SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.getHotels().get(hotelIndex), model.countHotels());
+            SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.getHotels().get(hotelIndex), hotelIndex);
             newSelectedHotelPanel.setVisible(false);
             mainFrame.remove(mainFrame.getSelectedHotelPanel());
             mainFrame.add(newSelectedHotelPanel);

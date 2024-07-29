@@ -73,14 +73,14 @@ public class ReservationsPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
-    public DefaultTableModel initializeData(ArrayList<Hotel> hotels, int nHotel){
+    public DefaultTableModel initializeData(ArrayList<Hotel> tableHotels, int tablenHotel){
         int rowCounter = 1;
         Hotel temp;
         Object[] columnNames = {"Hotel", "Name", "Room Type", "Check In / Out", "Price"};
 
         int nReservations = 0;
-        for(int i = 0; i < hotels.size(); i++) {
-            nReservations += hotels.get(i).countReservations();
+        for(int i = 0; i < tableHotels.size(); i++) {
+            nReservations += tableHotels.get(i).countReservations();
         }
 
         Object[][] data = new Object[nReservations + 1][columnNames.length];
@@ -92,8 +92,8 @@ public class ReservationsPanel extends RoundPanel{
         data[0][4] = columnNames[4];
 
         while(rowCounter <= nReservations) {
-            for (int i = 1; i <= hotels.size(); i++){            
-                temp = hotels.get(i - 1);
+            for (int i = 1; i <= tableHotels.size(); i++){            
+                temp = tableHotels.get(i - 1);
                 data[rowCounter][0] = temp.getHotelName();
     
                 for (int j = 1; j <= temp.countReservations(); j++) {
