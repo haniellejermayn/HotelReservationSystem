@@ -104,6 +104,7 @@ public class HotelsPanel extends LayeredRoundPanel{
     public void initializeHotelOption(HotelOption item, Hotel hotel, int itemNo){
 
         String hotelName = hotel.getHotelName(); 
+
         float price = hotel.getBasePrice(); 
         int rooms = hotel.countRooms(0);
         int reservations = hotel.countReservations();

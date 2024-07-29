@@ -47,6 +47,7 @@ public class HRSController{
 
                 if (mainFrame.isHotelSelected()){
                     mainFrame.getSelectedHotelPanel().setVisible(false);
+                    mainFrame.remove(mainFrame.getSelectedHotelPanel());
                     mainFrame.setIsHotelSelected(false);
                 }
 
@@ -65,14 +66,9 @@ public class HRSController{
 
                 if (mainFrame.isHotelSelected()){
                     mainFrame.getSelectedHotelPanel().setVisible(false);
+                    mainFrame.remove(mainFrame.getSelectedHotelPanel());
                     mainFrame.setIsHotelSelected(false);
                 }
-
-                HotelsPanel newHotelsPanel = new HotelsPanel(model.getHotels(), model.countHotels());
-                newHotelsPanel.setVisible(false);
-                mainFrame.remove(mainFrame.getHotelsPanel());
-                mainFrame.add(newHotelsPanel);
-                mainFrame.setHotelsPanel(newHotelsPanel);
 
                 initializeMainListeners("Hotels Panel", 0);
                 mainFrame.getHotelsPanel().setVisible(true);
@@ -89,6 +85,7 @@ public class HRSController{
                 
                 if (mainFrame.isHotelSelected()){
                     mainFrame.getSelectedHotelPanel().setVisible(false);
+                    mainFrame.remove(mainFrame.getSelectedHotelPanel());
                     mainFrame.setIsHotelSelected(false);
                 }
 
@@ -107,6 +104,7 @@ public class HRSController{
                 
                 if (mainFrame.isHotelSelected()){
                     mainFrame.getSelectedHotelPanel().setVisible(false);
+                    mainFrame.remove(mainFrame.getSelectedHotelPanel());
                     mainFrame.setIsHotelSelected(false);
                 }
 
@@ -116,6 +114,12 @@ public class HRSController{
             else if (e.getSource() == backButton){
                 System.exit(0);
             }
+
+            for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
+                mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
+            }
+
+            mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
         }
     }
 
@@ -130,25 +134,27 @@ public class HRSController{
                     
                 if (e.getSource() == mainFrame.getHomePanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = mainFrame.getSelectedHotelPanels().get(i);
+
                     selectedHotel.setVisible(true);
                     mainFrame.setSelectedHotelPanel(selectedHotel);
                     mainFrame.setIsHotelSelected(true);
+                    mainFrame.add(selectedHotel);
                     view.initializeSelectedHotelPanel();
                     mainFrame.getHomePanel().setVisible(false);
                     mainFrame.getHotelsPanel().setVisible(false);
-                    view.getMainFrame().add(selectedHotel);
 
                     view.setSelectedHotelListener(new SelectedHotelListener());
                 }
                 else if (e.getSource() == mainFrame.getHotelsPanel().getHotelCatalogue().get(i)){
                     SelectedHotelPanel selectedHotel = mainFrame.getSelectedHotelPanels().get(i);
+
                     selectedHotel.setVisible(true);
                     mainFrame.setSelectedHotelPanel(selectedHotel);
                     mainFrame.setIsHotelSelected(true);
+                    mainFrame.add(selectedHotel);
                     view.initializeSelectedHotelPanel();
                     mainFrame.getHomePanel().setVisible(false);
                     mainFrame.getHotelsPanel().setVisible(false);
-                    view.getMainFrame().add(selectedHotel);
 
                     view.setSelectedHotelListener(new SelectedHotelListener());
                 }
@@ -232,6 +238,7 @@ public class HRSController{
     
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     
                     mainFrame.getHotelsPanel().setVisible(true);
                 }
@@ -517,6 +524,7 @@ public class HRSController{
                         initializeMainListeners("Home Panel", 0);
                         initializeMainListeners("Hotels Panel", 0);
                         initializeMainListeners("Reservations Panel", 0);
+                        mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                         initializeMainListeners("Selected Hotel Panel", hotelIndex);
                         mainFrame.getSelectedHotelPanel().setVisible(true);
                     
@@ -903,6 +911,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
 
@@ -922,6 +931,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
                 }
@@ -938,6 +948,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
                 }
@@ -954,6 +965,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
                 }
@@ -976,6 +988,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
 
@@ -999,6 +1012,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
 
@@ -1035,6 +1049,7 @@ public class HRSController{
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
+                    mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getHotelsPanel().setVisible(true);
                 }
@@ -1197,7 +1212,10 @@ public class HRSController{
             mainFrame.add(newHomePanel);
             mainFrame.setHomePanel(newHomePanel);
             
-            mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
+            for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
+                mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
+            }
+            
             view.setHotelSelectedListener(new HotelSelectedListener());
         }
         else if (listenerName.equals("Hotels Panel")){
@@ -1207,18 +1225,23 @@ public class HRSController{
             mainFrame.add(newHotelsPanel);
             mainFrame.setHotelsPanel(newHotelsPanel);
 
-            mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
+            for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
+                mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
+            }
             view.setHotelsPanelListener(new HotelsPanelListener());
             view.setHotelSelectedListener(new HotelSelectedListener());
         }
         else if (listenerName.equals("Selected Hotel Panel")){
+            for (int i = 0; i < mainFrame.getSelectedHotelPanels().size(); i++){
+                mainFrame.getSelectedHotelPanels().remove(mainFrame.getSelectedHotelPanels().get(i));
+            }
+
             SelectedHotelPanel newSelectedHotelPanel = new SelectedHotelPanel(model.getHotels().get(hotelIndex), model.countHotels());
             newSelectedHotelPanel.setVisible(false);
             mainFrame.remove(mainFrame.getSelectedHotelPanel());
             mainFrame.add(newSelectedHotelPanel);
             mainFrame.setSelectedHotelPanel(newSelectedHotelPanel);
 
-            mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
             view.setSelectedHotelListener(new SelectedHotelListener());
         }
         else if (listenerName.equals("Reservations Panel")){

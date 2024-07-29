@@ -72,7 +72,7 @@ public class HRSView {
 
     public void setHotelSelectedListener(ActionListener listener) {
         if (mainFrame.getHotelsPanel().getnHotels() != 0){
-            for (int i = 0; i < hotels.size(); i++){
+            for (int i = 0; i < mainFrame.getHotelsPanel().getnHotels(); i++){
                 mainFrame.getHomePanel().getHotelCatalogue().get(i).addActionListener(listener);
                 mainFrame.getHotelsPanel().getHotelCatalogue().get(i).addActionListener(listener);
             }

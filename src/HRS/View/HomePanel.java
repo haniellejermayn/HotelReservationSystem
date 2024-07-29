@@ -100,13 +100,6 @@ public class HomePanel extends RoundPanel implements ActionListener{
         content.setText(hotelName);
         item.setButtonName(hotelName);
         item.setVerticalAlignment(JLabel.BOTTOM);
-        /*item.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listener.buttonClicked(hotelName);
-            }
-        });*/
         
         item.setFocusable(false);
     }

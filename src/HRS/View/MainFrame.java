@@ -197,12 +197,35 @@ public class MainFrame extends JFrame{
         this.setVisible(true);
     }
 
-    public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
-        for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i), i);
+    public void initializeSelectedHotels(ArrayList<Hotel> Selectedhotels, int SelectednHotels){
+
+        for (int i = 0; i < SelectednHotels; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(Selectedhotels.get(i), i);
+
+            /*System.out.printf("init hotel\n");
+            System.out.printf("init hotel name = %s\n", hotelTemp.getHotel().getHotelName());
+            System.out.printf("init hotel index = %d\n", i);
+            System.out.printf("init nHotels = %d\n\n", SelectednHotels);*/
+
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
+    }
+
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
+    }
+
+    public void setHotels(ArrayList<Hotel> hotels){
+        this.hotels = hotels;
+    }
+
+    public int getnHotels(){
+        return nHotels;
+    }
+
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
     }
 
     public SidePanel getSidePanel(){
