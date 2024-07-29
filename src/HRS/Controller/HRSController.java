@@ -541,7 +541,7 @@ public class HRSController{
             }
             else if (e.getSource() == bookHotelPanel.getCancelButton()){
                 bookHotelPanel.setVisible(false);
-                selectedHotelPanel.remove(view.getBookHotelPanel());
+                selectedHotelPanel.remove(bookHotelPanel);
             }
 
             ArrayList<OptionButton> days = bookHotelPanel.getDays();
@@ -787,8 +787,18 @@ public class HRSController{
                 view.setConfirmModListener(new ConfirmModListener());
             }
             else if (e.getSource() == removeRoomPanel.getUpdateButton()){
-                
-                if (model.getHotels().get(hotelIndex).countReservations() == 0){
+                int roomIndex = managePanel.getRemoveRoomInput();
+                Room removedRoom = model.getHotels().get(hotelIndex).fetchRoom(roomIndex);
+
+                boolean reserved = false;
+                ArrayList<Reservation> currentReservations = model.getHotels().get(hotelIndex).getReservations();
+                for (int i = 0; i < currentReservations.size(); i++){
+                    if (currentReservations.get(i).getRoom().getRoomName() == removedRoom.getRoomName()){
+                        reserved = true;
+                    }
+                }
+
+                if (!reserved){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Remove Room");
 
                     managePanel.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
@@ -829,7 +839,7 @@ public class HRSController{
                      e.getSource() == removeHotelPanel.getCancelButton()){
 
                 managePanel.setVisible(false);
-                selectedHotelPanel.remove(view.getManageHotelPanel());
+                selectedHotelPanel.remove(managePanel);
             }
 
             for (int i = 0; i < selectedHotelPanel.getHotel().countReservations(); i++){
@@ -1000,7 +1010,7 @@ public class HRSController{
                     managePanel.setVisible(false);
                     selectedHotelPanel.remove(managePanel);
 
-                    int resIndex = view.getManageHotelPanel().getRemoveResInput();
+                    int resIndex = managePanel.getRemoveResInput();
                     model.getHotels().get(hotelIndex).removeReservation(resIndex);
 
                     initializeMainListeners("Home Panel", 0);
