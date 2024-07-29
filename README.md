@@ -1,6 +1,7 @@
 # Controller Testing
 Bugs: 
-- Program glitches when attempting to make more than one hotel
-- Does not load the proper selected hotel when dealing with more than one hotel
-- Booking does not work after 1 reservation
-- Manage Panel does not work after committing one modification
+- Have not tested Add Rooms and Date Price Modifier
+- Removing of reservation sometimes does not work
+- Have not implemented discount feature
+- Have not implemented price breakdown
+- No error message for invalid inputs
