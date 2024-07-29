@@ -476,7 +476,6 @@ public class HRSController{
             OptionButton deluxeRoomButton = bookHotelPanel.getDeluxeRoomButton();
             OptionButton executiveRoomButton = bookHotelPanel.getExecutiveRoomButton();
 
-            // ! // BUG: does not work if visited other side panels beforehand
             if (e.getSource() == mainFrame.getSelectedHotelPanel().getBookPanel().getStandardRoomButton()){
                 standardRoomButton.setColor(new Color(51, 88, 150));
                 deluxeRoomButton.setColor(new Color(27, 43, 80));
@@ -511,12 +510,12 @@ public class HRSController{
                 // TODO: check if selected room type is available within the checkIn and checkOut dates
                 if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
 
-                    Hotel hotel = model.getHotels().get(hotelIndex);  // ! // BUG: index out of bounds in the second booking
+                    Hotel hotel = model.getHotels().get(hotelIndex); 
                     int roomIndex = hotel.checkDateAvailability(checkIn, checkOut, roomType);
 
                     if (roomIndex != -1){
                         
-                        bookHotelPanel.setVisible(false); // ! // BUG: lags with visibility
+                        bookHotelPanel.setVisible(false); 
                         //selectedHotelPanel.remove(bookHotelPanel);
 
                         Room room = hotel.fetchRoom(roomIndex);
@@ -535,6 +534,14 @@ public class HRSController{
                         mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                         initializeMainListeners("Selected Hotel Panel", hotelIndex);
                         mainFrame.getSelectedHotelPanel().setVisible(true);
+
+                        int totalReservations = 0;
+                        for (int i = 0; i < model.countHotels(); i++){
+                            for (int j = 0; j < model.getHotels().get(i).countReservations(); j++){
+                                totalReservations++;
+                            }
+                        }
+                        //mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); // ! // BUG: does not change reservation number
                     
                     }
                 }
@@ -778,13 +785,15 @@ public class HRSController{
             }
             else if (e.getSource() == datePriceModifierPanel.getUpdateButton()){
 
-                ConfirmModPanel confirmModPanel = new ConfirmModPanel("Date Price Modifier");
-
-                managePanel.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
-                managePanel.setConfirmModPanel(confirmModPanel);
-                confirmModPanel.setVisible(true);
-
-                view.setConfirmModListener(new ConfirmModListener());
+                if (model.getHotels().get(hotelIndex).countReservations() == 0){
+                    ConfirmModPanel confirmModPanel = new ConfirmModPanel("Date Price Modifier");
+    
+                    managePanel.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
+                    managePanel.setConfirmModPanel(confirmModPanel);
+                    confirmModPanel.setVisible(true);
+    
+                    view.setConfirmModListener(new ConfirmModListener());
+                }
             }
             else if (e.getSource() == removeRoomPanel.getUpdateButton()){
                 int roomIndex = managePanel.getRemoveRoomInput();
@@ -1013,7 +1022,7 @@ public class HRSController{
 
                     int resIndex = managePanel.getRemoveResInput();
 
-                    model.getHotels().get(hotelIndex).removeReservation(resIndex); // ! // BUG: improper indexing of 
+                    model.getHotels().get(hotelIndex).removeReservation(resIndex); 
 
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
@@ -1172,15 +1181,16 @@ public class HRSController{
                     resInfoPanel.setBookCalendar(newCalendar);
                     newCalendar.setHighlightedDays(reservations.get(i).getCheckInDate(), reservations.get(i).getCheckOutDate());
 
-                    // ! // BUG: doesn't show breakdown
-                    // TODO: create method to get the price breakdown
-                    /*PriceBreakdownPanel newPriceBreakdownContainer = new PriceBreakdownPanel(reservations.get(i));
+                    PriceBreakdownPanel newPriceBreakdownContainer = new PriceBreakdownPanel(hotel, i);
                     ScrollPaneCustom newPriceScrollPane = new ScrollPaneCustom(newPriceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
                     newPriceScrollPane.setBounds(345, 250, 175, 150);
                     newPriceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+                    newPriceScrollPane.setVisible(true);
+                    resInfoPanel.getResInfoContainer().remove(resInfoPanel.getPriceScrollPane());
+                    resInfoPanel.getResInfoContainer().add(newPriceScrollPane);
                     resInfoPanel.setPriceScrollPane(newPriceScrollPane);
-
-                    resInfoPanel.getTotalPrice().setText(String.valueOf(hotel.getReservations().get(i).computeFinalPrice()));*/
+                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice())); // ! // BUG: wrong price
+                    resInfoPanel.getTotalPrice().setVisible(true);
                 }
                 else {
                     for (int j = 0; j < hotel.countReservations(); j++){
