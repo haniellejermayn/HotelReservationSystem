@@ -257,7 +257,8 @@ public class HRSController{
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            HotelsPanel hotelsPanel = view.getHotelsPanel();
+            MainFrame mainFrame = view.getMainFrame();
+            HotelsPanel hotelsPanel = mainFrame.getHotelsPanel();
 
             OptionButton mostBookedButton = hotelsPanel.getFilterPanel().getMostBookedButton();
             OptionButton lowestPriceButton = hotelsPanel.getFilterPanel().getLowestPriceButton();
@@ -281,13 +282,14 @@ public class HRSController{
                     hotelsPanel.getHotelContainer().add(mostBookedCatalogue.get(i));
                 }
     
-                hotelsPanel.getHotelContainer().add(view.getHotelsPanel().getCreateHotelButton());
+                hotelsPanel.getHotelContainer().add(hotelsPanel.getCreateHotelButton());
     
                 ScrollPaneCustom scrollPane = new ScrollPaneCustom(hotelsPanel.getHotelContainer(), new Color(40, 68, 117), new Color(40, 68, 117), new Color(13, 22, 45));
                 scrollPane.setBounds(0, 60, 620, 405);
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
     
                 hotelsPanel.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
+                mainFrame.initializeSelectedHotels(mostBooked, model.countHotels());
             }
             else if (e.getSource() == lowestPriceButton){
     
@@ -314,6 +316,7 @@ public class HRSController{
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
     
                 hotelsPanel.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
+                mainFrame.initializeSelectedHotels(lowestPrice, model.countHotels());
             }
             else if (e.getSource() == highestPriceButton){
     
@@ -339,7 +342,8 @@ public class HRSController{
                 scrollPane.setBounds(0, 60, 620, 405);
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
     
-                hotelsPanel.add(scrollPane);
+                hotelsPanel.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
+                mainFrame.initializeSelectedHotels(highestPrice, model.countHotels());
             }
             else if (e.getSource() == newestButton){
     
@@ -365,8 +369,13 @@ public class HRSController{
                 scrollPane.setBounds(0, 60, 620, 405);
                 scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
     
-                hotelsPanel.add(scrollPane);
+                hotelsPanel.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
+                mainFrame.initializeSelectedHotels(newest, model.countHotels());
             }
+
+            //initializeMainListeners("Hotels Panel", 0);
+            //mainFrame.getHotelsPanel().setVisible(true);
+            //mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
         }   
     }
 
@@ -568,7 +577,7 @@ public class HRSController{
                                 totalReservations++;
                             }
                         }
-                        mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); // ! // BUG: does not change reservation number
+                        mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); 
                     
                     }
                 }
@@ -1057,6 +1066,14 @@ public class HRSController{
                     mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
+
+                    int totalReservations = 0;
+                    for (int i = 0; i < model.countHotels(); i++){
+                        for (int j = 0; j < model.getHotels().get(i).countReservations(); j++){
+                            totalReservations++;
+                        }
+                    }
+                    mainFrame.getSideResPanel().setText(String.valueOf(totalReservations)); 
 
                 }
                 else if (panelName.equals("Remove Hotel")){

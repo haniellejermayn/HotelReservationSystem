@@ -50,14 +50,14 @@ public class HRSModel {
 
     // Most to Least Booked
     public ArrayList<Hotel> sortMostBooked() {
-        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        ArrayList<Hotel> sorted = this.getHotels();
         int maxInd;
 
         for(int i = 0; i < this.countHotels(); i++) {
             maxInd = i;
 
             for(int j = i + 1; j < this.countHotels(); j++) {
-                if(this.hotels.get(j).countReservations() > this.hotels.get(maxInd).countReservations()) {
+                if(sorted.get(j).countReservations() > sorted.get(maxInd).countReservations()) {
                     maxInd = j;
                 }
             }
@@ -79,14 +79,15 @@ public class HRSModel {
 
     // Most to Least Expensive
     public ArrayList<Hotel> sortMostExpensive() {
-        ArrayList<Hotel> sorted = new ArrayList<>(this.hotels);
+        ArrayList<Hotel> sorted = this.getHotels();
         int maxInd;
 
         for(int i = 0; i < this.countHotels(); i++) {
             maxInd = i;
 
             for(int j = i + 1; j < this.countHotels(); j++) {
-                if(this.hotels.get(j).getBasePrice() > this.hotels.get(maxInd).getBasePrice()) {
+
+                if(sorted.get(j).getBasePrice() > sorted.get(maxInd).getBasePrice()) {
                     maxInd = j;
                 }
             }
