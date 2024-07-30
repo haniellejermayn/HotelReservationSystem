@@ -1,16 +1,24 @@
 package src.HRS.View;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-public class ManageSubPanel extends RoundPanel{
+/**
+ * The ManageSubPanel class represents a sub-panel used within the ManagePanel.
+ * It includes a title, an update button, and a cancel button.
+ */
+public class ManageSubPanel extends RoundPanel {
     
     private OptionButton updateButton;
     private IconButton cancelButton;
     private String title;
 
-    public ManageSubPanel(String title){
-
+    /**
+     * Constructs a new ManageSubPanel with the specified title.
+     *
+     * @param title the title of the sub-panel
+     */
+    public ManageSubPanel(String title) {
         super(new Color(40, 68, 117));
 
         this.title = title;
@@ -53,27 +61,57 @@ public class ManageSubPanel extends RoundPanel{
         this.add(updateButton);
     }
 
-    public String getTitle(){
+    /**
+     * Returns the title of the sub-panel.
+     *
+     * @return the title of the sub-panel
+     */
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title){
+    /**
+     * Sets the title of the sub-panel.
+     *
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public OptionButton getUpdateButton(){
+    /**
+     * Returns the update button.
+     *
+     * @return the update button
+     */
+    public OptionButton getUpdateButton() {
         return updateButton;
     }
 
-    public void setUpdateButton(OptionButton updateButton){
+    /**
+     * Sets the update button.
+     *
+     * @param updateButton the update button to set
+     */
+    public void setUpdateButton(OptionButton updateButton) {
         this.updateButton = updateButton;
     }
 
-    public IconButton getCancelButton(){
+    /**
+     * Returns the cancel button.
+     *
+     * @return the cancel button
+     */
+    public IconButton getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(IconButton cancelButton){
+    /**
+     * Sets the cancel button.
+     *
+     * @param cancelButton the cancel button to set
+     */
+    public void setCancelButton(IconButton cancelButton) {
         this.cancelButton = cancelButton;
     }
 }
