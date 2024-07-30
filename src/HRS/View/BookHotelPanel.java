@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import src.HRS.Model.Hotel;
 
+/**
+ * The BookHotelPanel class represents a panel for booking a hotel room.
+ * It allows the user to select a room type, check-in and check-out dates, and apply a discount code.
+ */
 public class BookHotelPanel extends RoundPanel{
 
     private RoundLabel bookingTitle;
@@ -32,6 +36,11 @@ public class BookHotelPanel extends RoundPanel{
     private Font customFont13;
     private Font customFont30;
 
+    /**
+     * Constructs a new BookHotelPanel for the specified hotel.
+     *
+     * @param hotel the Hotel object to be used for booking
+     */
     public BookHotelPanel(Hotel hotel){
 
         super(new Color(51, 88, 150));
@@ -136,125 +145,273 @@ public class BookHotelPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
+    /**
+     * Gets the guest name text field.
+     *
+     * @return the TextFieldCustom object for guest name
+     */
     public TextFieldCustom getGuestNameTextField(){
         return guestNameTextField;
     }
 
+    /**
+     * Sets the guest name text field.
+     *
+     * @param guestNameTextField the TextFieldCustom object for guest name
+     */
     public void setGuestNameTextField(TextFieldCustom guestNameTextField){
         this.guestNameTextField = guestNameTextField;
     }
 
+    /**
+     * Gets the standard room button.
+     *
+     * @return the OptionButton for standard room
+     */
     public OptionButton getStandardRoomButton(){
         return standardRoomButton;
     }
 
+    /**
+     * Sets the standard room button.
+     *
+     * @param standardRoomButton the OptionButton for standard room
+     */
     public void setStandardRoomButton(OptionButton standardRoomButton){
         this.standardRoomButton = standardRoomButton;
     }
     
-    public OptionButton getDeluxeRoomButton(){
+    /**
+     * Gets the deluxe room button.
+     *
+     * @return the OptionButton for deluxe room
+     */
+    public OptionButton getDeluxeRoomButton() {
         return deluxeRoomButton;
     }
-    
-    public void setDeluxeRoomButton(OptionButton deluxeRoomButton){
+
+    /**
+     * Sets the deluxe room button.
+     *
+     * @param deluxeRoomButton the OptionButton for deluxe room
+     */
+    public void setDeluxeRoomButton(OptionButton deluxeRoomButton) {
         this.deluxeRoomButton = deluxeRoomButton;
     }
-    
-    public OptionButton getExecutiveRoomButton(){
+
+    /**
+     * Gets the executive room button.
+     *
+     * @return the OptionButton for executive room
+     */
+    public OptionButton getExecutiveRoomButton() {
         return executiveRoomButton;
     }
-    
-    public void setExecutiveRoomButton(OptionButton executiveRoomButton){
+
+    /**
+     * Sets the executive room button.
+     *
+     * @param executiveRoomButton the OptionButton for executive room
+     */
+    public void setExecutiveRoomButton(OptionButton executiveRoomButton) {
         this.executiveRoomButton = executiveRoomButton;
     }
-    
 
-    public int getRoomTypeInput(){
+    /**
+     * Gets the room type input.
+     *
+     * @return the int representing the room type input
+     */
+    public int getRoomTypeInput() {
         return roomTypeInput;
     }
 
-    public void setRoomTypeInput(int roomTypeInput){
+    /**
+     * Sets the room type input.
+     *
+     * @param roomTypeInput the int representing the room type input
+     */
+    public void setRoomTypeInput(int roomTypeInput) {
         this.roomTypeInput = roomTypeInput;
     }
 
-    public BookCalendar getBookCalendar(){
+    /**
+     * Gets the BookCalendar object.
+     *
+     * @return the BookCalendar object
+     */
+    public BookCalendar getBookCalendar() {
         return calendar;
     }
 
-    public void setBookCalendar(BookCalendar calendar){
+    /**
+     * Sets the BookCalendar object.
+     *
+     * @param calendar the BookCalendar object
+     */
+    public void setBookCalendar(BookCalendar calendar) {
         this.calendar = calendar;
     }
 
-    public int getCheckInInput(){
+    /**
+     * Gets the check-in input.
+     *
+     * @return the int representing the check-in input
+     */
+    public int getCheckInInput() {
         return checkInInput;
     }
 
-    public void setCheckInInput(int checkInInput){
+    /**
+     * Sets the check-in input.
+     *
+     * @param checkInInput the int representing the check-in input
+     */
+    public void setCheckInInput(int checkInInput) {
         this.checkInInput = checkInInput;
     }
 
-    public int getCheckOutInput(){
+    /**
+     * Gets the check-out input.
+     *
+     * @return the int representing the check-out input
+     */
+    public int getCheckOutInput() {
         return checkOutInput;
     }
 
-    public void setCheckOutInput(int checkOutInput){
+    /**
+     * Sets the check-out input.
+     *
+     * @param checkOutInput the int representing the check-out input
+     */
+    public void setCheckOutInput(int checkOutInput) {
         this.checkOutInput = checkOutInput;
     }
 
-    public boolean getRoomTypeSelected(){
+    /**
+     * Gets the room type selection status.
+     *
+     * @return true if room type is selected, false otherwise
+     */
+    public boolean getRoomTypeSelected() {
         return roomTypeSelected;
     }
 
-    public void setRoomTypeSelected(boolean roomTypeSelected){
-        this.roomTypeSelected =roomTypeSelected;
+    /**
+     * Sets the room type selection status.
+     *
+     * @param roomTypeSelected the boolean representing the room type selection status
+     */
+    public void setRoomTypeSelected(boolean roomTypeSelected) {
+        this.roomTypeSelected = roomTypeSelected;
     }
 
-    public ArrayList<OptionButton> getDays(){
+    /**
+     * Gets the list of days as OptionButtons.
+     *
+     * @return the ArrayList of OptionButton objects representing days
+     */
+    public ArrayList<OptionButton> getDays() {
         return days;
     }
 
-    public void setDays(ArrayList<OptionButton> days){
+    /**
+     * Sets the list of days as OptionButtons.
+     *
+     * @param days the ArrayList of OptionButton objects representing days
+     */
+    public void setDays(ArrayList<OptionButton> days) {
         this.days = days;
     }
 
-    public ArrayList<String> getClickedButtons(){
+    /**
+     * Gets the list of clicked buttons as strings.
+     *
+     * @return the ArrayList of String objects representing clicked buttons
+     */
+    public ArrayList<String> getClickedButtons() {
         return clickedButtons;
     }
 
-    public void setClickedButtons(ArrayList<String> clickedButtons){
+    /**
+     * Sets the list of clicked buttons as strings.
+     *
+     * @param clickedButtons the ArrayList of String objects representing clicked buttons
+     */
+    public void setClickedButtons(ArrayList<String> clickedButtons) {
         this.clickedButtons = clickedButtons;
     }
     
-    public boolean getCheckInNOutSelected(){
+    /**
+     * Gets the check-in and check-out selection status.
+     *
+     * @return true if check-in and check-out dates are selected, false otherwise
+     */
+    public boolean getCheckInNOutSelected() {
         return checkInNOutSelected;
     }
 
-    public void setCheckInNOutSelected(boolean checkInNOutSelected){
+    /**
+     * Sets the check-in and check-out selection status.
+     *
+     * @param checkInNOutSelected the boolean representing the check-in and check-out selection status
+     */
+    public void setCheckInNOutSelected(boolean checkInNOutSelected) {
         this.checkInNOutSelected = checkInNOutSelected;
     }
 
-    public TextFieldCustom getDiscountTextField(){
-        //discountTextField = discount.getTextField().getText().trim();
+    /**
+     * Gets the discount text field.
+     *
+     * @return the TextFieldCustom object for the discount code
+     */
+    public TextFieldCustom getDiscountTextField() {
         return discountTextField;
     }
 
-    public void setDiscountTextField(TextFieldCustom discountTextField){
+    /**
+     * Sets the discount text field.
+     *
+     * @param discountTextField the TextFieldCustom object for the discount code
+     */
+    public void setDiscountTextField(TextFieldCustom discountTextField) {
         this.discountTextField = discountTextField;
     }
 
-    public OptionButton getBookButton(){
+    /**
+     * Gets the book button.
+     *
+     * @return the OptionButton for booking
+     */
+    public OptionButton getBookButton() {
         return bookButton;
     }
 
-    public void setBookButton(OptionButton bookButton){
+    /**
+     * Sets the book button.
+     *
+     * @param bookButton the OptionButton for booking
+     */
+    public void setBookButton(OptionButton bookButton) {
         this.bookButton = bookButton;
     }
 
-    public IconButton getCancelButton(){
+    /**
+     * Gets the cancel button.
+     *
+     * @return the IconButton for canceling the booking
+     */
+    public IconButton getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(IconButton cancelButton){
+    /**
+     * Sets the cancel button.
+     *
+     * @param cancelButton the IconButton for canceling the booking
+     */
+    public void setCancelButton(IconButton cancelButton) {
         this.cancelButton = cancelButton;
     }
 }

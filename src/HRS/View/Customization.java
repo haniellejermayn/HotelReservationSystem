@@ -3,12 +3,19 @@ package src.HRS.View;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
+/**
+ * The Customization class provides utility methods for customizing UI components.
+ * It includes methods for resizing icons and creating custom fonts.
+ */
 public class Customization {
-    
-    Customization(){
 
+    /**
+     * Default constructor for the Customization class.
+     */
+    public Customization() {
+        // Empty constructor
     }
 
     // * ---------- Thematic Components ---------- * //
@@ -25,34 +32,42 @@ public class Customization {
     
     // * Resize Image * //
 
-    public static ImageIcon resizeIcon(ImageIcon icon, int iconWidth, int iconHeight){
+    /**
+     * Resizes the given icon to the specified width and height.
+     *
+     * @param icon the original ImageIcon to be resized
+     * @param iconWidth the desired width of the resized icon
+     * @param iconHeight the desired height of the resized icon
+     * @return the resized ImageIcon
+     */
+    public static ImageIcon resizeIcon(ImageIcon icon, int iconWidth, int iconHeight) {
         Image iconImage = icon.getImage();
-
         Image resizedImage = iconImage.getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
-
-        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-        
-        return resizedIcon;
+        return new ImageIcon(resizedImage);
     }
 
-    // * Custom Font * //
-
-    public static Font createCustomFont(String fontName, int size){
+    /**
+     * Creates a custom font from the specified font file.
+     *
+     * @param fontName the path to the font file
+     * @param size the desired size of the font
+     * @return the created Font, or a default Arial font if the custom font cannot be loaded
+     */
+    public static Font createCustomFont(String fontName, int size) {
         Font customFont = new Font("Arial", Font.PLAIN, size);
 
         try {
             File fontFile = new File(fontName);
             customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-    
+
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
 
-        customFont = customFont.deriveFont((float)size);
-
-        return customFont;
+        return customFont.deriveFont((float) size);
     }
 }
+
 

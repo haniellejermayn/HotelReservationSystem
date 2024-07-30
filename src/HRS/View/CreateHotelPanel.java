@@ -4,7 +4,11 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
 
-public class CreateHotelPanel extends RoundPanel{
+/**
+ * The CreateHotelPanel class represents a panel for creating a new hotel.
+ * It extends RoundPanel and provides input fields for hotel name and room types, along with Create and Cancel buttons.
+ */
+public class CreateHotelPanel extends RoundPanel {
 
     private RoundLabel title;
     private RoundPanel createContainer;
@@ -17,14 +21,15 @@ public class CreateHotelPanel extends RoundPanel{
 
     private Font customFont30;
 
-    public CreateHotelPanel(){
-
+    /**
+     * Constructs a new CreateHotelPanel.
+     */
+    public CreateHotelPanel() {
         super(new Color(51, 88, 150));
 
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
 
         // * Title * //
-
         title = new RoundLabel(new Color(51, 88, 150));
         title.setBounds(8, 10, 200, 40);
         title.setText("Create Hotel");
@@ -32,13 +37,11 @@ public class CreateHotelPanel extends RoundPanel{
         title.setForeground(Color.white);
 
         // * Guest Name * //
-
         hotelNameTextField = new TextFieldCustom(new Color(40, 68, 117));
         hotelNameTextField.setBounds(5, 10, 355, 55);
         hotelNameTextField.setFieldName("Hotel Name");
 
         // * Add Room * //
-
         standardRoomTextField = new TextFieldCustom(new Color(40, 68, 117));
         standardRoomTextField.setBounds(5, 10, 355, 55);
         standardRoomTextField.setFieldName("No. of Standard Rooms");
@@ -58,15 +61,12 @@ public class CreateHotelPanel extends RoundPanel{
         roomType.add(deluxeRoomTextField);
         roomType.add(executiveRoomTextField);
 
-
         // * Create Button * //
-
         createButton = new OptionButton("Create");
         createButton.setBounds(260, 315, 100, 30);
         createButton.setColorOver(createButton.getColorClick());
 
         // * Cancel * //
-
         ImageIcon cancelIcon = new ImageIcon("Icons/CancelIcon.png");
         cancelIcon = Customization.resizeIcon(cancelIcon, 20, 20); 
 
@@ -75,7 +75,6 @@ public class CreateHotelPanel extends RoundPanel{
         cancelButton.setColorClick(createButton.getColorOver());
 
         // * Container * //
-
         createContainer = new RoundPanel(new Color(40, 68, 117));
         createContainer.setLayout(null);
         createContainer.setPreferredSize(new Dimension(375, 360));
@@ -93,51 +92,111 @@ public class CreateHotelPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
-    public OptionButton getCreateButton(){
+    /**
+     * Returns the create button.
+     *
+     * @return the create button
+     */
+    public OptionButton getCreateButton() {
         return createButton;
     }
 
-    public void setCreateButton(OptionButton createButton){
+    /**
+     * Sets the create button.
+     *
+     * @param createButton the create button to set
+     */
+    public void setCreateButton(OptionButton createButton) {
         this.createButton = createButton;
     }
 
-    public IconButton getCancelButton(){
+    /**
+     * Returns the cancel button.
+     *
+     * @return the cancel button
+     */
+    public IconButton getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(IconButton cancelButton){
+    /**
+     * Sets the cancel button.
+     *
+     * @param cancelButton the cancel button to set
+     */
+    public void setCancelButton(IconButton cancelButton) {
         this.cancelButton = cancelButton;
     }
 
-    public TextFieldCustom getNameTextField(){
+    /**
+     * Returns the hotel name text field.
+     *
+     * @return the hotel name text field
+     */
+    public TextFieldCustom getNameTextField() {
         return hotelNameTextField;
     }
 
-    public void setNameTextField(TextFieldCustom hotelNameTextField){
+    /**
+     * Sets the hotel name text field.
+     *
+     * @param hotelNameTextField the hotel name text field to set
+     */
+    public void setNameTextField(TextFieldCustom hotelNameTextField) {
         this.hotelNameTextField = hotelNameTextField;
     }
 
-    public TextFieldCustom getStandardRoomTextField(){
+    /**
+     * Returns the standard room text field.
+     *
+     * @return the standard room text field
+     */
+    public TextFieldCustom getStandardRoomTextField() {
         return standardRoomTextField;
     }
 
-    public void setStandardRoomTextField(TextFieldCustom standardRoomTextField){
+    /**
+     * Sets the standard room text field.
+     *
+     * @param standardRoomTextField the standard room text field to set
+     */
+    public void setStandardRoomTextField(TextFieldCustom standardRoomTextField) {
         this.standardRoomTextField = standardRoomTextField;
     }
 
-    public TextFieldCustom getDeluxeRoomTextField(){
+    /**
+     * Returns the deluxe room text field.
+     *
+     * @return the deluxe room text field
+     */
+    public TextFieldCustom getDeluxeRoomTextField() {
         return deluxeRoomTextField;
     }
 
-    public void setDeluxeRoomTextField(TextFieldCustom deluxeRoomTextField){
+    /**
+     * Sets the deluxe room text field.
+     *
+     * @param deluxeRoomTextField the deluxe room text field to set
+     */
+    public void setDeluxeRoomTextField(TextFieldCustom deluxeRoomTextField) {
         this.deluxeRoomTextField = deluxeRoomTextField;
     }
 
-    public TextFieldCustom getExecutiveRoomTextField(){
+    /**
+     * Returns the executive room text field.
+     *
+     * @return the executive room text field
+     */
+    public TextFieldCustom getExecutiveRoomTextField() {
         return executiveRoomTextField;
     }
 
-    public void setExecutiveRoomTextField(TextFieldCustom executiveRoomTextField){
+    /**
+     * Sets the executive room text field.
+     *
+     * @param executiveRoomTextField the executive room text field to set
+     */
+    public void setExecutiveRoomTextField(TextFieldCustom executiveRoomTextField) {
         this.executiveRoomTextField = executiveRoomTextField;
     }
 }

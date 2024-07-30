@@ -1,13 +1,21 @@
 package src.HRS.View;
 
-public class ConfirmModPanel extends ManageSubPanel{
+/**
+ * The ConfirmModPanel class represents a confirmation panel for modification actions.
+ * It extends the ManageSubPanel class and provides Yes and No buttons for user confirmation.
+ */
+public class ConfirmModPanel extends ManageSubPanel {
     
     private OptionButton yesButton;
     private OptionButton noButton;
     private String panelName;
 
-    public ConfirmModPanel(String panelName){
-
+    /**
+     * Constructs a new ConfirmModPanel with the specified panel name.
+     *
+     * @param panelName the name of the panel to be confirmed
+     */
+    public ConfirmModPanel(String panelName) {
         super("Confirm Modification");
 
         this.panelName = panelName;
@@ -28,27 +36,57 @@ public class ConfirmModPanel extends ManageSubPanel{
         this.add(noButton);
     }
 
-    public String getPanelName(){
+    /**
+     * Returns the panel name.
+     *
+     * @return the panel name
+     */
+    public String getPanelName() {
         return panelName;
     }
 
-    public void setPanelName(String panelName){
+    /**
+     * Sets the panel name.
+     *
+     * @param panelName the panel name to set
+     */
+    public void setPanelName(String panelName) {
         this.panelName = panelName;
     }
 
-    public OptionButton getYesButton(){
+    /**
+     * Returns the Yes button.
+     *
+     * @return the Yes button
+     */
+    public OptionButton getYesButton() {
         return yesButton;
     }
 
-    public void setYesButton(OptionButton yesButton){
+    /**
+     * Sets the Yes button.
+     *
+     * @param yesButton the Yes button to set
+     */
+    public void setYesButton(OptionButton yesButton) {
         this.yesButton = yesButton;
     }
 
-    public OptionButton getNoButton(){
+    /**
+     * Returns the No button.
+     *
+     * @return the No button
+     */
+    public OptionButton getNoButton() {
         return noButton;
     }
 
-    public void setNoButton(OptionButton noButton){
+    /**
+     * Sets the No button.
+     *
+     * @param noButton the No button to set
+     */
+    public void setNoButton(OptionButton noButton) {
         this.noButton = noButton;
     }
 }
