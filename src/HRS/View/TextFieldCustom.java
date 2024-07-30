@@ -3,15 +3,23 @@ package src.HRS.View;
 import java.awt.*;
 import javax.swing.*;
 
-public class TextFieldCustom extends RoundPanel{
+/**
+ * The TextFieldCustom class represents a custom text field component with a rounded background,
+ * a label for the field name, and a text input area.
+ */
+public class TextFieldCustom extends RoundPanel {
 
     private String textFieldName;
     private RoundLabel fieldName;
     private JTextField textField;
     private RoundPanel textContainer;
 
-    TextFieldCustom(Color bgColor){
-        
+    /**
+     * Constructs a new TextFieldCustom with the specified background color.
+     *
+     * @param bgColor the background color of the custom text field
+     */
+    public TextFieldCustom(Color bgColor) {
         super(bgColor);
 
         Font customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
@@ -40,28 +48,58 @@ public class TextFieldCustom extends RoundPanel{
         this.add(textContainer);
     }
 
-    public String getFieldName(){
+    /**
+     * Returns the name of the text field.
+     *
+     * @return the name of the text field
+     */
+    public String getFieldName() {
         return textFieldName;
     }
 
-    public void setFieldName(String textFieldName){
+    /**
+     * Sets the name of the text field and updates the label.
+     *
+     * @param textFieldName the name of the text field to set
+     */
+    public void setFieldName(String textFieldName) {
         fieldName.setText(textFieldName);
         this.textFieldName = textFieldName;
     }
 
-    public JTextField getTextField(){
+    /**
+     * Returns the JTextField component.
+     *
+     * @return the JTextField component
+     */
+    public JTextField getTextField() {
         return textField;
     }
 
-    public void setTextField(JTextField textField){
+    /**
+     * Sets the JTextField component.
+     *
+     * @param textField the JTextField component to set
+     */
+    public void setTextField(JTextField textField) {
         this.textField = textField;
     }
 
-    public RoundPanel getTextContainer(){
+    /**
+     * Returns the text container panel.
+     *
+     * @return the text container panel
+     */
+    public RoundPanel getTextContainer() {
         return textContainer;
     }
 
-    public void setTextContainer(RoundPanel textContainer){
+    /**
+     * Sets the text container panel.
+     *
+     * @param textContainer the text container panel to set
+     */
+    public void setTextContainer(RoundPanel textContainer) {
         this.textContainer = textContainer;
     }
 }
