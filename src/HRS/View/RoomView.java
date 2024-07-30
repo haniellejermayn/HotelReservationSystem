@@ -1,11 +1,7 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
-
 import src.HRS.Model.Hotel;
 
 public class RoomView extends RoundPanel{
@@ -37,13 +33,6 @@ public class RoomView extends RoundPanel{
             }
 
             room.setFont(customFont);
-            /*room.addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    listener.roomButtonClicked(name);
-                }
-            });*/
 
             rooms.add(room);
             this.add(rooms.get(i));

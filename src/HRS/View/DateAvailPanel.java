@@ -1,15 +1,10 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import java.awt.*;
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
 
-import java.util.ArrayList;
-
-public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
+public class DateAvailPanel extends RoundPanel{
 
     CalendarView calendar;
     RoundLabel availPanel, bookedPanel;
@@ -67,25 +62,6 @@ public class DateAvailPanel extends RoundPanel implements ButtonClickListener{
         this.add(calendar);
         this.add(availPanel);
         this.add(bookedPanel);
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-        /*for (int i = 0; i < 31; i++){
-            ArrayList<OptionButton> days = calendar.getDays();
-            String dayIndex = days.get(i).getButtonName(); 
-
-            if (buttonName.equals(dayIndex)){
-                availPanel.setText(String.valueOf(hotel.countAvailableRooms(i)));
-                bookedPanel.setText(String.valueOf(hotel.countBookedRooms(i)));
-                days.get(i).setColor(new Color(51, 88, 150));
-            }
-            else {
-                for (int j = 0; j < 31; j++){
-                    days.get(i).setColor(new Color(27, 43, 80));
-                }
-            }
-        }*/
     }
 
     public CalendarView getCalendar(){

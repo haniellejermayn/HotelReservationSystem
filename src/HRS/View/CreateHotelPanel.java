@@ -1,17 +1,10 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
 
-import src.HRS.Model.Hotel;
-
-public class CreateHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
+public class CreateHotelPanel extends RoundPanel{
 
     private RoundLabel title;
     private RoundPanel createContainer;
@@ -31,6 +24,7 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
 
         // * Title * //
+
         title = new RoundLabel(new Color(51, 88, 150));
         title.setBounds(8, 10, 200, 40);
         title.setText("Create Hotel");
@@ -38,6 +32,7 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         title.setForeground(Color.white);
 
         // * Guest Name * //
+
         hotelNameTextField = new TextFieldCustom(new Color(40, 68, 117));
         hotelNameTextField.setBounds(5, 10, 355, 55);
         hotelNameTextField.setFieldName("Hotel Name");
@@ -65,11 +60,13 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
 
 
         // * Create Button * //
+
         createButton = new OptionButton("Create");
         createButton.setBounds(260, 315, 100, 30);
         createButton.setColorOver(createButton.getColorClick());
 
         // * Cancel * //
+
         ImageIcon cancelIcon = new ImageIcon("Icons/CancelIcon.png");
         cancelIcon = Customization.resizeIcon(cancelIcon, 20, 20); 
 
@@ -78,6 +75,7 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         cancelButton.setColorClick(createButton.getColorOver());
 
         // * Container * //
+
         createContainer = new RoundPanel(new Color(40, 68, 117));
         createContainer.setLayout(null);
         createContainer.setPreferredSize(new Dimension(375, 360));
@@ -93,16 +91,6 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         this.add(title);
         this.add(cancelButton);
         this.add(scrollPane);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-
     }
 
     public OptionButton getCreateButton(){

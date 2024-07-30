@@ -3,9 +3,7 @@ package src.HRS.Controller;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
-
 import src.HRS.View.*;
 import src.HRS.Model.*;
 
@@ -786,7 +784,6 @@ public class HRSController{
             TextFieldCustom deluxeRoomTextField = managePanel.getDeluxeRoomTextField();
             TextFieldCustom executiveRoomTextField = managePanel.getExecutiveRoomTextField();
             TextFieldCustom basePriceTextField = managePanel.getBasePriceTextField();
-            TextFieldCustom percentageTextField = managePanel.getPercentageTextField();
 
             if (e.getSource() == changeNamePanel.getUpdateButton()){
                 String hotelName = hotelNameTextField.getTextField().getText().trim();
@@ -965,7 +962,6 @@ public class HRSController{
             String panelName = managePanel.getConfirmModPanel().getPanelName();
 
             SelectedHotelPanel selectedHotelPanel = mainFrame.getSelectedHotelPanel();
-            Hotel hotel = selectedHotelPanel.getHotel();
             int hotelIndex = selectedHotelPanel.getHotelIndex();
 
             if (e.getSource() == managePanel.getConfirmModPanel().getYesButton()){

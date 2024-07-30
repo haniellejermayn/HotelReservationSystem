@@ -1,13 +1,8 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 public class HotelsPanel extends LayeredRoundPanel{
@@ -61,19 +56,17 @@ public class HotelsPanel extends LayeredRoundPanel{
         filterButton = new IconButton(filterIcon, "Filter");
         filterButton.setBounds(570, 0, 40, 40);
         filterButton.setColorClick(filterButton.getColorOver());
-        //filterButton.addActionListener(this);
 
         filterPanel = new FilterPanel(new Color(40, 68, 117));
         filterPanel.setVisible(false);
 
         // * Create Hotel * //
+
         ImageIcon createHotelIcon = new ImageIcon("Icons/AddIcon.png");
         createHotelIcon = Customization.resizeIcon(createHotelIcon, 30, 30);
 
         createHotelButton = new IconButton(createHotelIcon, "Create Hotel");
         createHotelButton.setBounds(285, (nHotels + 1) * 10 + (nHotels * 110) + 10, 50, 50);
-        //createHotelButton.addActionListener(this);
-
 
         // * Container * //
         hotelContainerHeight = (nHotels + 1) * 10 + (nHotels * 110) + 70;

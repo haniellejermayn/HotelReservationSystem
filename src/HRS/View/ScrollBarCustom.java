@@ -1,10 +1,7 @@
 package src.HRS.View;
-//package GUI;
 
 import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.plaf.ScrollBarUI;
 
 public class ScrollBarCustom extends JScrollBar{
     

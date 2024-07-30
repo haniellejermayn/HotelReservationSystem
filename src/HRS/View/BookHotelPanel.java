@@ -1,16 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-
 import src.HRS.Model.Hotel;
 
-public class BookHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
+public class BookHotelPanel extends RoundPanel{
 
     private RoundLabel bookingTitle;
     private BookCalendar calendar;
@@ -37,12 +32,9 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
     private Font customFont13;
     private Font customFont30;
 
-    private Hotel hotel;
-
     public BookHotelPanel(Hotel hotel){
 
         super(new Color(51, 88, 150));
-        this.hotel = hotel;
 
         customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
@@ -65,17 +57,14 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         standardRoomButton = new OptionButton("Standard");
         standardRoomButton.setBounds(32, 28, 100, 30);
         standardRoomButton.setColorOver(standardRoomButton.getColorClick());
-        standardRoomButton.addActionListener(this);
         
         deluxeRoomButton = new OptionButton("Deluxe");
         deluxeRoomButton.setBounds(137, 28, 100, 30);
         deluxeRoomButton.setColorOver(deluxeRoomButton.getColorClick());
-        deluxeRoomButton.addActionListener(this);
         
         executiveRoomButton = new OptionButton("Executive");
         executiveRoomButton.setBounds(242, 28, 100, 30);
         executiveRoomButton.setColorOver(executiveRoomButton.getColorClick());
-        executiveRoomButton.addActionListener(this);
 
         roomTypeTitle = new RoundLabel(new Color(40, 68, 117));
         roomTypeTitle.setBounds(8, 1, 100, 20);
@@ -109,12 +98,6 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         days.get(30).setColor(new Color(27, 43, 80));
         days.get(30).setColorOver(new Color(27, 43, 80));
         days.get(30).setColorClick(new Color(27, 43, 80));
-
-        // * Discount * //
-        /*hasDiscount = new OptionButton("Discount");
-        hasDiscount.setText("I have a discount code");
-        hasDiscount.setForeground(new Color(27, 43, 80));
-        hasDiscount.setColor(new Color(51, 88, 150));*/
 
         discountTextField = new TextFieldCustom(new Color(40, 68, 117));
         discountTextField.setBounds(5, 460, 355, 55);
@@ -151,16 +134,6 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         this.add(bookingTitle);
         this.add(cancelButton);
         this.add(scrollPane);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-
     }
 
     public TextFieldCustom getGuestNameTextField(){

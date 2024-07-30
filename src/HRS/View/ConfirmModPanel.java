@@ -1,7 +1,5 @@
 package src.HRS.View;
 
-import javax.swing.JLayeredPane;
-
 public class ConfirmModPanel extends ManageSubPanel{
     
     private OptionButton yesButton;
@@ -53,5 +51,4 @@ public class ConfirmModPanel extends ManageSubPanel{
     public void setNoButton(OptionButton noButton){
         this.noButton = noButton;
     }
-
 }

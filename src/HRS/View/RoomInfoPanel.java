@@ -1,15 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickListener{
+public class RoomInfoPanel extends RoundPanel{
 
     private int nStandardRooms, nDeluxeRooms, nExecutiveRooms;
     private CalendarView calendar;
@@ -23,12 +19,10 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
     private Font customFont15;
     private Font customFont30;
     private Font customFont50;
-    private Hotel hotel;
 
     public RoomInfoPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
-        this.hotel = hotel;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
@@ -174,21 +168,6 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
         this.setLayout(null);
         this.add(scrollPane);
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-
-    }
-
-    @Override
-    public void roomButtonClicked(String roomButtonName) {
-        
-    }
-
-    @Override
-    public void reservationButtonClicked(String reservationName) {
-
     }
 
     public CalendarView getCalendar(){

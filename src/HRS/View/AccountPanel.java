@@ -1,11 +1,10 @@
 package src.HRS.View;
-import javax.swing.*;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
-public class AccountPanel extends RoundPanel implements ActionListener{
+public class AccountPanel extends RoundPanel{
     
     private JLabel hotelTitle;
     private RoundPanel header;
@@ -75,11 +74,6 @@ public class AccountPanel extends RoundPanel implements ActionListener{
         this.setBounds(120, 80, 620, 470);
         this.add(header);
         this.add(accountInfo);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
     }
 
     public JLabel getHotelTitle(){

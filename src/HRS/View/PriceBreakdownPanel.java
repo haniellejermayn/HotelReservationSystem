@@ -3,7 +3,6 @@ package src.HRS.View;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
 import src.HRS.Model.Reservation;
 

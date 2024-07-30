@@ -1,15 +1,10 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
-import java.awt.event.*;
 
-public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListener, ButtonClickListener{
+public class SelectedHotelPanel extends LayeredRoundPanel{
     
     private Hotel hotel;
     private int hotelIndex;
@@ -75,7 +70,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelRes.setVerticalAlignment(JLabel.TOP);
         hotelRes.setBounds(17, 100, 300, 17);
 
-        hotelEarnings = new JLabel(String.valueOf("Earnings: " + hotel.computeEarnings()));
+        hotelEarnings = new JLabel(String.valueOf("Earnings: $" + hotel.computeEarnings()));
         hotelEarnings.setFont(customFont15);
         hotelEarnings.setForeground(Color.white);
         hotelEarnings.setVerticalAlignment(JLabel.TOP);
@@ -85,7 +80,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         bookButton.setBounds(420, 130, 140, 40);
         bookButton.setColor(bookButton.getColorOver());
         bookButton.setColorOver(bookButton.getColorClick());
-        bookButton.addActionListener(this);
 
         setHasBookPanel(false);
 
@@ -97,7 +91,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         manageButton.setBounds(570, 130, 40, 40);
         manageButton.setColor(manageButton.getColorOver());
         manageButton.setColorOver(manageButton.getColorClick());
-        manageButton.addActionListener(this);
 
         titlePanel = new RoundPanel(new Color(27, 43, 80));
         titlePanel.setLayout(null);
@@ -115,14 +108,12 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         dateAvailButton = new OptionButton("Date Availability"); 
         dateAvailButton.setBounds(90, 10, 140, 40);
         dateAvailButton.setColorClick(dateAvailButton.getColorOver());
-        dateAvailButton.addActionListener(this);
         dateAvailPanel = new DateAvailPanel(hotel);
         dateAvailPanel.setBounds(40, 60, 540, 220);
 
         roomInfoButton = new OptionButton("Room Information"); 
         roomInfoButton.setBounds(240, 10, 140, 40);
         roomInfoButton.setColorClick(roomInfoButton.getColorOver());
-        roomInfoButton.addActionListener(this);
 
         roomInfoPanel = new RoomInfoPanel(hotel);
         roomInfoPanel.setBounds(40, 60, 540, 220);
@@ -130,7 +121,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         resInfoButton = new OptionButton("Reservation Information"); 
         resInfoButton.setBounds(390, 10, 140, 40);
         resInfoButton.setColorClick(resInfoButton.getColorOver());
-        resInfoButton.addActionListener(this);
         resInfoPanel = new ResInfoPanel(hotel);
         resInfoPanel.setBounds(40, 60, 540, 220);
 
@@ -152,16 +142,6 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         this.setBounds(120, 80, 620, 470);
         this.add(titlePanel, JLayeredPane.DEFAULT_LAYER);
         this.add(viewPanel, JLayeredPane.DEFAULT_LAYER);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-        
     }
 
     public RoundPanel getTitlePanel(){

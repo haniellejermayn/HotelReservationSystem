@@ -1,7 +1,5 @@
 package src.HRS.View;
 
-//package GUI;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -22,7 +20,6 @@ public class CalendarView extends RoundPanel{
         
         for (int i = 0; i < 31; i++){
             OptionButton day = new OptionButton(Integer.toString(i + 1));
-            String dayIndex = String.format("%02d", i + 1);
 
             if ((i + 1) % 7 == 1){
                 day.setBounds((i % 7 * 41) + (i % 7 + 1) * 8, (i / 7 + 1) * 9 + (i / 7 * 30), 41, 30);
@@ -32,13 +29,6 @@ public class CalendarView extends RoundPanel{
             }
 
             day.setFont(customFont);
-            /*day.addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    listener.buttonClicked(dayIndex);
-                }
-            });*/
 
             days.add(day);
             this.add(days.get(i));

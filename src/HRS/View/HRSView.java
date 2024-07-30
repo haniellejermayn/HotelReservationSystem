@@ -2,7 +2,6 @@ package src.HRS.View;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import src.HRS.Model.Hotel;
 
 
@@ -34,8 +33,7 @@ public class HRSView {
 
     
     public HRSView(ArrayList<Hotel> hotels, int nHotels){
-    //public HRSView(){
-        //mainFrame = new MainFrame(hotels, nHotels);
+
         this.hotels = hotels;
         this.nHotels = nHotels;
     }
@@ -54,7 +52,6 @@ public class HRSView {
     public void initializeSelectedHotelPanel(){
         bookHotelPanel = mainFrame.getSelectedHotelPanel().getBookPanel();
         manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
-
         dateAvailPanel = mainFrame.getSelectedHotelPanel().getDateAvailPanel();
         roomInfoPanel = mainFrame.getSelectedHotelPanel().getRoomInfoPanel();
         resInfoPanel = mainFrame.getSelectedHotelPanel().getResInfoPanel();
@@ -194,6 +191,22 @@ public class HRSView {
         initializeMainFrame();
     }
 
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
+    }
+
+    public void setHotels(ArrayList<Hotel> hotels){
+        this.hotels = hotels;
+    }
+
+    public int getnHotels(){
+        return nHotels;
+    }
+
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
+    }
+
     public SidePanel getSidePanel(){
         return sidePanel;
         
@@ -257,6 +270,30 @@ public class HRSView {
         this.selectedHotelPanel = selectedHotelPanel;
         mainFrame.setSelectedHotelPanel(selectedHotelPanel);
         initializeSelectedHotelPanel();
+    }
+
+    public DateAvailPanel getDateAvailPanel(){
+        return dateAvailPanel;
+    }
+
+    public void setDateAvailPanel(DateAvailPanel dateAvailPanel){
+        this.dateAvailPanel = dateAvailPanel;
+    }
+
+    public RoomInfoPanel getRoomInfoPanel(){
+        return roomInfoPanel;
+    }
+
+    public void setRoomInfoPanel(RoomInfoPanel roomInfoPanel){
+        this.roomInfoPanel = roomInfoPanel;
+    }
+
+    public  ResInfoPanel getResInfoPanel(){
+        return resInfoPanel;
+    }
+
+    public void setResInfoPanel(ResInfoPanel resInfoPanel){
+        this.resInfoPanel = resInfoPanel;
     }
 
     public CreateHotelPanel getCreateHotelPanel(){

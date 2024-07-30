@@ -1,7 +1,5 @@
 package src.HRS.View;
 
-//package GUI;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +22,6 @@ public class Customization {
      */
 
     // * ---------- Set to full screen ---------- * //
-
-    /*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      int screenWidth = (int)screenSize.getWidth();*/
     
     // * Resize Image * //
 

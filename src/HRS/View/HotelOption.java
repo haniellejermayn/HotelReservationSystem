@@ -66,9 +66,6 @@ public class HotelOption extends PanelButton{
         content.add(price);
         content.setFont(customFont20);
         content.setForeground(Color.white);
-        //content.setVerticalTextPosition(JLabel.TOP);
-        //content.setHorizontalTextPosition(JLabel.RIGHT);
-        //content.setIconTextGap(15);
         content.setVerticalAlignment(JLabel.CENTER);
         content.setHorizontalAlignment(JLabel.LEFT);
         

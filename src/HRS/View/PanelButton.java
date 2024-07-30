@@ -1,11 +1,11 @@
 package src.HRS.View;
-//package GUI;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
 public class PanelButton extends JButton implements MouseListener{
+    
     private boolean over;
     private Color color;
     private Color colorOver;

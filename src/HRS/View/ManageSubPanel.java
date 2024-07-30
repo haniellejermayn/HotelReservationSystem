@@ -1,11 +1,9 @@
 package src.HRS.View;
+
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ManageSubPanel extends RoundPanel implements ActionListener{
+public class ManageSubPanel extends RoundPanel{
     
     private OptionButton updateButton;
     private IconButton cancelButton;
@@ -28,7 +26,7 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
 
         RoundLabel panelTitle = new RoundLabel(new Color(27, 43, 80));
         panelTitle.setBounds(10, 10, 350, 40);
-        panelTitle.setText(title); // set to cureent hotel name
+        panelTitle.setText(title); 
         panelTitle.setFont(customFont28);
         panelTitle.setForeground(Color.white);
 
@@ -53,11 +51,6 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
         this.add(headerPanel2);
         this.add(headerPanel);
         this.add(updateButton);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
     }
 
     public String getTitle(){

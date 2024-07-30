@@ -1,17 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ManagePanel extends LayeredRoundPanel implements ActionListener, EnhancedButtonClickListener{
+public class ManagePanel extends LayeredRoundPanel{
 
     private IconButton changeName;
     private IconButton addRoom;
@@ -35,8 +29,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
     private TextFieldCustom newBasePriceTextField;
     private TextFieldCustom percentageTextField;
 
-    private String hotelNameInput;
-    private float basePriceInput;
     private int dateModInput;
     private float percentModInput;
     private int removeRoomInput;
@@ -52,12 +44,8 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
     private RoundPanel manageContainer;
 
-    private Hotel hotel;
-
-
     public ManagePanel(Hotel hotel, Color color) {
         super(color);
-        this.hotel = hotel;
         
         this.setLayout(null);
         this.setBounds(152, 10, 385, 420);
@@ -71,7 +59,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         changeName = new IconButton(changeNameIcon, "Change Name");
         changeName.setBounds(23,10, 40, 40);
         changeName.setColorClick(changeName.getColorOver());
-        changeName.addActionListener(this);
 
         RoundLabel currentName = new RoundLabel(new Color(40, 68, 117));
         currentName.setBounds(122, 80, 200, 40);
@@ -95,7 +82,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         addRoom = new IconButton(addRoomIcon, "Add Room");
         addRoom.setBounds(73,10, 40, 40);
         addRoom.setColorClick(addRoom.getColorOver());
-        addRoom.addActionListener(this);
 
         standardRoomTextField = new TextFieldCustom(new Color(40, 68, 117));
         standardRoomTextField.setBounds(5, 90, 350, 55);
@@ -124,7 +110,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         updateBasePrice = new IconButton(updatePriceIcon, "Update Base Price");
         updateBasePrice.setBounds(123,10, 40, 40);
         updateBasePrice.setColorClick(updateBasePrice.getColorOver());
-        updateBasePrice.addActionListener(this);
 
         RoundLabel currentBasePrice = new RoundLabel(new Color(40, 68, 117));
         currentBasePrice.setBounds(142, 80, 200, 40); 
@@ -148,7 +133,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         datePriceModifier = new IconButton(datePriceModifierIcon, "Date Price Modifier");
         datePriceModifier.setBounds(173,10, 40, 40);
         datePriceModifier.setColorClick(datePriceModifier.getColorOver());
-        datePriceModifier.addActionListener(this);
 
         calendarView = new CalendarView();
         calendarView.setBounds(2, 2, 335, 203);
@@ -189,7 +173,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeRoom = new IconButton(removeRoomIcon, "Remove Room");
         removeRoom.setBounds(223,10, 40, 40);
         removeRoom.setColorClick(removeRoom.getColorOver());
-        removeRoom.addActionListener(this);
 
         int nRooms = hotel.countRooms(0);
         int roomViewHeight;
@@ -228,14 +211,12 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeRes = new IconButton(removeResIcon, "Remove Reservation");
         removeRes.setBounds(273,10, 40, 40);
         removeRes.setColorClick(removeRes.getColorOver());
-        removeRes.addActionListener(this);
 
         int nReservations = hotel.countReservations(); 
         int resViewHeight = nReservations * 39 + 5;
 
         resView = new ReservationView(hotel); 
         reservations = resView.getReservations();
-
 
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
@@ -261,7 +242,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         removeHotel = new IconButton(removeHotelIcon, "Remove Hotel");
         removeHotel.setBounds(323,10, 40, 40);
         removeHotel.setColorClick(removeHotel.getColorOver());
-        removeHotel.addActionListener(this);
 
         removeHotelPanel = new ManageSubPanel("Remove Hotel");
         removeHotelPanel.getUpdateButton().setText("Remove");
@@ -303,26 +283,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         this.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
         confirmModPanel.setVisible(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-        
-    }
-
-    @Override
-    public void roomButtonClicked(String roomButtonName) {
-        
-    }
-
-    @Override
-    public void reservationButtonClicked(String reservationButtonName) {
-        
     }
 
     public IconButton getChangeNameButton(){

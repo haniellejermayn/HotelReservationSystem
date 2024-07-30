@@ -1,11 +1,7 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import java.awt.*;
-//import java.awt.event.*;
 import java.util.*;
-
 import src.HRS.Model.Hotel;
 import src.HRS.Model.Reservation;
 

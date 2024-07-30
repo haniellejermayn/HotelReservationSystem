@@ -1,15 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListener{
+public class ResInfoPanel extends RoundPanel{
     private int nReservations;
     private ReservationView resView;
     private BookCalendar calendar;
@@ -21,26 +17,19 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
     private PriceBreakdownPanel priceBreakdownContainer;
     private ArrayList<OptionButton> days;
     private ScrollPaneCustom priceScrollPane;
-    private Hotel hotel;
 
-    private Font customFont13;
     private Font customFont15;
 
     public ResInfoPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
-        this.hotel = hotel;
 
-        customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
 
         // * Check In / Out * //
-        int checkIn = 0; 
-        int checkOut = 0; 
-
+        
         calendar = new BookCalendar();
         calendar.setBounds(5, 239, 335, 203);
-        //calendar.setHighlightedDays(checkIn, checkOut);
         days = calendar.getDays();
         
         for(int i = 0; i < days.size(); i++){
@@ -120,41 +109,6 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
         this.setLayout(null);
         this.add(scrollPane);
-    }
-
-    @Override
-    public void buttonClicked(String buttonName) {
-
-    }
-
-    @Override
-    public void roomButtonClicked(String roomName) {
-
-    }
-
-    @Override
-    public void reservationButtonClicked(String reservationButtonName) {
-        /*ArrayList<Reservation> reservationsTemp = hotel.getReservations();
-
-        for (int i = 0; i < nReservations; i++){
-            ArrayList<OptionButton> resButtons = resView.getReservations();
-            String resName = reservationsTemp.get(i).getGuestName(); 
-            String type = reservationsTemp.get(i).getRoom().getRoomType();
-            
-            if (reservationButtonName.equals(resName)){
-                guestInfoPanel.setText(resName + "'s Reservation");
-                guestInfoPanel.remove(roomType);
-                roomType.setText(type + " Room");
-                guestInfoPanel.add(roomType);
-                resButtons.get(i).setColor(new Color(51, 88, 150));
-                calendar.setHighlightedDays(reservationsTemp.get(i).getCheckInDate(), reservationsTemp.get(i).getCheckOutDate());
-            }
-            else {
-                for (int j = 0; j < nReservations; j++){
-                    resButtons.get(i).setColor(new Color(27, 43, 80));
-                }
-            }
-        }*/
     }
 
     public ReservationView getResView(){

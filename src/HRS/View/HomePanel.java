@@ -1,17 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
-public class HomePanel extends RoundPanel implements ActionListener{
+public class HomePanel extends RoundPanel{
     
     private ArrayList<Hotel> hotels;
     private int nHotels;
@@ -37,6 +31,7 @@ public class HomePanel extends RoundPanel implements ActionListener{
         customFont90 = Customization.createCustomFont("Fonts/POPPINS-BOLD.TTF", 90);
 
         // * Title Panel * //
+
         title = new RoundLabel(new Color(27, 43, 80));
         title.setBounds(23, 15, 500, 115);
         title.setFont(customFont90);
@@ -102,11 +97,6 @@ public class HomePanel extends RoundPanel implements ActionListener{
         item.setVerticalAlignment(JLabel.BOTTOM);
         
         item.setFocusable(false);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
     }
 
     public ArrayList<HotelItem> getHotelCatalogue(){

@@ -1,7 +1,6 @@
 package src.HRS.View;
-//package GUI;
-import javax.swing.*;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class SidePanel extends RoundPanel{

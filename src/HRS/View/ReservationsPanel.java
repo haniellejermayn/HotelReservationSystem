@@ -1,13 +1,9 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
 import java.util.*;
 

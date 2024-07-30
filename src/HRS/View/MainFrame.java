@@ -1,22 +1,11 @@
 package src.HRS.View;
 
-//import src.HRS.Model.*;
-
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 import java.util.*;
 
 public class MainFrame extends JFrame{
-    
-    private RoundPanel homePage;
-    private RoundPanel hotelsPage;
-    private RoundPanel reservationsPage;
-    private RoundPanel settingsPopUp;
 
     private RoundPanel accountSidePanel;
     private RoundPanel fillerPanel;
@@ -29,11 +18,9 @@ public class MainFrame extends JFrame{
     private ImageIcon logo;
     private ImageIcon logoAndName;
     private JLabel logoName;
-    private JLabel hotelTitle;
 
     private Font customFont15;
     private Font customFont25;
-    private Font customFont30;
     private Font customFont60;
 
     private HomePanel homePanel;
@@ -80,7 +67,6 @@ public class MainFrame extends JFrame{
         
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont25 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 25);
-        customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
@@ -129,7 +115,6 @@ public class MainFrame extends JFrame{
         fillerPanel.setBackground(new Color(27, 43, 80));
         fillerPanel.add(filler1);
         fillerPanel.add(filler2);
-        //fillerPanel.add(filler3);
 
         int nReservations = 0;
         for(int i = 0; i < hotels.size(); i++) {
@@ -187,7 +172,6 @@ public class MainFrame extends JFrame{
         this.add(fillerPanel);
         this.add(reservationsPanel);
 
-
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
         accountPanel.setVisible(false);
@@ -201,12 +185,6 @@ public class MainFrame extends JFrame{
 
         for (int i = 0; i < SelectednHotels; i++){
             SelectedHotelPanel hotelTemp = new SelectedHotelPanel(Selectedhotels.get(i), i);
-
-            /*System.out.printf("init hotel\n");
-            System.out.printf("init hotel name = %s\n", hotelTemp.getHotel().getHotelName());
-            System.out.printf("init hotel index = %d\n", i);
-            System.out.printf("init nHotels = %d\n\n", SelectednHotels);*/
-
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
