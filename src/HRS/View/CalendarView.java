@@ -10,7 +10,7 @@ public class CalendarView extends RoundPanel{
     private Font customFont;
     private ActionListener action;
 
-    CalendarView(){
+    public CalendarView(){
         
         super(new Color(27, 43, 80));
 
