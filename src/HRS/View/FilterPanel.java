@@ -2,6 +2,15 @@ package src.HRS.View;
 
 import java.awt.*;
 
+/**
+ * The {@code FilterPanel} class represents a panel containing filtering options for displaying hotels.
+ * This panel includes buttons that allow users to filter hotels based on different criteria such as
+ * "Most Booked", "Lowest Price", "Highest Price", and "Newest".
+ * <p>
+ * The {@code FilterPanel} extends {@link RoundPanel} and provides a graphical user interface for filtering
+ * hotels based on the selected criteria.
+ * </p>
+ */
 public class FilterPanel extends RoundPanel{
     
     private OptionButton mostBooked;
@@ -9,6 +18,12 @@ public class FilterPanel extends RoundPanel{
     private OptionButton highestPrice;
     private OptionButton newest;
 
+    /**
+     * Constructs a {@code FilterPanel} with the specified background color.
+     * Initializes the filter buttons and sets their properties and positions within the panel.
+     *
+     * @param bgColor the background color for the panel
+     */
     public FilterPanel(Color bgColor){
 
         super(bgColor);
@@ -41,35 +56,75 @@ public class FilterPanel extends RoundPanel{
         this.add(newest);
     }
 
+    /**
+     * Returns the "Most Booked" filter button.
+     *
+     * @return the {@code OptionButton} for "Most Booked"
+     */
     public OptionButton getMostBookedButton(){
         return mostBooked;
     }
 
-    public void getMostBookedButton(OptionButton mostBooked){
+    /**
+     * Sets the "Most Booked" filter button.
+     *
+     * @param mostBooked the {@code OptionButton} for "Most Booked"
+     */
+    public void setMostBookedButton(OptionButton mostBooked){
         this.mostBooked = mostBooked;
     }
 
+    /**
+     * Returns the "Lowest Price" filter button.
+     *
+     * @return the {@code OptionButton} for "Lowest Price"
+     */
     public OptionButton getLowestPriceButton(){
         return lowestPrice;
     }
 
-    public void getLowestPriceButton(OptionButton lowestPrice){
+    /**
+     * Sets the "Lowest Price" filter button.
+     *
+     * @param lowestPrice the {@code OptionButton} for "Lowest Price"
+     */
+    public void setLowestPriceButton(OptionButton lowestPrice){
         this.lowestPrice = lowestPrice;
     }
 
+    /**
+     * Returns the "Highest Price" filter button.
+     *
+     * @return the {@code OptionButton} for "Highest Price"
+     */
     public OptionButton getHighestPriceButton(){
         return highestPrice;
     }
 
-    public void getHighestPriceButton(OptionButton highestPrice){
+    /**
+     * Sets the "Highest Price" filter button.
+     *
+     * @param highestPrice the {@code OptionButton} for "Highest Price"
+     */
+    public void setHighestPriceButton(OptionButton highestPrice){
         this.highestPrice = highestPrice;
     }
 
+    /**
+     * Returns the "Newest" filter button.
+     *
+     * @return the {@code OptionButton} for "Newest"
+     */
     public OptionButton getNewestButton(){
         return newest;
     }
 
-    public void getNewestButton(OptionButton newest){
+    /**
+     * Sets the "Newest" filter button.
+     *
+     * @param newest the {@code OptionButton} for "Newest"
+     */
+    public void setNewestButton(OptionButton newest){
         this.newest = newest;
     }
 }

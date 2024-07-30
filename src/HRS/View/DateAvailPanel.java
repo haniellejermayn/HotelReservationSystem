@@ -4,6 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 import src.HRS.Model.Hotel;
 
+/**
+ * The {@code DateAvailPanel} class represents a panel displaying room availability and booking information for a specific hotel.
+ * It includes a calendar view and labels showing the number of available and booked rooms.
+ */
 public class DateAvailPanel extends RoundPanel{
 
     CalendarView calendar;
@@ -15,6 +19,12 @@ public class DateAvailPanel extends RoundPanel{
     Font customFont15;
     Font customFont50;
 
+    /**
+     * Constructs a {@code DateAvailPanel} for the given hotel.
+     * Initializes the panel with a calendar view and labels for available and booked rooms.
+     *
+     * @param hotel the {@link Hotel} for which this panel is to be created
+     */
     public DateAvailPanel(Hotel hotel){
 
         super(new Color(40, 68, 117));
@@ -64,26 +74,56 @@ public class DateAvailPanel extends RoundPanel{
         this.add(bookedPanel);
     }
 
+    /**
+     * Returns the calendar view component.
+     *
+     * @return the {@link CalendarView} object representing the calendar
+     */
     public CalendarView getCalendar(){
         return calendar;
     }
 
+    /**
+     * Sets the calendar view component.
+     *
+     * @param calendar the {@link CalendarView} object to set as the calendar view
+     */
     public void setCalendar(CalendarView calendar){
         this.calendar = calendar;
     }
 
+    /**
+     * Returns the label displaying the available rooms.
+     *
+     * @return the {@link RoundLabel} object representing the available rooms panel
+     */
     public RoundLabel getAvailPanel(){
         return availPanel;
     }
 
+    /**
+     * Sets the label displaying the available rooms.
+     *
+     * @param availPanel the {@link RoundLabel} object to set as the available rooms panel
+     */
     public void setAvailPanel(RoundLabel availPanel){
         this.availPanel = availPanel;
     }
 
+    /**
+     * Returns the label displaying the booked rooms.
+     *
+     * @return the {@link RoundLabel} object representing the booked rooms panel
+     */
     public RoundLabel getBookedPanel(){
         return bookedPanel;
     }
 
+    /**
+     * Sets the label displaying the booked rooms.
+     *
+     * @param bookedPanel the {@link RoundLabel} object to set as the booked rooms panel
+     */
     public void setBookedPanel(RoundLabel bookedPanel){
         this.bookedPanel =  bookedPanel;
     }    
