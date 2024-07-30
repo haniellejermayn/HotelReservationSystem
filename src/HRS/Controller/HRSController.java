@@ -773,14 +773,10 @@ public class HRSController{
             TextFieldCustom basePriceTextField = managePanel.getBasePriceTextField();
             TextFieldCustom percentageTextField = managePanel.getPercentageTextField();
 
-
             if (e.getSource() == changeNamePanel.getUpdateButton()){
                 String hotelName = hotelNameTextField.getTextField().getText().trim();
 
-                // TODO: check if name is valid
-                // TODO: put validateHotelName method in model
-
-                if (!hotelName.isEmpty()){
+                if (!hotelName.isEmpty() && model.isHotelNameUnique(hotelName)){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Change Name");
 
                     managePanel.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
@@ -808,7 +804,6 @@ public class HRSController{
             else if (e.getSource() == updateBasePricePanel.getUpdateButton()){
                 Float basePrice = Float.valueOf(basePriceTextField.getTextField().getText().trim());
 
-                // ! // BUG: index out of bounds, does not work for the second managing
                 if (basePrice >= 100.00 && model.getHotels().get(hotelIndex).countReservations() == 0){
                     ConfirmModPanel confirmModPanel = new ConfirmModPanel("Update Base Price");
 
@@ -958,8 +953,6 @@ public class HRSController{
             Hotel hotel = selectedHotelPanel.getHotel();
             int hotelIndex = selectedHotelPanel.getHotelIndex();
 
-            // ! // BUG: lag with confirmation
-            // ! // BUG: does not load a second time
             if (e.getSource() == managePanel.getConfirmModPanel().getYesButton()){
 
                 if (panelName.equals("Change Name")){
@@ -989,9 +982,9 @@ public class HRSController{
                     int standardRoom = Integer.valueOf(standardRoomTextField.getTextField().getText().trim());
                     int deluxeRoom = Integer.valueOf(deluxeRoomTextField.getTextField().getText().trim());
                     int executiveRoom = Integer.valueOf(executiveRoomTextField.getTextField().getText().trim());
-    
-                    // TODO: add rooms based on room type in model
-                        
+
+                    model.getHotels().get(hotelIndex).addRooms(standardRoom, deluxeRoom, executiveRoom);
+                    
                     initializeMainListeners("Home Panel", 0);
                     initializeMainListeners("Hotels Panel", 0);
                     initializeMainListeners("Reservations Panel", 0);
