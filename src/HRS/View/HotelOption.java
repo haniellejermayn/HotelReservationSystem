@@ -11,7 +11,7 @@ import src.HRS.Model.Hotel;
  * It extends {@link PanelButton} and is designed to present various hotel attributes such as name, number of rooms,
  * reservations, and price with interactive features.
  */
-public class HotelOption extends PanelButton implements MouseListener {
+public class HotelOption extends PanelButton{
     private boolean over;
     private Color color;
     private Color colorOver;
