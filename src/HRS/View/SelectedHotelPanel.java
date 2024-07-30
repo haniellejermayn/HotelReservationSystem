@@ -20,6 +20,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
     private JLabel hotelPrice;
     private JLabel hotelRooms;
     private JLabel hotelRes;
+    private JLabel hotelEarnings;
 
     private IconButton manageButton;
     private OptionButton bookButton;
@@ -74,6 +75,12 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         hotelRes.setVerticalAlignment(JLabel.TOP);
         hotelRes.setBounds(17, 100, 300, 17);
 
+        hotelEarnings = new JLabel(String.valueOf("Earnings: " + hotel.computeEarnings()));
+        hotelEarnings.setFont(customFont15);
+        hotelEarnings.setForeground(Color.white);
+        hotelEarnings.setVerticalAlignment(JLabel.TOP);
+        hotelEarnings.setBounds(17, 125, 300, 20);
+
         bookButton = new OptionButton("Book"); 
         bookButton.setBounds(420, 130, 140, 40);
         bookButton.setColor(bookButton.getColorOver());
@@ -99,6 +106,7 @@ public class SelectedHotelPanel extends LayeredRoundPanel implements ActionListe
         titlePanel.add(hotelPrice);
         titlePanel.add(hotelRooms);
         titlePanel.add(hotelRes);
+        titlePanel.add(hotelEarnings);
         titlePanel.add(manageButton);
         titlePanel.add(bookButton);
 

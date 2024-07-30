@@ -219,9 +219,33 @@ public class HRSController{
                 TextFieldCustom executiveTextField = createHotelPanel.getExecutiveRoomTextField();
 
                 String name = nameTextField.getTextField().getText().trim();
-                int standard = Integer.valueOf(standardTextField.getTextField().getText().trim());
-                int deluxe = Integer.valueOf(deluxeTextField.getTextField().getText().trim());
-                int executive = Integer.valueOf(executiveTextField.getTextField().getText().trim());
+
+                String standardInput = standardTextField.getTextField().getText().trim();
+                String deluxeInput = deluxeTextField.getTextField().getText().trim();
+                String executiveInput = executiveTextField.getTextField().getText().trim();
+                
+                int standard, deluxe, executive;
+
+                if (standardInput.isEmpty()){
+                    standard = 0;
+                }
+                else {
+                    standard = Integer.valueOf(standardTextField.getTextField().getText().trim());
+                }
+
+                if (deluxeInput.isEmpty()){
+                    deluxe = 0;
+                }
+                else {
+                    deluxe = Integer.valueOf(deluxeTextField.getTextField().getText().trim());
+                }
+
+                if (executiveInput.isEmpty()){
+                    executive = 0;
+                }
+                else {
+                    executive = Integer.valueOf(executiveTextField.getTextField().getText().trim());
+                }
 
                 if (!name.isEmpty() && model.isHotelNameUnique(name) && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
                     
@@ -368,10 +392,6 @@ public class HRSController{
                 hotelsPanel.add(scrollPane, JLayeredPane.DEFAULT_LAYER);
                 mainFrame.initializeSelectedHotels(newest, model.countHotels());
             }
-
-            //initializeMainListeners("Hotels Panel", 0);
-            //mainFrame.getHotelsPanel().setVisible(true);
-            //mainFrame.initializeSelectedHotels(model.getHotels(), model.countHotels());
         }   
     }
 
@@ -1011,6 +1031,7 @@ public class HRSController{
                     selectedHotelPanel.remove(managePanel);
 
                     Float percentage = Float.valueOf(percentageTextField.getTextField().getText().trim());
+                    percentage /= 100.0f;
                     int day = managePanel.getDateModInput();
                     model.getHotels().get(hotelIndex).updateDatePrice(day, percentage);
                     
@@ -1221,7 +1242,7 @@ public class HRSController{
                     resInfoPanel.getResInfoContainer().remove(resInfoPanel.getPriceScrollPane());
                     resInfoPanel.getResInfoContainer().add(newPriceScrollPane);
                     resInfoPanel.setPriceScrollPane(newPriceScrollPane);
-                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice())); // TODO: set input to automatically translate to float percentage
+                    resInfoPanel.getTotalPrice().setText(String.format("Final: $%.2f", hotel.getReservations().get(i).computeFinalPrice()));
                     resInfoPanel.getTotalPrice().setVisible(true);
                 }
                 else {

@@ -128,7 +128,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         RoundLabel currentBasePrice = new RoundLabel(new Color(40, 68, 117));
         currentBasePrice.setBounds(142, 80, 200, 40); 
-        currentBasePrice.setText(String.valueOf(hotel.getBasePrice()));
+        currentBasePrice.setText(String.format("%.2f", hotel.getBasePrice()));
         currentBasePrice.setFont(customFont20);
         currentBasePrice.setForeground(Color.white);
 
