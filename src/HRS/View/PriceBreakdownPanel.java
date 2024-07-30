@@ -9,10 +9,10 @@ import src.HRS.Model.Reservation;
 public class PriceBreakdownPanel extends RoundPanel{
     
     private ArrayList<JPanel> priceBreakdown;
-    ArrayList<String> dates; 
+    private ArrayList<String> dates; 
 
-    String totalPrice;
-    String discount;
+    private String totalPrice;
+    private String discount;
 
     public PriceBreakdownPanel(Hotel hotel, int reservationIndex){
 

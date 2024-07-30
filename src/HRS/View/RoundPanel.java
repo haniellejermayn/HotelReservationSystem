@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class RoundPanel extends JPanel{
     
-    Color color;
+    private Color color;
 
-    RoundPanel(Color color){
+    public RoundPanel(Color color){
         
         this.color = color;
         this.setOpaque(false);

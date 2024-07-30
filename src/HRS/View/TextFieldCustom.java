@@ -10,7 +10,7 @@ public class TextFieldCustom extends RoundPanel{
     private JTextField textField;
     private RoundPanel textContainer;
 
-    TextFieldCustom(Color bgColor){
+    public TextFieldCustom(Color bgColor){
         
         super(bgColor);
 

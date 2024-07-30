@@ -12,7 +12,7 @@ public class PanelButton extends JButton implements MouseListener{
     private Color colorClick;
     private String buttonName;
     
-    PanelButton(String buttonName){
+    public PanelButton(String buttonName){
 
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 8);
 

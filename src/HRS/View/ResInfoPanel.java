@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ResInfoPanel extends RoundPanel{
+    
     private int nReservations;
     private ReservationView resView;
     private BookCalendar calendar;

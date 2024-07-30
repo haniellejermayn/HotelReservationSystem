@@ -1,13 +1,12 @@
 package src.HRS.View;
-//package GUI;
+
 import javax.swing.*;
-
 import src.HRS.Model.Hotel;
-
 import java.awt.*;
 import java.awt.event.*;
 
 public class HotelOption extends PanelButton{
+    
     private boolean over;
     private Color color;
     private Color colorOver;

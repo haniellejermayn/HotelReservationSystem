@@ -11,7 +11,7 @@ public class SidePanel extends RoundPanel{
     private IconButton accountButton;
     private IconButton backButton;
 
-    SidePanel(Color color){
+    public SidePanel(Color color){
         
         super(color);
         this.setOpaque(false);

@@ -9,7 +9,7 @@ public class FilterPanel extends RoundPanel{
     private OptionButton highestPrice;
     private OptionButton newest;
 
-    FilterPanel(Color bgColor){
+    public FilterPanel(Color bgColor){
 
         super(bgColor);
         

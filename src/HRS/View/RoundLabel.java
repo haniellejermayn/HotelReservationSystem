@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class RoundLabel extends JLabel{
     
-    RoundLabel(Color bgColor){
+    public RoundLabel(Color bgColor){
         
         this.setOpaque(false);
         this.setBackground(bgColor);
