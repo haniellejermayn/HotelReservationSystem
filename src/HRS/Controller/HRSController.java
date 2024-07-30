@@ -1228,6 +1228,7 @@ public class HRSController{
                     selectedHotelPanel.remove(managePanel);
 
                     Float percentage = Float.valueOf(percentageTextField.getTextField().getText().trim());
+                    percentage /= 100.0f;
                     int day = managePanel.getDateModInput();
                     model.getHotels().get(hotelIndex).updateDatePrice(day, percentage);
                     
