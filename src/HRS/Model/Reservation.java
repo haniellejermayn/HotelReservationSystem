@@ -3,7 +3,7 @@ package src.HRS.Model;
 import java.util.ArrayList;
 
 /**
- * Represents a reservation with guest details, check-in and check-out dates, and a room.
+ * Represents a reservation with guest details, check-in and check-out dates, a room, a discount code (if applicable), and a list of date price modifiers.
  */
 public class Reservation {
     private String guestName;
@@ -16,12 +16,13 @@ public class Reservation {
     // -- Constructor -- //
 
     /**
-     * Constructs a new Reservation with the specified guest name, check-in date, check-out date, and room.
+     * Constructs a new Reservation with the specified guest name, check-in date, check-out date, room, and date price modifiers.
      *
      * @param guestName the name of the guest
      * @param checkInDate the check-in date
      * @param checkOutDate the check-out date
      * @param room the room reserved
+     * @param datePriceModifiers the list of date price modifiers
      */
     public Reservation(String guestName, int checkInDate, int checkOutDate, Room room, ArrayList<Float> datePriceModifiers) {
         this.guestName = guestName;
@@ -33,12 +34,21 @@ public class Reservation {
 
     // -- Public Methods -- //
 
-    // Retrieves the cost per night of the reservation.
+    /**
+     * Retrieves the cost per night of the reservation for a specific day.
+     *
+     * @param day the day to retrieve the cost for
+     * @return the cost per night for the specified day
+     */
     public float retrieveCostPerNight(int day) {
         return this.room.getRoomPrice() * this.datePriceModifiers.get(day - 1);
     }
 
-    // Computes the total (undiscounted) price of the reservation.
+    /**
+     * Computes the total (undiscounted) price of the reservation.
+     *
+     * @return the total (undiscounted) price
+     */
     public float computeTotalPrice() {
         float total = 0;
 

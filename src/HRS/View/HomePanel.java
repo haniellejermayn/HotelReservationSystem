@@ -1,40 +1,54 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
+import javax.swing.*;
+import src.HRS.Model.Hotel;
 
-public class HomePanel extends RoundPanel implements ActionListener{
+/**
+ * The {@code HomePanel} class represents the main panel of the application, which displays
+ * a title, description, and a catalog of hotels. It provides a visual interface for users
+ * to view and interact with a list of hotels.
+ * <p>
+ * The {@code HomePanel} extends {@link RoundPanel} and includes various components such as
+ * titles, descriptions, and a list of {@link HotelItem} objects representing individual hotels.
+ * </p>
+ */
+public class HomePanel extends RoundPanel{
     
-    JLabel hotelTitle;
-    RoundPanel titlePanel;
-    RoundLabel title;
-    RoundLabel description;
-    ArrayList<HotelItem> hotelCatalogue;
+    private ArrayList<Hotel> hotels;
+    private int nHotels;
+    
+    private JLabel hotelTitle;
+    private RoundPanel titlePanel;
+    private RoundLabel title;
+    private RoundLabel description;
+    private ArrayList<HotelItem> hotelCatalogue;
 
-    Font customFont15;
-    Font customFont30;
-    Font customFont90;
+    private Font customFont15;
+    private Font customFont30;
+    private Font customFont90;
 
-    private ButtonClickListener listener;
-
-    public HomePanel(ArrayList<Hotel> hotels, int nHotel, ButtonClickListener listener){
+    /**
+     * Constructs a {@code HomePanel} with the specified list of hotels and number of hotels.
+     * Initializes and sets up the user interface components of the panel, including the title,
+     * description, and a catalog of hotels.
+     *
+     * @param hotels the list of {@code Hotel} objects to be displayed in the catalog
+     * @param nHotels the number of hotels in the list
+     */
+    public HomePanel(ArrayList<Hotel> hotels, int nHotels){
 
         super(new Color(13, 22, 45));
-
-        this.listener = listener;
+        this.hotels = hotels;
+        this.nHotels = nHotels;
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont90 = Customization.createCustomFont("Fonts/POPPINS-BOLD.TTF", 90);
 
         // * Title Panel * //
+
         title = new RoundLabel(new Color(27, 43, 80));
         title.setBounds(23, 15, 500, 115);
         title.setFont(customFont90);
@@ -70,12 +84,10 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
         hotelCatalogue = new ArrayList<HotelItem>();
 
-        if (!hotels.isEmpty()){
-            for(int i = 0; i < nHotel; i++){
-                HotelItem itemTemp = new HotelItem(hotels.get(i));
-                initializeHotelItem(itemTemp, hotels.get(i), i);
-                hotelCatalogue.add(itemTemp);
-            }
+        for(int i = 0; i < nHotels; i++){
+            HotelItem itemTemp = new HotelItem(hotels.get(i));
+            initializeHotelItem(itemTemp, hotels.get(i), i);
+            hotelCatalogue.add(itemTemp);
         }
 
         this.setLayout(null);
@@ -84,13 +96,19 @@ public class HomePanel extends RoundPanel implements ActionListener{
         this.add(titlePanel);
         this.add(star);
 
-        if (!hotels.isEmpty()){
-            for (int i = 0; i < nHotel; i++){
-                this.add(hotelCatalogue.get(i));
-            }
+        for (int i = 0; i < nHotels; i++){
+            this.add(hotelCatalogue.get(i));
         }
     }
 
+    /**
+     * Initializes a {@code HotelItem} with the specified {@code Hotel} and item number.
+     * Sets the properties and layout of the hotel item.
+     *
+     * @param item the {@code HotelItem} to be initialized
+     * @param hotel the {@code Hotel} associated with the item
+     * @param itemNo the item number used for positioning
+     */
     public void initializeHotelItem(HotelItem item, Hotel hotel, int itemNo){
 
         String hotelName = hotel.getHotelName();
@@ -100,21 +118,63 @@ public class HomePanel extends RoundPanel implements ActionListener{
 
         RoundLabel content = item.getContent();
         content.setText(hotelName);
+        item.setButtonName(hotelName);
         item.setVerticalAlignment(JLabel.BOTTOM);
-        item.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listener.buttonClicked(hotelName);
-            }
-        });
         
         item.setFocusable(false);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
+    /**
+     * Returns the list of {@code HotelItem} objects representing the hotel catalog.
+     *
+     * @return the {@code ArrayList} of {@code HotelItem} objects
+     */
+    public ArrayList<HotelItem> getHotelCatalogue(){
+        return hotelCatalogue;
     }
 
+    /**
+     * Sets the list of {@code HotelItem} objects representing the hotel catalog.
+     *
+     * @param hotelCatalogue the {@code ArrayList} of {@code HotelItem} objects to set
+     */
+    public void setHotelCatalogue(ArrayList<HotelItem> hotelCatalogue){
+        this.hotelCatalogue = hotelCatalogue;
+    }
+
+    /**
+     * Returns the list of {@code Hotel} objects associated with the panel.
+     *
+     * @return the {@code ArrayList} of {@code Hotel} objects
+     */
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
+    }
+
+    /**
+     * Sets the list of {@code Hotel} objects associated with the panel.
+     *
+     * @param hotels the {@code ArrayList} of {@code Hotel} objects to set
+     */
+    public void setHotels(ArrayList<Hotel> hotels){
+        this. hotels = hotels;
+    }
+
+    /**
+     * Returns the number of hotels in the list.
+     *
+     * @return the number of hotels
+     */
+    public int getnHotels(){
+        return nHotels;
+    }
+
+    /**
+     * Sets the number of hotels in the list.
+     *
+     * @param nHotels the number of hotels to set
+     */
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
+    }
 }

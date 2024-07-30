@@ -1,24 +1,32 @@
 package src.HRS.View;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 
-public class AccountPanel extends RoundPanel implements ActionListener{
-    
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
+
+/**
+ * The AccountPanel class represents a user account panel displaying account details
+ * such as the user's name, ID number, and status, along with a profile picture and header.
+ */
+public class AccountPanel extends RoundPanel {
+
     private JLabel hotelTitle;
     private RoundPanel header;
     private RoundLabel headerLabel;
     private RoundLabel profileLabel;
-    private RoundLabel name, status, idNumber;
+    private RoundLabel name;
+    private RoundLabel status;
+    private RoundLabel idNumber;
     private RoundPanel accountInfo;
     private ArrayList<HotelOption> hotelCatalogue;
 
     private Font customFont15;
     private Font customFont20;
 
-    AccountPanel(ButtonClickListener listener){
-
+    /**
+     * Constructs a new AccountPanel with predefined UI elements.
+     */
+    public AccountPanel() {
         super(new Color(13, 22, 45));
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
@@ -76,24 +84,39 @@ public class AccountPanel extends RoundPanel implements ActionListener{
         this.add(accountInfo);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
-
-    public JLabel getHotelTitle(){
+    /**
+     * Returns the hotel title label.
+     *
+     * @return the hotel title label
+     */
+    public JLabel getHotelTitle() {
         return hotelTitle;
     }
 
-    public void setHotelTitle(JLabel hotelTitle){
+    /**
+     * Sets the hotel title label.
+     *
+     * @param hotelTitle the hotel title label to set
+     */
+    public void setHotelTitle(JLabel hotelTitle) {
         this.hotelTitle = hotelTitle;
     }
 
-    public ArrayList<HotelOption> getHotelCatalogue(){
+    /**
+     * Returns the hotel catalogue.
+     *
+     * @return the hotel catalogue
+     */
+    public ArrayList<HotelOption> getHotelCatalogue() {
         return hotelCatalogue;
     }
 
-    public void setHotelCatalogue(ArrayList<HotelOption> hotelCatalogue){
+    /**
+     * Sets the hotel catalogue.
+     *
+     * @param hotelCatalogue the hotel catalogue to set
+     */
+    public void setHotelCatalogue(ArrayList<HotelOption> hotelCatalogue) {
         this.hotelCatalogue = hotelCatalogue;
     }
 }

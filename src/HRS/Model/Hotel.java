@@ -3,7 +3,7 @@ package src.HRS.Model;
 import java.util.ArrayList;
 
 /**
- * Represents a hotel with a name, list of rooms, and list of reservations.
+ * Represents a hotel with a name, base price, list of rooms, ist of reservations, and list of date price modifiers.
  */
 public class Hotel {
     private String hotelName;
@@ -14,6 +14,14 @@ public class Hotel {
 
     // -- Constructor -- //
 
+    /**
+     * Constructs a new Hotel with the specified name and initializes rooms and date price modifiers.
+     *
+     * @param hotelName the name of the hotel
+     * @param standardAmount the number of standard rooms
+     * @param deluxeAmount the number of deluxe rooms
+     * @param executiveAmount the number of executive rooms
+     */
     public Hotel(String hotelName, int standardAmount, int deluxeAmount, int executiveAmount) {
         this.hotelName = hotelName;
         this.basePrice = 1299.0f;
@@ -167,10 +175,11 @@ public class Hotel {
     }
 
     /**
-     * Checks date availability across all rooms and returns the index of an available room.
-     * 
+     * Checks date availability across all rooms of a given type and returns the index of an available room.
+     *
      * @param start the start date
      * @param end the end date
+     * @param type the type of room (1 - standard, 2 - deluxe, 3 - executive)
      * @return the index of an available room, or -1 if none are available
      */
     public int checkDateAvailability(int start, int end, int type) {
@@ -224,17 +233,24 @@ public class Hotel {
     }
 
     /**
-     * Adds a new room to the hotel.
+     * Adds rooms to the hotel.
+     *
+     * @param standardAmount the number of standard rooms
+     * @param deluxeAmount the number of deluxe rooms
+     * @param executiveAmount the number of executive rooms
      */
-    public void addRoom(int type) {
-        switch(type) {
-            case 1: this.rooms.add(new Room(hotelName, this.basePrice)); break;
-            case 2: this.rooms.add(new DeluxeRoom(hotelName, this.basePrice)); break;
-            case 3: this.rooms.add(new ExecutiveRoom(hotelName, this.basePrice)); break;
+    public void addRooms(int standardAmount, int deluxeAmount, int executiveAmount) {
+        for(int i = 0; i < standardAmount; i++) {
+            this.rooms.add(new Room(this.basePrice));
+        }
+        for(int i = 0; i < deluxeAmount; i++) {
+            this.rooms.add(new DeluxeRoom(this.basePrice));
+        }
+        for(int i = 0; i < executiveAmount; i++) {
+            this.rooms.add(new ExecutiveRoom(this.basePrice));
         }
         
         this.reinitializeRooms();
-        this.datePriceModifiers.add(1.0f);
     }
 
     /**
@@ -245,13 +261,25 @@ public class Hotel {
     public void removeRoom(int index) {
         this.rooms.remove(index);
         this.reinitializeRooms();
-        this.datePriceModifiers.remove(index);
+        //this.datePriceModifiers.remove(index);
     }
 
+    /**
+     * Fetches the price modifier for a specific day.
+     *
+     * @param day the day to fetch the price modifier for
+     * @return the price modifier for the specified day
+     */
     public float fetchDatePriceModifier(int day) {
         return this.datePriceModifiers.get(day - 1);
     }
 
+    /**
+     * Updates the price modifier for a specific day.
+     *
+     * @param day the day to update the price for
+     * @param newPrice the new price modifier
+     */
     public void updateDatePrice(int day, float newPrice) {
         this.datePriceModifiers.set(day - 1, newPrice);
     }
@@ -259,9 +287,11 @@ public class Hotel {
     // -- Private Methods -- //
 
     /**
-     * Initializes rooms with a specified amount.
-     * 
-     * @param roomAmt the number of rooms to initialize
+     * Initializes rooms with the specified amounts for each type.
+     *
+     * @param standardAmount the number of standard rooms
+     * @param deluxeAmount the number of deluxe rooms
+     * @param executiveAmount the number of executive rooms
      */
     private void initializeRooms(int standardAmount, int deluxeAmount, int executiveAmount) {
         int totalRooms = standardAmount + deluxeAmount + executiveAmount;
@@ -324,10 +354,20 @@ public class Hotel {
         return this.hotelName;
     }
 
+    /**
+     * Gets the base price of the hotel.
+     *
+     * @return the base price of the hotel
+     */
     public float getBasePrice() {
         return this.basePrice;
     }
 
+    /**
+     * Gets the list of reservations for the hotel.
+     *
+     * @return the list of reservations
+     */
     public ArrayList<Reservation> getReservations() {
         return this.reservations;
     }
@@ -341,7 +381,11 @@ public class Hotel {
         this.hotelName = newName;
     }
 
-    // also reinitializes rooms
+    /**
+     * Sets the base price of the hotel and reinitializes room prices.
+     *
+     * @param newPrice the new base price
+     */
     public void setBasePrice(float newPrice) {
         this.basePrice = newPrice;
         this.reinitializeRooms();

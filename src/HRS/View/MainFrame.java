@@ -1,57 +1,59 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
-
 import javax.swing.*;
+import src.HRS.Model.Hotel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
-public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
+/**
+ * The {@code MainFrame} class represents the main window of the Hotel Reservation System (HRS) application.
+ * <p>
+ * This class sets up and manages the primary user interface components of the application, including panels for home,
+ * hotels, reservations, and account information. It also handles the display and organization of various elements
+ * within the main frame of the application.
+ * </p>
+ */
+public class MainFrame extends JFrame{
+
+    private RoundPanel accountSidePanel;
+    private RoundPanel fillerPanel;
+    private RoundPanel reservationsPanel;
+    private SidePanel sidePanel;
+    private JScrollPane scrollPane;
+
+    private JLabel reservationsNo;
+
+    private ImageIcon logo;
+    private ImageIcon logoAndName;
+    private JLabel logoName;
+
+    private Font customFont15;
+    private Font customFont25;
+    private Font customFont60;
+
+    private HomePanel homePanel;
+    private HotelsPanel hotelsPanel;
+    private ReservationsPanel resPanel;
+    private AccountPanel accountPanel;
     
-    JPanel darkPanel;
+    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    private SelectedHotelPanel selectedHotelPanel;
+    private boolean isHotelSelected;
 
-    RoundPanel homePage;
-    RoundPanel hotelsPage;
-    RoundPanel reservationsPage;
-    RoundPanel settingsPopUp;
-
-    RoundPanel accountSidePanel;
-    RoundPanel fillerPanel;
-    RoundPanel reservationsPanel;
-    SidePanel sidePanel;
-    JScrollPane scrollPane;
-
-    JLabel reservationsNo;
-
-    ImageIcon logo;
-    ImageIcon logoAndName;
-    JLabel logoName;
-    JLabel hotelTitle;
-
-    Font customFont15;
-    Font customFont25;
-    Font customFont30;
-    Font customFont60;
-
-    HomePanel homePanel;
-    HotelsPanel hotelsPanel;
-    ReservationsPanel resPanel;
-    AccountPanel accountPanel;
+    private ArrayList<Hotel> hotels;
+    private int nHotels;
     
-    IconButton homeButton;
-    IconButton hotelButton;
-    IconButton resButton;
-    IconButton accountButton;
-    IconButton backButton;
-    
-    ArrayList<HotelItem> hotelCatalogue;
-    ArrayList<HotelOption> hotelOptions;
-    ArrayList<SelectedHotelPanel> selectedHotelPanels;
-    ArrayList<Hotel> hotels;
-    int nHotels;
-    
+    /**
+     * Constructs a {@code MainFrame} with the specified list of hotels and the number of hotels.
+     * <p>
+     * This constructor sets up the main application window with various user interface components including panels
+     * for home, hotels, reservations, and account information. It also initializes and configures these components,
+     * sets their layouts, and adds them to the frame.
+     * </p>
+     *
+     * @param hotels  an {@code ArrayList} of {@link Hotel} objects representing the hotels to be managed by this frame
+     * @param nHotels an {@code int} representing the number of hotels
+     */
     public MainFrame(ArrayList<Hotel> hotels, int nHotels){
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +86,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         customFont25 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 25);
-        customFont30 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 30);
         customFont60 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 60);
 
 
@@ -133,7 +134,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         fillerPanel.setBackground(new Color(27, 43, 80));
         fillerPanel.add(filler1);
         fillerPanel.add(filler2);
-        //fillerPanel.add(filler3);
 
         int nReservations = 0;
         for(int i = 0; i < hotels.size(); i++) {
@@ -170,26 +170,13 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotels, this); 
-        homeButton = sidePanel.getHomeButton();
-        homeButton.addActionListener(this);
-        
-        hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
-        hotelButton = sidePanel.getHotelButton();
-        hotelButton.addActionListener(this);
-        
+        homePanel = new HomePanel(hotels, nHotels);
+        hotelsPanel = new HotelsPanel(hotels, nHotels); 
         resPanel = new ReservationsPanel(hotels, nHotels); 
-        resButton = sidePanel.getReservationsButton();
-        resButton.addActionListener(this);
-
-        accountPanel = new AccountPanel(this);
-        accountButton = sidePanel.getAccountButton();
-        accountButton.addActionListener(this);
-
-        backButton = sidePanel.getBackButton();
-        backButton.addActionListener(this);
+        accountPanel = new AccountPanel();
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
+        setIsHotelSelected(false);
 
         initializeSelectedHotels(hotels, nHotels);
 
@@ -204,7 +191,6 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.add(fillerPanel);
         this.add(reservationsPanel);
 
-
         hotelsPanel.setVisible(false);
         resPanel.setVisible(false);
         accountPanel.setVisible(false);
@@ -214,63 +200,240 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.setVisible(true);
     }
 
-    public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
-        if (!hotels.isEmpty()){
-            for (int i = 0; i < nHotels; i++){
-                SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
-                hotelTemp.setVisible(false);
-                this.selectedHotelPanels.add(hotelTemp);
-            }
+    /**
+     * Initializes the list of selected hotel panels with the given hotels and number of hotels.
+     * <p>
+     * This method creates a new {@link SelectedHotelPanel} for each hotel in the provided list of hotels.
+     * Each panel is initialized with its corresponding hotel and index. The visibility of each panel is
+     * set to {@code false}, and then each panel is added to the {@code selectedHotelPanels} list.
+     * </p>
+     *
+     * @param Selectedhotels an {@code ArrayList} of {@link Hotel} objects representing the hotels for which
+     *                       the selected hotel panels are to be created
+     * @param SelectednHotels an {@code int} representing the number of hotels in the {@code Selectedhotels} list
+     */
+    public void initializeSelectedHotels(ArrayList<Hotel> Selectedhotels, int SelectednHotels){
+
+        for (int i = 0; i < SelectednHotels; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(Selectedhotels.get(i), i);
+            hotelTemp.setVisible(false);
+            this.selectedHotelPanels.add(hotelTemp);
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == homeButton){
-            homePanel.setVisible(true);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == hotelButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(true);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == resButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(true);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == accountButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(true);
-        }
-        else if (e.getSource() == backButton){
-            System.exit(0);
-        }
+    /**
+     * Returns the list of hotels.
+     *
+     * @return an {@code ArrayList} of {@link Hotel} objects
+     */
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
     }
 
-    @Override
-    public void buttonClicked(String buttonName) {
+    /**
+     * Sets the list of hotels.
+     *
+     * @param hotels an {@code ArrayList} of {@link Hotel} objects to set
+     */
+    public void setHotels(ArrayList<Hotel> hotels){
+        this.hotels = hotels;
+    }
 
-        for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i).getHotelName(); 
+    /**
+     * Returns the number of hotels.
+     *
+     * @return an {@code int} representing the number of hotels
+     */
+    public int getnHotels(){
+        return nHotels;
+    }
 
-            if (buttonName.equals(hotel)){
-                SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
-                selectedHotel.setVisible(true);
-                homePanel.setVisible(false);
-                hotelsPanel.setVisible(false);
-                this.add(selectedHotel);
-            }
-            else {
-                selectedHotelPanels.get(i).setVisible(false);
-            }
-        }
+    /**
+     * Sets the number of hotels.
+     *
+     * @param nHotels an {@code int} representing the number of hotels to set
+     */
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
+    }
+
+    /**
+     * Returns the side panel of the main frame.
+     *
+     * @return the {@link SidePanel} object representing the side panel
+     */
+    public SidePanel getSidePanel(){
+        return sidePanel;
+    }
+
+    /**
+     * Sets the side panel of the main frame.
+     *
+     * @param sidePanel a {@link SidePanel} object to set as the side panel
+     */
+    public void setSidePanel(SidePanel sidePanel){
+        this.sidePanel = sidePanel;
+    }
+
+    /**
+     * Returns the scroll pane of the main frame.
+     *
+     * @return the {@link JScrollPane} object representing the scroll pane
+     */
+    public JScrollPane getScrollPane(){
+        return scrollPane;
+    }
+
+    /**
+     * Sets the side panel of the main frame.
+     *
+     * @param sidePanel a {@link SidePanel} object to set as the side panel
+     */
+    public void setSidePane(JScrollPane scrollPane){
+        this.scrollPane = scrollPane;
+    }
+
+    /**
+     * Returns the scroll pane of the main frame.
+     *
+     * @return the {@link JScrollPane} object representing the scroll pane
+     */
+    public JLabel getSideResPanel(){
+        return reservationsNo;
+    }
+
+    /**
+     * Sets the label displaying the number of reservations.
+     *
+     * @param reservationsNo a {@link JLabel} object to set as the reservations count label
+     */
+    public void setSideResPanel(JLabel reservationsNo){
+        this.reservationsNo = reservationsNo;
+    }
+
+    /**
+     * Returns the home panel of the main frame.
+     *
+     * @return the {@link HomePanel} object representing the home panel
+     */
+    public HomePanel getHomePanel(){
+        return homePanel;
+    }
+
+    /**
+     * Sets the home panel of the main frame.
+     *
+     * @param homePanel a {@link HomePanel} object to set as the home panel
+     */
+    public void setHomePanel(HomePanel homePanel){
+        this.homePanel = homePanel;
+    }
+
+    /**
+     * Returns the hotels panel of the main frame.
+     *
+     * @return the {@link HotelsPanel} object representing the hotels panel
+     */
+    public HotelsPanel getHotelsPanel(){
+        return hotelsPanel;
+    }
+
+    /**
+     * Sets the hotels panel of the main frame.
+     *
+     * @param hotelsPanel a {@link HotelsPanel} object to set as the hotels panel
+     */
+    public void setHotelsPanel(HotelsPanel hotelsPanel){
+        this.hotelsPanel = hotelsPanel;
+    }
+
+    /**
+     * Returns the reservations panel of the main frame.
+     *
+     * @return the {@link ReservationsPanel} object representing the reservations panel
+     */
+    public ReservationsPanel getResPanel(){
+        return resPanel;
+    }
+
+    /**
+     * Sets the reservations panel of the main frame.
+     *
+     * @param resPanel a {@link ReservationsPanel} object to set as the reservations panel
+     */
+    public void setResPanel(ReservationsPanel resPanel){
+        this.resPanel = resPanel;
+    }
+
+    /**
+     * Returns the account panel of the main frame.
+     *
+     * @return the {@link AccountPanel} object representing the account panel
+     */
+    public AccountPanel getAccountPanel(){
+        return accountPanel;
+    }
+
+    /**
+     * Sets the account panel of the main frame.
+     *
+     * @param accountPanel an {@link AccountPanel} object to set as the account panel
+     */
+    public void setAccountPanel(AccountPanel accountPanel){
+        this.accountPanel = accountPanel;
+    }
+
+    /**
+     * Returns the list of selected hotel panels.
+     *
+     * @return an {@code ArrayList} of {@link SelectedHotelPanel} objects
+     */
+    public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
+        return selectedHotelPanels;
+    }
+
+    /**
+     * Sets the list of selected hotel panels.
+     *
+     * @param selectedHotelPanels an {@code ArrayList} of {@link SelectedHotelPanel} objects to set
+     */
+    public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
+        this.selectedHotelPanels = selectedHotelPanels;
+    }
+
+    /**
+     * Returns the currently selected hotel panel.
+     *
+     * @return the {@link SelectedHotelPanel} object representing the currently selected hotel panel
+     */
+    public SelectedHotelPanel getSelectedHotelPanel(){
+        return selectedHotelPanel;
+    }
+
+    /**
+     * Sets the currently selected hotel panel.
+     *
+     * @param selectedHotelPanel a {@link SelectedHotelPanel} object to set as the selected hotel panel
+     */
+    public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
+        this.selectedHotelPanel = selectedHotelPanel;
+    }
+
+    /**
+     * Checks if a hotel is currently selected.
+     *
+     * @return {@code true} if a hotel is selected, {@code false} otherwise
+     */
+    public boolean isHotelSelected(){
+        return isHotelSelected;
+    }
+
+    /**
+     * Sets the state of whether a hotel is currently selected.
+     *
+     * @param isHotelSelected {@code true} to indicate that a hotel is selected, {@code false} otherwise
+     */
+    public void setIsHotelSelected(boolean isHotelSelected){
+        this.isHotelSelected = isHotelSelected;
     }
 }

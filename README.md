@@ -1,2 +1,4 @@
-# HotelReservationSystem
- MCO1 and MCO2 Requirement for CCPROG3
+# Controller Testing
+Bugs: 
+- No error message for invalid inputs
+- Filters can only be used one at a time

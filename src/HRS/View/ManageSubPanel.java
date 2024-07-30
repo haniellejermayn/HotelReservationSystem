@@ -1,17 +1,27 @@
 package src.HRS.View;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ManageSubPanel extends RoundPanel implements ActionListener{
+import java.awt.*;
+import javax.swing.*;
+
+/**
+ * The ManageSubPanel class represents a sub-panel used within the ManagePanel.
+ * It includes a title, an update button, and a cancel button.
+ */
+public class ManageSubPanel extends RoundPanel {
     
     private OptionButton updateButton;
     private IconButton cancelButton;
+    private String title;
 
-    public ManageSubPanel(String title){
-
+    /**
+     * Constructs a new ManageSubPanel with the specified title.
+     *
+     * @param title the title of the sub-panel
+     */
+    public ManageSubPanel(String title) {
         super(new Color(40, 68, 117));
+
+        this.title = title;
 
         Font customFont28 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 28);
 
@@ -24,7 +34,7 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
 
         RoundLabel panelTitle = new RoundLabel(new Color(27, 43, 80));
         panelTitle.setBounds(10, 10, 350, 40);
-        panelTitle.setText(title); // set to cureent hotel name
+        panelTitle.setText(title); 
         panelTitle.setFont(customFont28);
         panelTitle.setForeground(Color.white);
 
@@ -51,24 +61,57 @@ public class ManageSubPanel extends RoundPanel implements ActionListener{
         this.add(updateButton);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
+    /**
+     * Returns the title of the sub-panel.
+     *
+     * @return the title of the sub-panel
+     */
+    public String getTitle() {
+        return title;
     }
 
-    public OptionButton getUpdateButton(){
+    /**
+     * Sets the title of the sub-panel.
+     *
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Returns the update button.
+     *
+     * @return the update button
+     */
+    public OptionButton getUpdateButton() {
         return updateButton;
     }
 
-    public void setUpdateButton(OptionButton updateButton){
+    /**
+     * Sets the update button.
+     *
+     * @param updateButton the update button to set
+     */
+    public void setUpdateButton(OptionButton updateButton) {
         this.updateButton = updateButton;
     }
 
-    public IconButton getCancelButton(){
+    /**
+     * Returns the cancel button.
+     *
+     * @return the cancel button
+     */
+    public IconButton getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(IconButton cancelButton){
+    /**
+     * Sets the cancel button.
+     *
+     * @param cancelButton the cancel button to set
+     */
+    public void setCancelButton(IconButton cancelButton) {
         this.cancelButton = cancelButton;
     }
 }

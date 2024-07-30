@@ -1,12 +1,19 @@
 package src.HRS.View;
-//package GUI;
-import java.awt.*;
-import java.awt.event.*;
 
-public class OptionButton extends PanelButton{
-    
-    OptionButton(String buttonName){
-        
+import java.awt.*;
+
+/**
+ * The OptionButton class extends the PanelButton class to create a custom button
+ * with a specified name and a custom font.
+ */
+public class OptionButton extends PanelButton {
+
+    /**
+     * Constructs a new OptionButton with the specified button name.
+     *
+     * @param buttonName the name of the button
+     */
+    public OptionButton(String buttonName) {
         super(buttonName);
         
         Font customFont = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 10);
