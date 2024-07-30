@@ -954,7 +954,6 @@ public class HRSController{
             TextFieldCustom deluxeRoomTextField = managePanel.getDeluxeRoomTextField();
             TextFieldCustom executiveRoomTextField = managePanel.getExecutiveRoomTextField();
             TextFieldCustom basePriceTextField = managePanel.getBasePriceTextField();
-            TextFieldCustom percentageTextField = managePanel.getPercentageTextField();
 
             if (e.getSource() == changeNamePanel.getUpdateButton()){
                 String hotelName = hotelNameTextField.getTextField().getText().trim();
@@ -1164,7 +1163,6 @@ public class HRSController{
             String panelName = managePanel.getConfirmModPanel().getPanelName();
 
             SelectedHotelPanel selectedHotelPanel = mainFrame.getSelectedHotelPanel();
-            Hotel hotel = selectedHotelPanel.getHotel();
             int hotelIndex = selectedHotelPanel.getHotelIndex();
 
             if (e.getSource() == managePanel.getConfirmModPanel().getYesButton()){
@@ -1510,7 +1508,7 @@ public class HRSController{
                     resInfoPanel.getResInfoContainer().remove(resInfoPanel.getPriceScrollPane());
                     resInfoPanel.getResInfoContainer().add(newPriceScrollPane);
                     resInfoPanel.setPriceScrollPane(newPriceScrollPane);
-                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice())); // TODO: set input to automatically translate to float percentage
+                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice()));
                     resInfoPanel.getTotalPrice().setVisible(true);
                 }
                 else {
