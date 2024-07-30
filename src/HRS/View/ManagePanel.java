@@ -1,11 +1,16 @@
 package src.HRS.View;
 
-import javax.swing.*;
-import src.HRS.Model.Hotel;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
+import src.HRS.Model.Hotel;
 
-public class ManagePanel extends LayeredRoundPanel{
+/**
+ * The ManagePanel class represents a management panel for hotel operations.
+ * It provides various options to change hotel details, add or remove rooms,
+ * update prices, and manage reservations.
+ */
+public class ManagePanel extends LayeredRoundPanel {
 
     private IconButton changeName;
     private IconButton addRoom;
@@ -44,6 +49,12 @@ public class ManagePanel extends LayeredRoundPanel{
 
     private RoundPanel manageContainer;
 
+    /**
+     * Constructs a new ManagePanel with the specified hotel and color.
+     *
+     * @param hotel the Hotel object containing hotel data
+     * @param color the background color of the panel
+     */
     public ManagePanel(Hotel hotel, Color color) {
         super(color);
         
@@ -277,267 +288,590 @@ public class ManagePanel extends LayeredRoundPanel{
         removeHotelPanel.setVisible(false);
     }
 
-    public void confirmMod(String panelName){
-
+    /**
+     * Displays a confirmation panel with the specified panel name.
+     *
+     * @param panelName the name of the panel to confirm the modification for
+     */
+    public void confirmMod(String panelName) {
         confirmModPanel = new ConfirmModPanel(panelName);
-
         this.add(confirmModPanel, JLayeredPane.POPUP_LAYER);
         confirmModPanel.setVisible(true);
     }
 
-    public IconButton getChangeNameButton(){
+    /**
+     * Returns the change name button.
+     *
+     * @return the change name button
+     */
+    public IconButton getChangeNameButton() {
         return changeName;
     }
 
-    public void setChangeNameButton(IconButton changeName){
+    /**
+     * Sets the change name button.
+     *
+     * @param changeName the change name button to set
+     */
+    public void setChangeNameButton(IconButton changeName) {
         this.changeName = changeName;
     }
 
-    public IconButton getAddRoomButton(){
+    /**
+     * Returns the add room button.
+     *
+     * @return the add room button
+     */
+    public IconButton getAddRoomButton() {
         return addRoom;
     }
 
-    public void setAddRoomButton(IconButton addRoom){
+    /**
+     * Sets the add room button.
+     *
+     * @param addRoom the add room button to set
+     */
+    public void setAddRoomButton(IconButton addRoom) {
         this.addRoom = addRoom;
     }
 
-    public IconButton getUpdateBasePriceButton(){
+    /**
+     * Returns the update base price button.
+     *
+     * @return the update base price button
+     */
+    public IconButton getUpdateBasePriceButton() {
         return updateBasePrice;
     }
 
-    public void setUpdateBasePriceButton(IconButton updateBasePrice){
+    /**
+     * Sets the update base price button.
+     *
+     * @param updateBasePrice the update base price button to set
+     */
+    public void setUpdateBasePriceButton(IconButton updateBasePrice) {
         this.updateBasePrice = updateBasePrice;
     }
 
-    public IconButton getDatePriceModifierButton(){
+    /**
+     * Returns the date price modifier button.
+     *
+     * @return the date price modifier button
+     */
+    public IconButton getDatePriceModifierButton() {
         return datePriceModifier;
     }
 
-    public void setDatePriceModifierButton(IconButton datePriceModifier){
+    /**
+     * Sets the date price modifier button.
+     *
+     * @param datePriceModifier the date price modifier button to set
+     */
+    public void setDatePriceModifierButton(IconButton datePriceModifier) {
         this.datePriceModifier = datePriceModifier;
     }
 
-    public IconButton getRemoveRoomButton(){
+    /**
+     * Returns the remove room button.
+     *
+     * @return the remove room button
+     */
+    public IconButton getRemoveRoomButton() {
         return removeRoom;
     }
 
-    public void setRemoveRoomButton(IconButton removeRoom){
+    /**
+     * Sets the remove room button.
+     *
+     * @param removeRoom the remove room button to set
+     */
+    public void setRemoveRoomButton(IconButton removeRoom) {
         this.removeRoom = removeRoom;
     }
 
-    public IconButton getRemoveResButton(){
+    /**
+     * Returns the remove reservation button.
+     *
+     * @return the remove reservation button
+     */
+    public IconButton getRemoveResButton() {
         return removeRes;
     }
 
-    public void setRemoveResButton(IconButton removeRes){
+    /**
+     * Sets the remove reservation button.
+     *
+     * @param removeRes the remove reservation button to set
+     */
+    public void setRemoveResButton(IconButton removeRes) {
         this.removeRes = removeRes;
     }
 
-    public IconButton getRemoveHotelButton(){
+    /**
+     * Returns the remove hotel button.
+     *
+     * @return the remove hotel button
+     */
+    public IconButton getRemoveHotelButton() {
         return removeHotel;
     }
 
-    public void setRemoveHotelButton(IconButton removeHotel){
+    /**
+     * Sets the remove hotel button.
+     *
+     * @param removeHotel the remove hotel button to set
+     */
+    public void setRemoveHotelButton(IconButton removeHotel) {
         this.removeHotel = removeHotel;
     }
 
-    public ManageSubPanel getChangeNamePanel(){
+    /**
+     * Returns the change name panel.
+     *
+     * @return the change name panel
+     */
+    public ManageSubPanel getChangeNamePanel() {
         return changeNamePanel;
     }
 
-    public void setChangeNamePanel(ManageSubPanel changeNamePanel){
+    /**
+     * Sets the change name panel.
+     *
+     * @param changeNamePanel the change name panel to set
+     */
+    public void setChangeNamePanel(ManageSubPanel changeNamePanel) {
         this.changeNamePanel = changeNamePanel;
     }
 
-    public ManageSubPanel getAddRoomPanel(){
+    /**
+     * Returns the add room panel.
+     *
+     * @return the add room panel
+     */
+    public ManageSubPanel getAddRoomPanel() {
         return addRoomPanel;
     }
 
-    public void setAddRoomPanel(ManageSubPanel addRoomPanel){
+    /**
+     * Sets the add room panel.
+     *
+     * @param addRoomPanel the add room panel to set
+     */
+    public void setAddRoomPanel(ManageSubPanel addRoomPanel) {
         this.addRoomPanel = addRoomPanel;
     }
 
-    public ManageSubPanel getUpdateBasePricePanel(){
+    /**
+     * Returns the update base price panel.
+     *
+     * @return the update base price panel
+     */
+    public ManageSubPanel getUpdateBasePricePanel() {
         return updateBasePricePanel;
     }
 
-    public void setUpdateBasePricePanel(ManageSubPanel updateBasePricePanel){
+    /**
+     * Sets the update base price panel.
+     *
+     * @param updateBasePricePanel the update base price panel to set
+     */
+    public void setUpdateBasePricePanel(ManageSubPanel updateBasePricePanel) {
         this.updateBasePricePanel = updateBasePricePanel;
     }
 
-    public ManageSubPanel getDatePriceModifierPanel(){
+    /**
+     * Returns the date price modifier panel.
+     *
+     * @return the date price modifier panel
+     */
+    public ManageSubPanel getDatePriceModifierPanel() {
         return datePriceModifierPanel;
     }
 
-    public void setDatePriceModifierPanel(ManageSubPanel datePriceModifierPanel){
+    /**
+     * Sets the date price modifier panel.
+     *
+     * @param datePriceModifierPanel the date price modifier panel to set
+     */
+    public void setDatePriceModifierPanel(ManageSubPanel datePriceModifierPanel) {
         this.datePriceModifierPanel = datePriceModifierPanel;
     }
 
-    public ManageSubPanel getRemoveRoomPanel(){
+    /**
+     * Returns the remove room panel.
+     *
+     * @return the remove room panel
+     */
+    public ManageSubPanel getRemoveRoomPanel() {
         return removeRoomPanel;
     }
 
-    public void setRemoveRoomPanel(ManageSubPanel removeRoomPanel){
+    /**
+     * Sets the remove room panel.
+     *
+     * @param removeRoomPanel the remove room panel to set
+     */
+    public void setRemoveRoomPanel(ManageSubPanel removeRoomPanel) {
         this.removeRoomPanel = removeRoomPanel;
     }
 
-    public ManageSubPanel getRemoveResPanel(){
+    /**
+     * Returns the remove reservation panel.
+     *
+     * @return the remove reservation panel
+     */
+    public ManageSubPanel getRemoveResPanel() {
         return removeResPanel;
     }
 
-    public void setRemoveResPanel(ManageSubPanel removeResPanel){
+    /**
+     * Sets the remove reservation panel.
+     *
+     * @param removeResPanel the remove reservation panel to set
+     */
+    public void setRemoveResPanel(ManageSubPanel removeResPanel) {
         this.removeResPanel = removeResPanel;
     }
 
-    public ManageSubPanel getRemoveHotelPanel(){
+    /**
+     * Returns the remove hotel panel.
+     *
+     * @return the remove hotel panel
+     */
+    public ManageSubPanel getRemoveHotelPanel() {
         return removeHotelPanel;
     }
 
-    public void setRemoveHotelPanel(ManageSubPanel removeHotelPanel){
+    /**
+     * Sets the remove hotel panel.
+     *
+     * @param removeHotelPanel the remove hotel panel to set
+     */
+    public void setRemoveHotelPanel(ManageSubPanel removeHotelPanel) {
         this.removeHotelPanel = removeHotelPanel;
     }
 
-    public ConfirmModPanel getConfirmModPanel(){
+    /**
+     * Returns the confirm modification panel.
+     *
+     * @return the confirm modification panel
+     */
+    public ConfirmModPanel getConfirmModPanel() {
         return confirmModPanel;
     }
 
-    public void setConfirmModPanel(ConfirmModPanel confirmModPanel){
+    /**
+     * Sets the confirm modification panel.
+     *
+     * @param confirmModPanel the confirm modification panel to set
+     */
+    public void setConfirmModPanel(ConfirmModPanel confirmModPanel) {
         this.confirmModPanel = confirmModPanel;
     }
 
-    public RoundPanel getManageContainer(){
+    /**
+     * Returns the manage container panel.
+     *
+     * @return the manage container panel
+     */
+    public RoundPanel getManageContainer() {
         return manageContainer;
     }
 
-    public void setManageContainer(RoundPanel manageContainer){
+    /**
+     * Sets the manage container panel.
+     *
+     * @param manageContainer the manage container panel to set
+     */
+    public void setManageContainer(RoundPanel manageContainer) {
         this.manageContainer = manageContainer;
     }
 
-    public TextFieldCustom getHotelNameTextField(){
+    /**
+     * Returns the new hotel name text field.
+     *
+     * @return the new hotel name text field
+     */
+    public TextFieldCustom getHotelNameTextField() {
         return newHotelNameTextField;
     }
 
-    public void setHotelNameTextField(TextFieldCustom newHotelNameTextField){
+    /**
+     * Sets the new hotel name text field.
+     *
+     * @param newHotelNameTextField the new hotel name text field to set
+     */
+    public void setHotelNameTextField(TextFieldCustom newHotelNameTextField) {
         this.newHotelNameTextField = newHotelNameTextField;
     }
 
-    public TextFieldCustom getStandardRoomTextField(){
+    /**
+     * Returns the standard room text field.
+     *
+     * @return the standard room text field
+     */
+    public TextFieldCustom getStandardRoomTextField() {
         return standardRoomTextField;
     }
 
-    public void setStandardRoomTextField(TextFieldCustom standardRoomTextField){
+    /**
+     * Sets the standard room text field.
+     *
+     * @param standardRoomTextField the standard room text field to set
+     */
+    public void setStandardRoomTextField(TextFieldCustom standardRoomTextField) {
         this.standardRoomTextField = standardRoomTextField;
     }
 
-    public TextFieldCustom getDeluxeRoomTextField(){
+    /**
+     * Returns the deluxe room text field.
+     *
+     * @return the deluxe room text field
+     */
+    public TextFieldCustom getDeluxeRoomTextField() {
         return deluxeRoomTextField;
     }
 
-    public void setDeluxeRoomTextField(TextFieldCustom deluxeRoomTextField){
+    /**
+     * Sets the deluxe room text field.
+     *
+     * @param deluxeRoomTextField the deluxe room text field to set
+     */
+    public void setDeluxeRoomTextField(TextFieldCustom deluxeRoomTextField) {
         this.deluxeRoomTextField = deluxeRoomTextField;
     }
 
-    public TextFieldCustom getExecutiveRoomTextField(){
+    /**
+     * Returns the executive room text field.
+     *
+     * @return the executive room text field
+     */
+    public TextFieldCustom getExecutiveRoomTextField() {
         return executiveRoomTextField;
     }
 
-    public void setExecutiveRoomTextField(TextFieldCustom executiveRoomTextField){
+    /**
+     * Sets the executive room text field.
+     *
+     * @param executiveRoomTextField the executive room text field to set
+     */
+    public void setExecutiveRoomTextField(TextFieldCustom executiveRoomTextField) {
         this.executiveRoomTextField = executiveRoomTextField;
     }
 
-    public TextFieldCustom getBasePriceTextField(){
+    /**
+     * Returns the new base price text field.
+     *
+     * @return the new base price text field
+     */
+    public TextFieldCustom getBasePriceTextField() {
         return newBasePriceTextField;
     }
 
-    public void setBasePriceTextField(TextFieldCustom newBasePriceTextField){
+    /**
+     * Sets the new base price text field.
+     *
+     * @param newBasePriceTextField the new base price text field to set
+     */
+    public void setBasePriceTextField(TextFieldCustom newBasePriceTextField) {
         this.newBasePriceTextField = newBasePriceTextField;
     }
 
-    public TextFieldCustom getPercentageTextField(){ 
+    /**
+     * Returns the percentage text field.
+     *
+     * @return the percentage text field
+     */
+    public TextFieldCustom getPercentageTextField() {
         return percentageTextField;
     }
 
-    public void setPercentageTextField(TextFieldCustom percentageTextField){
+    /**
+     * Sets the percentage text field.
+     *
+     * @param percentageTextField the percentage text field to set
+     */
+    public void setPercentageTextField(TextFieldCustom percentageTextField) {
         this.percentageTextField = percentageTextField;
     }
 
-    public float getPriceModInput(){ 
+    /**
+     * Returns the price modification input value.
+     *
+     * @return the price modification input value
+     */
+    public float getPriceModInput() {
         return percentModInput;
     }
 
-    public void setPriceModInput(float percentModInput){
+    /**
+     * Sets the price modification input value.
+     *
+     * @param percentModInput the price modification input value to set
+     */
+    public void setPriceModInput(float percentModInput) {
         this.percentModInput = percentModInput;
     }
 
-    public int getDateModInput(){
+    /**
+     * Returns the date modification input value.
+     *
+     * @return the date modification input value
+     */
+    public int getDateModInput() {
         return dateModInput;
     }
 
-    public void setDateModInput(int dateModInput){
+    /**
+     * Sets the date modification input value.
+     *
+     * @param dateModInput the date modification input value to set
+     */
+    public void setDateModInput(int dateModInput) {
         this.dateModInput = dateModInput;
     }
 
-    public int getRemoveRoomInput(){ 
+    /**
+     * Returns the remove room input value.
+     *
+     * @return the remove room input value
+     */
+    public int getRemoveRoomInput() {
         return removeRoomInput;
     }
 
-    public void setRemoveRoomInput(int removeRoomInput){
+    /**
+     * Sets the remove room input value.
+     *
+     * @param removeRoomInput the remove room input value to set
+     */
+    public void setRemoveRoomInput(int removeRoomInput) {
         this.removeRoomInput = removeRoomInput;
     }
 
-    public int getRemoveResInput(){ 
+    /**
+     * Returns the remove reservation input value.
+     *
+     * @return the remove reservation input value
+     */
+    public int getRemoveResInput() {
         return removeResInput;
     }
 
-    public void setRemoveResInput(int removeResInput){
+    /**
+     * Sets the remove reservation input value.
+     *
+     * @param removeResInput the remove reservation input value to set
+     */
+    public void setRemoveResInput(int removeResInput) {
         this.removeResInput = removeResInput;
     }
 
-    public ReservationView getResView(){
+    /**
+     * Returns the reservation view.
+     *
+     * @return the reservation view
+     */
+    public ReservationView getResView() {
         return resView;
     }
 
-    public void setResView(ReservationView resView){
+    /**
+     * Sets the reservation view.
+     *
+     * @param resView the reservation view to set
+     */
+    public void setResView(ReservationView resView) {
         this.resView = resView;
     }
 
-    public ArrayList<OptionButton> getReservations(){
+    /**
+     * Returns the list of reservations.
+     *
+     * @return the list of reservations
+     */
+    public ArrayList<OptionButton> getReservations() {
         return reservations;
     }
 
-    public void setReservations(ArrayList<OptionButton> reservations){
+    /**
+     * Sets the list of reservations.
+     *
+     * @param reservations the list of reservations to set
+     */
+    public void setReservations(ArrayList<OptionButton> reservations) {
         this.reservations = reservations;
     }
 
-    public RoomView getRoomView(){
+    /**
+     * Returns the room view.
+     *
+     * @return the room view
+     */
+    public RoomView getRoomView() {
         return roomView;
     }
 
-    public void setRoomView(RoomView roomView){
+    /**
+     * Sets the room view.
+     *
+     * @param roomView the room view to set
+     */
+    public void setRoomView(RoomView roomView) {
         this.roomView = roomView;
     }
 
-    public ArrayList<OptionButton> getRooms(){
+    /**
+     * Returns the list of rooms.
+     *
+     * @return the list of rooms
+     */
+    public ArrayList<OptionButton> getRooms() {
         return rooms;
     }
 
-    public void setRooms(ArrayList<OptionButton> rooms){
+    /**
+     * Sets the list of rooms.
+     *
+     * @param rooms the list of rooms to set
+     */
+    public void setRooms(ArrayList<OptionButton> rooms) {
         this.rooms = rooms;
     }
-    
-    public CalendarView getCalendarView(){
+
+    /**
+     * Returns the calendar view.
+     *
+     * @return the calendar view
+     */
+    public CalendarView getCalendarView() {
         return calendarView;
     }
-    
-    public void setCalendarView(CalendarView calendarView){
+
+    /**
+     * Sets the calendar view.
+     *
+     * @param calendarView the calendar view to set
+     */
+    public void setCalendarView(CalendarView calendarView) {
         this.calendarView = calendarView;
     }
-    
-    public ArrayList<OptionButton> getDays(){
+
+    /**
+     * Returns the list of days.
+     *
+     * @return the list of days
+     */
+    public ArrayList<OptionButton> getDays() {
         return days;
     }
 
-    public void setDays(ArrayList<OptionButton> days){
+    /**
+     * Sets the list of days.
+     *
+     * @param days the list of days to set
+     */
+    public void setDays(ArrayList<OptionButton> days) {
         this.days = days;
     }
 }
