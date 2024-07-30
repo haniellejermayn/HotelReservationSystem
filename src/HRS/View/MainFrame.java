@@ -5,6 +5,14 @@ import src.HRS.Model.Hotel;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * The {@code MainFrame} class represents the main window of the Hotel Reservation System (HRS) application.
+ * <p>
+ * This class sets up and manages the primary user interface components of the application, including panels for home,
+ * hotels, reservations, and account information. It also handles the display and organization of various elements
+ * within the main frame of the application.
+ * </p>
+ */
 public class MainFrame extends JFrame{
 
     private RoundPanel accountSidePanel;
@@ -35,6 +43,17 @@ public class MainFrame extends JFrame{
     private ArrayList<Hotel> hotels;
     private int nHotels;
     
+    /**
+     * Constructs a {@code MainFrame} with the specified list of hotels and the number of hotels.
+     * <p>
+     * This constructor sets up the main application window with various user interface components including panels
+     * for home, hotels, reservations, and account information. It also initializes and configures these components,
+     * sets their layouts, and adds them to the frame.
+     * </p>
+     *
+     * @param hotels  an {@code ArrayList} of {@link Hotel} objects representing the hotels to be managed by this frame
+     * @param nHotels an {@code int} representing the number of hotels
+     */
     public MainFrame(ArrayList<Hotel> hotels, int nHotels){
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,6 +200,18 @@ public class MainFrame extends JFrame{
         this.setVisible(true);
     }
 
+    /**
+     * Initializes the list of selected hotel panels with the given hotels and number of hotels.
+     * <p>
+     * This method creates a new {@link SelectedHotelPanel} for each hotel in the provided list of hotels.
+     * Each panel is initialized with its corresponding hotel and index. The visibility of each panel is
+     * set to {@code false}, and then each panel is added to the {@code selectedHotelPanels} list.
+     * </p>
+     *
+     * @param Selectedhotels an {@code ArrayList} of {@link Hotel} objects representing the hotels for which
+     *                       the selected hotel panels are to be created
+     * @param SelectednHotels an {@code int} representing the number of hotels in the {@code Selectedhotels} list
+     */
     public void initializeSelectedHotels(ArrayList<Hotel> Selectedhotels, int SelectednHotels){
 
         for (int i = 0; i < SelectednHotels; i++){
@@ -190,98 +221,218 @@ public class MainFrame extends JFrame{
         }
     }
 
+    /**
+     * Returns the list of hotels.
+     *
+     * @return an {@code ArrayList} of {@link Hotel} objects
+     */
     public ArrayList<Hotel> getHotels(){
         return hotels;
     }
 
+    /**
+     * Sets the list of hotels.
+     *
+     * @param hotels an {@code ArrayList} of {@link Hotel} objects to set
+     */
     public void setHotels(ArrayList<Hotel> hotels){
         this.hotels = hotels;
     }
 
+    /**
+     * Returns the number of hotels.
+     *
+     * @return an {@code int} representing the number of hotels
+     */
     public int getnHotels(){
         return nHotels;
     }
 
+    /**
+     * Sets the number of hotels.
+     *
+     * @param nHotels an {@code int} representing the number of hotels to set
+     */
     public void setnHotels(int nHotels){
         this.nHotels = nHotels;
     }
 
+    /**
+     * Returns the side panel of the main frame.
+     *
+     * @return the {@link SidePanel} object representing the side panel
+     */
     public SidePanel getSidePanel(){
         return sidePanel;
     }
 
+    /**
+     * Sets the side panel of the main frame.
+     *
+     * @param sidePanel a {@link SidePanel} object to set as the side panel
+     */
     public void setSidePanel(SidePanel sidePanel){
         this.sidePanel = sidePanel;
     }
 
+    /**
+     * Returns the scroll pane of the main frame.
+     *
+     * @return the {@link JScrollPane} object representing the scroll pane
+     */
     public JScrollPane getScrollPane(){
         return scrollPane;
     }
 
+    /**
+     * Sets the side panel of the main frame.
+     *
+     * @param sidePanel a {@link SidePanel} object to set as the side panel
+     */
     public void setSidePane(JScrollPane scrollPane){
         this.scrollPane = scrollPane;
     }
 
+    /**
+     * Returns the scroll pane of the main frame.
+     *
+     * @return the {@link JScrollPane} object representing the scroll pane
+     */
     public JLabel getSideResPanel(){
         return reservationsNo;
     }
 
+    /**
+     * Sets the label displaying the number of reservations.
+     *
+     * @param reservationsNo a {@link JLabel} object to set as the reservations count label
+     */
     public void setSideResPanel(JLabel reservationsNo){
         this.reservationsNo = reservationsNo;
     }
 
+    /**
+     * Returns the home panel of the main frame.
+     *
+     * @return the {@link HomePanel} object representing the home panel
+     */
     public HomePanel getHomePanel(){
         return homePanel;
     }
 
+    /**
+     * Sets the home panel of the main frame.
+     *
+     * @param homePanel a {@link HomePanel} object to set as the home panel
+     */
     public void setHomePanel(HomePanel homePanel){
         this.homePanel = homePanel;
     }
 
+    /**
+     * Returns the hotels panel of the main frame.
+     *
+     * @return the {@link HotelsPanel} object representing the hotels panel
+     */
     public HotelsPanel getHotelsPanel(){
         return hotelsPanel;
     }
 
+    /**
+     * Sets the hotels panel of the main frame.
+     *
+     * @param hotelsPanel a {@link HotelsPanel} object to set as the hotels panel
+     */
     public void setHotelsPanel(HotelsPanel hotelsPanel){
         this.hotelsPanel = hotelsPanel;
     }
 
+    /**
+     * Returns the reservations panel of the main frame.
+     *
+     * @return the {@link ReservationsPanel} object representing the reservations panel
+     */
     public ReservationsPanel getResPanel(){
         return resPanel;
     }
 
+    /**
+     * Sets the reservations panel of the main frame.
+     *
+     * @param resPanel a {@link ReservationsPanel} object to set as the reservations panel
+     */
     public void setResPanel(ReservationsPanel resPanel){
         this.resPanel = resPanel;
     }
 
+    /**
+     * Returns the account panel of the main frame.
+     *
+     * @return the {@link AccountPanel} object representing the account panel
+     */
     public AccountPanel getAccountPanel(){
         return accountPanel;
     }
 
+    /**
+     * Sets the account panel of the main frame.
+     *
+     * @param accountPanel an {@link AccountPanel} object to set as the account panel
+     */
     public void setAccountPanel(AccountPanel accountPanel){
         this.accountPanel = accountPanel;
     }
 
+    /**
+     * Returns the list of selected hotel panels.
+     *
+     * @return an {@code ArrayList} of {@link SelectedHotelPanel} objects
+     */
     public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
         return selectedHotelPanels;
     }
 
+    /**
+     * Sets the list of selected hotel panels.
+     *
+     * @param selectedHotelPanels an {@code ArrayList} of {@link SelectedHotelPanel} objects to set
+     */
     public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
         this.selectedHotelPanels = selectedHotelPanels;
     }
 
+    /**
+     * Returns the currently selected hotel panel.
+     *
+     * @return the {@link SelectedHotelPanel} object representing the currently selected hotel panel
+     */
     public SelectedHotelPanel getSelectedHotelPanel(){
         return selectedHotelPanel;
     }
 
+    /**
+     * Sets the currently selected hotel panel.
+     *
+     * @param selectedHotelPanel a {@link SelectedHotelPanel} object to set as the selected hotel panel
+     */
     public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
         this.selectedHotelPanel = selectedHotelPanel;
     }
 
+    /**
+     * Checks if a hotel is currently selected.
+     *
+     * @return {@code true} if a hotel is selected, {@code false} otherwise
+     */
     public boolean isHotelSelected(){
         return isHotelSelected;
     }
 
+    /**
+     * Sets the state of whether a hotel is currently selected.
+     *
+     * @param isHotelSelected {@code true} to indicate that a hotel is selected, {@code false} otherwise
+     */
     public void setIsHotelSelected(boolean isHotelSelected){
         this.isHotelSelected = isHotelSelected;
     }
