@@ -1,9 +1,9 @@
 package src.HRS.View;
 
-import javax.swing.*;
-import src.HRS.Model.Hotel;
 import java.awt.*;
 import java.util.*;
+import javax.swing.*;
+import src.HRS.Model.Hotel;
 
 /**
  * The {@code HomePanel} class represents the main panel of the application, which displays
