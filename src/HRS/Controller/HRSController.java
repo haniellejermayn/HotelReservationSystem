@@ -223,11 +223,7 @@ public class HRSController{
                 int deluxe = Integer.valueOf(deluxeTextField.getTextField().getText().trim());
                 int executive = Integer.valueOf(executiveTextField.getTextField().getText().trim());
 
-                // TODO: check if hotelName is unique
-
-                // TODO: add method validateHotelName to model
-
-                if (!name.isEmpty() && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
+                if (!name.isEmpty() && model.isHotelNameUnique(name) && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
                     
                     Hotel newHotel = new Hotel(name, standard, deluxe, executive);
                     model.addHotel(newHotel);
@@ -515,7 +511,6 @@ public class HRSController{
                 int checkIn = bookHotelPanel.getCheckInInput();
                 int checkOut = bookHotelPanel.getCheckOutInput();
 
-                // TODO: (if filled) check if disc is valid 
                 if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
 
                     Hotel hotel = model.getHotels().get(hotelIndex); 
@@ -992,7 +987,7 @@ public class HRSController{
                     initializeMainListeners("Selected Hotel Panel", hotelIndex);
                     mainFrame.getSelectedHotelPanel().setVisible(true);
                 }
-                else if (panelName.equals("Update Base Price")){ // ! // BUG: does not work for the second time
+                else if (panelName.equals("Update Base Price")){
                     managePanel.getConfirmModPanel().setVisible(false);
                     managePanel.remove(managePanel.getConfirmModPanel());
                     managePanel.setVisible(false);
@@ -1226,7 +1221,7 @@ public class HRSController{
                     resInfoPanel.getResInfoContainer().remove(resInfoPanel.getPriceScrollPane());
                     resInfoPanel.getResInfoContainer().add(newPriceScrollPane);
                     resInfoPanel.setPriceScrollPane(newPriceScrollPane);
-                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice())); // ! // BUG: wrong price
+                    resInfoPanel.getTotalPrice().setText(String.format("Total: $%.2f", hotel.getReservations().get(i).computeFinalPrice())); // TODO: set input to automatically translate to float percentage
                     resInfoPanel.getTotalPrice().setVisible(true);
                 }
                 else {

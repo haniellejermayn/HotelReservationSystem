@@ -64,9 +64,6 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
 
         Font customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
 
-        // TODO: consider empty and invalid inputs
-
-
         // * Change Name * //
         ImageIcon changeNameIcon = new ImageIcon("Icons/ChangeNameIcon.png"); 
         changeNameIcon = Customization.resizeIcon(changeNameIcon, 20, 20);
@@ -77,7 +74,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         changeName.addActionListener(this);
 
         RoundLabel currentName = new RoundLabel(new Color(40, 68, 117));
-        currentName.setBounds(122, 80, 200, 40); // TODO: change to border layout
+        currentName.setBounds(122, 80, 200, 40);
         currentName.setText(hotel.getHotelName());
         currentName.setFont(customFont20);
         currentName.setForeground(Color.white);
@@ -130,8 +127,8 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         updateBasePrice.addActionListener(this);
 
         RoundLabel currentBasePrice = new RoundLabel(new Color(40, 68, 117));
-        currentBasePrice.setBounds(142, 80, 200, 40); // TODO: set to border layout
-        currentBasePrice.setText("1299.00"); // TODO: set to curent base price
+        currentBasePrice.setBounds(142, 80, 200, 40); 
+        currentBasePrice.setText(String.valueOf(hotel.getBasePrice()));
         currentBasePrice.setFont(customFont20);
         currentBasePrice.setForeground(Color.white);
 
@@ -239,7 +236,7 @@ public class ManagePanel extends LayeredRoundPanel implements ActionListener, En
         resView = new ReservationView(hotel); 
         reservations = resView.getReservations();
 
-        
+
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
 

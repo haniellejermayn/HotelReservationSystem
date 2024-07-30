@@ -52,8 +52,6 @@ public class HRSView {
     }
 
     public void initializeSelectedHotelPanel(){
-        // BUG: should get actual selected hotel
-        //selectedHotelPanel = new SelectedHotelPanel(hotels.get(0), 0);
         bookHotelPanel = mainFrame.getSelectedHotelPanel().getBookPanel();
         manageHotelPanel = mainFrame.getSelectedHotelPanel().getManagePanel();
 

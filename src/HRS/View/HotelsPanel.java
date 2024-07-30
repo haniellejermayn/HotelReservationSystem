@@ -26,7 +26,6 @@ public class HotelsPanel extends LayeredRoundPanel{
     private ArrayList<Hotel> hotels;
     private int nHotels;
 
-        // TODO: change to Hotel hotels
     public HotelsPanel(ArrayList<Hotel> hotels, int nHotels){
 
         super(new Color(13, 22, 45));
