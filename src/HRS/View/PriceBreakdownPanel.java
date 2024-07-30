@@ -6,16 +6,26 @@ import javax.swing.*;
 import src.HRS.Model.Hotel;
 import src.HRS.Model.Reservation;
 
-public class PriceBreakdownPanel extends RoundPanel{
-    
+/**
+ * The PriceBreakdownPanel class represents a panel that displays the price breakdown
+ * for a specific reservation in a hotel. It shows the price for each night of the stay,
+ * the total price, and any applicable discounts.
+ */
+public class PriceBreakdownPanel extends RoundPanel {
+
     private ArrayList<JPanel> priceBreakdown;
-    ArrayList<String> dates; 
+    private ArrayList<String> dates;
 
-    String totalPrice;
-    String discount;
+    private String totalPrice;
+    private String discount;
 
-    public PriceBreakdownPanel(Hotel hotel, int reservationIndex){
-
+    /**
+     * Constructs a new PriceBreakdownPanel for the specified hotel and reservation index.
+     *
+     * @param hotel the hotel containing the reservation
+     * @param reservationIndex the index of the reservation
+     */
+    public PriceBreakdownPanel(Hotel hotel, int reservationIndex) {
         super(new Color(40, 68, 117));
 
         Font customFont13 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 13);
@@ -30,25 +40,25 @@ public class PriceBreakdownPanel extends RoundPanel{
         this.setFont(customFont15);
         this.setForeground(Color.white);
 
-        priceBreakdown = new ArrayList<JPanel>();
+        priceBreakdown = new ArrayList<>();
 
-        dates = new ArrayList<String>(); 
+        dates = new ArrayList<>();
         dates.add("Price Breakdown");
-        for (int i = 0; i < nDates; i++){
+        for (int i = 0; i < nDates; i++) {
             String dateRange = String.format((checkIn + i) + " to " + (checkIn + i + 1) + " -> ");
             String price = String.format("$%.2f", reservation.retrieveCostPerNight(checkIn + i));
             String breakdown = dateRange + price;
             dates.add(breakdown);
         }
-        
-        String totalPrice = String.format("Total Price: $%.2f", reservation.computeTotalPrice());
-        String discount = String.format("Discount: $%.2f", reservation.getDiscountCode().computeDiscount(reservation));
+
+        totalPrice = String.format("Total Price: $%.2f", reservation.computeTotalPrice());
+        discount = String.format("Discount: $%.2f", reservation.getDiscountCode().computeDiscount(reservation));
         dates.add(totalPrice);
         dates.add(discount);
 
-        for (int i = 0; i < nDates + 3; i++){
+        for (int i = 0; i < nDates + 3; i++) {
             JLabel dateTemp = new JLabel();
-            dateTemp.setText(dates.get(i)); 
+            dateTemp.setText(dates.get(i));
             dateTemp.setFont(customFont13);
             dateTemp.setForeground(Color.white);
             dateTemp.setVerticalAlignment(JLabel.CENTER);
@@ -58,33 +68,63 @@ public class PriceBreakdownPanel extends RoundPanel{
             panelTemp.setBounds(5, i * 26 + 5, 175, 23);
             panelTemp.setBackground(new Color(40, 68, 117));
             panelTemp.add(dateTemp);
-            
+
             priceBreakdown.add(panelTemp);
             this.add(priceBreakdown.get(i));
-        } 
+        }
     }
 
-    public ArrayList<String> getDates(){
+    /**
+     * Returns the list of date strings for the price breakdown.
+     *
+     * @return the list of date strings
+     */
+    public ArrayList<String> getDates() {
         return dates;
     }
 
-    public void setDates(ArrayList<String> dates){
+    /**
+     * Sets the list of date strings for the price breakdown.
+     *
+     * @param dates the list of date strings to set
+     */
+    public void setDates(ArrayList<String> dates) {
         this.dates = dates;
     }
- 
-    public String getTotalPrice(){
+
+    /**
+     * Returns the total price string.
+     *
+     * @return the total price string
+     */
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice){
+    /**
+     * Sets the total price string.
+     *
+     * @param totalPrice the total price string to set
+     */
+    public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public String getDiscount(){
+    /**
+     * Returns the discount string.
+     *
+     * @return the discount string
+     */
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount){
+    /**
+     * Sets the discount string.
+     *
+     * @param discount the discount string to set
+     */
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 }

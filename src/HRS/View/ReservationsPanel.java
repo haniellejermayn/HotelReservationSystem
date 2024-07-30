@@ -1,14 +1,19 @@
 package src.HRS.View;
 
+import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import src.HRS.Model.Hotel;
-import java.awt.*;
-import java.util.*;
 
-public class ReservationsPanel extends RoundPanel{
-    
+/**
+ * The ReservationsPanel class represents a panel that displays a table of reservations
+ * for a list of hotels. It includes the reservation details such as guest name, room type,
+ * check-in and check-out dates, and the price.
+ */
+public class ReservationsPanel extends RoundPanel {
+
     private JLabel resTitle;
     private RoundPanel resContainer;
     private int resContainerHeight;
@@ -17,8 +22,13 @@ public class ReservationsPanel extends RoundPanel{
     private Font customFont15;
     private Font customFont35;
 
-    public ReservationsPanel(ArrayList<Hotel> hotels, int nHotel){
-
+    /**
+     * Constructs a new ReservationsPanel for the specified list of hotels and hotel index.
+     *
+     * @param hotels the list of hotels
+     * @param nHotel the index of the hotel
+     */
+    public ReservationsPanel(ArrayList<Hotel> hotels, int nHotel) {
         super(new Color(13, 22, 45));
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
@@ -32,8 +42,8 @@ public class ReservationsPanel extends RoundPanel{
         resTitle.setBounds(0, 0, 300, 100);
 
         int nReservations = 0;
-        for(int i = 0; i < hotels.size(); i++) {
-            nReservations += hotels.get(i).countReservations();
+        for (Hotel hotel : hotels) {
+            nReservations += hotel.countReservations();
         }
 
         resContainerHeight = (nReservations + 1) * 20 + (nReservations + 1) * 5 + 20;
@@ -51,20 +61,17 @@ public class ReservationsPanel extends RoundPanel{
         reservationsTable.getColumnModel().getColumn(4).setPreferredWidth(30);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.RIGHT );
-        reservationsTable.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
-        reservationsTable.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+        centerRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        reservationsTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        reservationsTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 
-        
         // * Container * //
-
         resContainer = new RoundPanel(new Color(27, 43, 80));
-        resContainer.setLayout(null);;
+        resContainer.setLayout(null);
         resContainer.setPreferredSize(new Dimension(615, resContainerHeight));
         resContainer.add(reservationsTable);
 
         ScrollPaneCustom scrollPane = new ScrollPaneCustom(resContainer, new Color(40, 68, 117), new Color(40, 68, 117), new Color(27, 43, 80));
-
         scrollPane.setBounds(0, 60, 620, 405);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -74,60 +81,81 @@ public class ReservationsPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
-    public DefaultTableModel initializeData(ArrayList<Hotel> tableHotels, int tablenHotel){
+    /**
+     * Initializes the data for the reservations table.
+     *
+     * @param tableHotels the list of hotels
+     * @param tablenHotel the index of the hotel
+     * @return a DefaultTableModel containing the reservations data
+     */
+    public DefaultTableModel initializeData(ArrayList<Hotel> tableHotels, int tablenHotel) {
         int rowCounter = 1;
         Hotel temp;
         Object[] columnNames = {"Hotel", "Name", "Room Type", "Check In / Out", "Price"};
 
         int nReservations = 0;
-        for(int i = 0; i < tableHotels.size(); i++) {
-            nReservations += tableHotels.get(i).countReservations();
+        for (Hotel hotel : tableHotels) {
+            nReservations += hotel.countReservations();
         }
 
         Object[][] data = new Object[nReservations + 1][columnNames.length];
 
-        data[0][0] = columnNames[0]; 
-        data[0][1] = columnNames[1]; 
-        data[0][2] = columnNames[2]; 
-        data[0][3] = columnNames[3]; 
+        data[0][0] = columnNames[0];
+        data[0][1] = columnNames[1];
+        data[0][2] = columnNames[2];
+        data[0][3] = columnNames[3];
         data[0][4] = columnNames[4];
 
-        while(rowCounter <= nReservations) {
-
-            for (int i = 1; i <= tableHotels.size(); i++){
-        
+        while (rowCounter <= nReservations) {
+            for (int i = 1; i <= tableHotels.size(); i++) {
                 temp = tableHotels.get(i - 1);
-
                 for (int j = 1; j <= temp.countReservations(); j++) {
                     data[rowCounter][0] = temp.getHotelName();
                     data[rowCounter][1] = temp.fetchReservation(j - 1).getGuestName();
-                    data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType(); 
-                    data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate(); 
-                    data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice()); 
-
-                    rowCounter += 1;
+                    data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType();
+                    data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate();
+                    data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice());
+                    rowCounter++;
                 }
             }
         }
-        
-        DefaultTableModel model = new DefaultTableModel(data, columnNames); 
 
-        return model;
+        return new DefaultTableModel(data, columnNames);
     }
 
-    public JLabel getHotelTitle(){
+    /**
+     * Returns the reservations title label.
+     *
+     * @return the reservations title label
+     */
+    public JLabel getHotelTitle() {
         return resTitle;
     }
 
-    public void setHotelTitle(JLabel resTitle){
+    /**
+     * Sets the reservations title label.
+     *
+     * @param resTitle the reservations title label to set
+     */
+    public void setHotelTitle(JLabel resTitle) {
         this.resTitle = resTitle;
     }
 
-    public ArrayList<HotelOption> getHotelCatalogue(){
+    /**
+     * Returns the hotel catalogue.
+     *
+     * @return the hotel catalogue
+     */
+    public ArrayList<HotelOption> getHotelCatalogue() {
         return hotelCatalogue;
     }
 
-    public void setHotelCatalogue(ArrayList<HotelOption> hotelCatalogue){
+    /**
+     * Sets the hotel catalogue.
+     *
+     * @param hotelCatalogue the hotel catalogue to set
+     */
+    public void setHotelCatalogue(ArrayList<HotelOption> hotelCatalogue) {
         this.hotelCatalogue = hotelCatalogue;
     }
 }

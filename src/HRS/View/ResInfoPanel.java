@@ -1,11 +1,17 @@
 package src.HRS.View;
 
-import javax.swing.*;
-import src.HRS.Model.Hotel;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
+import src.HRS.Model.Hotel;
 
-public class ResInfoPanel extends RoundPanel{
+/**
+ * The ResInfoPanel class represents a panel that displays reservation information
+ * for a specific hotel, including guest information, room type, check-in/check-out dates,
+ * price breakdown, and total price.
+ */
+public class ResInfoPanel extends RoundPanel {
+
     private int nReservations;
     private ReservationView resView;
     private BookCalendar calendar;
@@ -20,29 +26,32 @@ public class ResInfoPanel extends RoundPanel{
 
     private Font customFont15;
 
-    public ResInfoPanel(Hotel hotel){
-
+    /**
+     * Constructs a new ResInfoPanel for the specified hotel.
+     *
+     * @param hotel the hotel containing the reservation information
+     */
+    public ResInfoPanel(Hotel hotel) {
         super(new Color(40, 68, 117));
 
         customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
 
         // * Check In / Out * //
-        
         calendar = new BookCalendar();
         calendar.setBounds(5, 239, 335, 203);
         days = calendar.getDays();
-        
-        for(int i = 0; i < days.size(); i++){
-            days.get(i).setEnabled(false);
-            days.get(i).setColorOver(days.get(i).getColor());
-            days.get(i).setColorClick(days.get(i).getColor());
+
+        for (OptionButton day : days) {
+            day.setEnabled(false);
+            day.setColorOver(day.getColor());
+            day.setColorClick(day.getColor());
         }
 
         // * Room Type * //
         roomType = new RoundLabel(new Color(40, 68, 117));
         roomType.setBounds(0, 30, 200, 26);
         roomType.setFont(customFont15);
-        roomType.setText("Standard Room"); 
+        roomType.setText("Standard Room");
         roomType.setForeground(Color.white);
         roomType.setVerticalAlignment(JLabel.CENTER);
         roomType.setHorizontalAlignment(JLabel.CENTER);
@@ -54,13 +63,11 @@ public class ResInfoPanel extends RoundPanel{
         guestInfoPanel.setText("Guest's Reservation");
         guestInfoPanel.setForeground(Color.white);
         guestInfoPanel.add(roomType);
-        guestInfoPanel.setVerticalAlignment(JLabel.TOP);;
+        guestInfoPanel.setVerticalAlignment(JLabel.TOP);
         guestInfoPanel.setHorizontalAlignment(JLabel.CENTER);
-        
-        // * Price BreakDown * //
 
+        // * Price Breakdown * //
         JPanel tempContainer = new JPanel();
-
         priceScrollPane = new ScrollPaneCustom(tempContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         priceScrollPane.setBounds(345, 250, 175, 150);
         priceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -75,8 +82,7 @@ public class ResInfoPanel extends RoundPanel{
         totalPrice.setHorizontalAlignment(JLabel.CENTER);
         totalPrice.setVisible(false);
 
-        nReservations = hotel.countReservations(); 
-
+        nReservations = hotel.countReservations();
         int resViewHeight = nReservations * 39 + 5;
 
         // * Reservations * //
@@ -94,7 +100,7 @@ public class ResInfoPanel extends RoundPanel{
         resViewContainer.setLayout(null);
         resViewContainer.setBounds(255, 5, 257, 203);
         resViewContainer.add(scrollPaneResView);
-        
+
         resInfoContainer = new RoundPanel(new Color(40, 68, 117));
         resInfoContainer.setLayout(null);
         resInfoContainer.setPreferredSize(new Dimension(530, 447));
@@ -111,75 +117,165 @@ public class ResInfoPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
-    public ReservationView getResView(){
+    /**
+     * Returns the ReservationView component.
+     *
+     * @return the ReservationView component
+     */
+    public ReservationView getResView() {
         return resView;
     }
 
-    public void setResView(ReservationView resView){
+    /**
+     * Sets the ReservationView component.
+     *
+     * @param resView the ReservationView component to set
+     */
+    public void setResView(ReservationView resView) {
         this.resView = resView;
     }
 
-    public BookCalendar getBookCalendar(){
+    /**
+     * Returns the BookCalendar component.
+     *
+     * @return the BookCalendar component
+     */
+    public BookCalendar getBookCalendar() {
         return calendar;
     }
 
-    public void setBookCalendar(BookCalendar calendar){
+    /**
+     * Sets the BookCalendar component.
+     *
+     * @param calendar the BookCalendar component to set
+     */
+    public void setBookCalendar(BookCalendar calendar) {
         this.calendar = calendar;
     }
 
-    public ArrayList<JPanel> getPriceBreakdown(){
+    /**
+     * Returns the list of JPanel objects representing the price breakdown.
+     *
+     * @return the list of JPanel objects
+     */
+    public ArrayList<JPanel> getPriceBreakdown() {
         return priceBreakdown;
     }
 
-    public void setPriceBreakdown(ArrayList<JPanel> priceBreakdown){
+    /**
+     * Sets the list of JPanel objects representing the price breakdown.
+     *
+     * @param priceBreakdown the list of JPanel objects to set
+     */
+    public void setPriceBreakdown(ArrayList<JPanel> priceBreakdown) {
         this.priceBreakdown = priceBreakdown;
     }
 
-    public RoundLabel getTotalPrice(){
+    /**
+     * Returns the total price label.
+     *
+     * @return the total price label
+     */
+    public RoundLabel getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(RoundLabel totalPrice){
+    /**
+     * Sets the total price label.
+     *
+     * @param totalPrice the total price label to set
+     */
+    public void setTotalPrice(RoundLabel totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public RoundLabel getRoomType(){
+    /**
+     * Returns the room type label.
+     *
+     * @return the room type label
+     */
+    public RoundLabel getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(RoundLabel roomType){
+    /**
+     * Sets the room type label.
+     *
+     * @param roomType the room type label to set
+     */
+    public void setRoomType(RoundLabel roomType) {
         this.roomType = roomType;
     }
 
-    public RoundLabel getGuestInfoPanel(){
+    /**
+     * Returns the guest information panel label.
+     *
+     * @return the guest information panel label
+     */
+    public RoundLabel getGuestInfoPanel() {
         return guestInfoPanel;
     }
 
-    public void setGuestInfoPanel(RoundLabel guestInfoPanel){
+    /**
+     * Sets the guest information panel label.
+     *
+     * @param guestInfoPanel the guest information panel label to set
+     */
+    public void setGuestInfoPanel(RoundLabel guestInfoPanel) {
         this.guestInfoPanel = guestInfoPanel;
     }
 
-    public RoundPanel getResInfoContainer(){
+    /**
+     * Returns the reservation information container panel.
+     *
+     * @return the reservation information container panel
+     */
+    public RoundPanel getResInfoContainer() {
         return resInfoContainer;
     }
 
-    public void setResInfoContainer(RoundPanel resInfoContainer){
+    /**
+     * Sets the reservation information container panel.
+     *
+     * @param resInfoContainer the reservation information container panel to set
+     */
+    public void setResInfoContainer(RoundPanel resInfoContainer) {
         this.resInfoContainer = resInfoContainer;
     }
 
-    public PriceBreakdownPanel getPriceBreakdownContainer(){
+    /**
+     * Returns the PriceBreakdownPanel component.
+     *
+     * @return the PriceBreakdownPanel component
+     */
+    public PriceBreakdownPanel getPriceBreakdownContainer() {
         return priceBreakdownContainer;
     }
 
-    public void setPriceBreakdownContainer(PriceBreakdownPanel priceBreakdownContainer){
+    /**
+     * Sets the PriceBreakdownPanel component.
+     *
+     * @param priceBreakdownContainer the PriceBreakdownPanel component to set
+     */
+    public void setPriceBreakdownContainer(PriceBreakdownPanel priceBreakdownContainer) {
         this.priceBreakdownContainer = priceBreakdownContainer;
     }
 
-    public ScrollPaneCustom getPriceScrollPane(){
+    /**
+     * Returns the ScrollPaneCustom component for the price breakdown.
+     *
+     * @return the ScrollPaneCustom component
+     */
+    public ScrollPaneCustom getPriceScrollPane() {
         return priceScrollPane;
     }
 
-    public void setPriceScrollPane(ScrollPaneCustom priceScrollPane){
+    /**
+     * Sets the ScrollPaneCustom component for the price breakdown.
+     *
+     * @param priceScrollPane the ScrollPaneCustom component to set
+     */
+    public void setPriceScrollPane(ScrollPaneCustom priceScrollPane) {
         this.priceScrollPane = priceScrollPane;
     }
 }
