@@ -1,8 +1,11 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import javax.swing.*;
+
+import src.HRS.Model.Hotel;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -15,7 +18,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
     private RoundLabel roomType;
     private RoundLabel guestInfoPanel;
     private RoundPanel resInfoContainer;
-    private RoundPanel priceBreakdownContainer;
+    private PriceBreakdownPanel priceBreakdownContainer;
     private ArrayList<OptionButton> days;
     private ScrollPaneCustom priceScrollPane;
     private Hotel hotel;
@@ -35,7 +38,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         int checkIn = 0; 
         int checkOut = 0; 
 
-        calendar = new BookCalendar(this);
+        calendar = new BookCalendar();
         calendar.setBounds(5, 239, 335, 203);
         //calendar.setHighlightedDays(checkIn, checkOut);
         days = calendar.getDays();
@@ -67,54 +70,28 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
         
         // * Price BreakDown * //
 
-        int nDates = 0; 
-        ArrayList<String> dates = new ArrayList<String>(); 
+        JPanel tempContainer = new JPanel();
 
-        priceBreakdownContainer = new RoundPanel(new Color(40, 68, 117));
-        priceBreakdownContainer.setPreferredSize(new Dimension(175, (nDates + 1) * 26 + nDates * 5));
-        priceBreakdownContainer.setFont(customFont15);
-        priceBreakdownContainer.setForeground(Color.white);
-
-        priceBreakdown = new ArrayList<JPanel>();
-
-        for (int i = 0; i < nDates; i++){ // TODO: replace with no. of dates
-            JLabel dateTemp = new JLabel();
-            dateTemp.setText(dates.get(i)); 
-            dateTemp.setFont(customFont13);
-            dateTemp.setForeground(Color.white);
-            //dateTemp.setBackground(new Color(40, 68, 117));
-            dateTemp.setVerticalAlignment(JLabel.CENTER);
-            dateTemp.setHorizontalAlignment(JLabel.LEFT);
-
-            JPanel panelTemp = new JPanel();
-            panelTemp.setBounds(5, i * 26 + 5, 175, 23);
-            panelTemp.setBackground(new Color(40, 68, 117));
-            panelTemp.add(dateTemp);
-            
-            priceBreakdown.add(panelTemp);
-            priceBreakdownContainer.add(priceBreakdown.get(i));
-        } 
-
-        // TODO: Make a change in price breakdown !
-        priceScrollPane = new ScrollPaneCustom(priceBreakdownContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
+        priceScrollPane = new ScrollPaneCustom(tempContainer, new Color(51, 88, 150), new Color(51, 88, 150), new Color(40, 68, 117));
         priceScrollPane.setBounds(345, 250, 175, 150);
         priceScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        priceScrollPane.setVisible(false);
 
         // * Total Price * //
         totalPrice = new RoundLabel(new Color(40, 68, 117));
-        totalPrice.setBounds(345, 400, 175, 26);
+        totalPrice.setBounds(345, 410, 175, 26);
         totalPrice.setFont(customFont15);
-        //totalPrice.setText("Total: 1299.00"); // TODO: change to total price
         totalPrice.setForeground(Color.white);
         totalPrice.setVerticalAlignment(JLabel.CENTER);
         totalPrice.setHorizontalAlignment(JLabel.CENTER);
+        totalPrice.setVisible(false);
 
         nReservations = hotel.countReservations(); 
 
         int resViewHeight = nReservations * 39 + 5;
 
         // * Reservations * //
-        resView = new ReservationView(this, hotel);
+        resView = new ReservationView(hotel);
         resView.setBounds(0, 0, 250, resViewHeight);
         resView.setPreferredSize(new Dimension(250, resViewHeight));
 
@@ -157,7 +134,7 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
 
     @Override
     public void reservationButtonClicked(String reservationButtonName) {
-        ArrayList<Reservation> reservationsTemp = hotel.getReservations();
+        /*ArrayList<Reservation> reservationsTemp = hotel.getReservations();
 
         for (int i = 0; i < nReservations; i++){
             ArrayList<OptionButton> resButtons = resView.getReservations();
@@ -177,6 +154,78 @@ public class ResInfoPanel extends RoundPanel implements EnhancedButtonClickListe
                     resButtons.get(i).setColor(new Color(27, 43, 80));
                 }
             }
-        }
+        }*/
+    }
+
+    public ReservationView getResView(){
+        return resView;
+    }
+
+    public void setResView(ReservationView resView){
+        this.resView = resView;
+    }
+
+    public BookCalendar getBookCalendar(){
+        return calendar;
+    }
+
+    public void setBookCalendar(BookCalendar calendar){
+        this.calendar = calendar;
+    }
+
+    public ArrayList<JPanel> getPriceBreakdown(){
+        return priceBreakdown;
+    }
+
+    public void setPriceBreakdown(ArrayList<JPanel> priceBreakdown){
+        this.priceBreakdown = priceBreakdown;
+    }
+
+    public RoundLabel getTotalPrice(){
+        return totalPrice;
+    }
+
+    public void setTotalPrice(RoundLabel totalPrice){
+        this.totalPrice = totalPrice;
+    }
+
+    public RoundLabel getRoomType(){
+        return roomType;
+    }
+
+    public void setRoomType(RoundLabel roomType){
+        this.roomType = roomType;
+    }
+
+    public RoundLabel getGuestInfoPanel(){
+        return guestInfoPanel;
+    }
+
+    public void setGuestInfoPanel(RoundLabel guestInfoPanel){
+        this.guestInfoPanel = guestInfoPanel;
+    }
+
+    public RoundPanel getResInfoContainer(){
+        return resInfoContainer;
+    }
+
+    public void setResInfoContainer(RoundPanel resInfoContainer){
+        this.resInfoContainer = resInfoContainer;
+    }
+
+    public PriceBreakdownPanel getPriceBreakdownContainer(){
+        return priceBreakdownContainer;
+    }
+
+    public void setPriceBreakdownContainer(PriceBreakdownPanel priceBreakdownContainer){
+        this.priceBreakdownContainer = priceBreakdownContainer;
+    }
+
+    public ScrollPaneCustom getPriceScrollPane(){
+        return priceScrollPane;
+    }
+
+    public void setPriceScrollPane(ScrollPaneCustom priceScrollPane){
+        this.priceScrollPane = priceScrollPane;
     }
 }

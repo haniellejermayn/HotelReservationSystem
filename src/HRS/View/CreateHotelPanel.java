@@ -1,6 +1,6 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -9,23 +9,22 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
 
+import src.HRS.Model.Hotel;
+
 public class CreateHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
 
     private RoundLabel title;
     private RoundPanel createContainer;
     private RoundPanel roomType;
 
-    private TextFieldCustom hotelName;
-    private TextFieldCustom nStandardRooms, nDeluxeRooms, nExecutiveRooms;
+    private TextFieldCustom hotelNameTextField;
+    private TextFieldCustom standardRoomTextField, deluxeRoomTextField, executiveRoomTextField;
     private OptionButton createButton;
     private IconButton cancelButton;
 
-    private String hotelNameInput;
-    private int standardRoomInput, deluxeRoomInput, executiveRoomInput;
-
     private Font customFont30;
 
-    public CreateHotelPanel(ArrayList<Hotel> hotels, ButtonClickListener listener){
+    public CreateHotelPanel(){
 
         super(new Color(51, 88, 150));
 
@@ -39,59 +38,36 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         title.setForeground(Color.white);
 
         // * Guest Name * //
-        hotelName = new TextFieldCustom(new Color(40, 68, 117));
-        hotelName.setBounds(5, 10, 355, 55);
-        hotelName.setFieldName("Hotel Name");
+        hotelNameTextField = new TextFieldCustom(new Color(40, 68, 117));
+        hotelNameTextField.setBounds(5, 10, 355, 55);
+        hotelNameTextField.setFieldName("Hotel Name");
 
         // * Add Room * //
 
-        nStandardRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nStandardRooms.setBounds(5, 10, 355, 55);
-        nStandardRooms.setFieldName("No. of Standard Rooms");
+        standardRoomTextField = new TextFieldCustom(new Color(40, 68, 117));
+        standardRoomTextField.setBounds(5, 10, 355, 55);
+        standardRoomTextField.setFieldName("No. of Standard Rooms");
 
-        nDeluxeRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nDeluxeRooms.setBounds(5, 70, 355, 55);
-        nDeluxeRooms.setFieldName("No. of Deluxe Rooms");
+        deluxeRoomTextField = new TextFieldCustom(new Color(40, 68, 117));
+        deluxeRoomTextField.setBounds(5, 70, 355, 55);
+        deluxeRoomTextField.setFieldName("No. of Deluxe Rooms");
 
-        nExecutiveRooms = new TextFieldCustom(new Color(40, 68, 117));
-        nExecutiveRooms.setBounds(5, 130, 355, 55);
-        nExecutiveRooms.setFieldName("No. of Executive Rooms");
+        executiveRoomTextField = new TextFieldCustom(new Color(40, 68, 117));
+        executiveRoomTextField.setBounds(5, 130, 355, 55);
+        executiveRoomTextField.setFieldName("No. of Executive Rooms");
         
         roomType = new RoundPanel(new Color(40, 68, 117));
         roomType.setLayout(null);
         roomType.setBounds(0, 70, 360, 215);
-        roomType.add(nStandardRooms);
-        roomType.add(nDeluxeRooms);
-        roomType.add(nExecutiveRooms);
+        roomType.add(standardRoomTextField);
+        roomType.add(deluxeRoomTextField);
+        roomType.add(executiveRoomTextField);
 
 
         // * Create Button * //
         createButton = new OptionButton("Create");
         createButton.setBounds(260, 315, 100, 30);
         createButton.setColorOver(createButton.getColorClick());
-        createButton.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-
-                String name = hotelName.getTextField().getText().trim();
-                int standard = Integer.valueOf(nStandardRooms.getTextField().getText().trim());
-                int deluxe = Integer.valueOf(nDeluxeRooms.getTextField().getText().trim());
-                int executive = Integer.valueOf(nExecutiveRooms.getTextField().getText().trim());
-
-                // TODO: check if hotelName is unique
-                if (!name.isEmpty() && standard + deluxe + executive > 0 && standard + deluxe + executive <= 50){
-                    setNameInput(name);
-                    setStandardRoomInput(standard);
-                    setDeluxeRoomInput(deluxe);
-                    setExecutiveRoomInput(executive);
-                    
-                    // TODO: set all necessary info into Hotel
-                    
-                    listener.buttonClicked("Create");
-                }
-            }
-        });
 
         // * Cancel * //
         ImageIcon cancelIcon = new ImageIcon("Icons/CancelIcon.png");
@@ -100,24 +76,12 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
         cancelButton = new IconButton(cancelIcon, "Create Cancel");
         cancelButton.setBounds(335, 8, 40, 40);
         cancelButton.setColorClick(createButton.getColorOver());
-        cancelButton.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-                setNameInput(""); 
-                setStandardRoomInput(0);
-                setDeluxeRoomInput(0);
-                setExecutiveRoomInput(0);
-
-                listener.buttonClicked("Create Cancel");
-            }
-        });
 
         // * Container * //
         createContainer = new RoundPanel(new Color(40, 68, 117));
         createContainer.setLayout(null);
         createContainer.setPreferredSize(new Dimension(375, 360));
-        createContainer.add(hotelName);
+        createContainer.add(hotelNameTextField);
         createContainer.add(roomType);
         createContainer.add(createButton);
 
@@ -141,35 +105,51 @@ public class CreateHotelPanel extends RoundPanel implements ActionListener, Butt
 
     }
 
-    public String getNameInput(){
-        return hotelNameInput;
+    public OptionButton getCreateButton(){
+        return createButton;
     }
 
-    public void setNameInput(String hotelNameInput){
-        this.hotelNameInput = hotelNameInput;
+    public void setCreateButton(OptionButton createButton){
+        this.createButton = createButton;
     }
 
-    public int getStandardRoomInput(){
-        return standardRoomInput;
+    public IconButton getCancelButton(){
+        return cancelButton;
     }
 
-    public void setStandardRoomInput(int standardRoomInput){
-        this.standardRoomInput = standardRoomInput;
+    public void setCancelButton(IconButton cancelButton){
+        this.cancelButton = cancelButton;
     }
 
-    public int getDeluxeRoomInput(){
-        return deluxeRoomInput;
+    public TextFieldCustom getNameTextField(){
+        return hotelNameTextField;
     }
 
-    public void setDeluxeRoomInput(int deluxeRoomInput){
-        this.deluxeRoomInput = deluxeRoomInput;
+    public void setNameTextField(TextFieldCustom hotelNameTextField){
+        this.hotelNameTextField = hotelNameTextField;
     }
 
-    public int getExecutiveRoomInput(){
-        return executiveRoomInput;
+    public TextFieldCustom getStandardRoomTextField(){
+        return standardRoomTextField;
     }
 
-    public void setExecutiveRoomInput(int executiveRoomInput){
-        this.executiveRoomInput = executiveRoomInput;
+    public void setStandardRoomTextField(TextFieldCustom standardRoomTextField){
+        this.standardRoomTextField = standardRoomTextField;
+    }
+
+    public TextFieldCustom getDeluxeRoomTextField(){
+        return deluxeRoomTextField;
+    }
+
+    public void setDeluxeRoomTextField(TextFieldCustom deluxeRoomTextField){
+        this.deluxeRoomTextField = deluxeRoomTextField;
+    }
+
+    public TextFieldCustom getExecutiveRoomTextField(){
+        return executiveRoomTextField;
+    }
+
+    public void setExecutiveRoomTextField(TextFieldCustom executiveRoomTextField){
+        this.executiveRoomTextField = executiveRoomTextField;
     }
 }

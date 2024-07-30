@@ -1,56 +1,52 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import javax.swing.*;
+
+import src.HRS.Model.Hotel;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import java.util.*;
 
-public class MainFrame extends JFrame implements ActionListener, ButtonClickListener{
+public class MainFrame extends JFrame{
     
-    JPanel darkPanel;
+    private RoundPanel homePage;
+    private RoundPanel hotelsPage;
+    private RoundPanel reservationsPage;
+    private RoundPanel settingsPopUp;
 
-    RoundPanel homePage;
-    RoundPanel hotelsPage;
-    RoundPanel reservationsPage;
-    RoundPanel settingsPopUp;
+    private RoundPanel accountSidePanel;
+    private RoundPanel fillerPanel;
+    private RoundPanel reservationsPanel;
+    private SidePanel sidePanel;
+    private JScrollPane scrollPane;
 
-    RoundPanel accountSidePanel;
-    RoundPanel fillerPanel;
-    RoundPanel reservationsPanel;
-    SidePanel sidePanel;
-    JScrollPane scrollPane;
+    private JLabel reservationsNo;
 
-    JLabel reservationsNo;
+    private ImageIcon logo;
+    private ImageIcon logoAndName;
+    private JLabel logoName;
+    private JLabel hotelTitle;
 
-    ImageIcon logo;
-    ImageIcon logoAndName;
-    JLabel logoName;
-    JLabel hotelTitle;
+    private Font customFont15;
+    private Font customFont25;
+    private Font customFont30;
+    private Font customFont60;
 
-    Font customFont15;
-    Font customFont25;
-    Font customFont30;
-    Font customFont60;
-
-    HomePanel homePanel;
-    HotelsPanel hotelsPanel;
-    ReservationsPanel resPanel;
-    AccountPanel accountPanel;
+    private HomePanel homePanel;
+    private HotelsPanel hotelsPanel;
+    private ReservationsPanel resPanel;
+    private AccountPanel accountPanel;
     
-    IconButton homeButton;
-    IconButton hotelButton;
-    IconButton resButton;
-    IconButton accountButton;
-    IconButton backButton;
-    
-    ArrayList<HotelItem> hotelCatalogue;
-    ArrayList<HotelOption> hotelOptions;
-    ArrayList<SelectedHotelPanel> selectedHotelPanels;
-    ArrayList<Hotel> hotels;
-    int nHotels;
+    private ArrayList<SelectedHotelPanel> selectedHotelPanels;
+    private SelectedHotelPanel selectedHotelPanel;
+    private boolean isHotelSelected;
+
+    private ArrayList<Hotel> hotels;
+    private int nHotels;
     
     public MainFrame(ArrayList<Hotel> hotels, int nHotels){
 
@@ -170,26 +166,13 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         sidePanel = new SidePanel(new Color(27, 43, 80));
         sidePanel.setBounds(15, 80, 65, 470);
 
-        homePanel = new HomePanel(hotels, nHotels, this); 
-        homeButton = sidePanel.getHomeButton();
-        homeButton.addActionListener(this);
-        
-        hotelsPanel = new HotelsPanel(hotels, nHotels, this); 
-        hotelButton = sidePanel.getHotelButton();
-        hotelButton.addActionListener(this);
-        
+        homePanel = new HomePanel(hotels, nHotels);
+        hotelsPanel = new HotelsPanel(hotels, nHotels); 
         resPanel = new ReservationsPanel(hotels, nHotels); 
-        resButton = sidePanel.getReservationsButton();
-        resButton.addActionListener(this);
-
-        accountPanel = new AccountPanel(this);
-        accountButton = sidePanel.getAccountButton();
-        accountButton.addActionListener(this);
-
-        backButton = sidePanel.getBackButton();
-        backButton.addActionListener(this);
+        accountPanel = new AccountPanel();
         
         selectedHotelPanels = new ArrayList<SelectedHotelPanel>();
+        setIsHotelSelected(false);
 
         initializeSelectedHotels(hotels, nHotels);
 
@@ -214,61 +197,114 @@ public class MainFrame extends JFrame implements ActionListener, ButtonClickList
         this.setVisible(true);
     }
 
-    public void initializeSelectedHotels(ArrayList<Hotel> hotels, int nHotels){
-        for (int i = 0; i < nHotels; i++){
-            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(hotels.get(i));
+    public void initializeSelectedHotels(ArrayList<Hotel> Selectedhotels, int SelectednHotels){
+
+        for (int i = 0; i < SelectednHotels; i++){
+            SelectedHotelPanel hotelTemp = new SelectedHotelPanel(Selectedhotels.get(i), i);
+
+            /*System.out.printf("init hotel\n");
+            System.out.printf("init hotel name = %s\n", hotelTemp.getHotel().getHotelName());
+            System.out.printf("init hotel index = %d\n", i);
+            System.out.printf("init nHotels = %d\n\n", SelectednHotels);*/
+
             hotelTemp.setVisible(false);
             this.selectedHotelPanels.add(hotelTemp);
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == homeButton){
-            homePanel.setVisible(true);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == hotelButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(true);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == resButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(true);
-            accountPanel.setVisible(false);
-        }
-        else if (e.getSource() == accountButton){
-            homePanel.setVisible(false);
-            hotelsPanel.setVisible(false);
-            resPanel.setVisible(false);
-            accountPanel.setVisible(true);
-        }
-        else if (e.getSource() == backButton){
-            System.exit(0);
-        }
+    public ArrayList<Hotel> getHotels(){
+        return hotels;
     }
 
-    @Override
-    public void buttonClicked(String buttonName) {
+    public void setHotels(ArrayList<Hotel> hotels){
+        this.hotels = hotels;
+    }
 
-        for (int i = 0; i < nHotels; i++){
-            String hotel = hotels.get(i).getHotelName(); 
+    public int getnHotels(){
+        return nHotels;
+    }
 
-            if (buttonName.equals(hotel)){
-                SelectedHotelPanel selectedHotel = selectedHotelPanels.get(i);
-                selectedHotel.setVisible(true);
-                homePanel.setVisible(false);
-                hotelsPanel.setVisible(false);
-                this.add(selectedHotel);
-            }
-            else {
-                selectedHotelPanels.get(i).setVisible(false);
-            }
-        }
+    public void setnHotels(int nHotels){
+        this.nHotels = nHotels;
+    }
+
+    public SidePanel getSidePanel(){
+        return sidePanel;
+    }
+
+    public void setSidePanel(SidePanel sidePanel){
+        this.sidePanel = sidePanel;
+    }
+
+    public JScrollPane getScrollPane(){
+        return scrollPane;
+    }
+
+    public void setSidePane(JScrollPane scrollPane){
+        this.scrollPane = scrollPane;
+    }
+
+    public JLabel getSideResPanel(){
+        return reservationsNo;
+    }
+
+    public void setSideResPanel(JLabel reservationsNo){
+        this.reservationsNo = reservationsNo;
+    }
+
+    public HomePanel getHomePanel(){
+        return homePanel;
+    }
+
+    public void setHomePanel(HomePanel homePanel){
+        this.homePanel = homePanel;
+    }
+
+    public HotelsPanel getHotelsPanel(){
+        return hotelsPanel;
+    }
+
+    public void setHotelsPanel(HotelsPanel hotelsPanel){
+        this.hotelsPanel = hotelsPanel;
+    }
+
+    public ReservationsPanel getResPanel(){
+        return resPanel;
+    }
+
+    public void setResPanel(ReservationsPanel resPanel){
+        this.resPanel = resPanel;
+    }
+
+    public AccountPanel getAccountPanel(){
+        return accountPanel;
+    }
+
+    public void setAccountPanel(AccountPanel accountPanel){
+        this.accountPanel = accountPanel;
+    }
+
+    public ArrayList<SelectedHotelPanel> getSelectedHotelPanels(){
+        return selectedHotelPanels;
+    }
+
+    public void setselectedHotelPanels(ArrayList<SelectedHotelPanel> selectedHotelPanels){
+        this.selectedHotelPanels = selectedHotelPanels;
+    }
+
+    public SelectedHotelPanel getSelectedHotelPanel(){
+        return selectedHotelPanel;
+    }
+
+    public void setSelectedHotelPanel(SelectedHotelPanel selectedHotelPanel){
+        this.selectedHotelPanel = selectedHotelPanel;
+    }
+
+    public boolean isHotelSelected(){
+        return isHotelSelected;
+    }
+
+    public void setIsHotelSelected(boolean isHotelSelected){
+        this.isHotelSelected = isHotelSelected;
     }
 }

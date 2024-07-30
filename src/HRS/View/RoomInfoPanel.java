@@ -1,8 +1,11 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import javax.swing.*;
+
+import src.HRS.Model.Hotel;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,7 +35,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         customFont50 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 50);
 
         // * Available Dates * //
-        calendar = new CalendarView(this);
+        calendar = new CalendarView();
         calendar.setBounds(180, 239, 335, 203);
         days = calendar.getDays();
         
@@ -41,6 +44,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
             days.get(i).setColorOver(days.get(i).getColor());
             days.get(i).setColorClick(days.get(i).getColor());
         }
+        days.get(30).setVisible(false);
         
         // * Room Name * //
         roomName = new RoundLabel(new Color(40, 68, 117));
@@ -79,9 +83,9 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
         availDates.setHorizontalAlignment(JLabel.CENTER);
 
         // * Room Types * //
-        nStandardRooms = 0;
-        nDeluxeRooms = 0;
-        nExecutiveRooms = 0;
+        nStandardRooms = hotel.countRooms(1);
+        nDeluxeRooms = hotel.countRooms(2);
+        nExecutiveRooms = hotel.countRooms(3);
 
         standardRooms = new RoundLabel(new Color(40, 68, 117));
         standardRooms.setFont(customFont15);
@@ -137,7 +141,7 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
             roomViewHeight = 198;
         }
 
-        roomView = new RoomView(hotel, this);
+        roomView = new RoomView(hotel);
         roomView.setBounds(0, 0, 250, roomViewHeight);
         roomView.setPreferredSize(new Dimension(250, roomViewHeight));
 
@@ -179,42 +183,83 @@ public class RoomInfoPanel extends RoundPanel implements EnhancedButtonClickList
 
     @Override
     public void roomButtonClicked(String roomButtonName) {
-        for (int i = 0; i < hotel.countRooms(0); i++){
-            ArrayList<OptionButton> roomButtons = roomView.getRooms();
-            String type = hotel.fetchRoom(i).getRoomType();
-            float pricePerNight = hotel.fetchRoom(i).getRoomPrice();
-            String name = hotel.fetchRoom(i).getRoomName();
-            String price = String.format("%.2f", pricePerNight * (i % 7)); 
-
-            if (roomButtonName.equals(name)){
-                roomName.setText("Room " + name);
-                roomPrice.setText(price + " per night");
-                roomType.setText(type + " Room");
-                roomButtons.get(i).setColor(new Color(51, 88, 150));
-
-                int[] availDatesTemp = hotel.checkRoomAvailability(hotel.fetchRoom(i));
-
-                for (int j = 0; j < availDatesTemp.length; j++){
-                    for (int k = 0; k < 31; k++){
-                        if (k + 1 == availDatesTemp[j]){ 
-                            days.get(k).setColor(new Color(51, 88, 150));
-                            days.get(k).setColorOver(new Color(51, 88, 150));
-                            days.get(k).setColorClick(new Color(51, 88, 150));
-                        } 
-                    }
-                }
-            }
-            else {
-                for (int j = 0; j < hotel.countRooms(0); j++){
-                    roomButtons.get(i).setColor(new Color(27, 43, 80));
-                }
-
-            }
-        }
+        
     }
 
     @Override
     public void reservationButtonClicked(String reservationName) {
 
     }
+
+    public CalendarView getCalendar(){
+        return calendar;
+    }
+
+    public void setCalendar(CalendarView calendar){
+        this.calendar = calendar;
+    }
+
+    public RoomView getRoomView(){
+        return roomView;
+    }
+
+    public void setRoomView(RoomView roomView){
+        this.roomView = roomView;
+    }
+
+    public RoundLabel getRoomName(){
+        return roomName;
+    }
+
+    public void setRoomName(RoundLabel roomName){
+        this.roomName = roomName;
+    }
+
+    public RoundLabel getRoomPrice(){
+        return roomPrice;
+    }
+
+    public void setRoomPrice(RoundLabel roomPrice){
+        this.roomPrice = roomPrice;
+    }
+
+    public RoundLabel getRoomType(){
+        return roomType;
+    }
+
+    public void setRoomType(RoundLabel roomType){
+        this.roomType = roomType;
+    }
+
+    public RoundLabel getAvailDates(){
+        return availDates;
+    }
+
+    public void setAvailDates(RoundLabel availDates){
+        this.availDates = availDates;
+    }
+
+    public RoundLabel getStandardRooms(){
+        return standardRooms;
+    }
+
+    public void setStandardRooms(RoundLabel standardRooms){
+        this.standardRooms = standardRooms;
+    }
+
+    public RoundLabel getDeluxeRooms(){
+        return deluxeRooms;
+    }
+
+    public void setDeluxeRooms(RoundLabel deluxeRooms){
+        this.deluxeRooms = deluxeRooms;
+    }
+
+    public RoundLabel getExecutiveRooms(){
+        return executiveRooms;
+    }
+
+    public void setExecutiveRooms(RoundLabel executiveRooms){
+        this.executiveRooms = executiveRooms;
+    }    
 }

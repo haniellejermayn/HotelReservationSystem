@@ -18,10 +18,13 @@ public class HotelOption extends PanelButton{
     private JLabel reservations;
     private RoundLabel price;
     private String buttonName;
+    private Hotel hotel;
     
-    HotelOption(Hotel hotel){
+    public HotelOption(Hotel hotel){
 
         super(hotel.getHotelName());
+
+        this.hotel = hotel;
 
         Font customFont15 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 15);
         Font customFont20 = Customization.createCustomFont("Fonts/POPPINS-SEMIBOLD.TTF", 20);
@@ -212,5 +215,13 @@ public class HotelOption extends PanelButton{
 
     public void setPrice(RoundLabel price){
         this.price = price;
+    }
+
+    public Hotel getHotel(){
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel){
+        this.hotel = hotel;
     }
 }

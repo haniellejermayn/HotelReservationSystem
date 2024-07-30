@@ -1,10 +1,12 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import src.HRS.Model.Hotel;
 
 import java.awt.*;
 import java.util.*;
@@ -33,7 +35,12 @@ public class ReservationsPanel extends RoundPanel{
         resTitle.setVerticalAlignment(JLabel.TOP);
         resTitle.setBounds(0, 0, 300, 100);
 
-        resContainerHeight = (nHotel + 1) * 20 + (nHotel + 1) * 5 + 20;
+        int nReservations = 0;
+        for(int i = 0; i < hotels.size(); i++) {
+            nReservations += hotels.get(i).countReservations();
+        }
+
+        resContainerHeight = (nReservations + 1) * 20 + (nReservations + 1) * 5 + 20;
 
         JTable reservationsTable = new JTable(initializeData(hotels, nHotel));
         reservationsTable.setBounds(15, 10, 590, resContainerHeight);
@@ -71,14 +78,14 @@ public class ReservationsPanel extends RoundPanel{
         this.add(scrollPane);
     }
 
-    public DefaultTableModel initializeData(ArrayList<Hotel> hotels, int nHotel){
+    public DefaultTableModel initializeData(ArrayList<Hotel> tableHotels, int tablenHotel){
         int rowCounter = 1;
         Hotel temp;
         Object[] columnNames = {"Hotel", "Name", "Room Type", "Check In / Out", "Price"};
 
         int nReservations = 0;
-        for(int i = 0; i < hotels.size(); i++) {
-            nReservations += hotels.get(i).countReservations();
+        for(int i = 0; i < tableHotels.size(); i++) {
+            nReservations += tableHotels.get(i).countReservations();
         }
 
         Object[][] data = new Object[nReservations + 1][columnNames.length];
@@ -90,15 +97,17 @@ public class ReservationsPanel extends RoundPanel{
         data[0][4] = columnNames[4];
 
         while(rowCounter <= nReservations) {
-            for (int i = 1; i <= hotels.size(); i++){            
-                temp = hotels.get(i - 1);
-                data[rowCounter][0] = temp.getHotelName();
-    
+
+            for (int i = 1; i <= tableHotels.size(); i++){
+        
+                temp = tableHotels.get(i - 1);
+
                 for (int j = 1; j <= temp.countReservations(); j++) {
+                    data[rowCounter][0] = temp.getHotelName();
                     data[rowCounter][1] = temp.fetchReservation(j - 1).getGuestName();
                     data[rowCounter][2] = temp.fetchReservation(j - 1).getRoom().getRoomType(); 
                     data[rowCounter][3] = temp.fetchReservation(j - 1).getCheckInDate() + " to " + temp.fetchReservation(j - 1).getCheckOutDate(); 
-                    data[rowCounter][4] = temp.fetchReservation(j - 1).computeFinalPrice(); 
+                    data[rowCounter][4] = String.format("%.2f", temp.fetchReservation(j - 1).computeFinalPrice()); 
 
                     rowCounter += 1;
                 }

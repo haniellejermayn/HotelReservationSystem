@@ -1,5 +1,6 @@
 package src.HRS.View;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -17,7 +18,7 @@ public class AccountPanel extends RoundPanel implements ActionListener{
     private Font customFont15;
     private Font customFont20;
 
-    AccountPanel(ButtonClickListener listener){
+    public AccountPanel(){
 
         super(new Color(13, 22, 45));
 

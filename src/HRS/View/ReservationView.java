@@ -1,11 +1,12 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 import java.util.*;
 
+import src.HRS.Model.Hotel;
 import src.HRS.Model.Reservation;
 
 public class ReservationView extends RoundPanel{
@@ -14,7 +15,7 @@ public class ReservationView extends RoundPanel{
 
     private Font customFont;
 
-    public ReservationView(EnhancedButtonClickListener listener, Hotel hotel){
+    public ReservationView(Hotel hotel){
         
         super(new Color(27, 43, 80));
 
@@ -41,13 +42,6 @@ public class ReservationView extends RoundPanel{
             reservation.setBounds(8, (i + 1) * 9 + (i * 30), 230, 30);
 
             reservation.setFont(customFont);
-            reservation.addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    listener.reservationButtonClicked(reservationName);
-                }
-            });
 
             reservations.add(reservation);
             this.add(reservations.get(i));

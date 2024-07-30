@@ -1,2 +1,5 @@
-# HotelReservationSystem
- MCO1 and MCO2 Requirement for CCPROG3
+# Controller Testing
+Bugs: 
+- Have not tested Add Rooms
+- Removing of reservation sometimes does not work
+- No error message for invalid inputs

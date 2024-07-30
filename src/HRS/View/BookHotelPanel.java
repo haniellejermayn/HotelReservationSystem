@@ -1,12 +1,14 @@
 package src.HRS.View;
 
-import src.HRS.Model.*;
+//import src.HRS.Model.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+
+import src.HRS.Model.Hotel;
 
 public class BookHotelPanel extends RoundPanel implements ActionListener, ButtonClickListener{
 
@@ -17,17 +19,16 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
     private RoundPanel roomType;
     private RoundLabel checkInNOut;
 
-    private TextFieldCustom guestName;
+    private TextFieldCustom guestNameTextField;
     private boolean roomTypeSelected;
     private boolean checkInNOutSelected;
-    private OptionButton standardRoom, deluxeRoom, executiveRoom;
+    private OptionButton standardRoomButton, deluxeRoomButton, executiveRoomButton;
     private OptionButton bookButton;
     private IconButton cancelButton;
 
-    private TextFieldCustom discount;
-    private OptionButton hasDiscount;
+    private TextFieldCustom discountTextField;
 
-    private String nameInput, roomTypeInput, discountInput;
+    private int roomTypeInput;
     private int checkInInput, checkOutInput;
 
     private ArrayList<OptionButton> days;
@@ -38,7 +39,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     private Hotel hotel;
 
-    public BookHotelPanel(Hotel hotel, ButtonClickListener listener){
+    public BookHotelPanel(Hotel hotel){
 
         super(new Color(51, 88, 150));
         this.hotel = hotel;
@@ -54,27 +55,27 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         bookingTitle.setForeground(Color.white);
 
         // * Guest Name * //
-        guestName = new TextFieldCustom(new Color(40, 68, 117));
-        guestName.setBounds(5, 10, 355, 55);
-        guestName.setFieldName("Name");
+        guestNameTextField = new TextFieldCustom(new Color(40, 68, 117));
+        guestNameTextField.setBounds(5, 10, 355, 55);
+        guestNameTextField.setFieldName("Name");
 
         // * Room Types * //
         roomTypeSelected = false; 
 
-        standardRoom = new OptionButton("Standard");
-        standardRoom.setBounds(32, 28, 100, 30);
-        standardRoom.setColorOver(standardRoom.getColorClick());
-        standardRoom.addActionListener(this);
+        standardRoomButton = new OptionButton("Standard");
+        standardRoomButton.setBounds(32, 28, 100, 30);
+        standardRoomButton.setColorOver(standardRoomButton.getColorClick());
+        standardRoomButton.addActionListener(this);
         
-        deluxeRoom = new OptionButton("Deluxe");
-        deluxeRoom.setBounds(137, 28, 100, 30);
-        deluxeRoom.setColorOver(deluxeRoom.getColorClick());
-        deluxeRoom.addActionListener(this);
+        deluxeRoomButton = new OptionButton("Deluxe");
+        deluxeRoomButton.setBounds(137, 28, 100, 30);
+        deluxeRoomButton.setColorOver(deluxeRoomButton.getColorClick());
+        deluxeRoomButton.addActionListener(this);
         
-        executiveRoom = new OptionButton("Executive");
-        executiveRoom.setBounds(242, 28, 100, 30);
-        executiveRoom.setColorOver(executiveRoom.getColorClick());
-        executiveRoom.addActionListener(this);
+        executiveRoomButton = new OptionButton("Executive");
+        executiveRoomButton.setBounds(242, 28, 100, 30);
+        executiveRoomButton.setColorOver(executiveRoomButton.getColorClick());
+        executiveRoomButton.addActionListener(this);
 
         roomTypeTitle = new RoundLabel(new Color(40, 68, 117));
         roomTypeTitle.setBounds(8, 1, 100, 20);
@@ -86,9 +87,9 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         roomType.setLayout(null);
         roomType.setBounds(5, 95, 350, 60);
         roomType.add(roomTypeTitle);
-        roomType.add(standardRoom);
-        roomType.add(deluxeRoom);
-        roomType.add(executiveRoom);
+        roomType.add(standardRoomButton);
+        roomType.add(deluxeRoomButton);
+        roomType.add(executiveRoomButton);
 
         // * Check In / Out * //
         checkInNOutSelected = false;
@@ -101,7 +102,7 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
         clickedButtons = new ArrayList<String>();
 
-        calendar = new BookCalendar(this);
+        calendar = new BookCalendar();
         calendar.setBounds(18, 220, 335, 203);
         days = calendar.getDays();
         days.get(30).setEnabled(false);
@@ -110,39 +111,19 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         days.get(30).setColorClick(new Color(27, 43, 80));
 
         // * Discount * //
-        hasDiscount = new OptionButton("Discount");
+        /*hasDiscount = new OptionButton("Discount");
         hasDiscount.setText("I have a discount code");
         hasDiscount.setForeground(new Color(27, 43, 80));
-        hasDiscount.setColor(new Color(51, 88, 150));
+        hasDiscount.setColor(new Color(51, 88, 150));*/
 
-        discount = new TextFieldCustom(new Color(40, 68, 117));
-        discount.setBounds(5, 460, 355, 55);
-        discount.setFieldName("Discount Code");
+        discountTextField = new TextFieldCustom(new Color(40, 68, 117));
+        discountTextField.setBounds(5, 460, 355, 55);
+        discountTextField.setFieldName("Discount Code");
 
         // * Book Button * //
         bookButton = new OptionButton("Book");
         bookButton.setBounds(260, 540, 100, 30);
         bookButton.setColorOver(bookButton.getColorClick());
-        bookButton.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-
-                String name = guestName.getTextField().getText().trim();
-                String disc = discount.getTextField().getText().trim();
-
-                // TODO: (if filled) check if disc is valid 
-                // TODO: check if selected room type is available within the checkIn and checkOut dates
-                if (!name.isEmpty() && roomTypeSelected && checkInNOutSelected){
-                    setNameInput(name);
-                    setDiscountInput(disc);
-                    
-                    // TODO: set all necessary info into Hotel
-    
-                    listener.buttonClicked("Book");
-                }
-            }
-        });
 
         // * Cancel * //
         ImageIcon cancelIcon = new ImageIcon("Icons/CancelIcon.png");
@@ -151,29 +132,16 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         cancelButton = new IconButton(cancelIcon, "Book Cancel");
         cancelButton.setBounds(335, 8, 40, 40);
         cancelButton.setColorClick(bookButton.getColorOver());
-        cancelButton.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e){
-                setNameInput(""); 
-                setRoomTypeInput("");
-                setCheckInInput(0);
-                setCheckOutInput(0);
-                setDiscountInput("");
-
-                listener.buttonClicked("Book Cancel");
-            }
-        });
 
         // * Container * //
         bookContainer = new RoundPanel(new Color(40, 68, 117));
         bookContainer.setLayout(null);
         bookContainer.setPreferredSize(new Dimension(530, 585));
         bookContainer.add(checkInNOut);
-        bookContainer.add(guestName);
+        bookContainer.add(guestNameTextField);
         bookContainer.add(roomType);
         bookContainer.add(calendar);
-        bookContainer.add(discount);
+        bookContainer.add(discountTextField);
         bookContainer.add(bookButton);
 
         ScrollPaneCustom scrollPane = new ScrollPaneCustom(bookContainer, new Color(27, 43, 80), new Color(27, 43, 80), new Color(40, 68, 117));
@@ -187,97 +155,61 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == standardRoom){
-            roomTypeSelected = true;
-            deluxeRoom.setColor(new Color(27, 43, 80));
-            executiveRoom.setColor(new Color(27, 43, 80));
-            standardRoom.setColor(new Color(51, 88, 150));
-            setRoomTypeInput("Standard");
-        }
-        else if (e.getSource() == deluxeRoom){
-            roomTypeSelected = true;
-            standardRoom.setColor(new Color(27, 43, 80));
-            executiveRoom.setColor(new Color(27, 43, 80));
-            deluxeRoom.setColor(new Color(51, 88, 150));
-            setRoomTypeInput("Deluxe");
-        }
-        else if (e.getSource() == executiveRoom){
-            roomTypeSelected = true;
-            standardRoom.setColor(new Color(27, 43, 80));
-            deluxeRoom.setColor(new Color(27, 43, 80));
-            executiveRoom.setColor(new Color(51, 88, 150));
-            setRoomTypeInput("Executive");
-        }
+        
     }
 
     @Override
     public void buttonClicked(String buttonName) {
 
-        clickedButtons.add(buttonName);
-
-        if (clickedButtons.size() > 2){
-            clickedButtons.remove(0);
-            clickedButtons.remove(1);
-        }
-
-        if (clickedButtons.size() == 1){
-            
-            days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColor(new Color(51, 88, 150));
-            days.get(Integer.valueOf(clickedButtons.get(0)) - 1).setColorOver(new Color(51, 88, 150));
-            
-            for (int i = 0; i < 31; i++){
-                if (i < Integer.valueOf(clickedButtons.get(0)) - 1){
-                    days.get(i).setEnabled(false);
-                    days.get(i).setColor(new Color(27, 43, 80));
-                    days.get(i).setColorOver(new Color(27, 43, 80));
-                    days.get(i).setColorClick(new Color(27, 43, 80));
-                }
-            }
-            
-            days.get(30).setEnabled(true);
-            days.get(30).setColor(new Color(27, 43, 80));
-            days.get(30).setColorOver(new Color(40, 68, 117));
-            days.get(30).setColorClick(new Color(51, 88, 150));
-        }
-
-        if (clickedButtons.size() == 2 && !clickedButtons.get(0).equals(clickedButtons.get(1))){
-            calendar.setHighlightedDays(Integer.valueOf(clickedButtons.get(0)), Integer.valueOf(clickedButtons.get(1)));
-            setCheckInInput(Integer.valueOf(clickedButtons.get(0)));
-            setCheckOutInput(Integer.valueOf(clickedButtons.get(1)));
-
-            for (int i = 0; i < 31; i++){
-                if (i >= Integer.valueOf(clickedButtons.get(1))){
-                    days.get(i).setColor(new Color(27, 43, 80));
-                    days.get(i).setColorOver(new Color(27, 43, 80));
-                    days.get(i).setColorClick(new Color(27, 43, 80));
-                }
-                
-                if (i >= Integer.valueOf(clickedButtons.get(0)) && i < Integer.valueOf(clickedButtons.get(1))){
-                    days.get(i).setColor(new Color(51, 88, 150));
-                    days.get(i).setColorOver(new Color(51, 88, 150));
-                }
-
-                days.get(i).setEnabled(false);
-            }
-
-            checkInNOutSelected = true;
-        }
     }
 
-    public String getNameInput(){
-        return nameInput;
+    public TextFieldCustom getGuestNameTextField(){
+        return guestNameTextField;
     }
 
-    public void setNameInput(String nameInput){
-        this.nameInput = nameInput;
+    public void setGuestNameTextField(TextFieldCustom guestNameTextField){
+        this.guestNameTextField = guestNameTextField;
     }
 
-    public String getRoomTypeInput(){
+    public OptionButton getStandardRoomButton(){
+        return standardRoomButton;
+    }
+
+    public void setStandardRoomButton(OptionButton standardRoomButton){
+        this.standardRoomButton = standardRoomButton;
+    }
+    
+    public OptionButton getDeluxeRoomButton(){
+        return deluxeRoomButton;
+    }
+    
+    public void setDeluxeRoomButton(OptionButton deluxeRoomButton){
+        this.deluxeRoomButton = deluxeRoomButton;
+    }
+    
+    public OptionButton getExecutiveRoomButton(){
+        return executiveRoomButton;
+    }
+    
+    public void setExecutiveRoomButton(OptionButton executiveRoomButton){
+        this.executiveRoomButton = executiveRoomButton;
+    }
+    
+
+    public int getRoomTypeInput(){
         return roomTypeInput;
     }
 
-    public void setRoomTypeInput(String roomTypeInput){
+    public void setRoomTypeInput(int roomTypeInput){
         this.roomTypeInput = roomTypeInput;
+    }
+
+    public BookCalendar getBookCalendar(){
+        return calendar;
+    }
+
+    public void setBookCalendar(BookCalendar calendar){
+        this.calendar = calendar;
     }
 
     public int getCheckInInput(){
@@ -296,12 +228,60 @@ public class BookHotelPanel extends RoundPanel implements ActionListener, Button
         this.checkOutInput = checkOutInput;
     }
 
-    public String getDiscountInput(){
-        discountInput = discount.getTextField().getText().trim();
-        return discountInput;
+    public boolean getRoomTypeSelected(){
+        return roomTypeSelected;
     }
 
-    public void setDiscountInput(String discountInput){
-        this.discountInput = discountInput;
+    public void setRoomTypeSelected(boolean roomTypeSelected){
+        this.roomTypeSelected =roomTypeSelected;
+    }
+
+    public ArrayList<OptionButton> getDays(){
+        return days;
+    }
+
+    public void setDays(ArrayList<OptionButton> days){
+        this.days = days;
+    }
+
+    public ArrayList<String> getClickedButtons(){
+        return clickedButtons;
+    }
+
+    public void setClickedButtons(ArrayList<String> clickedButtons){
+        this.clickedButtons = clickedButtons;
+    }
+    
+    public boolean getCheckInNOutSelected(){
+        return checkInNOutSelected;
+    }
+
+    public void setCheckInNOutSelected(boolean checkInNOutSelected){
+        this.checkInNOutSelected = checkInNOutSelected;
+    }
+
+    public TextFieldCustom getDiscountTextField(){
+        //discountTextField = discount.getTextField().getText().trim();
+        return discountTextField;
+    }
+
+    public void setDiscountTextField(TextFieldCustom discountTextField){
+        this.discountTextField = discountTextField;
+    }
+
+    public OptionButton getBookButton(){
+        return bookButton;
+    }
+
+    public void setBookButton(OptionButton bookButton){
+        this.bookButton = bookButton;
+    }
+
+    public IconButton getCancelButton(){
+        return cancelButton;
+    }
+
+    public void setCancelButton(IconButton cancelButton){
+        this.cancelButton = cancelButton;
     }
 }
