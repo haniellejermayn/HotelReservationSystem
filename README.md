@@ -1,5 +1,5 @@
 # Controller Testing
 Bugs: 
-- Have not tested Add Rooms
-- Removing of reservation sometimes does not work
 - No error message for invalid inputs
+- Input for Date Price Modifier is a float instead of a percentage
+- Filters can only be used one at a time
