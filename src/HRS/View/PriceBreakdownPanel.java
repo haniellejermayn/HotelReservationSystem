@@ -52,7 +52,13 @@ public class PriceBreakdownPanel extends RoundPanel {
         }
 
         totalPrice = String.format("Total Price: $%.2f", reservation.computeTotalPrice());
-        discount = String.format("Discount: $%.2f", reservation.getDiscountCode().computeDiscount(reservation));
+        if (reservation.getDiscountCode() == null){
+            discount = String.format(" ");
+        }
+        else {
+            discount = String.format("Discount: $%.2f", reservation.getDiscountCode().computeDiscount(reservation));
+
+        }
         dates.add(totalPrice);
         dates.add(discount);
 
