@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"hrs","l":"Driver"},{"p":"hrs","l":"Hotel"},{"p":"hrs","l":"HotelReservationSystem"},{"p":"hrs","l":"Reservation"},{"p":"hrs","l":"Room"}];updateSearchResults();
